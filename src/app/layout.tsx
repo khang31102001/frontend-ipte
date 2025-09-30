@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from '@/providers/ThemeProvider'
+import MainLayout from "@/pages/Layout/main-layout";
 // import AuthProvider from '@/providers/AuthProvider'
 // import Layout from "@/pages/layout";
 
@@ -21,18 +22,16 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning={true}>
             <body suppressHydrationWarning={true} className={inter.className}>
 
-                {/* <ThemeProvider
+                <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-
-                    <Layout>
+                    <MainLayout>
                         {children}
-                    </Layout>
-                </ThemeProvider> */}
-                {children}
+                    </MainLayout>
+                </ThemeProvider>
             </body>
         </html>
     )
