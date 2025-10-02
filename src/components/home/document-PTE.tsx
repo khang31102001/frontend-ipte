@@ -43,7 +43,7 @@ const DocumentPTE = () => {
     { id: "vocabulary", label: "Vocabulary" },
   ];
   return (
-    <section className="bg-white py-8 px-4">
+    <section className="py-16 bg-white">
       <div className="container  mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

@@ -86,7 +86,7 @@ const TeamTeacherPTE = () => {
         },
     ]
     return (
-        <section className='w-full bg-white py-8'>
+        <section className="py-16 bg-white">
             <div className='container mx-auto py-24'>
                 <div className='bg-gradient-to-b from-blue-900 via-blue-800 to-blue-500 rounded-3xl px-12 py-8 relative overflow-hidden '>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
@@ -96,24 +96,24 @@ const TeamTeacherPTE = () => {
                         </div>
 
                         {/* card teacher profile*/}
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-12'>
-                            <div className='flex items-center'>
-                                <div className='relative'>
-                                    <div className='h-[460px] rounded-3xl shadow-lg overflow-hidden'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12'>
+                            <div className='block h-full'>
+                                <div className='relative h-full w-full'>
+                                    <div className='h-full rounded-md shadow-lg overflow-hidden'>
                                         <Image
                                             src="/images/teacher-1.png"
                                             alt=""
-                                            width={410}
-                                            height={460}
-                                            className="h-full object-cover"
+                                            width={640}
+                                            height={740}
+                                            className="h-full w-full object-cover object-center"
                                         />
                                     </div>
                                 </div>
 
                             </div>
-                            <div className='space-y-12'>
+                            <div className='h-full flex flex-col gap-8'>
                                 {/* infor teacher */}
-                                <div className="bg-black/15 rounded-3xl shadow-lg h-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
+                                <div className="bg-black/15 rounded-2xl shadow-lg h-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
                                     {/* Teacher Name */}
                                     <div>
                                         <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold">

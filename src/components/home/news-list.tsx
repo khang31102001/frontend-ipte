@@ -70,7 +70,7 @@ const NewList = () => {
     },
   ];
   return (
-    <div className="min-h-screen bg-background py-8 mt-4">
+    <div className="py-16 bg-white">
       <div className="container mx-auto">
         {/* Header Section */}
         <div className="flex items-center justify-between mb-8">

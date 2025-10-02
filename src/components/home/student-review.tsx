@@ -69,7 +69,7 @@ const StudentReview = () => {
     const allData: (StatCard | StudentReview)[] = [stateData, ...studentReview];
 
     return (
-        <section className="bg-yellow-400 py-16 px-4 md:px-4 ">
+        <section className="bg-yellow-400 py-16">
             <div className="container mx-auto">
                 {/* title */}
                 <div className="h-48 flex justify-between items-center gap-x-3 mb-12">

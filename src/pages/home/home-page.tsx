@@ -13,15 +13,15 @@ import TrainingProgramPTE from '@/components/home/training-program-PTE'
 
 import React from 'react'
 
-const HomePage = () => {
+const MainHomePage = () => {
   return (
-    <div>
-        <HeroSection/>
+    <div className='bg-background text-foreground' >
+        
         <AboutPTE/>
         <StudyPathPTE/>
         <TrainingProgramPTE/>
         <FeaturedCoursesPTE/>
-        {/* <TeamTeacherPTE/> */}
+        <TeamTeacherPTE/>
         <StudentReview/>
         <NewList/>
         <DocumentPTE/>
@@ -33,4 +33,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default MainHomePage

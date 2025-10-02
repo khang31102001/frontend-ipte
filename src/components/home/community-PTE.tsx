@@ -28,7 +28,7 @@ const CommunityPTE = () => {
         },
     ];
     return (
-        <section className="py-8  bg-gradient-to-br from-gray-50 to-gray-100">
+        <section className="py-16  bg-gradient-to-br from-gray-50 to-gray-100">
             <div className="container mx-auto">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-12 items-stretch">

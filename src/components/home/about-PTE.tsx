@@ -4,7 +4,7 @@ import React from 'react'
 
 const AboutPTE = () => {
     return (
-        <section className='w-full min-h-screen bg-white py-6 '>
+        <section className='w-full min-h-screen py-16 bg-white '>
             <div className="container mx-auto space-y-6 ">
                 {/* video */}
                 <div className="w-full py-16">

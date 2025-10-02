@@ -21,8 +21,8 @@ export default function PressSection() {
   ]
 
   return (
-    <section className="bg-white py-8">
-      <div className="container mx-auto">
+    <section className="bg-white py-16">
+      <div className="container mx-auto px-8">
 
         <div className="w-full max-w-6xl mx-auto text-center">
           {/* Main heading */}
