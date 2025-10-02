@@ -33,10 +33,10 @@ export function ConsultationSection() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Registration Form */}
-          <div className=" flex flex-col gap-2 bg-white rounded-3xl shadow-lg p-6 ">
+          <div className=" h-full flex flex-col gap-2 bg-white rounded shadow-lg p-6 md:p-8 ">
             <div className="space-y-6">
               <div className="text-2xl font-bold text-gray-900">Đăng Ký Tư Vấn Miễn Phí</div>
               <p className="text-gray-600 text-balance">
@@ -54,7 +54,7 @@ export function ConsultationSection() {
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
                     className="w-full px-4 py-4 rounded bg-gray-50 border-gray-200"
-                  /> 
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -101,7 +101,7 @@ export function ConsultationSection() {
                     placeholder="Tell us about your learning goals and any specific requirements..."
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
-                    className="w-full rounded bg-gray-50 border-gray-200 min-h-[100px]"
+                    className="w-full rounded bg-gray-50 border-gray-200 min-h-[100px] p-4"
                   />
                 </div>
 
@@ -113,9 +113,15 @@ export function ConsultationSection() {
           </div>
 
           {/* Benefits & Guarantee Section */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <div>
+          <div className="h-full flex flex-col items-center justify-center gap-2">
+            <div 
+            className="
+            h-full bg-white rounded shadow-lg p-6
+            flex flex-col items-center gap-8
+
+            "
+            >
+              <div className="space-y-6">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <Shield className="w-6 h-6 text-red-500" />
@@ -165,7 +171,7 @@ export function ConsultationSection() {
             </div>
 
             {/* Testimonial */}
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+            <div className="h-auto bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200 rounded">
               <div className="p-6">
                 <div className="flex items-start gap-4">
                   <Avatar className="w-12 h-12">
@@ -192,6 +198,8 @@ export function ConsultationSection() {
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
     </div>

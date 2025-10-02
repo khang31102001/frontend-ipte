@@ -5,6 +5,7 @@ import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import DocumentCard from './card/document-card'
+import TabScroll from '../ui/tabSroll'
 
 
 const courseData = [
@@ -34,7 +35,7 @@ const courseData = [
   },
 ]
 const DocumentPTE = () => {
-  const [activeTab, setActiveTab] = useState("writing");
+  // const [activeTab, setActiveTab] = useState("writing");
   const tabs = [
     { id: "writing", label: "Writing" },
     { id: "listening", label: "Listening" },
@@ -42,54 +43,35 @@ const DocumentPTE = () => {
     { id: "vocabulary", label: "Vocabulary" },
   ];
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-purple-700 mb-4 text-balance">Tài liệu tham khảo</h2>
-        <p className="text-gray-600 text-lg">Tổng hợp tất cả tài liệu có trong chương trình học</p>
-      </div>
+    <section className="bg-white py-8 px-4">
+      <div className="container  mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-purple-700 mb-4 text-balance">Tài liệu tham khảo</h2>
+          <p className="text-gray-600 text-lg">Tổng hợp tất cả tài liệu có trong chương trình học</p>
+        </div>
 
-      {/* Navigation Tabs */}
-      <div className="flex items-center justify-center mb-12">
-        <button className="ml-4 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full p-4">
-          <ChevronLeft className="h-5 w-5" />
-        </button>
+       
+        {/* Navigation Tabs */}
+        <TabScroll tabs={tabs} enableBttn={true}/>.
 
-        <div className="flex gap-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`px-8 py-3 rounded-full font-medium transition-all ${activeTab === tab.id
-                  ? "bg-purple-700 text-white hover:bg-purple-800"
-                  : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-                }`}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-            </button>
+        {/* Course Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {courseData.map((item, index) => (
+            <DocumentCard key={index} data={item} />
           ))}
         </div>
 
-        <button className="ml-4 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full p-4">
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
+        {/* View All Materials Button */}
+        <div className="flex items-center justify-center">
+          <button className=" inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-4 rounded-full font-medium text-lg">
+            Xem toàn bộ tài liệu
+            <ChevronRight className="ml-2 h-5 w-5" />
+          </button>
+        </div>
 
-      {/* Course Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {courseData.map((item, index) => (
-          <DocumentCard key={index} data={item} />
-        ))}
-      </div>
 
-      {/* View All Materials Button */}
-      <div className="flex items-center justify-center">
-        <button className=" inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-4 rounded-full font-medium text-lg">
-          Xem toàn bộ tài liệu
-          <ChevronRight className="ml-2 h-5 w-5" />
-        </button>
       </div>
-
     </section>
   )
 }

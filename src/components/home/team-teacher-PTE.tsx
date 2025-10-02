@@ -86,7 +86,7 @@ const TeamTeacherPTE = () => {
         },
     ]
     return (
-        <section className='w-full bg-white py-16'>
+        <section className='w-full bg-white py-8'>
             <div className='container mx-auto py-24'>
                 <div className='bg-gradient-to-b from-blue-900 via-blue-800 to-blue-500 rounded-3xl px-12 py-8 relative overflow-hidden '>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
@@ -113,63 +113,82 @@ const TeamTeacherPTE = () => {
                             </div>
                             <div className='space-y-12'>
                                 {/* infor teacher */}
-                                <div className=' bg-black/15 rounded-3xl shadow-lg h-full px-4 py-6 space-y-6'>
+                                <div className="bg-black/15 rounded-3xl shadow-lg h-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
+                                    {/* Teacher Name */}
                                     <div>
-                                        <h3 className='text-white text-2xl font-bold'>{dataTeacher[0].name}</h3>
+                                        <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold">
+                                            {dataTeacher[0].name}
+                                        </h3>
                                     </div>
+
                                     {/* IELTS Overall Score */}
-                                    <div className='flex items-center gap-2'>
-                                        <div className='text-5xl font-bold text-orange-400'>
+                                    <div className="flex items-center gap-3 sm:gap-4">
+                                        <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-400">
                                             {dataTeacher[0].ieltsOverall}
                                         </div>
-                                        <div className='text-white text-lg'>
-                                            <div className='font-semibold'>IELTS</div>
-                                            <div className='text-blue-200'>Overall</div>
+                                        <div className="text-white text-sm sm:text-base md:text-lg">
+                                            <div className="font-semibold">IELTS</div>
+                                            <div className="text-blue-200">Overall</div>
                                         </div>
                                     </div>
-
 
                                     {/* Individual IELTS Scores */}
-                                    <div className="flex items-center justify-center gap-4 ">
-                                        <div className="flex items-center w-[106px] gap-1">
-                                            <span className="text-xl md:text-2xl font-bold text-green-400">
+                                    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                                        {/* Listening */}
+                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
+                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
                                                 {dataTeacher[0].ieltsScores.listening}
                                             </span>
-                                            <span className="text-xs md:text-sm text-blue-200 text-center">Listening</span>
+                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
+                                                Listening
+                                            </span>
                                         </div>
 
-                                        <div className="text-blue-300 text-xl">|</div>
+                                        <div className="hidden sm:block text-blue-300 text-lg sm:text-xl">|</div>
 
-                                        <div className="flex items-center w-[106px] gap-1">
-                                            <span className="text-xl md:text-2xl font-bold text-green-400">
+                                        {/* Reading */}
+                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
+                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
                                                 {dataTeacher[0].ieltsScores.reading}
                                             </span>
-                                            <span className="text-xs md:text-sm text-blue-200 text-center">Reading</span>
+                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
+                                                Reading
+                                            </span>
                                         </div>
 
-                                        <div className="text-blue-300 text-xl">|</div>
+                                        <div className="hidden sm:block text-blue-300 text-lg sm:text-xl">|</div>
 
-                                        <div className="flex  items-center w-[106px] gap-1">
-                                            <span className="text-xl md:text-2xl font-bold text-green-400">
+                                        {/* Speaking */}
+                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
+                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
                                                 {dataTeacher[0].ieltsScores.speaking}
                                             </span>
-                                            <span className="text-xs md:text-sm text-blue-200 text-center">Speaking</span>
+                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
+                                                Speaking
+                                            </span>
                                         </div>
 
-                                        <div className="text-blue-300 text-xl">|</div>
+                                        <div className="hidden sm:block text-blue-300 text-lg sm:text-xl">|</div>
 
-                                        <div className="flex items-center w-[106px] gap-1">
-                                            <span className="text-xl md:text-2xl font-bold text-green-400">
+                                        {/* Writing */}
+                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
+                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
                                                 {dataTeacher[0].ieltsScores.writing}
                                             </span>
-                                            <span className="text-xs md:text-sm text-blue-200 text-center">Writing</span>
+                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
+                                                Writing
+                                            </span>
                                         </div>
                                     </div>
+
                                     {/* Description */}
-                                    <div className='line-clamp-6 overflow-hidden'>
-                                        <p className="text-blue-100 leading-relaxed text-lg">{dataTeacher[0].description}</p>
+                                    <div className="line-clamp-6 overflow-hidden">
+                                        <p className="text-blue-100 leading-relaxed text-sm sm:text-base md:text-lg">
+                                            {dataTeacher[0].description}
+                                        </p>
                                     </div>
                                 </div>
+
 
                                 {/* swiper teacher list */}
                                 <div className='flex flex-row items-center gap-8 mt-12'>
@@ -188,6 +207,12 @@ const TeamTeacherPTE = () => {
                                             nextEl: "#custom-next",
                                             prevEl: "#custom-prev"
                                         }}
+                                        breakpoints={{
+                                            320: { slidesPerView: 3, spaceBetween: 12 }, // mobile
+                                            640: { slidesPerView: 4, spaceBetween: 16 }, // sm
+                                            1024: { slidesPerView: 5, spaceBetween: 20 }, // lg
+                                            1280: { slidesPerView: 6, spaceBetween: 24 }, // xl
+                                        }}
                                         modules={[Navigation]}
                                         className="mySwiper"
                                     >
@@ -196,15 +221,15 @@ const TeamTeacherPTE = () => {
                                                 <SwiperSlide key={index} className='!w-24 !h-24 !flex !items-center !justify-center !gap-2 !m-0 overflow-hidden'>
 
                                                     <button
-                                                        onClick={()=>setSelectTecher(item.id)}
+                                                        onClick={() => setSelectTecher(item.id)}
                                                         className={`
                                                             
                                                             relative rounded-full overflow-hidden 
                                                             transform transition-transform duration-200/300 ease-out
-                                                            ${item.id === selectTecher ? "w-20 h-20" :" w-16 h-16 opacity-70 hover:opacity-100"}
+                                                            ${item.id === selectTecher ? "w-20 h-20" : " w-16 h-16 opacity-70 hover:opacity-100"}
                                                            
                                                             `}
-                                                            style={{ willChange: 'transform' }}
+                                                        style={{ willChange: 'transform' }}
                                                     >
                                                         <Image
                                                             src={item.image || "/placeholder.svg"}

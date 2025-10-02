@@ -44,33 +44,32 @@ const FeaturedCoursesPTE = () => {
     return (
         <section className='w-full bg-white py-16'>
             <div className='container mx-auto px-4'>
-                <div className="flex items-center justify-between mb-8">
-                    <h1 className="text-6xl font-bold text-purple-700">Khóa học nổi bật</h1>
-                    <div className="flex gap-2">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-purple-700 text-center md:text-left">
+                        Khóa học nổi bật
+                    </h1>
+                    <div className="flex justify-center md:justify-end mt-2 gap-2">
                         <button
-                            className="rounded-full border border-gray-300 hover:bg-gray-100 bg-transparent p-4"
+                            className="rounded-full border border-gray-300 hover:bg-gray-100 bg-transparent p-3 md:p-4"
                         >
-                            <ChevronLeft className="h-6 w-6" />
+                            <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
                         </button>
                         <button
-                            className="rounded-full border border-gray-300 hover:bg-gray-100 bg-transparent p-4"
+                            className="rounded-full border border-gray-300 hover:bg-gray-100 bg-transparent p-3 md:p-4"
                         >
-                            <ChevronRight className="h-6 w-6" />
+                            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
                         </button>
                     </div>
                 </div>
                 {/* card cources */}
-                <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
-                    {FeturedCourses.map((item, index)=>{
-                        return(
-                            <CoursesCard key={index} data={item}/>
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
+                    {FeturedCourses.map((item, index) => {
+                        return (
+                            <CoursesCard key={index} data={item} />
                         )
                     })}
                 </div>
             </div>
-
-
-
         </section>
     )
 }

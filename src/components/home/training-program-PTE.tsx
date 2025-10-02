@@ -34,9 +34,9 @@ const TrainingProgramPTE = () => {
   ]
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto ">
+      <div className="container mx-auto px-4 ">
         {/* Title & Subtitle */}
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 px-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex-1">
             <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
               <span className="text-indigo-700">Tinh thông tiếng Anh với bộ</span>
@@ -59,7 +59,7 @@ const TrainingProgramPTE = () => {
         </div>
 
         {/* Course cards */}
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 px-6">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {courses.map((item, index) => (
             <TrainingProgramCard key={index} data={item} />
           ))}

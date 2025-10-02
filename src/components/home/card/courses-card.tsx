@@ -20,47 +20,60 @@ const CoursesCard = ({ data }: FeaturedCoursesCardProps) => {
 
 
     return (
-        <div className='h-[460px] flex flex-col justify-center gap-2 p-4 overflow-hidden  rounded-3xl shadow-lg '>
-            <div className='h-[180px] overflow-hidden rounded-3xl'>
+        <div className='flex flex-col justify-between gap-3 p-4 
+                rounded-3xl shadow-lg bg-white 
+                overflow-hidden 
+                h-auto '>
+            {/* Image */}
+            <div className='w-full h-36 sm:h-40 md:h-44 lg:h-48 xl:h-56 2xl:h-60 overflow-hidden rounded-2xl'>
                 <Image
                     src={image}
                     alt={title}
                     width={400}
                     height={200}
-                    className="w-full h-48 object-cover rounded-t-3xl" />
+                    className="w-full h-full object-cover rounded-2xl"
+                />
             </div>
-            <div className='flex text-sm text-gray-500  mt-4 mb-2'>
-                <span className='border border-gray-300 px-2 py-1 rounded-[4px] mr-2'>
+
+            {/* Tags */}
+            <div className='flex flex-wrap text-xs sm:text-sm md:text-base text-gray-500 mt-3 mb-2 gap-2'>
+                <span className='border border-gray-300 px-2 py-1 rounded-md'>
                     {duration}
                 </span>
-                <span className='border border-gray-300 px-2 py-1 rounded-[4px] ml-2'>
+                <span className='border border-gray-300 px-2 py-1 rounded-md'>
                     {level}
                 </span>
             </div>
 
-            <div>
-                <h3 className='text-2xl font-semibold'>{title}</h3>
-            </div>
-            <div>
-                <p className='text-gray-700 my-2 leading-relaxed'>
-                    {description}
-                </p>
-            </div>
+            {/* Title */}
+            <h3 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold line-clamp-2'>
+                {title}
+            </h3>
 
-            <div className='flex justify-center items-center mt-auto'>
+            {/* Description */}
+            <p className='text-gray-700 text-sm sm:text-base md:text-lg my-2 leading-relaxed line-clamp-3'>
+                {description}
+            </p>
+
+            {/* Button */}
+            <div className='mt-auto'>
                 <button
                     className='w-full group bg-gradient-to-r from-[#4916BC] to-[#04016D] 
-                    text-white font-medium 
-                    px-4 py-2 rounded-full 
-                    hover:opacity-90 transition-opacity duration-300 
-                    flex justify-center items-center'
+                 text-white font-medium 
+                 px-4 py-2 sm:py-3 md:py-3 lg:py-4 rounded-full 
+                 hover:opacity-90 transition duration-300 
+                 flex justify-center items-center 
+                 text-sm sm:text-base md:text-lg'
                 >
                     {textBtn || "Tìm hiểu thêm"}
-                    <ArrowUpRight size={17} className='inline-block ml-4 h-4 w-4 transform transition-transform duration-300 group-hover:-translate-y-1' />
+                    <ArrowUpRight
+                        size={16}
+                        className='ml-3 h-4 w-4 transform transition-transform duration-300 group-hover:-translate-y-1'
+                    />
                 </button>
             </div>
-
         </div>
+
     )
 }
 

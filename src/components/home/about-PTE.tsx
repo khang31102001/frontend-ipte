@@ -1,66 +1,77 @@
-import { Play } from 'lucide-react'
+import { ChevronRight, Play } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
 const AboutPTE = () => {
     return (
-        <section className='w-full h-[1083px] bg-white '>
-            {/* video */}
-            <div className='w-full h-[612px] py-16 '>
-                <div className='relative max-w-5xl mx-auto overflow-hidden'>
-                    <div className='ralative'>
-                        <Image
-                            className='w-full h-full object-cover'
-                            src="/images/about-banner.png"
-                            alt='PTE Training Center - Two people looking at phone'
-                            width={1094}
-                            height={478}
-                        />
-                    </div>
-                    {/* Play Button Overlay */}
-                    <div className='absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg'>
-                        <div className='bg-white/20 backdrop-blur-sm rounded-full p-4 border-4 border-white/30 hover:bg-white/30 transition-colors cursor-pointer'>
-                            <Play width={44} height={44} className='text-white' />
+        <section className='w-full min-h-screen bg-white py-6 '>
+            <div className="container mx-auto space-y-6 ">
+                {/* video */}
+                <div className="w-full py-16">
+                    <div className="relative max-w-5xl mx-auto overflow-hidden rounded-xl">
+                        {/* Image wrapper phải relative để absolute overlay bám đúng */}
+                        <div className="relative">
+                            <Image
+                                className="w-full h-full object-cover"
+                                src="/images/about-banner.png"
+                                alt="PTE Training Center - Two people looking at phone"
+                                width={1094}
+                                height={478}
+                            />
+                            {/* Play Button Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                                <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 border-4 border-white/30 hover:bg-white/30 transition-colors cursor-pointer">
+                                    <Play width={44} height={44} className="text-white" />
+                                </div>
+                            </div>
                         </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            {/* content */}
-            <div className='block w-full h-[471px]'>
-                <div className='max-w-5xl mx-auto px-4 '>
-                    <div className='text-center space-y-6'>
-                        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-                            Về trung tâm luyện thi{" "}
-                            <span className="text-yellow-500 relative">
-                                PTE
-                                <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                    <path d="M0,8 Q50,0 100,8" stroke="#EAB308" strokeWidth="2" fill="none" />
-                                </svg>
-                            </span>
-                        </h1>
-
-                        {/* description */}
-                        <div className='max-w-[856px] mx-auto text-grey-600 space-y-4 text-lg leading-relaxed'>
-                            <p>
-                                Tại Trung Tâm Luyện Thi PTE Cấp Tốc, chúng tôi tự hào là địa chỉ hàng đầu dành cho những ai đang tìm kiếm
-                                cơ hội để nâng cao điểm số PTE của mình trong thời gian ngắn nhất. Với nền tảng chuyên sâu về giáo dục và
-                                kinh nghiệm thực tiễn trong việc giảng dạy PTE, chúng tôi cam kết mang đến cho học viên sự hỗ trợ toàn
-                                diện và chất lượng tốt nhất.
-                            </p>
-
-                            <p>
-                                Hãy đồng hành cùng chúng tôi trên con đường chinh phục PTE và mở ra cánh cửa cho tương lai sáng sủa của
-                                bạn!
-                            </p>
-                        </div>
-
                     </div>
                 </div>
-            </div>
 
+
+                {/* content */}
+                <div className='block w-full'>
+                    <div className='max-w-5xl mx-auto px-4 '>
+                        <div className='text-center space-y-6'>
+                            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+                                Về trung tâm luyện thi{" "}
+                                <span className="text-yellow-500 relative">
+                                    PTE
+                                    <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                        <path d="M0,8 Q50,0 100,8" stroke="#EAB308" strokeWidth="2" fill="none" />
+                                    </svg>
+                                </span>
+                            </h1>
+
+                            {/* description */}
+                            <div className='max-w-[856px] mx-auto text-grey-600 space-y-4 text-lg leading-relaxed'>
+                                <p>
+                                    Tại Trung Tâm Luyện Thi PTE Cấp Tốc, chúng tôi tự hào là địa chỉ hàng đầu dành cho những ai đang tìm kiếm
+                                    cơ hội để nâng cao điểm số PTE của mình trong thời gian ngắn nhất. Với nền tảng chuyên sâu về giáo dục và
+                                    kinh nghiệm thực tiễn trong việc giảng dạy PTE, chúng tôi cam kết mang đến cho học viên sự hỗ trợ toàn
+                                    diện và chất lượng tốt nhất.
+                                </p>
+
+                                <p>
+                                    Hãy đồng hành cùng chúng tôi trên con đường chinh phục PTE và mở ra cánh cửa cho tương lai sáng sủa của
+                                    bạn!
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div className="w-full flex items-center justify-center text-white p-2 ">
+                    <button
+                        className='inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#04016C] to-[#4A16BD] px-6 py-3'
+                    >
+                        Xem thêm
+                        <ChevronRight className='w-6 h-6' />
+                    </button>
+                </div>
+
+            </div>
         </section>
     )
 }

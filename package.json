@@ -33,6 +33,7 @@
         "react-icons": "^5.5.0",
         "swiper": "^12.0.2",
         "tailwind-merge": "^2.2.1",
+        "tailwind-scrollbar-hide": "^4.0.0",
         "tailwindcss-animate": "^1.0.7",
         "universal-cookie": "^4.0.4"
     },

@@ -17,20 +17,34 @@ interface ComunityCardProps {
 const ComunityCard = ({ data, className }: ComunityCardProps) => {
     const {id, icon, title, description, bgColor} = data;
     return (
-        <div className={`${className} p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group border-l-4 border-l-${bgColor}-500`}>
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 bg-${bgColor}-600 rounded-full flex items-center justify-center`}>
-                       <Image  alt='' src={icon} width={60} height={60} />
-                    </div>
-                    <div>
-                        <h3 className="font-semibold text-lg text-gray-900">{title}</h3>
-                        <p className="text-gray-600">{description}</p>
-                    </div>
-                </div>
-                <ArrowRight className={`w-5 h-5 text-${bgColor}-600 group-hover:translate-x-1 transition-transform`} />
-            </div>
+       <div
+      className={`
+        p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group
+        border-l-4 rounded-xl
+        border-l-${bgColor}-500
+        bg-white
+        ${className}
+      `}
+    >
+      <div className="flex items-center justify-between gap-4">
+        {/* Left: Icon + Content */}
+        <div className="flex items-center gap-4 min-w-0">
+          {/* Icon */}
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0`}>
+            <Image alt="" src={icon} width={32} height={32} className="w-8 h-8 object-contain" />
+          </div>
+
+          {/* Text */}
+          <div className="flex flex-col min-w-0">
+            <h3 className="font-semibold text-lg text-gray-900 truncate">{title}</h3>
+            <p className="text-gray-600 text-sm line-clamp-2">{description}</p>
+          </div>
         </div>
+
+        {/* Right: Arrow */}
+        <ArrowRight className={`w-5 h-5 text-${bgColor}-600 group-hover:translate-x-1 transition-transform flex-shrink-0`} />
+      </div>
+    </div>
     )
 }
 

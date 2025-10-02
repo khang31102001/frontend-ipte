@@ -22,7 +22,7 @@ const TrainingProgramCard = ({ data }: TrainingProgramCardProps) => {
 
             {/* content primary */}
             <div className="relative z-10 p-6 flex flex-col justify-between h-full gap-8" >
-                <div className='h-[84px]'>
+                <div className='h-20'>
                     <h1 className="text-white text-2xl font-bold">{title}</h1>
                 </div>
 
@@ -32,8 +32,8 @@ const TrainingProgramCard = ({ data }: TrainingProgramCardProps) => {
                     </p>
                 </div>
 
-                <div className='inline-flex items-center backdrop-blur-sm font-medium border-2 border-white/80 rounded-full overflow-hidden'>
-                    <button className="flex items-center gap-2 text-white  px-3 py-2 ">
+                <div className='flex items-center justify-center backdrop-blur-sm font-medium border-2 border-white/80 rounded-full overflow-hidden'>
+                    <button className="inline-flex items-center gap-2 text-white  px-3 py-2 ">
                         {textBtn || "Tìm hiểu thêm"}
                         <ArrowUpRight size={17} />
                     </button>

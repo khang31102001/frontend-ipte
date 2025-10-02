@@ -17,17 +17,17 @@ const HomePage = () => {
   return (
     <div>
         <HeroSection/>
-        {/* <AboutPTE/> */}
+        <AboutPTE/>
         <StudyPathPTE/>
-        {/* <TrainingProgramPTE/> */}
-        {/* <FeaturedCoursesPTE/> */}
+        <TrainingProgramPTE/>
+        <FeaturedCoursesPTE/>
         {/* <TeamTeacherPTE/> */}
-        {/* <StudentReview/> */}
-        {/* <NewList/> */}
-        {/* <DocumentPTE/> */}
-        {/* <PressSection/> */}
-        {/* <CommunityPTE/> */}
-        {/* <ConsultationSection/> */}
+        <StudentReview/>
+        <NewList/>
+        <DocumentPTE/>
+        <PressSection/>
+        <CommunityPTE/>
+        <ConsultationSection/>
 
     </div>
   )
