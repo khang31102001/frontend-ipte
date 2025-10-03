@@ -1,11 +1,12 @@
 
 "use client"
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import DocumentCard from './card/document-card'
 import TabScroll from '../ui/tabSroll'
+import CustomSwiper from '../ui/CustomSwiper'
 
 
 const courseData = [
@@ -33,6 +34,30 @@ const courseData = [
     title: "PTE Speaking & writing",
     description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
   },
+  {
+    id: 5,
+    image: "/images/featured-course-1.png",
+    title: "PTE Speaking & writing",
+    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
+  },
+  {
+    id: 6,
+    image: "/images/featured-course-2.png",
+    title: "PTE Speaking & writing",
+    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
+  },
+  {
+    id: 7,
+    image: "/images/featured-course-3.png",
+    title: "PTE Speaking & writing",
+    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
+  },
+  {
+    id: 8,
+    image: "/images/featured-course-4.png",
+    title: "PTE Speaking & writing",
+    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
+  },
 ]
 const DocumentPTE = () => {
   // const [activeTab, setActiveTab] = useState("writing");
@@ -42,29 +67,53 @@ const DocumentPTE = () => {
     { id: "speaking", label: "Speaking" },
     { id: "vocabulary", label: "Vocabulary" },
   ];
+
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const breakpoints = {
+    0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
+    640: { slidesPerView: 2, spaceBetween: 10 },  // sm
+    870: { slidesPerView: 3, spaceBetween: 10 },  // md
+    1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
+  };
+
   return (
     <section className="py-16 bg-white">
       <div className="container  mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-purple-700 mb-4 text-balance">Tài liệu tham khảo</h2>
+          <h2 className="text-5xl lg:text-6xl font-bold text-brandBlue-900 mb-4 text-balance">Tài liệu tham khảo</h2>
           <p className="text-gray-600 text-lg">Tổng hợp tất cả tài liệu có trong chương trình học</p>
         </div>
 
-       
+
         {/* Navigation Tabs */}
-        <TabScroll tabs={tabs} enableBttn={true}/>.
+        <TabScroll tabs={tabs} enableBttn={true} />.
 
         {/* Course Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {courseData.map((item, index) => (
-            <DocumentCard key={index} data={item} />
-          ))}
+        <div className="w-full h-auto mb-12">
+          <CustomSwiper
+            breakpoint={
+              breakpoints
+            }
+            autoplay
+            loop
+          >
+            {courseData.map((item, index) => (
+              <DocumentCard 
+              key={index} 
+              data={item} 
+                className="flex flex-col  justify-center"
+              />
+            ))}
+
+          </CustomSwiper>
+
         </div>
 
         {/* View All Materials Button */}
         <div className="flex items-center justify-center">
-          <button className=" inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-4 rounded-full font-medium text-lg">
+          <button className=" inline-flex items-center bg-brandBlue-500 hover:bg-brandBlue-900 text-white px-8 py-4 rounded-full font-medium text-lg">
             Xem toàn bộ tài liệu
             <ChevronRight className="ml-2 h-5 w-5" />
           </button>

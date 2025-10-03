@@ -14,11 +14,52 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        sm: "640px",    // mobile ngang
+        md: "768px",    // tablet
+        lg: "1024px",   // laptop nhỏ
+        xl: "1280px",   // desktop phổ thông
+        "2xl": "1536px", // desktop lớn
+        "4xl": "1920px", 
       },
     },
     extend: {
+      screens: {
+        "2xl": "1536px", 
+        "4xl": "1920px", 
+      },
+      maxWidth: {
+        'screen-3xl': '1800px', 
+      },
+
       colors: {
+        goldyellow: {
+          50: '#FFFBEA',
+          100: '#FFF3C4',
+          200: '#FCE588',
+          300: '#FADB5F',
+          400: '#F7C102', // màu gốc
+          500: '#DEAA00',
+          600: '#C49000',
+          700: '#9C6B00',
+          800: '#7A4F00',
+          900: '#4D2F00',
+        },
+        neonyellow: {
+          50: '#FEFBE6',
+          100: '#FBF6C2',
+          200: '#F9F08D',
+          300: '#F7EA49',
+          400: '#F6E10E', // màu gốc
+          500: '#D4C10B',
+          600: '#AD9A08',
+          700: '#857406',
+          800: '#5E4F03',
+          900: '#3A2D01',
+        },
+        brandBlue: {
+          900: "#04016C", // đậm nhất
+          500: "#4A16BD", // màu sáng
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -53,6 +94,7 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+
       borderRadius: {
         sm: "calc(var(--radius) - 4px)",
         md: "calc(var(--radius) - 2px)",

@@ -20,7 +20,7 @@ const CoursesCard = ({ data }: FeaturedCoursesCardProps) => {
 
 
     return (
-        <div className='flex flex-col justify-between gap-3 p-4 
+        <div className='flex flex-col flex-shrink-0 justify-between gap-3 p-4 
                 rounded-3xl shadow-lg bg-white 
                 overflow-hidden 
                 h-auto '>
@@ -58,7 +58,7 @@ const CoursesCard = ({ data }: FeaturedCoursesCardProps) => {
             {/* Button */}
             <div className='mt-auto'>
                 <button
-                    className='w-full group bg-gradient-to-r from-[#4916BC] to-[#04016D] 
+                    className='w-full group bg-gradient-to-r from-brandBlue-900 to-brandBlue-500
                  text-white font-medium 
                  px-4 py-2 sm:py-3 md:py-3 lg:py-4 rounded-full 
                  hover:opacity-90 transition duration-300 

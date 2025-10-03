@@ -104,6 +104,7 @@ const Header = () => {
     const isOpen = openSubMenu === id ? null : id;
     setOpenSubMenu(isOpen);
   }
+
   return (
     <>
     <header className="bg-[#F6E10E] w-full">
@@ -156,13 +157,13 @@ const Header = () => {
      
       {/* mobile menu dropdown */}
       <div className={`md:hidden fixed inset-0 z-40 
-          w-full h-full bg-white shadow border-t border-gray-200
+          w-full h-auto bg-white shadow border-t border-gray-200
            transform transition-transform duration-300 ease-out py-16 px-2 
            ${openMenu ? "translate-y-0" : " -translate-y-full"}
            `}>
 
 
-        <div className="h-full flex flex-col justify-between gap-2  ">
+        <div className="h-full flex flex-col  gap-2  ">
           {/* search bar in mobile */}
           <div className="p-4 flex items-center gap-2">
             <Search size={20} className="opacity-60" />

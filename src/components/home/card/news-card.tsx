@@ -18,10 +18,10 @@ const NewsCard = ({ data, className, enableImg, heightImg }: NewsCardProps) => {
     const { id, category, title, img, description } = data;
     return (
         <div className={` bg-white ${className} `}>
-            <div className="flex flex-col gap-2">
+            <div className="h-full w-full flex flex-col items-center justify-center gap-2">
                 {/* Featured Image */}
                 {img && enableImg && (
-                    <div className={`relative ${heightImg} rounded-xl overflow-hidden`}>
+                    <div className={`relative w-full ${heightImg} rounded-xl overflow-hidden`}>
                         <Image
                             src={img}
                             alt={title}
@@ -31,14 +31,14 @@ const NewsCard = ({ data, className, enableImg, heightImg }: NewsCardProps) => {
                         />
                     </div>
                 )}
-                <div className="flex flex-col justify-between flex-1 py-4 ">
+                <div className=" flex-1 items-center py-4 ">
                     {/* Action Buttons */}
                     <div className="flex gap-2 flex-wrap mb-3 ">
                         {category.map((item, index) => {
                             return (
                                 <div key={index}>
                                     <a
-                                        className="border rounded border-purple-600 text-purple-600 hover:bg-purple-50 bg-transparent px-2 py-1"
+                                        className="border rounded border-brandBlue-500 text-brandBlue-500 hover:bg-purple-50 bg-transparent px-2 py-1"
                                     >
                                         {item.name}
                                     </a>
@@ -48,14 +48,14 @@ const NewsCard = ({ data, className, enableImg, heightImg }: NewsCardProps) => {
                     </div>
 
                     {/* Featured Article Content */}
-                    <div className="space-y-4">
+                    <div className="h-full space-y-4 ">
                         <h2 className="text-xl font-semibold text-foreground line-clamp-1">
                             {title}
                         </h2>
                         <p className="text-muted-foreground leading-relaxed line-clamp-4">
                             {description}
                         </p>
-                        <button className="flex items-center text-purple-600 hover:text-purple-700 font-medium">
+                        <button className="flex items-center text-brandBlue-500 hover:text-brandBlue-900 font-medium">
                             Đọc tiếp
                             <ChevronRight className="ml-1 h-4 w-4" />
                         </button>

@@ -37,7 +37,7 @@ const StudyPathPTE = () => {
 
     return (
         <section
-            className='relative min-h-screen bg-cover bg-center bg-no-repeat py-16 bg-white'
+            className='relative z-0  bg-cover bg-center bg-no-repeat py-16 bg-white'
             style={{ backgroundImage: "url('/images/bg-study-path.png')" }}
         >
             <div className='container mx-auto px-4'>

@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 // import Swiper and modules styles
@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import CustomSwiper from '../ui/CustomSwiper';
 
 const TeamTeacherPTE = () => {
     const [selectTecher, setSelectTecher] = useState<Number>(0);
@@ -84,10 +85,63 @@ const TeamTeacherPTE = () => {
             },
             description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
         },
-    ]
+        {
+            id: 6,
+            name: "Thầy Quang Huy",
+            title: "Giảng viên Listening",
+            image: "/images/teacher-5.jpg",
+            ieltsOverall: 8.0,
+            ieltsScores: {
+                listening: 8.5,
+                reading: 8.0,
+                speaking: 7.5,
+                writing: 8.0,
+            },
+            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
+        },
+        {
+            id: 7,
+            name: "Thầy Quang Huy",
+            title: "Giảng viên Listening",
+            image: "/images/teacher-5.jpg",
+            ieltsOverall: 8.0,
+            ieltsScores: {
+                listening: 8.5,
+                reading: 8.0,
+                speaking: 7.5,
+                writing: 8.0,
+            },
+            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
+        },
+        {
+            id: 8,
+            name: "Thầy Quang Huy",
+            title: "Giảng viên Listening",
+            image: "/images/teacher-5.jpg",
+            ieltsOverall: 8.0,
+            ieltsScores: {
+                listening: 8.5,
+                reading: 8.0,
+                speaking: 7.5,
+                writing: 8.0,
+            },
+            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
+        },
+    ];
+
+    const prevRef = useRef<HTMLButtonElement>(null);
+    const nextRef = useRef<HTMLButtonElement>(null);
+    const breakpoints = {
+        0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
+        500: { slidesPerView: 3, spaceBetween: 10 },  // mobile nhỏ
+        640: { slidesPerView: 4, spaceBetween: 10 },  // sm
+        870: { slidesPerView: 5, spaceBetween: 10 },  // md
+        1200: { slidesPerView: 6, spaceBetween: 10 }, // xl
+    };
+
     return (
         <section className="py-16 bg-white">
-            <div className='container mx-auto py-24'>
+            <div className='container mx-auto'>
                 <div className='bg-gradient-to-b from-blue-900 via-blue-800 to-blue-500 rounded-3xl px-12 py-8 relative overflow-hidden '>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
                     <div className='relative z-10'>
@@ -188,80 +242,59 @@ const TeamTeacherPTE = () => {
                                         </p>
                                     </div>
                                 </div>
-
-
-                                {/* swiper teacher list */}
-                                <div className='flex flex-row items-center gap-8 mt-12'>
-                                    <button
-                                        id='custom-prev'
-                                        onClick={() => { }}
-                                        className=" text-white hover:bg-white/20 p-2 rounded-full"
-                                    >
-                                        <ChevronLeft className="h-8 w-8" />
-                                    </button>
-                                    <Swiper
-                                        slidesPerView={4}
-                                        spaceBetween={0}
-                                        loop={true}
-                                        navigation={{
-                                            nextEl: "#custom-next",
-                                            prevEl: "#custom-prev"
-                                        }}
-                                        breakpoints={{
-                                            320: { slidesPerView: 3, spaceBetween: 12 }, // mobile
-                                            640: { slidesPerView: 4, spaceBetween: 16 }, // sm
-                                            1024: { slidesPerView: 5, spaceBetween: 20 }, // lg
-                                            1280: { slidesPerView: 6, spaceBetween: 24 }, // xl
-                                        }}
-                                        modules={[Navigation]}
-                                        className="mySwiper"
-                                    >
-                                        {dataTeacher.map((item, index) => {
-                                            return (
-                                                <SwiperSlide key={index} className='!w-24 !h-24 !flex !items-center !justify-center !gap-2 !m-0 overflow-hidden'>
-
-                                                    <button
-                                                        onClick={() => setSelectTecher(item.id)}
-                                                        className={`
-                                                            
-                                                            relative rounded-full overflow-hidden 
-                                                            transform transition-transform duration-200/300 ease-out
-                                                            ${item.id === selectTecher ? "w-20 h-20" : " w-16 h-16 opacity-70 hover:opacity-100"}
-                                                           
-                                                            `}
-                                                        style={{ willChange: 'transform' }}
-                                                    >
-                                                        <Image
-                                                            src={item.image || "/placeholder.svg"}
-                                                            alt={item.name}
-                                                            width={120}
-                                                            height={120}
-
-                                                            className=" object-cover"
-                                                        />
-                                                    </button>
-
-                                                </SwiperSlide>
-
-                                            )
-                                        })}
-
-
-                                    </Swiper>
-                                    <button
-                                        id='custom-next'
-
-                                        onClick={() => { }}
-                                        className=" text-white hover:bg-white/20 p-2 rounded-full"
-                                    >
-                                        <ChevronRight className="h-8 w-8" />
-                                    </button>
-
-                                </div>
-
                             </div>
+                        </div>
 
+                        {/* swiper teacher list */}
+                        <div className="w-full flex flex-row items-center justify-end">
+                            <div className="flex flex-row items-center gap-2 max-w-full md:max-w-[38rem] w-full">
+                                {/* Prev button */}
+                                <button
+                                    ref={prevRef}
+                                    className="rounded-full text-white hover:bg-white/30 bg-transparent p-2 shrink-0"
+                                >
+                                    <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+                                </button>
 
+                                {/* Swiper */}
+                                <CustomSwiper
+                                    navigation={{ prevEl: prevRef, nextEl: nextRef }}
+                                    breakpoint={breakpoints}
+                                    pagination={false}
+                                    className="flex-1"
+                                >
+                                    {dataTeacher.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => setSelectTecher(item.id)}
+                                            className={`relative z-50 rounded-full overflow-hidden 
+                                            transform transition-transform duration-300 ease-out
+                                                ${item.id === selectTecher
+                                                    ? "w-16 h-16 opacity-100"
+                                                    : "w-16 h-16 opacity-70 hover:opacity-100"
+                                                }
+                                            `}
+                                            style={{ willChange: "transform" }}
+                                        >
+                                            <Image
+                                                src={item.image || "/placeholder.svg"}
+                                                alt={item.name}
+                                                width={120}
+                                                height={120}
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    ))}
+                                </CustomSwiper>
+
+                                {/* Next button */}
+                                <button
+                                    ref={nextRef}
+                                    className="rounded-full text-white hover:bg-white/30 bg-transparent p-2 shrink-0"
+                                >
+                                    <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+                                </button>
+                            </div>
                         </div>
 
                     </div>

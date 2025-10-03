@@ -32,7 +32,7 @@ export function ConsultationSection() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 py-16">
+    <div className=" bg-gradient-to-br from-amber-50 to-orange-100 py-16">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Registration Form */}

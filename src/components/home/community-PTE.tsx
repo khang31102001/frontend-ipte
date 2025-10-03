@@ -49,7 +49,7 @@ const CommunityPTE = () => {
                         {/* Right side - Content */}
                         <div className="space-y-6 h-full flex flex-col justify-between">
                             <div className="space-y-4">
-                                <h2 className="text-4xl lg:text-5xl font-bold text-blue-600 leading-tight">Tham gia cộng đồng iPTE</h2>
+                                <h2 className="text-4xl lg:text-5xl font-bold text-brandBlue-900 leading-tight">Tham gia cộng đồng iPTE</h2>
                                 <p className="text-lg text-gray-700 leading-relaxed">
                                     Kết nối với hơn 20,000 học viên trong cộng đồng học tập năng động của chúng tôi. Chia sẻ kinh nghiệm,
                                     học hỏi và cùng nhau tiến bộ.

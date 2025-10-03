@@ -73,11 +73,11 @@ const StudentReview = () => {
             <div className="container mx-auto">
                 {/* title */}
                 <div className="h-48 flex justify-between items-center gap-x-3 mb-12">
-                    <h2 className="text-4xl md:text-6xl lg:text-6xl font-bold text-blue-600 text-balance">
+                    <h2 className="text-4xl md:text-6xl lg:text-6xl font-bold text-brandBlue-900 text-balance">
                         Học viên nói gì về <span className="text-white">iPTE</span>?
                     </h2>
                     <div className="w-40 flex items-end overflow-hidden">
-                        <button className="group flex items-center rounded-3xl text-blue-600 hover:text-blue-700 hover:bg-yellow-300/50 font-medium p-4">
+                        <button className="group flex items-center rounded-3xl text-brandBlue-500 hover:text-brandBlue-900 hover:bg-yellow-300/50 font-medium p-4">
                             Xem thêm{" "}
                             <ChevronRight className="inline-block ml-2 h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1" />
                         </button>
