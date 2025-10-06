@@ -13,7 +13,7 @@ const AboutPTE = () => {
                 <div className="w-full flex-col items-center justify-center">
                     <div className="relative max-w-5xl mx-auto overflow-hidden rounded-xl">
                         {/* Image wrapper phải relative để absolute overlay bám đúng */}
-                        <div className="relative z-0">
+                        <div className="relative  ">
                             <Image
                                 className="w-full h-full object-cover"
                                 src="/images/about-banner.png"

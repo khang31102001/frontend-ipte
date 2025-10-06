@@ -131,7 +131,7 @@ export function FullscreenVideoPlayer({
     <div className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 group ${className}`}>
       <div
         ref={containerRef}
-        className="relative w-full max-w-6xl mx-auto aspect-video bg-black group"
+        className="relative z-[9999] w-full max-w-6xl mx-auto aspect-video bg-black group"
         onMouseMove={handleMouseMove}
         onMouseLeave={() => isPlaying && setShowControls(false)}
       >

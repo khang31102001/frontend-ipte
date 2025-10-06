@@ -133,6 +133,7 @@ const TeamTeacherPTE = () => {
     const nextRef = useRef<HTMLButtonElement>(null);
     const breakpoints = {
         0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
+        340: { slidesPerView: 2, spaceBetween: 10 }, 
         500: { slidesPerView: 3, spaceBetween: 10 },  // mobile nhỏ
         640: { slidesPerView: 4, spaceBetween: 10 },  // sm
         870: { slidesPerView: 5, spaceBetween: 10 },  // md
