@@ -7,7 +7,7 @@ export interface Category {
     description?: string,
     parent_id: number | null,
     category_type: string,
-    // --- CÁC TRƯỜNG THUỘC TÍNH SEO CHUẨN --- //
+    children?: Category[] ,
     meta_title?: string,
     meta_description?: string,
     h1_heading?: string,
