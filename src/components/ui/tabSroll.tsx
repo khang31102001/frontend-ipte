@@ -8,12 +8,12 @@ interface Tab {
 
 interface TabScrollProps {
     tabs: Tab[];
-    enableBttn: boolean,
+    navigation: boolean,
     activeTab?: string | number;
     setActiveTab?: (id: string | number) => void;
 }
 
-const TabScroll = ({ tabs, enableBttn }: TabScrollProps) => {
+const TabScroll = ({ tabs, navigation=false }: TabScrollProps) => {
     const scrollRef = useRef<HTMLUListElement | null>(null);
     const [activeTab, setActiveTab] = useState<number | string>("writing");
     const onMouseDown = (e: React.MouseEvent) => {
@@ -42,7 +42,7 @@ const TabScroll = ({ tabs, enableBttn }: TabScrollProps) => {
     return (
         <div className="flex items-center justify-center mb-12">
             {/* Left Arrow */}
-            {enableBttn && (
+            {navigation && (
                 <button className="hidden md:inline-flex mr-4 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full p-4">
                     <ChevronLeft className="h-5 w-5" />
                 </button>
@@ -83,7 +83,7 @@ const TabScroll = ({ tabs, enableBttn }: TabScrollProps) => {
             </ul>
 
             {/* Right Arrow */}
-            {enableBttn && (
+            {navigation && (
                 <button className="hidden md:inline-flex ml-4 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full p-4">
                     <ChevronRight className="h-5 w-5" />
                 </button>

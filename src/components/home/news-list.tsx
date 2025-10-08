@@ -75,9 +75,12 @@ const NewList = () => {
         {/* Header Section */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-4xl lg:text-6xl font-bold text-brandBlue-900">Tin tức & Sự kiện</h1>
-          <button className="flex items-center text-brandBlue-500 hover:text-brandBlue-900 font-medium">
+          <button 
+          className="flex items-center text-brandBlue-500 hover:text-brandBlue-900 font-medium transition-colors duration-100
+          group
+          ">
             Xem thêm
-            <ChevronRight className="ml-1 h-4 w-4" />
+            <ChevronRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
 

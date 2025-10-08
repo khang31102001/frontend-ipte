@@ -14,7 +14,7 @@ interface ComunityCardProps {
     className?: string;
 
 }
-const ComunityCard = ({ data, className }: ComunityCardProps) => {
+const CommunityCard = ({ data, className }: ComunityCardProps) => {
     const {id, icon, title, description, bgColor} = data;
     return (
        <div
@@ -48,4 +48,4 @@ const ComunityCard = ({ data, className }: ComunityCardProps) => {
     )
 }
 
-export default ComunityCard
+export default CommunityCard

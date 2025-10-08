@@ -82,10 +82,14 @@ const AboutPTE = () => {
 
                 <div className="w-full inline-flex items-center justify-center text-white p-2 gap-2 ">
                     <button
-                        className='inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#04016C] to-[#4A16BD] px-6 py-3'
+                        className='inline-flex items-center gap-1 
+                        rounded-full 
+                        bg-gradient-to-r from-[#04016C] to-[#4A16BD] 
+                        px-6 py-3
+                        hover:opacity-90 transition duration-300 group'
                     >
                         Xem thêm
-                        <ChevronRight className='w-6 h-6' />
+                        <ChevronRight className='w-6 h-6 transition-transform duration-300  group-hover:translate-x-1' />
                     </button>
                 </div>
 

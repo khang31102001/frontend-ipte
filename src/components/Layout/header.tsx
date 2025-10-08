@@ -107,7 +107,7 @@ const Header = () => {
 
   return (
     <>
-    <header className="bg-[#F6E10E] w-full">
+    <header className="bg-[#F6E10E] w-full overflow-hidden">
       {/* Top Header */}
       <div className="flex justify-between items-center max-w-7xl mx-auto h-[80px] md:h-[130px] px-4 gap-2 ">
         {/* logo */}
@@ -176,7 +176,9 @@ const Header = () => {
           <ul className="flex flex-col gap-3 p-4 text-sm font-medium text-gray-700">
             {NavLink.map((item, idx) => (
               <li key={idx}>
-                <a href={item.href} className="block py-2">{item.name}</a>
+                <a href={item.href} className="text-gray-900 text-sm lg:text-ld font-bold hover:text-brandBlue-500 nav-link-underline">
+                  {item.name}
+                </a>
               </li>
             ))}
           </ul>
@@ -208,10 +210,12 @@ const Header = () => {
                 className='relative'>
                 <a
                   href={item.href}
-                  className='text-gray-900 inline-flex items-center gap-1 '
+                  className='text-gray-900 text-sm lg:text-ld font-bold inline-flex items-center gap-1 hover:text-brandBlue-500 nav-link-underline group'
                 >
                   <span>{item.name}</span>
-                  {item.icon}
+                  <span className="transition-transform duration-100  group-hover:rotate-180">
+                    {item.icon}
+                  </span>
 
                 </a>
                 {openSubMenu === item.id && (

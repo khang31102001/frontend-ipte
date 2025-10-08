@@ -4,7 +4,7 @@
 
 @layer base {
     :root {
-         --radius: 12px;
+        --radius: 12px;
         --background: 0 0% 100%;
         --foreground: 222.2 84% 4.9%;
         --card: 0 0% 100%;
@@ -76,10 +76,39 @@
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+    display: none;
+    /* Chrome, Safari */
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE, Edge */
-  scrollbar-width: none;     /* Firefox */
+    -ms-overflow-style: none;
+    /* IE, Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+.nav-link-underline {
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease-out;
+}
+
+.nav-link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-image: linear-gradient(to right, #F7C102, #F6E10E);
+    bottom: -4px;
+    border-radius: 6px;
+    right: 0;
+    transform: scale(0);
+    /* Bắt đầu hiệu ứng từ bên trái (Origin: 0%) */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.nav-link-underline:hover:after {
+    transform: scale(1);
+    /* Kết thúc hiệu ứng ở bên phải (Origin: 100%) */
+    transform-origin: bottom left;
 }

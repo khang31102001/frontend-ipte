@@ -24,7 +24,7 @@ const MainHomePage = () => {
         <StudentReview/>
         <NewList/>
         <DocumentPTE/>
-        <PressSection/>
+        {/* <PressSection/> */}
         <CommunityPTE/>
         <ConsultationSection/>
 

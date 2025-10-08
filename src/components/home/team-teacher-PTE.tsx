@@ -1,12 +1,6 @@
 "use client"
 import Image from 'next/image'
 import React, { useRef, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-// import Swiper and modules styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CustomSwiper from '../ui/CustomSwiper';
 
@@ -151,10 +145,10 @@ const TeamTeacherPTE = () => {
                         </div>
 
                         {/* card teacher profile*/}
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-8  items-stretch mb-12'>
                             <div className='block h-full'>
-                                <div className='relative h-full w-full'>
-                                    <div className='h-full rounded-md shadow-lg overflow-hidden'>
+                                <div className='h-full w-full grid justify-items-center'>
+                                    <div className='h-full w-full max-w-md rounded-md shadow-lg overflow-hidden'>
                                         <Image
                                             src="/images/teacher-1.png"
                                             alt=""
@@ -164,7 +158,6 @@ const TeamTeacherPTE = () => {
                                         />
                                     </div>
                                 </div>
-
                             </div>
                             <div className='h-full flex flex-col gap-8'>
                                 {/* infor teacher */}
@@ -199,7 +192,7 @@ const TeamTeacherPTE = () => {
                                             </span>
                                         </div>
 
-                                        <div className="hidden sm:block text-blue-300 text-lg sm:text-xl">|</div>
+                                    
 
                                         {/* Reading */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
@@ -211,7 +204,7 @@ const TeamTeacherPTE = () => {
                                             </span>
                                         </div>
 
-                                        <div className="hidden sm:block text-blue-300 text-lg sm:text-xl">|</div>
+                                       
 
                                         {/* Speaking */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
@@ -223,7 +216,7 @@ const TeamTeacherPTE = () => {
                                             </span>
                                         </div>
 
-                                        <div className="hidden sm:block text-blue-300 text-lg sm:text-xl">|</div>
+                                     
 
                                         {/* Writing */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">

@@ -55,9 +55,9 @@ const NewsCard = ({ data, className, enableImg, heightImg }: NewsCardProps) => {
                         <p className="text-muted-foreground leading-relaxed line-clamp-4">
                             {description}
                         </p>
-                        <button className="flex items-center text-brandBlue-500 hover:text-brandBlue-900 font-medium">
+                        <button className="flex items-center text-brandBlue-500 hover:text-brandBlue-900 transition-colors duration-100 font-medium group">
                             Đọc tiếp
-                            <ChevronRight className="ml-1 h-4 w-4" />
+                            <ChevronRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </button>
                     </div>
 

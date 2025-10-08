@@ -88,7 +88,7 @@ const DocumentPTE = () => {
 
 
         {/* Navigation Tabs */}
-        <TabScroll tabs={tabs} enableBttn={true} />.
+        <TabScroll tabs={tabs} navigation={true} />.
 
         {/* Course Cards Grid */}
         <div className="w-full h-auto mb-12">
@@ -113,9 +113,9 @@ const DocumentPTE = () => {
 
         {/* View All Materials Button */}
         <div className="flex items-center justify-center">
-          <button className=" inline-flex items-center bg-brandBlue-500 hover:bg-brandBlue-900 text-white px-8 py-4 rounded-full font-medium text-lg">
+          <button className=" inline-flex items-center bg-brandBlue-500 hover:bg-brandBlue-900 text-white px-8 py-4 rounded-full font-medium text-lg group">
             Xem toàn bộ tài liệu
-            <ChevronRight className="ml-2 h-5 w-5" />
+            <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
 

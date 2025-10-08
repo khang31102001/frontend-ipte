@@ -1,7 +1,8 @@
 import { ArrowRight, Facebook, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
-import ComunityCard from './card/comunity-card';
+import CommunityCard from './card/comunity-card';
+
 
 const CommunityPTE = () => {
     const dataSocial = [
@@ -60,7 +61,7 @@ const CommunityPTE = () => {
                                 {dataSocial.map((item: any, index) => {
                                     return (
                                         <div key={index} className="w-full" >
-                                            <ComunityCard data={item} />
+                                            <CommunityCard data={item} />
                                         </div>
                                     )
                                 })}
