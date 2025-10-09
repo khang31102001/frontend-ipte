@@ -55,7 +55,7 @@ export const main_menu_categories: Category[] = [
     {
         id: 200,
         icon: 'i-mdi-pencil-box-multiple',
-        name: 'TÀI LIỆU',
+        name: 'KIẾN THỨC',
         slug: 'tai-lieu',
         parent_id: null,
         level: 0,

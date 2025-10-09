@@ -54,12 +54,12 @@ const Header = () => {
     },
     {
       id: 4,
-      name: "TÀI LIỆU",
+      name: "KIẾN THỨC",
       href: "#",
       icon: <ChevronDown size={16} />,
       children: [
-        { id: 41, name: "Ebook", href: "/tai-lieu/ebook" },
-        { id: 42, name: "Sample test", href: "/tai-lieu/sample" },
+        { id: 41, name: "Reading", href: "/tai-lieu/reading" },
+        { id: 42, name: "Writing", href: "/tai-lieu/writing" },
       ],
     },
     {
