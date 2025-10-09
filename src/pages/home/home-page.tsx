@@ -15,7 +15,7 @@ import React from 'react'
 
 const MainHomePage = () => {
   return (
-    <div className='bg-background text-foreground ' >
+    <div className='bg-background text-foreground'>
         <AboutPTE/>
         <StudyPathPTE/>
         <TrainingProgramPTE/>
