@@ -1,5 +1,5 @@
 @tailwind base;
-@tailwind components;
+@import "./components.css";
 @tailwind utilities;
 
 @layer base {
@@ -75,6 +75,8 @@
     }
 }
 
+
+
 .no-scrollbar::-webkit-scrollbar {
     display: none;
     /* Chrome, Safari */
@@ -86,6 +88,7 @@
     scrollbar-width: none;
     /* Firefox */
 }
+
 .nav-link-underline {
     position: relative;
     text-decoration: none;
@@ -111,4 +114,10 @@
     transform: scale(1);
     /* Kết thúc hiệu ứng ở bên phải (Origin: 100%) */
     transform-origin: bottom left;
+}
+
+
+
+.bg-hero-gradient {
+    background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
 }
