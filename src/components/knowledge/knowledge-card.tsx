@@ -6,11 +6,11 @@ interface document {
     title: string,
     description: string,
 }
- interface DocumentCardProps {
+ interface KnowledgeCardProps {
     data: any;
     className?: string;
  }
-const DocumentCard = ({data, className}: DocumentCardProps) => {
+const KnowledgeCard = ({data, className}: KnowledgeCardProps) => {
     const {id, image, title, description}= data
     return (
         <div key={id} className={`${className} rounded-3xl shadow-lg overflow-hidden transition-shadow`}>
@@ -28,4 +28,4 @@ const DocumentCard = ({data, className}: DocumentCardProps) => {
     )
 }
 
-export default DocumentCard
+export default KnowledgeCard

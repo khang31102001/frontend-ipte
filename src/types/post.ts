@@ -23,3 +23,26 @@ export interface Post {
     tags?: Tag[];
     keywords: string[];
 }
+
+export interface NewsArticle {
+  id: string
+  image: string
+  author: string
+  date: string
+  title: string
+  description: string
+  category?: string
+}
+
+export interface pteTip {
+  id: string
+  category: string
+  image: string
+  author: {
+    name: string
+    avatar: string
+  }
+  date: string
+  title: string
+  description: string
+}

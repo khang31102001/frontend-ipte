@@ -4,9 +4,10 @@ import React, { useRef } from 'react'
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
-import DocumentCard from './card/document-card'
+
 import TabScroll from '../ui/tabSroll'
 import CustomSwiper from '../ui/CustomSwiper'
+import KnowledgeCard from './knowledge-card'
 
 
 const courseData = [
@@ -59,7 +60,7 @@ const courseData = [
     description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
   },
 ]
-const DocumentPTE = () => {
+const KnowledgePTE = () => {
   // const [activeTab, setActiveTab] = useState("writing");
   const tabs = [
     { id: "writing", label: "Writing" },
@@ -100,7 +101,7 @@ const DocumentPTE = () => {
             loop
           >
             {courseData.map((item, index) => (
-              <DocumentCard 
+              <KnowledgeCard 
               key={index} 
               data={item} 
                 className="flex flex-col  justify-center"
@@ -108,7 +109,6 @@ const DocumentPTE = () => {
             ))}
 
           </CustomSwiper>
-
         </div>
 
         {/* View All Materials Button */}
@@ -125,4 +125,4 @@ const DocumentPTE = () => {
   )
 }
 
-export default DocumentPTE
+export default KnowledgePTE

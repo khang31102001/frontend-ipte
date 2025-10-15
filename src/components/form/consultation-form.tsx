@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Check, Shield, Star } from "lucide-react"
 
-export function ConsultationSection() {
+const ConsultationForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -205,3 +205,5 @@ export function ConsultationSection() {
     </div>
   )
 }
+
+export default ConsultationForm

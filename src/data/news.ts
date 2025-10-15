@@ -1,4 +1,4 @@
-import { Post } from "@/types/post";
+import { NewsArticle, Post, pteTip } from "@/types/post";
 
 // Giả định Categories
 const CATEGORIES = [
@@ -189,3 +189,87 @@ export const news_list_data: Post[] = [
         keywords: ["mẹo ielts reading", "skimming scanning", "luyện ielts"]
     }
 ];
+
+
+export const articles: NewsArticle[] = [
+    {
+      id: "1",
+      image: "/images/news-1.jpg",
+      author: "Race98",
+      date: "03 June 2023",
+      title: "Thông tin mới nhất về University of Southern Queensland",
+      description:
+        "NEW YORK—A 6-year-old horse died after being injured in a race at Belmont Park ahead of next week's",
+    },
+    {
+      id: "2",
+      image: "/images/news-2.jpg",
+      author: "JonyLs",
+      date: "03 June 2023",
+      title: "Savilia Blunk Embraces Longer Season With World Cup",
+      description:
+        "Last year, Savilia Blunk took a more conservative approach to her first season as an Elite Class athlete, skipping some",
+    },
+    {
+      id: "3",
+      image: "/images/news-3.jpg",
+      author: "King F",
+      date: "03 June 2023",
+      title: "Ryan Garcia is fighting again, this time on social media",
+      description:
+        "Boxing star Ryan Garcia and his promoter, Hall of Fame fighter Oscar De La Hoya, reignited their war of words via Twitter on",
+    },
+    {
+    id: "4",
+    image: "/images/news-5.png",
+    author: "Debits",
+    date: "03 June 2023",
+    title: "Discover the member benefits of USA Cycling!",
+    description: "",
+    category: "Du Học",
+  }
+  ]
+
+
+export  const pteTipData: pteTip[] = [
+  {
+    id: "1",
+    category: "Listening",
+    image: "/images/featured-course-1.png",
+    author: {
+      name: "create by author",
+      avatar: "/images/student-1.jpg",
+    },
+    date: "04 June 2023",
+    title: "5 Exercises Basketball Players Should Be Using To Develop Strength",
+    description:
+      "This article was written by Jake Willhoite from Healthlisted.com Strength in basketball isn't all about a massive body mass or ripped muscles.",
+  },
+  {
+    id: "2",
+    category: "Reading",
+    image: "/images/featured-course-2.png",
+    author: {
+      name: "create by author",
+      avatar: "/images/student-2.jpg",
+    },
+    date: "03 June 2023",
+    title: "Golden Knights out to fulfill owner's quest to win Stanley Cup in 6th year",
+    description: "The Vegas Golden Knights will play the Florida Panthers in the Stanley Cup Final beginning Saturday.",
+  },
+  {
+    id: "3",
+    category: "Writing",
+    image: "/images/featured-course-3.png",
+    author: {
+      name: "create by author",
+      avatar: "/images/student-3.jpg",
+    },
+    date: "01 June 2023",
+    title: "'Outdoor' Badminton Gets Support From Local Federation",
+    description:
+      "The Badminton World Federation is developing Air Badminton and the country's governing body, Philippine Badminton Association.",
+  },
+]
+
+

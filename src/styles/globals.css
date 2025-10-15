@@ -121,3 +121,11 @@
 .bg-hero-gradient {
     background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
 }
+
+.text-hero-gradient {
+    background: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
