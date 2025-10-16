@@ -35,7 +35,7 @@ const CommunityPTEiPass = () => {
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid lg:grid-cols-2 gap-12 items-stretch">
                         {/* Left side - Image */}
-                        {/* <div className="relative h-full">
+                        <div className="relative h-full">
                             <div className="relative h-full max-w-md mx-auto">
                                 <Image
                                     src="/images/student-1.jpg"
@@ -46,7 +46,7 @@ const CommunityPTEiPass = () => {
                                     priority
                                 />
                             </div>
-                        </div> */}
+                        </div>
 
                         {/* Right side - Content */}
                         <div className="space-y-6 h-full flex flex-col justify-between">
@@ -62,7 +62,7 @@ const CommunityPTEiPass = () => {
                                 {dataSocial.map((item: any, index) => {
                                     return (
                                         <div key={index} className="w-full" >
-                                            <CommunityCard data={item} />
+                                            <CommunityCard data={item} className="shrink-0" />
                                         </div>
                                     )
                                 })}

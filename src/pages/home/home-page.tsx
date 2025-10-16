@@ -1,7 +1,8 @@
 
+import CommunityPTEiPass from '@/components/community-pte-ipass/community-pte-ipass'
 import ConsultationForm from '@/components/form/consultation-form'
 import AboutPTE from '@/components/home/about-PTE'
-import CommunityPTE from '@/components/home/community-PTE'
+
 import FeaturedCoursesPTE from '@/components/home/featured-courses-PTE'
 import NewList from '@/components/home/news-list'
 // import PressSection from '@/components/home/PressSection'
@@ -25,7 +26,7 @@ const MainHomePage = () => {
         <NewList/>
         <KnowledgePTE/>
         {/* <PressSection/> */}
-        <CommunityPTE/>
+        <CommunityPTEiPass />
         <ConsultationForm/>
     </div>
   )
