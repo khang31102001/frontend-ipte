@@ -2,7 +2,7 @@
 import { ChevronLeft, ChevronRight, Key } from 'lucide-react'
 import React, { useRef } from 'react'
 import CoursesCard from './card/courses-card'
-import CustomSwiper from '../ui/CustomSwiper'
+import CustomSwiper from '../ui/custom-swiper'
 
 const FeaturedCoursesPTE = () => {
     const FeturedCourses = [

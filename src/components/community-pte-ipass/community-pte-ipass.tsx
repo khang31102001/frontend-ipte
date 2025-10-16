@@ -31,22 +31,22 @@ const CommunityPTEiPass = () => {
     ];
     return (
         <section className="py-16  bg-gradient-to-br from-gray-50 to-gray-100">
-            <div className="container mx-auto">
-                <div className="max-w-7xl mx-auto">
+            <div className="container mx-auto px-4">
+                <div className="max-w-7xl mx-auto px-4">
                     <div className="grid lg:grid-cols-2 gap-12 items-stretch">
                         {/* Left side - Image */}
-                        <div className="relative h-full">
-                            <div className="relative w-full h-full max-w-md mx-auto">
+                        {/* <div className="relative h-full">
+                            <div className="relative h-full max-w-md mx-auto">
                                 <Image
                                     src="/images/student-1.jpg"
                                     alt="Professional woman with clipboard"
                                     width={600}
                                     height={700}
-                                    className="w-full h-full object-cover rounded"
+                                    className=" h-full object-cover rounded"
                                     priority
                                 />
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Right side - Content */}
                         <div className="space-y-6 h-full flex flex-col justify-between">

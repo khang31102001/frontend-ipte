@@ -1,95 +1,80 @@
-import type React from "react"
-import { Check, Calendar, Users, Target } from "lucide-react"
-import Button from "@/components/button/Button"
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image'
+import React from 'react'
+interface FeaturedCourses {
+    id: number,
+    image: string,
+    duration?: string,
+    level?: string,
+    title: string,
+    description: string,
+    textBtn?: string,
 
-
-export interface CourseCardProps {
-  category: {
-    icon: React.ReactNode
-    label: string
-  }
-  title: string
-  description: string
-  objectives: string[]
-  learningInfo: {
-    duration: string
-    audience: string
-    requirements: string
-  }
-  buttons: {
-    label: string
-    variant?: "default" | "outline"
-  }[]
+}
+interface FeaturedCoursesCardProps {
+    data: FeaturedCourses
 }
 
-export function CourseCard({ category, title, description, objectives, learningInfo, buttons }: CourseCardProps) {
-  return (
-    <div className="flex flex-col gap-6 rounded-3xl border-2 border-yellow-500 bg-white p-8 shadow-lg">
-      {/* Category Badge */}
-      <div className="flex">
-        <div className="inline-flex items-center gap-2 rounded-full border-2 border-yellow-500 bg-transparent px-6 py-2.5">
-          {category.icon}
-          <span className="font-semibold text-yellow-600">{category.label}</span>
+const CoursesCard = ({ data }: FeaturedCoursesCardProps) => {
+    const { image, duration, level, title, description, textBtn } = data;
+
+
+    return (
+        <div className='flex flex-col flex-shrink-0 justify-between gap-3 p-4 
+                rounded-3xl shadow-lg bg-white 
+                overflow-hidden 
+                h-auto '>
+            {/* Image */}
+            <div className='w-full h-36 sm:h-40 md:h-44 lg:h-48 xl:h-56 2xl:h-60 overflow-hidden rounded-2xl'>
+                <Image
+                    src={image}
+                    alt={title}
+                    width={400}
+                    height={200}
+                    className="w-full h-full object-cover rounded-2xl"
+                />
+            </div>
+
+            {/* Tags */}
+            <div className='flex flex-wrap text-xs sm:text-sm md:text-base text-gray-500 mt-3 mb-2 gap-2'>
+                <span className='border border-gray-300 px-2 py-1 rounded-md'>
+                    {duration}
+                </span>
+                <span className='border border-gray-300 px-2 py-1 rounded-md'>
+                    {level}
+                </span>
+            </div>
+
+            {/* Title */}
+            <h3 className='text-lg md:text-xl font-semibold line-clamp-2'>
+                {title}
+            </h3>
+
+            {/* Description */}
+            <p className=' text-sm text-muted-foreground sm:text-base  my-2 leading-relaxed line-clamp-3'>
+                {description}
+            </p>
+
+            {/* Button */}
+            <div className='mt-auto'>
+                <button
+                    className='w-full group bg-gradient-to-r from-brandBlue-900 to-brandBlue-500
+                 text-white font-medium 
+                 px-4 py-3 rounded-full 
+                 hover:opacity-90 transition duration-300 
+                 flex justify-center items-center 
+                 text-sm sm:text-base md:text-lg'
+                >
+                    {textBtn || "Tìm hiểu thêm"}
+                    <ArrowRight
+                        size={16}
+                        className='ml-3 h-6 w-6 transform transition-transform duration-300 group-hover:translate-x-2'
+                    />
+                </button>
+            </div>
         </div>
-      </div>
 
-      {/* Title */}
-      <h2 className="text-3xl font-bold text-indigo-700">{title}</h2>
-
-      {/* Description */}
-      <p className="text-gray-700 leading-relaxed">{description}</p>
-
-      {/* Objectives */}
-      <div>
-        <h3 className="mb-3 font-bold text-gray-900">Mục tiêu:</h3>
-        <ul className="space-y-2">
-          {objectives.map((objective, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-yellow-500" />
-              <span className="text-gray-700">{objective}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Learning Info */}
-      <div>
-        <h3 className="mb-3 font-bold text-gray-900">Thông tin học tập</h3>
-        <ul className="space-y-2">
-          <li className="flex items-start gap-2">
-            <Calendar className="mt-0.5 h-5 w-5 flex-shrink-0 text-indigo-600" />
-            <span className="text-gray-700">{learningInfo.duration}</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <Users className="mt-0.5 h-5 w-5 flex-shrink-0 text-indigo-600" />
-            <span className="text-gray-700">{learningInfo.audience}</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <Target className="mt-0.5 h-5 w-5 flex-shrink-0 text-indigo-600" />
-            <span className="text-gray-700">{learningInfo.requirements}</span>
-          </li>
-        </ul>
-      </div>
-
-      {/* Buttons */}
-      <div>
-        <h3 className="mb-3 font-bold text-gray-900">Khóa học</h3>
-        <div className="grid grid-cols-2 gap-3">
-          {buttons.slice(0, 2).map((button, index) => (
-            <Button
-              key={index}
-              className="h-12 rounded-full bg-indigo-700 font-semibold text-white hover:bg-indigo-800"
-            >
-              {button.label}
-            </Button>
-          ))}
-        </div>
-        {buttons[2] && (
-          <Button className="mt-3 h-12 w-full rounded-full bg-indigo-700 font-semibold text-white hover:bg-indigo-800">
-            {buttons[2].label}
-          </Button>
-        )}
-      </div>
-    </div>
-  )
+    )
 }
+
+export default CoursesCard

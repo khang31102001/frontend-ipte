@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import CustomSwiper from '../ui/CustomSwiper';
+import CustomSwiper from '../ui/custom-swiper';
 
 const TeamTeacherPTE = () => {
     const [selectTecher, setSelectTecher] = useState<Number>(0);

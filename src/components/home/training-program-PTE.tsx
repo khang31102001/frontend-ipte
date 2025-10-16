@@ -1,6 +1,6 @@
 import React from 'react'
 import TrainingProgramCard from './card/training-program-card'
-import CustomSwiper from '../ui/CustomSwiper'
+import CustomSwiper from '../ui/custom-swiper'
 
 const TrainingProgramPTE = () => {
   const courses = [

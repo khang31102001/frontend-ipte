@@ -23,7 +23,7 @@ const courses: Course[] = [
     description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
     duration: "4 Weeks",
     level: "Popular",
-    image: "/classroom-study-session.png",
+    image: "/images/course-1.jpg",
   },
   {
     id: "2",
@@ -31,7 +31,7 @@ const courses: Course[] = [
     description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
     duration: "4 Weeks",
     level: "Popular",
-    image: "/group-discussion-meeting.jpg",
+    image: "/images/course-2.jpg",
   },
   {
     id: "3",
@@ -39,7 +39,7 @@ const courses: Course[] = [
     description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
     duration: "4 Weeks",
     level: "Popular",
-    image: "/student-studying-in-library.jpg",
+    image: "/images/course-3.jpg",
   },
   {
     id: "4",
@@ -47,7 +47,7 @@ const courses: Course[] = [
     description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
     duration: "4 Weeks",
     level: "Popular",
-    image: "/online-learning-laptop.jpg",
+    image: "/images/course-4.jpg",
   },
 ]
 
@@ -98,7 +98,7 @@ export function CourseGrid() {
 
           {/* View Toggle */}
           <div className="flex gap-2">
-            <Button   
+            <Button
               onClick={() => setViewMode("grid")}
             >
               <Grid3x3 className="w-4 h-4" />
@@ -116,13 +116,20 @@ export function CourseGrid() {
           {/* Featured Courses */}
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl md:text-3xl font-bold text-primary">Khóa học nổi bật</h3>
-              <div className="flex gap-2">
-                <Button className="rounded-full bg-transparent">
-                  <ChevronLeft className="w-4 h-4" />
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-primary">Khóa học nổi bật</h3>
+                <p className="text-muted-foreground mt-1">Luyện chuyên sâu cho học viên muốn đạt điểm cao tuyệt đối.</p>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <Button
+                  className="inline-flex items-center justify-center rounded-full bg-transparent"
+                  leftIcon={<ChevronLeft className="w-4 h-4" />}
+                >
                 </Button>
-                <Button className="rounded-full bg-transparent">
-                  <ChevronRight className="w-4 h-4" />
+                <Button
+                  className="inline-flex items-center justify-center rounded-full bg-transparent "
+                  rightIcon={<ChevronRight className="w-4 h-4" />}
+                >
                 </Button>
               </div>
             </div>
@@ -135,9 +142,8 @@ export function CourseGrid() {
               {courses.map((course) => (
                 <div
                   key={course.id}
-                  className={`bg-card text-card-foreground rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow ${
-                    viewMode === "list" ? "flex flex-row" : "flex flex-col"
-                  }`}
+                  className={`bg-card text-card-foreground rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow ${viewMode === "list" ? "flex flex-row" : "flex flex-col"
+                    }`}
                 >
                   <Image
                     src={course.image || "/placeholder.svg"}
@@ -153,7 +159,7 @@ export function CourseGrid() {
                         <div className="text-xs">
                           {course.duration}
                         </div>
-                        <div  className="text-xs">
+                        <div className="text-xs">
                           {course.level}
                         </div>
                       </div>
@@ -162,9 +168,12 @@ export function CourseGrid() {
                     </div>
                     {/* Card Footer */}
                     <div className="p-6 pt-0">
-                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full group">
+                      <Button
+                        className="w-full inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full group py-2"
+                        rightIcon={<ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />}
+                      >
                         Đăng ký ngay
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+
                       </Button>
                     </div>
                   </div>
@@ -173,9 +182,12 @@ export function CourseGrid() {
             </div>
 
             <div className="flex justify-center mt-8">
-              <Button  className="text-primary font-semibold group">
+              <Button
+                className="text-primary font-semibold inline-flex items-center group"
+                rightIcon={<ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />}
+              >
                 Xem thêm
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+
               </Button>
             </div>
           </div>
@@ -188,10 +200,10 @@ export function CourseGrid() {
                 <p className="text-muted-foreground mt-1">Luyện chuyên sâu cho học viên muốn đạt điểm cao tuyệt đối.</p>
               </div>
               <div className="flex gap-2">
-                <Button   className="rounded-full bg-transparent">
+                <Button className="rounded-full bg-transparent">
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
-                <Button  className="rounded-full bg-transparent">
+                <Button className="rounded-full bg-transparent">
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
@@ -205,9 +217,8 @@ export function CourseGrid() {
               {courses.map((course) => (
                 <div
                   key={`advanced-${course.id}`}
-                  className={`bg-card text-card-foreground rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow ${
-                    viewMode === "list" ? "flex flex-row" : "flex flex-col"
-                  }`}
+                  className={`bg-card text-card-foreground rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow ${viewMode === "list" ? "flex flex-row" : "flex flex-col"
+                    }`}
                 >
                   <Image
                     src={course.image || "/placeholder.svg"}
@@ -220,7 +231,7 @@ export function CourseGrid() {
                     {/* Card Header */}
                     <div className="p-6 flex-1">
                       <div className="flex gap-2 mb-2">
-                        <div  className="text-xs">
+                        <div className="text-xs">
                           {course.duration}
                         </div>
                         <div className="text-xs bg-accent text-accent-foreground">
@@ -232,9 +243,11 @@ export function CourseGrid() {
                     </div>
                     {/* Card Footer */}
                     <div className="p-6 pt-0">
-                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full group">
+                      <Button className="w-full inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full py-2 group"
+                        rightIcon={<ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />}
+                      >
                         Đăng ký ngay
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+
                       </Button>
                     </div>
                   </div>
@@ -243,9 +256,11 @@ export function CourseGrid() {
             </div>
 
             <div className="flex justify-center mt-8">
-              <Button  className="text-primary font-semibold group">
+              <Button className="text-primary font-semibold inline-flex items-center group"
+                rightIcon={<ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />}
+              >
                 Xem thêm
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+
               </Button>
             </div>
           </div>

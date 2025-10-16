@@ -7,7 +7,10 @@ export default function IndexNews() {
     return (
         <div>
             <HeroBanner img="/images/hero-banner-new.png" className="mb-12 " />
-            <NewPage dataNews={articles} dataTip={pteTipData} />
+            <NewPage
+                dataNews={articles}
+                dataTip={pteTipData}
+            />
         </div>
     )
 }

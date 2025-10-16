@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 
 import TabScroll from '../ui/tabSroll'
-import CustomSwiper from '../ui/CustomSwiper'
+import CustomSwiper from '../ui/custom-swiper'
 import KnowledgeCard from './knowledge-card'
 
 

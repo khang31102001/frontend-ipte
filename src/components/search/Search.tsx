@@ -17,7 +17,7 @@ const Search = () => {
   };
 
   return (
-      <div className="relative flex items-center gap-1 max-[1130px]:hidden">
+      <div className="relative flex items-center gap-2 flex-1 max-[1130px]:hidden">
           <input
               type="text"
               placeholder="Search..."
@@ -28,7 +28,7 @@ const Search = () => {
           {searchQuery && (
               <FontAwesomeIcon
                   icon={faTimes}
-                  className="absolute inset-y-2 right-12 text-gray-400 pr-1"
+                  className="absolute top-1/2 left-32 transform -translate-y-1/2 text-gray-400 pl-20 cursor-pointer"
                   onClick={handleClear}
               />
           )}
