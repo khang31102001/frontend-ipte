@@ -5,16 +5,18 @@ import PTECallToAction from "@/components/pte-ipass/teacher/pte-call-to-action"
 import { TeacherProfile } from "@/types/teacher";
 import TeacherList from "./teacher-list";
 import CommunityPTEiPass from "@/components/community-pte-ipass/community-pte-ipass";
+import { TeacherFeature } from "@/types/teacherFeatures";
 
 
 interface TeamTeacherPageProps {
   data?: TeacherProfile[];
+  features?: TeacherFeature[]; 
 }
 
-const TeamTeacherPage = ({ data }: TeamTeacherPageProps) => {
+const TeamTeacherPage = ({ data, features }: TeamTeacherPageProps) => {
   return (
     <div className='bg-background text-foreground'>
-      <FeaturesSection />
+      <FeaturesSection data={features}/>
       <TeacherList data={data} />
       <CommunityPTEiPass />
       <PTECallToAction />

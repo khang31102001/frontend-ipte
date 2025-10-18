@@ -1,9 +1,11 @@
 import HeroBanner from "@/components/banner/hero-banner";
-import { teacherProfiles } from "@/data/data-teacher";
 import TeamTeacherPage from "@/pages/pte-ipass/team-teacher/team-teacher-page";
+import { teacherService } from "@/services/teacher/teacherService";
 
 
-export default function TeacherIndex() {
+export default async function TeacherIndex() {
+  const teachers = await teacherService.getTeachers({});
+  console.log("Teachers data:", teachers);
   return (
     <div>
       <HeroBanner 
@@ -11,7 +13,8 @@ export default function TeacherIndex() {
         className="mb-12 "
         />
       <TeamTeacherPage
-        data={teacherProfiles}
+        data={teachers.data}
+        features={teachers.features}
       />
     </div>
   );
