@@ -14,12 +14,7 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        sm: "640px",    // mobile ngang
-        md: "768px",    // tablet
-        lg: "1024px",   // laptop nhỏ
-        xl: "1280px",   // desktop phổ thông
-        "2xl": "1536px", // desktop lớn
-
+        "2xl": "1400px",
       },
     },
     extend: {

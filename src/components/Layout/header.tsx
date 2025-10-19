@@ -111,7 +111,7 @@ const Header = () => {
       {/* Top Header */}
       <div className="flex justify-between items-center max-w-7xl mx-auto h-[80px] md:h-[130px] px-4 gap-2 ">
         {/* logo */}
-        <div className='w-[180px] md:w-[280px] :h-[220px] overflow-hidden'>
+        <div className='w-[180px] md:w-[280px] :h-[220px] flex-shrink-0 overflow-hidden'>
           <Image
             src="/images/logo/log-2.jpg"
             alt="logo"
@@ -122,13 +122,12 @@ const Header = () => {
         </div>
 
         {/* hotline (hidden on mobile) */}
-        <div className="hidden md:flex items-start gap-4 w-[684px] h-[48px]">
+        <div className="hidden lg:flex items-start gap-3 flex-1 justify-center">
           {dataHotline.map((item, idx) => (
             <div key={idx}
-              className="flex items-center max-w-[284px] h-[48px] px-4 py-2 
-                         text-white rounded-full border bg-[#212636]">
+              className="flex items-center max-w-xs h-12 px-4 py-2 text-white rounded-full border border-gray-300 bg-black transition-smooth cursor-pointer">
               {item.icon}
-              <span className="text-sm font-medium text-center pl-2">
+              <span className="text-sm font-medium text-center pl-2 whitespace-nowrap">
                 Hotline: {item.phone}
               </span>
             </div>
@@ -136,15 +135,17 @@ const Header = () => {
         </div>
 
         {/* search desktop */}
-        <div className="hidden md:block relative max-w-[284px] h-[48px]">
-          <Search size={20} className='absolute left-3 top-1/2 -translate-y-1/2 opacity-60' />
-          <input
-            className='text-sm w-full h-full rounded-full border border-gray-300 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
-            type="text"
-            placeholder="Tìm kiếm khóa học..."
-          />
-        </div>
-
+          <div className="hidden md:block relative flex-shrink-0 w-64 lg:w-72">
+            <Search
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+            />
+            <input
+              className="text-sm w-full rounded-full border border-input bg-background pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring transition-smooth"
+              type="text"
+              placeholder="Tìm kiếm khóa học..."
+            />
+          </div>
         {/* mobile menu button */}
         <button
           className="md:hidden fixed top-4 right-4 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-white shadow"
@@ -156,9 +157,10 @@ const Header = () => {
 
      
       {/* mobile menu dropdown */}
-      <div className={`md:hidden fixed inset-0 z-40 
-          w-full h-auto bg-white shadow border-t border-gray-200
+      <div className={`md:hidden fixed inset-0 top-0 right-0 z-40 
+          w-80 max-w-[85vw] h-full bg-white shadow border-t border-gray-200
            transform transition-transform duration-300 ease-out py-16 px-2 
+           overflow-y-auto custom-scrollbar
            ${openMenu ? "translate-y-0" : " -translate-y-full"}
            `}>
 
@@ -198,16 +200,16 @@ const Header = () => {
 
      {/* bottom nav desktop */}
       <div className='hidden md:block w-full bg-white shadow border-b border-gray-200 sticky top-0.5 z-50'>
-        <nav className="container mx-auto">
+        <nav className="container mx-auto px-4">
           <ul
             ref={menuRef}
-            className="flex items-center justify-center gap-6 py-4 text-sm font-semibold text-gray-700"
+            className="flex flex-row items-center justify-center gap-6 py-4 text-sm font-semibold text-gray-700"
           >
             {NavLink.map((item: any, idx) => (
               <li
                 onClick={() => handleOpenSubMenu(item.id)}
                 key={idx}
-                className='relative'>
+                className='relative flex items-center'>
                 <a
                   href={item.href}
                   className='text-gray-900 text-sm lg:text-ld font-bold inline-flex items-center gap-1 hover:text-brandBlue-500 nav-link-underline group'

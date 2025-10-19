@@ -23,7 +23,7 @@ const Search = () => {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-2 py-1 border border-gray-300 rounded"
+              className="px-2 py-1 border border-gray-300 rounded outline-gray-200"
           />
           {searchQuery && (
               <FontAwesomeIcon
@@ -34,7 +34,7 @@ const Search = () => {
           )}
           <button
               onClick={handleSearch}
-              className="px-3 py-1 bg-blue-500 text-white rounded"
+              className="px-3 py-1 bg-hero-gradient text-white rounded"
           >
               <FontAwesomeIcon icon={faSearch} />
           </button>

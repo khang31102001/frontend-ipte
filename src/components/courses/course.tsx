@@ -1,8 +1,8 @@
 "use client"
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import CustomSwiper from '../ui/custom-swiper'
 import CoursesCard from '../home/card/courses-card'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface Course {
     id: number
@@ -46,8 +46,41 @@ const courses: Course[] = [
         level: "Popular",
         image: "/images/course-4.jpg",
     },
+     {
+        id: 1,
+        title: "PTE Academic",
+        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
+        duration: "4 Weeks",
+        level: "Popular",
+        image: "/images/course-1.jpg",
+    },
+    {
+        id: 2,
+        title: "PTE Academic",
+        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
+        duration: "4 Weeks",
+        level: "Popular",
+        image: "/images/course-2.jpg",
+    },
+    {
+        id: 3,
+        title: "PTE Academic",
+        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
+        duration: "4 Weeks",
+        level: "Popular",
+        image: "/images/course-3.jpg",
+    },
+    {
+        id: 4,
+        title: "PTE Academic",
+        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
+        duration: "4 Weeks",
+        level: "Popular",
+        image: "/images/course-4.jpg",
+    },
 ]
 const Course = () => {
+    // const [loadMore, setloadMore] = useState<boolean>()
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
     const breakpoints = {
@@ -57,7 +90,8 @@ const Course = () => {
         1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
     };
     return (
-        <div className="container mx-auto px-4">
+       <div className="py-16">
+         <div className="container mx-auto px-4">
             <div className='w-full flex items-center justify-between'>
                 <div>
                     <h3 className="text-2xl md:text-3xl font-bold text-primary">Khóa học nổi bật</h3>
@@ -65,13 +99,14 @@ const Course = () => {
                 </div>
                 <div className="flex items-center justify-center gap-2">
                     <button
-              
+                    
+                        ref={prevRef}              
                         className="inline-flex items-center justify-center rounded-full bg-transparent p-2"
                     >
                     </button>
                     <ChevronLeft className="w-4 h-4" />
                     <button
-                   
+                        ref={nextRef}
                         className="inline-flex items-center justify-center rounded-full bg-transparent p-2 "
                     >
                         <ChevronRight className="w-4 h-4" />
@@ -92,7 +127,17 @@ const Course = () => {
                     ))}
                 </CustomSwiper>
             </div>
+             <div className="flex justify-center mt-8">
+              <button
+                className="text-primary font-semibold inline-flex items-center group"
+               
+              >
+                Xem thêm
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
         </div>
+       </div>
     )
 }
 
