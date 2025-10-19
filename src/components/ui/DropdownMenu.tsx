@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 interface DropdownItem {
-  name: string;
+  label: string;
   href: string;
 }
 
@@ -27,7 +27,7 @@ const DropdownMenu = ({ items, className }: DropdownMenuProps) => {
             className="block px-4 py-2.5 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 
                        transition-colors duration-150 focus:outline-none focus:bg-indigo-100"
           >
-            {item.name}
+            {item.label}
           </a>
         </li>
       ))}

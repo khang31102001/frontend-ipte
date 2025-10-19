@@ -1,13 +1,20 @@
+export enum CategoryType {
+  HEADER_MENU = "HEADER_MENU",
+  FOOTER_MENU = "FOOTER_MENU",
+  SIDEBAR_MENU = "SIDEBAR_MENU",
+}
 
-export interface Category {
+
+export interface CategoryItem {
     id: number
     icon?: string,
     name: string,
-    slug: string,
+    slug?: string,
+    url?: string,
     description?: string,
-    parent_id: number | null,
-    category_type: string,
-    children?: Category[] ,
+    parent_id?: number | null,
+    category_type?: CategoryType,
+    children?: CategoryItem[] ,
     meta_title?: string,
     meta_description?: string,
     h1_heading?: string,
@@ -17,23 +24,5 @@ export interface Category {
     noindex?: boolean
 }
 
-export interface Categories {
-    id: number
-    icon?: string,
-    name: string,
-    slug: string,
-    description?: string,
-    parent_id: number | null,
-    children: Categories[] ,
-    level: number,
-    category_type: string,
-    meta_title?: string,
-    meta_description?: string,
-    h1_heading?: string,
-    seo_content_top?: string,
-    seo_content_bottom?: string,
-    canonical_url?: string,
-    noindex?: boolean
-}
 
 
