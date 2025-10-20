@@ -10,8 +10,8 @@ export default async function IndexNews() {
         <div>
             <HeroBanner img="/images/hero-banner-new.png" className="mb-12 " />
             <NewPage
-                dataNews={articles}
-                dataTip={pteTipData}
+                dataNews={newsJoinedKnowledge.news || articles}
+                dataTip={newsJoinedKnowledge.tips || pteTipData}
             />
         </div>
     )

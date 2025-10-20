@@ -1,35 +1,40 @@
 import { BookOpen } from "lucide-react"
 import TargetAudienceCard from "./card/TargetAudienceCard"
+import { aboutMeService } from "@/services/about-me/newsService"
 
 
-const IPTEAudienceSection = () => {
-    const audiences = [
-        {
-            title: "Học sinh cấp 1, cấp 2 và cấp 3",
-            description:
-                "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
-        },
-        {
-            title: "Học sinh cấp 1, cấp 2 và cấp 3",
-            description:
-                "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
-        },
-        {
-            title: "Học sinh cấp 1, cấp 2 và cấp 3",
-            description:
-                "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
-        },
-        {
-            title: "Học sinh cấp 1, cấp 2 và cấp 3",
-            description:
-                "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
-        },
-        {
-            title: "Học sinh cấp 1, cấp 2 và cấp 3",
-            description:
-                "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
-        },
-    ]
+const IPTEAudienceSection = async () => {
+    // const audiences = [
+    //     {
+    //         title: "Học sinh cấp 1, cấp 2 và cấp 3",
+    //         description:
+    //             "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
+    //     },
+    //     {
+    //         title: "Học sinh cấp 1, cấp 2 và cấp 3",
+    //         description:
+    //             "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
+    //     },
+    //     {
+    //         title: "Học sinh cấp 1, cấp 2 và cấp 3",
+    //         description:
+    //             "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
+    //     },
+    //     {
+    //         title: "Học sinh cấp 1, cấp 2 và cấp 3",
+    //         description:
+    //             "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
+    //     },
+    //     {
+    //         title: "Học sinh cấp 1, cấp 2 và cấp 3",
+    //         description:
+    //             "iPTE cung cấp các khóa học tiếng Anh được thiết kế đặc biệt để phù hợp với nhu cầu học tập của học sinh ở mọi trình độ rèn luyện kỹ năng ngôn ngữ một cách hiệu quả và phát triển khả năng giao tiếp tiếng Anh một cách tự tin",
+    //     },
+    // ]
+
+    const audiences = await aboutMeService.getAboutMe({ category: "AUDIENCE" }).then(res => res?.items || []);
+
+    console.log("Audience data:", audiences);
 
     return (
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -46,7 +51,7 @@ const IPTEAudienceSection = () => {
                 </div>
 
                 {/* Right side - First card */}
-                {audiences.map((item, index) => {
+                {audiences.map((item: any, index: number) => {
                     return (
                         <div key={index}>
                             <TargetAudienceCard data={item} />

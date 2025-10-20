@@ -16,6 +16,8 @@ interface TrendingNewsProps {
 }
 
 const TrendingNews = ({ data }: TrendingNewsProps) => {
+
+  console.log("TrendingNews data:", data);
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1.5fr]">
       {/* Left Column - Article List */}
@@ -48,8 +50,8 @@ const TrendingNews = ({ data }: TrendingNewsProps) => {
       <div className="group relative overflow-hidden rounded-md">
         <div className="relative h-full min-h-[600px]">
           <Image
-            src={data[3]?.image || "/placeholder.svg"}
-            alt={data[3]?.title}
+            src={data[0]?.image || "/placeholder.svg"}
+            alt={data[0]?.title}
             fill
             className="object-cover transition-transform group-hover:scale-105"
             loading="lazy"
@@ -57,7 +59,7 @@ const TrendingNews = ({ data }: TrendingNewsProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-between p-8">
             <div>
-              {data[3]?.category && (
+              {data[0]?.category && (
                 <span className="inline-block rounded-sm border-2 border-white px-4 py-2 text-sm font-medium text-white">
                   {data[3]?.category}
                 </span>
@@ -68,7 +70,7 @@ const TrendingNews = ({ data }: TrendingNewsProps) => {
                 {data[3]?.author} - {data[3]?.date}
               </p>
               <h3 className="text-4xl font-bold uppercase leading-tight text-white md:text-5xl lg:text-6xl">
-                {data[3]?.title}
+                {data[0]?.title}
               </h3>
             </div>
           </div>

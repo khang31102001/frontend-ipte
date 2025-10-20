@@ -6,8 +6,8 @@ import { NewsArticle, pteTip } from "@/types/post";
 
 
 interface NewPageProps {
-  dataNews?: NewsArticle[];
-  dataTip?: pteTip[];
+  dataNews?: any[];
+  dataTip?: any[];
 }
 
 const NewPage = ({ dataNews, dataTip }: NewPageProps) => {

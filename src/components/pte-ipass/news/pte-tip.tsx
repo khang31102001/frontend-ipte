@@ -91,13 +91,13 @@ const PTETip = ({ data }: PTETipProps) => {
             <div className="flex items-center gap-3 mb-3">
               <div className="relative h-10 w-10 rounded-full overflow-hidden">
                 <Image
-                  src={item.author.avatar || "/placeholder.svg"}
-                  alt={item.author.name}
+                  src={item.authorAvatar || "/placeholder.svg"}
+                  alt={item.authorName}
                   fill
                   className="object-cover"
                 />
               </div>
-              <span className="text-sm text-gray-600">{item.author.name}</span>
+              <span className="text-sm text-gray-600">{item.authorName}</span>
             </div>
 
             <time className="text-sm text-gray-600 block mb-3">{item.date}</time>

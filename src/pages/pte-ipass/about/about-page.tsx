@@ -8,17 +8,18 @@ import { PTEEcosystem } from "@/types/ecosystem";
 
 interface AboutPageProps {
   dataEcosystem?: PTEEcosystem[];
+  branches?: any[];
 }
 
 const AboutPage = ({ 
-  dataEcosystem 
+  dataEcosystem, branches
 }: AboutPageProps) => {
   return (
     <div className='bg-background text-foreground'>
         <AboutPTEiPass />
         <MissionSection />
         <IPTEAudienceSection />
-        <MapSection />
+        <MapSection branches={branches ?? []}/>
         {/* <FacilitiesSection /> */}
         <PTEcosystem data={dataEcosystem ?? []} />
        
