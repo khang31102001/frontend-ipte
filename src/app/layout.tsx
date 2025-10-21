@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-import { ThemeProvider } from '@/providers/ThemeProvider'
-import MainLayout from "@/pages/Layout/main-layout";
+
+import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
+import ClientRoot from "@/pages/Layout/client-root";
 // import AuthProvider from '@/providers/AuthProvider'
 // import Layout from "@/pages/layout";
 
@@ -18,23 +19,17 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+
+
     return (
         <html lang="en" suppressHydrationWarning={true}>
             <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body suppressHydrationWarning={true} className={inter.className}>
-
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <MainLayout>
-                        {children}
-                    </MainLayout>
-                </ThemeProvider>
+                <ClientRoot>
+                    {children}
+                </ClientRoot>
             </body>
         </html>
     )

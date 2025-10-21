@@ -11,7 +11,7 @@ import { signOut, useSession } from 'next-auth/react'
 
 import { AvatarProfile } from '../avatar/Avatar'
 import Button from '../button/Button'
-import Menu from '../popper/menu/Menu'
+import Menu from '../popup/menu/Menu'
 
 const MENU_ITEMS = [
     {
