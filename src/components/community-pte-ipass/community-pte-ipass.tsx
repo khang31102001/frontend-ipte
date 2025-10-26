@@ -38,7 +38,7 @@ const CommunityPTEiPass = () => {
                         <div className="relative h-full">
                             <div className="relative h-full max-w-md mx-auto">
                                 <Image
-                                    src="/images/student-1.jpg"
+                                    src="/images/img-comunity.png"
                                     alt="Professional woman with clipboard"
                                     width={600}
                                     height={700}

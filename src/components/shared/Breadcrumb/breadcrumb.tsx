@@ -4,7 +4,7 @@ import { ChevronRight } from 'lucide-react'; // Icon phân cách
 
 
 interface BreadcrumbItem {
-    label: string;
+    name: string;
     href: string; 
 }
 interface BreadcrumbProps {
@@ -17,7 +17,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
     separator = <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />, 
     className = "" 
 }) => {
-
+    const isLast = items[items.length - 1];
     if (!items || items.length === 0) {
         return null;
     }
@@ -28,12 +28,12 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;
                     return (
-                        <li key={item.href} className="flex items-center">
+                        <li key={item.href} className="text-sm sm:text-md flex items-center">
                             {/* 1. Đường dẫn (Link hoặc Span) */}
                             {isLast ? (
                                 // Mục cuối cùng là trang hiện tại, không phải link
-                                <span className="text-foreground font-medium">
-                                    {item.label}
+                                <span className=" text-foreground font-medium">
+                                    {item.name}
                                 </span>
                             ) : (
                                 // Các mục trước là link
@@ -41,7 +41,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                                     href={item.href} 
                                     className="text-muted-foreground hover:text-primary transition-colors"
                                 >
-                                    {item.label}
+                                    {item.name}
                                 </Link>
                             )}
 
@@ -56,6 +56,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 
                 })}
             </ol>
+            {isLast &&(
+                <h1 className="text-3xl sm:text-4xl font-bold text-primary h-12 my-8">{isLast.name}</h1>
+            )}
         </nav>
     );
 };

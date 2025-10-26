@@ -20,7 +20,7 @@ const TeacherProfilesCard = ({ data }: TeacherProfilesCardProps) => {
             key={id}
             className="pte-ipass-card rounded-t-3xl  relative bg-[#FDD835]"
         >
-            <div className=" p-8 flex items-end justify-center min-h-[320px] h-[340px]">
+            <div className=" p-8 flex items-end justify-center rounded-sm min-h-[320px] h-[340px]">
                 <Image
                     src={ image || "/placeholder.svg"}
                     alt={name}

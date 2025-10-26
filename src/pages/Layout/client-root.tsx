@@ -4,10 +4,11 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import PopupRegistrationForm from "@/components/popup/form/popup-registration-form";
 import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
 import MainLayout from "./main-layout";
+import FloatingChat from "@/components/Layout/FloatingChat";
 
 export default function ClientRoot({ children }: { children: React.ReactNode }) {
-   const { isOpen, close } = useFirstVisitPopup({
-    storageKey: "popup:reg:v2", 
+  const { isOpen, close } = useFirstVisitPopup({
+    storageKey: "popup:reg:v2",
     cooldownDays: 0.33333,
     delayMs: 200,
   });
@@ -22,8 +23,9 @@ export default function ClientRoot({ children }: { children: React.ReactNode }) 
       <MainLayout>
         {children}
       </MainLayout>
+      <FloatingChat />
 
-      <PopupRegistrationForm isPopup={isOpen} onClose={close} />
+      {/* <PopupRegistrationForm isPopup={isOpen} onClose={close} /> */}
     </ThemeProvider>
   );
 }

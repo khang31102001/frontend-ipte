@@ -15,7 +15,7 @@ interface FeaturedCoursesCardProps {
     data: FeaturedCourses
 }
 
-const CoursesCard = ({ data }: FeaturedCoursesCardProps) => {
+const CoursesCardColum = ({ data }: FeaturedCoursesCardProps) => {
     const { image, duration, level, title, description, textBtn } = data;
 
 
@@ -77,4 +77,4 @@ const CoursesCard = ({ data }: FeaturedCoursesCardProps) => {
     )
 }
 
-export default CoursesCard
+export default CoursesCardColum

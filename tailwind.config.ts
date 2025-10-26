@@ -96,6 +96,9 @@ const config = {
   plugins: [
     require("tailwindcss-animate"),
 
+    //class của Tailwind Typography plugin (rất hữu ích để hiển thị HTML text đẹp mắt).
+    require('@tailwindcss/typography'),
+
   ],
 } satisfies Config
 

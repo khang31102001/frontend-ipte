@@ -8,7 +8,7 @@ export default function Home() {
             <HeroBanner
                 img="/images/banner_home.png"
                 className="mb-12"
-            />.
+            />
             <MainHomePage />
         </div>
     );

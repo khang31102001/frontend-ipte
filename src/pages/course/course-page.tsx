@@ -5,7 +5,7 @@ import { FaqAccordion } from '@/components/courses/faq-accordion'
 import React from 'react'
 import ProblemsAndSolutionList from './problem-solution-list'
 import CourseContent from '@/components/courses/course-content'
-import Breadcrumb from '@/components/Breadcrumb/breadcrumb'
+import Breadcrumb from '@/components/shared/Breadcrumb/breadcrumb'
 
 const courseIntroHtml = `
   <div>
@@ -63,11 +63,11 @@ const courseIntroHtml = `
 `;
 const breadcrumbItems = [
         { 
-            label: 'Trang chủ', 
+            name: 'Trang chủ', 
             href: '/' // Đường dẫn đến trang chủ
         },
         { 
-            label: 'Khóa học', 
+            name: 'Khóa học', 
             href: '/khoa-hoc' // Đường dẫn của trang hiện tại (mục cuối cùng)
         },
     ];

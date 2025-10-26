@@ -1,7 +1,8 @@
-import { CourseCard, type CourseCardProps } from "@/components/courses/card/course-card"
+
 import { Sparkles, Zap, Target } from "lucide-react"
+import CoursesCardColum from "./card/course-card-colum"
 const CourseFeatured = () => {
-    const courses: CourseCardProps[] = [
+    const courses: any[] = [
         {
             category: {
                 icon: <Sparkles className="h-5 w-5 text-yellow-600" />,
@@ -72,7 +73,7 @@ const CourseFeatured = () => {
             <div className="container mx-auto ">
                 <div className="grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {courses.map((course, index) => (
-                        <CourseCard key={index} {...course} />
+                        <CoursesCardColum key={index} {...course} />
                     ))}
                 </div>
             </div>

@@ -5,7 +5,7 @@ import { teacherService } from "@/services/teacher/teacherService";
 
 export default async function TeacherIndex() {
   const teachers = await teacherService.getTeachers({});
-  console.log("Teachers data:", teachers);
+  // console.log("Teachers data:", teachers);
   return (
     <div>
       <HeroBanner 

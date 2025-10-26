@@ -1,13 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Grid3x3, List, ChevronLeft, ChevronRight, ArrowRight, Loader2 } from "lucide-react"
-import Button from "../button/Button"
-import Image from "next/image"
+import { ArrowRight, Loader2 } from "lucide-react"
 import CoursesCard from "../home/card/courses-card"
-import Search from "../search/Search"
-import CourseContent from "./course-content"
+import ListGridControl from "../shared/Control/list-grid-control"
+import CourseCardRow from "./card/course-card-row"
 interface Course {
   id: number
   title: string
@@ -91,65 +88,31 @@ const courseIntroHtml = `
   </div>
 `;
 
+type ViewMode = "grid" | "list";
 export function CourseGrid() {
   const [currentCourse, setCurrentCourse] = useState(initialCourses);
   const [loadMore, setloadMore] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [sortBy, setSortBy] = useState("newest")
+  const [viewMode, setViewMode] = useState<ViewMode>("grid")
+  // const [searchQuery, setSearchQuery] = useState("")
+  // const [sortBy, setSortBy] = useState("newest")
   const ITEMS_PER_LOAD = 4; // Số lượng phần tử load mỗi lần
-  const [currentItem, setCurrentItem] = useState(ITEMS_PER_LOAD);
+  // const [currentItem, setCurrentItem] = useState(ITEMS_PER_LOAD);
 
   const handleLoadMore = () => {
     setloadMore(!loadMore);
     /// sử lý api
   }
 
+  const handleViewMode = (type: ViewMode) => {
+    setViewMode(type)
+  }
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        {/* <div className="mb-8">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <span>Trang chủ</span>
-            <span>/</span>
-            <span>Khóa học</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Khóa học</h2>
-        </div> */}
-        
+
+
         {/* Controls */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          {/* Search */}
-         <Search />
-
-          {/* Sort */}
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SelectValue placeholder="Newly published" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="newest">Newly published</SelectItem>
-              <SelectItem value="popular">Most popular</SelectItem>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* View Toggle */}
-          <div className="flex gap-2">
-            <Button
-              onClick={() => setViewMode("grid")}
-            >
-              <Grid3x3 className="w-4 h-4" />
-            </Button>
-            <Button
-              onClick={() => setViewMode("list")}
-            >
-              <List className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
+        <ListGridControl onChangeView={handleViewMode} />
 
         {/* Course Section */}
         <div className="space-y-12">
@@ -169,7 +132,20 @@ export function CourseGrid() {
               }
             >
               {currentCourse.map((item, index) => (
-                <CoursesCard key={index} data={item} />
+                <>
+                  {viewMode === "grid" ? (
+                    <CoursesCard key={index} data={item} />
+                  ) : (
+                    <CourseCardRow
+                      key={index}
+                      image={item.image}
+                      duration={item.duration}
+                      level={item.level}
+                      title={item.title}
+                      description={item.description}
+                    />
+                  )}
+                </>
               ))}
             </div>
 
