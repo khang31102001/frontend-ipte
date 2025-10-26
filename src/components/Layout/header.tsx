@@ -14,27 +14,27 @@ import { NavMenuData } from '@/data/nav-menu-data'
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false)
-  const [openSubMenu, setOpenSubMenu] = useState<number | null>(null)
+  const [openSubMenu, setOpenSubMenu] = useState<Boolean>(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node)
-      ) {
-        setOpenSubMenu(null)
-      }
-    }
-    // listening a event to action something
-    document.addEventListener('mousedown', handleClickOutside)
+  // useEffect(() => {
+  //   function handleClickOutside(event: MouseEvent) {
+  //     if (
+  //       menuRef.current &&
+  //       !menuRef.current.contains(event.target as Node)
+  //     ) {
+  //       setOpenSubMenu(null)
+  //     }
+  //   }
+  //   // listening a event to action something
+  //   document.addEventListener('mousedown', handleClickOutside)
 
-    // action the unmout it
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
+  //   // action the unmout it
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside)
+  //   }
+  // }, [])
 
 
 
@@ -48,10 +48,6 @@ const Header = () => {
       phone: '1900 636 648',
     },
   ]
-  const handleOpenSubMenu = (id: number) => {
-    const isOpen = openSubMenu === id ? null : id
-    setOpenSubMenu(isOpen)
-  }
 
   return (
     <>
@@ -138,17 +134,16 @@ const Header = () => {
         <nav className="container mx-auto px-4">
           <ul
             ref={menuRef}
-            className="flex items-center justify-center gap-6 py-4 text-sm font-semibold text-gray-700"
+            className="flex items-center justify-center gap-6 p-0 text-sm font-semibold text-gray-700"
           >
             {NavMenuData.map((item, idx) => (
               <li
-                onClick={() => handleOpenSubMenu(item.id)}
                 key={idx}
-                className="relative flex items-center cursor-pointer "
+                className="relative flex items-center cursor-pointer group "
               >
-                <Link
+                <a
                   href=""
-                  className="text-gray-900 text-sm  \font-semibold flex items-center  gap-1 hover:text-brandBlue-500 nav-link-underline group"
+                  className="text-gray-900 text-sm font-semibold flex items-center  gap-1 hover:text-brandBlue-500 nav-link-underline group py-4 px-2"
                 >
                   <span>{item.name}</span>
                   {item.icon && item.children && (
@@ -161,8 +156,8 @@ const Header = () => {
                       />
                     </span>
                   )}
-                </Link>
-                {openSubMenu === item.id && (
+                </a>
+               
                   <DropdownMenu
                     items={
                       item.children?.map(child => ({
@@ -170,9 +165,9 @@ const Header = () => {
                         href: child.url ?? "#",
                       })) ?? []
                     }
-                    className="w-56"
+                    className="hidden group-hover:block w-56"
                   />
-                )}
+               
               </li>
             ))}
           </ul>
