@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 
 import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
-import ClientRoot from "@/pages/Layout/client-root";
+import ClientRoot from "@/app/client-root";
 // import AuthProvider from '@/providers/AuthProvider'
 // import Layout from "@/pages/layout";
 

@@ -3,8 +3,9 @@ import React from "react";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import PopupRegistrationForm from "@/components/popup/form/popup-registration-form";
 import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
-import MainLayout from "./main-layout";
+import MainLayout from "../pages/Layout/main-layout";
 import FloatingChat from "@/components/Layout/FloatingChat";
+import { main_menu_categories } from "@/data/category";
 
 export default function ClientRoot({ children }: { children: React.ReactNode }) {
   const { isOpen, close } = useFirstVisitPopup({
@@ -20,12 +21,14 @@ export default function ClientRoot({ children }: { children: React.ReactNode }) 
       enableSystem
       disableTransitionOnChange
     >
-      <MainLayout>
+      <MainLayout
+        menu={main_menu_categories}
+      >
         {children}
       </MainLayout>
       <FloatingChat />
 
-      {/* <PopupRegistrationForm isPopup={isOpen} onClose={close} /> */}
+      <PopupRegistrationForm isPopup={isOpen} onClose={close} />
     </ThemeProvider>
   );
 }

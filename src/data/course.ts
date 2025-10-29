@@ -1,14 +1,14 @@
 import { Course } from "@/types/courses";
-import { Category } from "@/types/category"; // Giả định
+import { CategoryItem, CategoryType } from "@/types/category"; // Giả định
 
 // Giả định dữ liệu Category (để đảm bảo Category? là hợp lệ)
-const CATEGORIES: Category[] = [
-    { id: 1, name: "IELTS Luyện Thi", slug: "ielts-luyen-thi", icon: "", parent_id: null, category_type: "course", children: [] },
-    { id: 2, name: "Tiếng Anh Giao Tiếp", slug: "tieng-anh-giao-tiep", icon: "", parent_id: null, category_type: "course", children: [] },
-    { id: 3, name: "PTE Academic", slug: "pte-academic", icon: "", parent_id: null, category_type: "course", children: [] },
+const CATEGORIES: CategoryItem[] = [
+    { id: 1, name: "IELTS Luyện Thi", slug: "ielts-luyen-thi", icon: "", parent_id: null, category_type: CategoryType.COURSE, children: [] },
+    { id: 2, name: "Tiếng Anh Giao Tiếp", slug: "tieng-anh-giao-tiep", icon: "", parent_id: null, category_type: CategoryType.COURSE, children: [] },
+    { id: 3, name: "PTE Academic", slug: "pte-academic", icon: "", parent_id: null, category_type: CategoryType.COURSE, children: [] },
 ];
 
-const findCategory = (id: number): Category | undefined => {
+const findCategory = (id: number): CategoryItem | undefined => {
     return CATEGORIES.find(c => c.id === id);
 };
 
@@ -113,7 +113,7 @@ export const get_list_course: Course[] = [
         slug: "pte-core-dinh-cu-58-65",
         description: "Khóa học chuyên biệt cho PTE Core, đảm bảo đạt điểm 58 hoặc 65 cho mục đích định cư Úc/Canada.",
         category_id: 3,
-       
+
         metaTitle: "Luyện thi PTE Core định cư 58/65 | Cam kết đầu ra",
         metaDescription: "Tập trung vào các phần thi Read Aloud và Repeat Sentence, chiến thuật làm bài PTE Core hiệu quả.",
         keywords: ["luyện thi pte core", "pte định cư", "pte 58"]

@@ -1,4 +1,4 @@
-import { Category } from "./category";
+import { CategoryItem } from "./category";
 
 export interface Course {
     id: number,
@@ -7,7 +7,7 @@ export interface Course {
     slug: string,
     description: string,
     category_id: number | null,
-    category?: Category,
+    category?: CategoryItem,
     metaTitle: string;
     metaDescription: string;
     keywords: string[];

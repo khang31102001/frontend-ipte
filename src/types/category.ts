@@ -2,6 +2,7 @@ export enum CategoryType {
   HEADER_MENU = "HEADER_MENU",
   FOOTER_MENU = "FOOTER_MENU",
   SIDEBAR_MENU = "SIDEBAR_MENU",
+  COURSE = "COURSE"
 }
 
 

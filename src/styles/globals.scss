@@ -1,6 +1,7 @@
 @tailwind base;
-@import "./components.css";
-@import "./utilities.css";
+@tailwind components;
+@tailwind utilities;
+@import "./header";
 
 @layer base {
     :root {
@@ -58,8 +59,8 @@
         --input: 217.2 32.6% 17.5%;
         --ring: 212.7 26.8% 83.9%;
 
-         /* Animations */
-         --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Animations */
+        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
@@ -78,6 +79,43 @@
     }
 }
 
+@layer components {
+
+
+    .pte-ipass-card {
+        @apply border bg-card text-card-foreground shadow-sm;
+        @apply shadow-md hover:shadow-lg transition-shadow;
+        @apply overflow-hidden;
+    }
+
+    .card-box {
+        @apply bg-white border border-gray-100 rounded shadow-xl;
+    }
+
+}
+
+@layer utilities {
+
+    /* Smooth transitions */
+    .transition-smooth {
+        transition: var(--transition-smooth);
+    }
+
+    /* Custom scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        @apply bg-muted;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-muted-foreground rounded-full;
+    }
+}
+
+
 
 
 .no-scrollbar::-webkit-scrollbar {
@@ -92,32 +130,6 @@
     /* Firefox */
 }
 
-.nav-link-underline {
-    position: relative;
-    text-decoration: none;
-    transition: color 0.3s ease-out;
-}
-
-.nav-link-underline::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background-image: linear-gradient(to right, #F7C102, #F6E10E);
-    bottom: -4px;
-    border-radius: 6px;
-    right: 0;
-    transform: scale(0);
-    /* Bắt đầu hiệu ứng từ bên trái (Origin: 0%) */
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
-}
-
-.nav-link-underline:hover:after {
-    transform: scale(1);
-    /* Kết thúc hiệu ứng ở bên phải (Origin: 100%) */
-    transform-origin: bottom left;
-}
 
 
 

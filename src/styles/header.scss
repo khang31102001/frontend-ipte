@@ -1,0 +1,535 @@
+#nav-menu-pte-ipass {
+    display: none;
+
+    nav {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 0.35rem 1.25rem;
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.875rem;
+            line-height: 1.2rem;
+            font-weight: 600;
+        }
+
+        li {
+
+            display: flex;
+            flex: 0 1 auto;
+            align-items: center;
+            cursor: pointer;
+            margin: 8px 0;
+
+
+
+
+        }
+
+
+
+        a {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 4px;
+
+            color: hsl(var(--primary));
+            text-decoration: none;
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.06s ease;
+
+            &:hover,
+            &:focus-visible {
+                color: hsl(234, 82%, 29%);
+                outline: none;
+            }
+
+            &.is-active {
+                color: hsl(234, 85%, 35%);
+                background-color: hsl(220, 16%, 96%);
+                font-weight: 500;
+            }
+
+            // Nhấn nhẹ khi click
+            &:active {
+                transform: translateY(1px);
+            }
+
+            &.link-underline {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: -4px;
+                    width: 100%;
+                    height: 3px;
+                    border-radius: 4px;
+                    background-image: linear-gradient(to right, #f7c102, #f6e10e);
+                    transform: scaleX(0);
+                    transform-origin: right center;
+                    transition: transform 0.3s ease-out;
+                }
+
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: scaleX(1);
+                    transform-origin: left center;
+                }
+            }
+
+            @media (min-width:768px) {
+                font-size: 12px;
+
+
+            }
+
+            @media (min-width:1200px) {
+                font-size: 14px;
+
+
+            }
+        }
+
+
+
+        @media (min-width:1200px) {
+            max-width: 1200px;
+
+        }
+    }
+
+
+    @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+        border-bottom-width: 1px;
+        --tw-border-opacity: 1;
+        border-color: rgb(229 231 235 / var(--tw-border-opacity));
+        --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1),
+            0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+            0 1px 2px -1px var(--tw-shadow-color);
+        box-shadow:
+            var(--tw-ring-offset-shadow, 0 0 #0000),
+            var(--tw-ring-shadow, 0 0 #0000),
+            var(--tw-shadow);
+
+    }
+
+}
+
+#nav-menu-pte-ipass li {
+    position: relative;
+}
+
+.sub-menu-desktop {
+    position: absolute;
+    width: 200px;
+    // text-align: start;
+    top: 100%;
+    left: 0;
+    margin-top: 0.25rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+
+    opacity: 0;
+    transform: translateY(-6px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 50;
+
+
+
+}
+
+/* Hover vào li cha → hiện submenu cấp 1 */
+#nav-menu-pte-ipass li:hover>.sub-menu-desktop {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+
+.sub-menu-desktop .has-children {
+    position: relative;
+}
+
+.sub-menu-desktop .has-children>.sub-menu-desktop {
+    top: 0;
+    left: 100%;
+    margin-top: 0;
+    margin-left: .25rem;
+    transform: translateX(-6px);
+
+}
+
+.sub-menu-desktop .has-children:hover>.sub-menu-desktop {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.sub-menu-desktop .has-children::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -8px;
+    width: 12px;
+    height: 100%;
+    /* cầu vô hình để chuột đi sang submenu mà không tắt hover */
+}
+
+/* ==== Viewport-safe full height + tránh double scroll ==== */
+$z-menu: 40;
+$radius: 12px;
+$dur: .3s;
+$ease: cubic-bezier(.16, 1, .3, 1);
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: $z-menu;
+    /* Fallback + modern viewport units để đúng trên iOS/Android */
+    height: 100vh;
+    height: 100svh;
+    /* small viewport */
+    height: 100dvh;
+    /* dynamic viewport */
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+
+    transform: translateY(-100%);
+    transition: transform $dur $ease;
+
+    /* Không để container chính tự cuộn, chỉ list cuộn */
+    overflow: hidden;
+
+    /* Padding có tính safe-area cho iPhone notch */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    padding: calc(16px + var(--safe-top)) 16px calc(20px + var(--safe-bottom));
+
+    &--open {
+        transform: translateY(0);
+    }
+
+    /* Khóa body scroll khi menu mở (thêm class trên <body> từ JS) */
+    /* body.no-scroll { overflow: hidden; touch-action: none; } */
+
+    &__inner {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+
+
+        /* optional: header/footer cố định */
+        .mobile-menu__header {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: $z-menu;
+            padding: 8px 0 6px;
+            margin-bottom: 8px;
+        }
+
+        .mobile-menu__footer {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            padding: 10px 0 calc(10px + var(--safe-bottom));
+            margin-top: 8px;
+            border-top: 1px solid #eef0f4;
+        }
+    }
+
+    /* ==== Danh sách chính — cuộn trong khung cố định ==== */
+    &__list {
+        flex: 1 1 auto;
+        /* chiếm toàn bộ phần còn lại */
+        min-height: 0;
+        /* quan trọng để flex child có thể cuộn */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 4px;
+        /* giảm padding tổng để tối đa vùng cuộn */
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #374151;
+
+        /* Chỉ list mới cuộn */
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        /* tránh “giật bounce” */
+        -webkit-overflow-scrolling: touch;
+        /* mượt trên iOS */
+
+        /* thêm khoảng trống đáy để không bị nút nổi che */
+        padding-bottom: calc(80px + var(--safe-bottom));
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+    }
+
+    /* ==== Item & tap target chuẩn ==== */
+    &__item {
+        position: relative;
+        padding: 8px 0;
+        margin-bottom: 8px;
+
+        /* Tap target >= 44px theo Apple HIG */
+        .mobile-menu__row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            min-height: 44px;
+            /* chuẩn chạm */
+            padding: 10px 0;
+        }
+
+        &--open {
+            .mobile-menu__caret {
+                transform: rotate(180deg);
+            }
+
+            .mobile-menu__submenu {
+                max-height: min(60vh, 480px);
+                /* giới hạn submenu rất dài */
+                opacity: 1;
+                visibility: visible;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+    }
+
+    &__link {
+        color: #111827;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        /* chống vỡ layout với text dài */
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        transition: color .2s ease;
+
+        &:hover {
+            color: #2563eb;
+        }
+    }
+
+    &__toggle {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 8px;
+        border: 0;
+        background: transparent;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color .2s ease;
+
+        &:hover,
+        &:focus-visible {
+            background: #f3f4f6;
+            outline: none;
+        }
+    }
+
+    &__caret {
+        width: 14px;
+        height: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform .2s ease;
+    }
+
+    /* ==== UL con (submenu) — accordion có giới hạn chiều cao ==== */
+    &__submenu {
+        list-style: none;
+        margin: 0;
+        padding: 6px 0 6px 16px;
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+
+        transition:
+            max-height .25s $ease,
+            opacity .25s $ease,
+            visibility .25s $ease;
+
+        /* link con mảnh hơn + xuống dòng nếu dài */
+        a {
+            display: block;
+            padding: 8px 4px;
+            color: #374151;
+            font-weight: 500;
+            border-radius: 8px;
+            text-decoration: none;
+
+            /* Cho phép xuống dòng nhiều từ */
+            white-space: normal;
+            overflow-wrap: anywhere;
+            /* chống tràn từ dài */
+            hyphens: auto;
+
+            transition: background-color .2s $ease, color .2s $ease;
+
+            &:hover {
+                background: #eef2ff;
+                color: #4338ca;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 8px;
+        }
+    }
+}
+
+/* Giảm chuyển động nếu người dùng chọn */
+@media (prefers-reduced-motion: reduce) {
+    .mobile-menu * {
+        transition-duration: .01ms !important;
+        transition-delay: 0ms !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu__list {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.sub-menu-mobile {
+    margin: 0;
+    padding: 0 .25rem .25rem 1rem;
+    list-style: none;
+    opacity: 0;
+    max-height: 0;
+    visibility: hidden;
+    transition:
+        max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+      scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    &::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #d1d5db;
+    }
+
+    &.is-open {
+        opacity: 1;
+        max-height: min(60vh, 480px);
+        visibility: visible;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+}
+
+.mobile-menu__item.is-open .caret { transform: rotate(360deg); transition: transform .25s ease; }
+.has-children > a .caret {
+  display: inline-block;
+  transition: transform .25s ease;
+}
+.has-children.is-open > a .caret {
+  transform: rotate(90deg);
+}
+
+
+.nav-link-underline {
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease-out;
+}
+
+.nav-link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-image: linear-gradient(to right, #F7C102, #F6E10E);
+    bottom: -4px;
+    border-radius: 6px;
+    right: 0;
+    transform: scale(0);
+    /* Bắt đầu hiệu ứng từ bên trái (Origin: 0%) */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.nav-link-underline:hover:after {
+    transform: scale(1);
+    /* Kết thúc hiệu ứng ở bên phải (Origin: 100%) */
+    transform-origin: bottom left;
+}

@@ -6,15 +6,20 @@ import {
 
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import DropdownMenu from '../ui/DropdownMenu'
-import MobileMenuList from './mobile-menu-list'
 import { useIsMobile } from '@/hooks/use-mobile'
 import Link from 'next/link'
 import { NavMenuData } from '@/data/nav-menu-data'
+import { CategoryItem } from '@/types/category'
+import OnSubMenu from '../ui/DropdownMenu'
+import MenuMobileList from './menu-mobile-list'
 
-const Header = () => {
+interface HeaderProps {
+  menuItems: CategoryItem[]
+}
+const Header = ({
+  menuItems
+}:HeaderProps) => {
   const [openMenu, setOpenMenu] = useState(false)
-  const [openSubMenu, setOpenSubMenu] = useState<Boolean>(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
 
@@ -49,11 +54,12 @@ const Header = () => {
     },
   ]
 
+  if(!menuItems || menuItems.length === 0) return null
   return (
     <>
       <header className={`${isMobile ? "sticky inset-0 top-0 z-50 bg-[#F6E10E] " : "relative bg-[#F6E10E] "} w-full overflow-hidden`}>
         {/* Top Header */}
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto px-2 py-4">
           <div className="flex h-20 md:h-32 justify-between items-center px-4 gap-2 md:gap-4">
             {/* logo */}
             <div className="relative flex-shrink-0 overflow-hidden ">
@@ -120,7 +126,7 @@ const Header = () => {
                 </button>
 
                 {/* mobile menu */}
-                <MobileMenuList data={NavMenuData} IsOpenMenu={openMenu} />
+                <MenuMobileList data={NavMenuData} IsOpenMenu={openMenu} />
               </>
             )}
 
@@ -130,20 +136,21 @@ const Header = () => {
       </header>
 
       {/* bottom nav desktop */}
-      <div className="hidden md:flex items-center justify-center w-full bg-white shadow border-b border-gray-200 sticky top-0.5 z-50">
-        <nav className="container mx-auto px-4">
+      <div id="nav-menu-pte-ipass">
+        <nav>
           <ul
             ref={menuRef}
-            className="flex items-center justify-center gap-6 p-0 text-sm font-semibold text-gray-700"
+  
           >
             {NavMenuData.map((item, idx) => (
               <li
                 key={idx}
-                className="relative flex items-center cursor-pointer group "
+                
               >
                 <a
                   href=""
-                  className="text-gray-900 text-sm font-semibold flex items-center  gap-1 hover:text-brandBlue-500 nav-link-underline group py-4 px-2"
+                  className='link-underline group'
+                 
                 >
                   <span>{item.name}</span>
                   {item.icon && item.children && (
@@ -158,15 +165,13 @@ const Header = () => {
                   )}
                 </a>
                
-                  <DropdownMenu
-                    items={
-                      item.children?.map(child => ({
-                        label: child.name,
-                        href: child.url ?? "#",
-                      })) ?? []
-                    }
-                    className="hidden group-hover:block w-56"
+                 {item.children &&(
+                   <OnSubMenu
+                    items={item.children}
+                    variant='desktop'
+                    className='sub-menu-desktop card-box'
                   />
+                 )}
                
               </li>
             ))}

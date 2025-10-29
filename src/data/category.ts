@@ -1,41 +1,43 @@
-import { Category } from './../types/category'
+
 /// level 0 là cha danh mục cấp 1
 /// level 1 là con danh mục mục cấp 2
 /// level 2 là con danh mục mục cấp 3
+
+import { CategoryItem, CategoryType } from "@/types/category";
+
 /// level 3 là con danh mục mục cấp 4
-export const main_menu_categories: Category[] = [
+export const main_menu_categories: CategoryItem[] = [
     {
         id: 100,
         icon: 'i-mdi-book-open-variant',
         name: 'KHÓA HỌC',
         slug: 'khoa-hoc',
         parent_id: null,
-        level: 0,
-        category_type: 'main_menu',
+
+        category_type: CategoryType.HEADER_MENU,
         children: [
             {
                 id: 101,
                 name: 'Luyện Thi IELTS Chuyên Sâu',
                 slug: 'luyen-thi-ielts-chuyen-sau',
                 parent_id: 100,
-                category_type: 'course',
-                level: 1,
+                category_type: CategoryType.COURSE,
                 children: [
                     {
                         id: 103,
                         name: 'Luyện Thi IELTS Chuyên Sâu',
                         slug: 'luyen-thi-ielts-chuyen-sau',
                         parent_id: 101,
-                        category_type: 'course',
-                        level: 2,
+                        category_type: CategoryType.COURSE
+
                     },
-                     {
+                    {
                         id: 104,
                         name: 'Luyện Thi IELTS Chuyên Sâu',
                         slug: 'luyen-thi-ielts-chuyen-sau',
                         parent_id: 101,
-                        category_type: 'course',
-                        level: 2,
+                        category_type: CategoryType.COURSE
+
                     },
                 ]
             },
@@ -44,8 +46,8 @@ export const main_menu_categories: Category[] = [
                 name: 'Luyện Thi IELTS Chuyên Sâu',
                 slug: 'luyen-thi-ielts-chuyen-sau',
                 parent_id: 100,
-                category_type: 'course',
-                level: 1,
+                category_type: CategoryType.COURSE
+
             },
         ],
         meta_title: 'Tất cả Khóa học Tiếng Anh & PTE',
@@ -58,8 +60,7 @@ export const main_menu_categories: Category[] = [
         name: 'KIẾN THỨC',
         slug: 'tai-lieu',
         parent_id: null,
-        level: 0,
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Thư viện Tài liệu ôn thi miễn phí',
         meta_description:
@@ -72,8 +73,8 @@ export const main_menu_categories: Category[] = [
         name: 'PTE iPASS',
         slug: 'pte-ipass',
         parent_id: null,
-        level: 0,
-        category_type: 'main_menu',
+
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'PTE iPASS: Giải pháp ôn thi PTE toàn diện',
         meta_description:
@@ -86,8 +87,8 @@ export const main_menu_categories: Category[] = [
         name: 'HV REVIEW',
         slug: 'hoc-vien-review',
         parent_id: null,
-        level: 0,
-        category_type: 'main_menu',
+
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Review từ Học viên đã thành công',
         meta_description:
@@ -101,7 +102,7 @@ export const main_menu_categories: Category[] = [
         slug: 'du-hoc',
         parent_id: null,
 
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Tư vấn Du học các nước (Úc, Canada,...) tốt nhất',
         meta_description:
@@ -114,7 +115,7 @@ export const main_menu_categories: Category[] = [
         name: 'ĐI LÀM & ĐỊNH CƯ',
         slug: 'di-lam-dinh-cu',
         parent_id: null,
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Thông tin Định cư & Cơ hội Việc làm quốc tế',
         meta_description:
@@ -127,7 +128,7 @@ export const main_menu_categories: Category[] = [
         name: 'PTE ĐẠI HỌC',
         slug: 'pte-dai-hoc',
         parent_id: null,
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'PTE thay thế IELTS cho xét tuyển Đại học',
         meta_description:
@@ -140,7 +141,7 @@ export const main_menu_categories: Category[] = [
         name: 'CHÍNH SÁCH',
         slug: 'chinh-sach',
         parent_id: null,
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Chính sách Bảo mật và Hoàn học phí',
         meta_description:
@@ -154,7 +155,7 @@ export const main_menu_categories: Category[] = [
         name: 'TIN TỨC',
         slug: 'tin-tuc',
         parent_id: null,
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Tin tức mới nhất về Giáo dục & Du học',
         meta_description:
@@ -167,7 +168,7 @@ export const main_menu_categories: Category[] = [
         name: 'LIÊN HỆ',
         slug: 'lien-he',
         parent_id: null,
-        category_type: 'main_menu',
+        category_type: CategoryType.HEADER_MENU,
         children: [],
         meta_title: 'Liên hệ Tư vấn và Hỗ trợ',
         meta_description:
