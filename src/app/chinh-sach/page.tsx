@@ -5,13 +5,8 @@ import PolicyPage from "@/pages/policy/policy-page";
 export default function PolicyIndex () {
     return(
         <div>
-            {/* <HeroBanner img="/images/hero-banner-chinh-sach.png" className="mb-12"/> */}
-            <HeroImage
-                src="/images/hero-banner-chinh-sach.png"
-                objectPosition="center"
-                preset="soft"
-                className="hero--fullscreen"
-            />
+            <HeroBanner img="/images/hero-banner-chinh-sach.png" className="mb-12"/>
+           
             <PolicyPage/>
         </div>
     )

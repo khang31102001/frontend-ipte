@@ -9,13 +9,8 @@ export default async function IndexAbout() {
     const branches = await aboutMeService.getAboutMe({ category: "BRANCH" }).then(res => res?.items || []);
     return (
         <div>
-            {/* <HeroBanner img="/images/banner-team-teacher.jpg" className="mb-12 " /> */}
-            <HeroImage
-                src="/images/banner-team-teacher.jpg"
-                objectPosition="center"
-                preset="soft"
-                className="hero--fullscreen"
-            />
+            <HeroBanner img="/images/banner-team-teacher.jpg" className="mb-12 " />
+            
             <AboutPage
                 dataEcosystem={dataEcosystem}
                 branches={branches}

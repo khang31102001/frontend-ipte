@@ -1,7 +1,193 @@
+/* ========================== */
+/*        HEADER SCSS         */
+/* ========================== */
+
+.header {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    //   min-height: 110px;
+    background-color: #F6E10E;
+    color: hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+
+    /* Sticky header (optional) */
+    &--sticky {
+        position: sticky;
+        inset: 0;
+        top: 0;
+        backdrop-filter: blur(8px);
+        background-color: #F6E10E;
+    }
+
+    /* Transparent variant (hero overlay) */
+    &--transparent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: transparent;
+        color: #fff;
+        border-bottom: none;
+    }
+
+    /* Container — luôn bọc toàn bộ phần tử con */
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1280px;
+        margin: 1rem auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+        height: 84px;
+
+        @media (min-width: 1024px) {
+            height: 110px;
+        }
+    }
+
+    /* Khối bên trong chuyển đổi flex -> grid ở md+ */
+    &__inner {
+        /* Mobile: flex 1 hàng như cũ */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+        height: 5rem;
+        width: 100%;
+
+        /* h-20 */
+        @media (min-width: 768px) {
+            height: 8rem;
+        }
+
+  
+
+    }
+
+    &__search {
+    display: none; /* ẩn mobile */
+    position: relative;
+
+    @media (min-width: 768px) {
+      display: block;
+      justify-self: end;      
+    
+      width: min(20rem, 100%); /* md:w-80 ~ 320px */
+    }
+    @media (min-width: 1024px) { width: 18rem; } /* lg:w-72 */
+
+    .search-icon {
+      position: absolute;
+      left: .75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: hsl(var(--muted-foreground));
+      width: 18px; height: 18px;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid hsl(var(--input));
+      background: hsl(var(--background));
+      padding: .75rem 1rem .75rem 2.5rem; /* pl-10 pr-4 py-3 */
+      font-size: .875rem; /* text-sm */
+      outline: none;
+      transition: var(--transition-smooth);
+
+      &:focus {
+        box-shadow: 0 0 0 2px hsl(var(--ring));
+        border-color: transparent;
+      }
+    }
+  }
+
+  
+    &__hotline {
+        display: none;
+
+        /* ẩn mobile */
+        @media (min-width: 1024px) {
+            /* lg trở lên mới hiện như yêu cầu ban đầu */
+            display: flex;
+            gap: .75rem;
+           
+            justify-self: start;
+            /* NẰM MÉ TRÁI */
+            align-self: center;
+        }
+
+        .hotline-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            height: 3rem;
+            padding: .5rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            max-width: 18rem;
+
+            &:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+            }
+        }
+
+        .hotline-text {
+            font-size: .875rem;
+            /* text-sm */
+            font-weight: 500;
+            white-space: nowrap;
+        }
+    }
+
+
+    /* Actions (buttons, icons) */
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .header__btn {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+
+            &:hover {
+                background: hsl(var(--primary) / 0.85);
+            }
+        }
+    }
+
+    /* Mobile nav toggle */
+    &__toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        @media (min-width: 768px) {
+            display: none;
+        }
+    }
+}
+
 #nav-menu-pte-ipass {
     display: none;
 
     nav {
+        
         width: 100%;
         margin-right: auto;
         margin-left: auto;
@@ -10,8 +196,9 @@
         ul {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-between;
+           
+            gap: 12px;
             list-style: none;
             margin: 0;
             padding: 0;
@@ -115,7 +302,7 @@
         position: sticky;
         top: 0;
         width: 100%;
-        z-index: 999;
+        z-index: 9999;
         border-bottom-width: 1px;
         --tw-border-opacity: 1;
         border-color: rgb(229 231 235 / var(--tw-border-opacity));
@@ -272,11 +459,13 @@ $ease: cubic-bezier(.16, 1, .3, 1);
         flex: 1 1 auto;
         /* chiếm toàn bộ phần còn lại */
         min-height: 0;
+        max-height: 75vh;
+        margin: auto 0;
         /* quan trọng để flex child có thể cuộn */
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: space-between;
+    
         gap: 12px;
         padding: 8px 4px;
         /* giảm padding tổng để tối đa vùng cuộn */
@@ -311,7 +500,7 @@ $ease: cubic-bezier(.16, 1, .3, 1);
     /* ==== Item & tap target chuẩn ==== */
     &__item {
         position: relative;
-        padding: 8px 0;
+        padding: 2px 0;
         margin-bottom: 8px;
 
         /* Tap target >= 44px theo Apple HIG */
@@ -381,8 +570,7 @@ $ease: cubic-bezier(.16, 1, .3, 1);
     }
 
     &__caret {
-        width: 14px;
-        height: 14px;
+       
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -472,12 +660,14 @@ $ease: cubic-bezier(.16, 1, .3, 1);
     &::-webkit-scrollbar {
         width: 8px;
     }
-      scrollbar-width: none;
-        -ms-overflow-style: none;
 
-        &::-webkit-scrollbar {
-            display: none;
-        }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     &::-webkit-scrollbar-thumb {
         background: #e5e7eb;
         border-radius: 8px;
@@ -497,13 +687,19 @@ $ease: cubic-bezier(.16, 1, .3, 1);
 
 }
 
-.mobile-menu__item.is-open .caret { transform: rotate(360deg); transition: transform .25s ease; }
-.has-children > a .caret {
-  display: inline-block;
-  transition: transform .25s ease;
+.mobile-menu__item.is-open .caret {
+    height: 12px; width: 12px;
+    transform: rotate(360deg);
+    transition: transform .25s ease;
 }
-.has-children.is-open > a .caret {
-  transform: rotate(90deg);
+
+.has-children>a .caret {
+    display: inline-block;
+    transition: transform .25s ease;
+}
+
+.has-children.is-open>a .caret {
+    transform: rotate(90deg);
 }
 
 

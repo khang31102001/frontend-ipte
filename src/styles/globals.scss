@@ -121,7 +121,6 @@
   }
 }
 
-/* ===================== */
 /*      UTILITIES        */
 /* ===================== */
 @layer utilities {
@@ -161,8 +160,5 @@
     @media (min-width: 1440px) { max-height: 900px; }
   }
 
-  .hero--fullscreen {
-    min-height: 100vh;
-    max-height: 100vh;
-  }
+  
 }

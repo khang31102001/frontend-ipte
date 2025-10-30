@@ -14,10 +14,9 @@ const MainLayout = ({
   return (
     <div className='min-h-screen flex flex-col'>
         <Header menuItems={menu }/>
-        <main className='flex-1'>
+        <main className='flex-1 w-full'>
             {children}
         </main>
-        
         <Footer/>
     </div>
   )

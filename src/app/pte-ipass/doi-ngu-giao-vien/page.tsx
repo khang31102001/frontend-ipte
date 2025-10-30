@@ -9,17 +9,11 @@ export default async function TeacherIndex() {
   // console.log("Teachers data:", teachers);
   return (
     <div>
-      {/* <HeroBanner 
+      <HeroBanner 
         img="/images/banner-team-teacher.jpg" 
         className="mb-12 "
-        /> */}
-         <HeroImage
-                src="/images/banner-team-teacher.jpg"
-                objectPosition="center"
-                preset="soft"
-                className="hero--fullscreen"
-            
-            />
+        />
+        
       <TeamTeacherPage
         data={teachers.data}
         features={teachers.features}

@@ -9,17 +9,11 @@ import PTEUniversityPage from "@/pages/pte-university/pte-university-page";
 export default function UniversityIndex() {
     return (
         <div>
-            {/* <HeroBanner
+            <HeroBanner
             img="/images/hero-banner-primary.png"
             className="mb-12"
-            /> */}
-            <HeroImage
-                src="/images/hero-banner-primary.png"
-                objectPosition="center"
-                preset="soft"
-                className="hero--fullscreen"
             />
-
+           
             <PTEUniversityPage data={SAMPLE_PTEuniversity} />
 
         </div>

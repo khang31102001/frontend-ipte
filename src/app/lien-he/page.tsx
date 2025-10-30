@@ -5,16 +5,11 @@ import ContactPage from "@/pages/contact/contact-page";
 export default function ContactIndex(){
     return(
         <div>
-            {/* <HeroBanner
+            <HeroBanner
             img="/images/hero-banner-primary.png"
             className="mb-12"
-            /> */}
-              <HeroImage
-                src="/images/hero-banner-primary.png"
-                objectPosition="center"
-                preset="soft"
-                className="hero--fullscreen"
             />
+             
             <ContactPage/>
 
         </div>   

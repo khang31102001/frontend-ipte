@@ -19,7 +19,7 @@ interface HeaderProps {
 }
 const Header = ({
   menuItems
-}:HeaderProps) => {
+}: HeaderProps) => {
   const [openMenu, setOpenMenu] = useState(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
@@ -55,56 +55,39 @@ const Header = ({
     },
   ]
 
-  if(!menuItems || menuItems.length === 0) return null
+  if (!menuItems || menuItems.length === 0) return null
   return (
     <>
-      <header className={`${isMobile ? "sticky inset-0 top-0 z-50 bg-[#F6E10E] " : "relative bg-[#F6E10E] "} w-full overflow-hidden`}>
+      <header className={` header ${isMobile && "header--sticky "} `}>
         {/* Top Header */}
-        <div className="container mx-auto px-2 py-4">
-          <div className="flex h-20 md:h-32 justify-between items-center px-4 gap-2 md:gap-4">
+        <div className="header__container">
+          <div className="header__inner">
             {/* logo */}
-            <div className="relative flex-shrink-0 overflow-hidden ">
-              <Link href="/" className="w-36 md:w-64 ">
-                <Image
-                  src="/images/logo/log-2.jpg"
-                  alt="logo"
-                  width={220}
-                  height={240}
-                  priority
-                  className="object-contain w-full h-full"
-                />
-              </Link>
+            <Link href="/" className="block overflow-hidden rounded-full w-48 h-28">
+              <Image
+                src="/images/logo/log-2.jpg"
+                alt="logo"
+                width={80}
+                height={80}
+                className="object-cover w-full h-full"
+              />
+            </Link>
+
+            <div className="header__hotline">
+              {dataHotline.map((item, idx) => (
+                <div key={idx} className="hotline-pill">
+                  {item.icon}
+                  <span className="hotline-text">Hotline: {item.phone}</span>
+                </div>
+              ))}
             </div>
-
-            <div className="h-auto flex-grow flex items-center justify-between">
-              {/* hotline (hidden on mobile) */}
-              <div className="hidden lg:flex items-start gap-3 flex-1 justify-center">
-                {dataHotline.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center max-w-xs h-12 px-4 py-2 text-white rounded-full border border-gray-300 bg-black transition-smooth cursor-pointer"
-                  >
-                    {item.icon}
-                    <span className="text-sm font-medium text-center pl-2 whitespace-nowrap">
-                      Hotline: {item.phone}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* search desktop */}
-              <div className="hidden md:block relative flex-shrink-0 w-64 lg:w-72">
-                <Search
-                  size={18}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                />
-                <input
-                  className="text-sm w-full rounded-full border border-input bg-background pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring transition-smooth"
-                  type="text"
-                  placeholder="Tìm kiếm khóa học..."
-                />
-              </div>
-
+            <div className="header__search">
+              <Search size={18} className="search-icon" />
+              <input
+                className="search-input"
+                type="text"
+                placeholder="Tìm kiếm khóa học..."
+              />
             </div>
 
             {isMobile && (
@@ -141,17 +124,17 @@ const Header = ({
         <nav>
           <ul
             ref={menuRef}
-  
+
           >
             {NavMenuData.map((item, idx) => (
               <li
                 key={idx}
-                
+
               >
                 <a
                   href={item.url}
                   className='link-underline group'
-                 
+
                 >
                   <span>{item.name}</span>
                   {item.icon && item.children && (
@@ -165,15 +148,15 @@ const Header = ({
                     </span>
                   )}
                 </a>
-               
-                 {item.children &&(
-                   <OnSubMenu
+
+                {item.children && (
+                  <OnSubMenu
                     items={item.children}
                     variant='desktop'
                     className='sub-menu-desktop card-box'
                   />
-                 )}
-               
+                )}
+
               </li>
             ))}
           </ul>

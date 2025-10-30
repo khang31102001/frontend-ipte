@@ -1,4 +1,4 @@
-import { Category } from "./category";
+import {  CategoryItem } from "./category";
 import { Tag } from "./tag";
 
 export interface Post {
@@ -10,7 +10,7 @@ export interface Post {
     summary: string; // Tóm tắt ngắn
     content: string; // Nội dung chi tiết
     category_id: number | null,
-    category?: Category;
+    category?: CategoryItem;
     created_at: string;
     updated_at: string;
     type: "news" | "event" | "document";

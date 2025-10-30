@@ -5,17 +5,12 @@ import StudentReviewPage from "@/pages/student-review/student-review-page";
 export default function StudentRviewIndex(){
     return(
         <div>
-            {/* <HeroBanner
+            <HeroBanner
             img="/images/hero-banner-primary.png"
             className="mb-12"
-            /> */}
-
-              <HeroImage
-                src="/images/hero-banner-primary.png"
-                objectPosition="center"
-                preset="soft"
-                className="hero--fullscreen"
             />
+
+            
             <StudentReviewPage/>
 
         </div>   
