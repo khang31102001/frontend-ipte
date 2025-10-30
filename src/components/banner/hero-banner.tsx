@@ -17,8 +17,7 @@ export const HeroBanner = ({ img, className }: HeroBannerProps) => {
         <Image
           src={img}
           alt="PTE Hero Banner"
-          width={1920}
-          height={1080}
+          fill
           className="w-full h-auto object-cover"
           priority
         />

@@ -1,3 +1,4 @@
+import HeroImage from "@/components/banner/banner";
 import HeroBanner from "@/components/banner/hero-banner";
 import TeamTeacherPage from "@/pages/pte-ipass/team-teacher/team-teacher-page";
 import { teacherService } from "@/services/teacher/teacherService";
@@ -8,10 +9,17 @@ export default async function TeacherIndex() {
   // console.log("Teachers data:", teachers);
   return (
     <div>
-      <HeroBanner 
+      {/* <HeroBanner 
         img="/images/banner-team-teacher.jpg" 
         className="mb-12 "
-        />
+        /> */}
+         <HeroImage
+                src="/images/banner-team-teacher.jpg"
+                objectPosition="center"
+                preset="soft"
+                className="hero--fullscreen"
+            
+            />
       <TeamTeacherPage
         data={teachers.data}
         features={teachers.features}

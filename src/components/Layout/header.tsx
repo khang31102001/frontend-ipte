@@ -10,8 +10,9 @@ import { useIsMobile } from '@/hooks/use-mobile'
 import Link from 'next/link'
 import { NavMenuData } from '@/data/nav-menu-data'
 import { CategoryItem } from '@/types/category'
-import OnSubMenu from '../ui/DropdownMenu'
+
 import MenuMobileList from './menu-mobile-list'
+import OnSubMenu from './submenu/sub-menu'
 
 interface HeaderProps {
   menuItems: CategoryItem[]
@@ -148,7 +149,7 @@ const Header = ({
                 
               >
                 <a
-                  href=""
+                  href={item.url}
                   className='link-underline group'
                  
                 >

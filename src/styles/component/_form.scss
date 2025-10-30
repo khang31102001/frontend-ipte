@@ -1,0 +1,190 @@
+/* styles/components/_form.scss */
+
+:root {
+  --form-bg: rgba(255, 255, 255, 0.85);
+
+  --form-title: #111827;    /* gray-900 */
+  --form-subtitle: #6b7280; /* gray-500/600 */
+  --field-bg: #f9fafb;      /* gray-50 */
+  --field-bd: #e5e7eb;      /* gray-200 */
+  --field-bd-focus: #6366f1;/* indigo-500 */
+  --field-txt: #111827;
+  --field-ph: #9ca3af;
+  --error: #dc2626;         /* red-600 */
+  --btn-bg: #ef4444;        /* red-500 */
+  --btn-bg-hover: #dc2626;  /* red-600 */
+  --btn-txt: #ffffff;
+  --radius: .75rem;
+}
+
+// html.dark, [data-theme="dark"] & {
+//   --form-bg: #111214;
+//   --form-title: #f5f5f6;
+//   --form-subtitle: #a1a1aa;
+//   --field-bg: #0f1115;
+//   --field-bd: #26272b;
+//   --field-txt: #f3f4f6;
+//   --field-ph: #9ca3af;
+//   --btn-bg: #f43f5e;         /* rose-500 */
+//   --btn-bg-hover: #e11d48;   /* rose-600 */
+// }
+
+/* Card layout nếu dùng */
+.form.form--card {
+background: var(--form-bg);
+  border-radius: 1rem;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;  /* viền sáng trong */
+  padding: clamp(1rem, 2vw + .5rem, 2rem);
+  backdrop-filter: blur(8px);                  /* làm mờ nền bên dưới nhẹ */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* viền tinh tế */
+}
+
+/* Header */
+.form__header {
+  margin-bottom: 1rem;
+}
+.form__title {
+  margin: 0 0 .375rem;
+  font-size: clamp(1.25rem, 1.2rem + 0.5vw, 1.5rem);
+  font-weight: 800;
+  color: var(--form-title);
+  line-height: 1.2;
+}
+.form__subtitle {
+  margin: 0;
+  color: var(--form-subtitle);
+}
+
+/* Body */
+.form__body {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Field */
+.field {
+  display: grid;
+  gap: 0.375rem;
+}
+.field__label {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--form-title);
+}
+.field__control {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--field-bd);
+  border-radius: var(--radius);
+  background: var(--field-bg);
+  color: var(--field-txt);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+
+  &::placeholder { color: var(--field-ph); }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--field-bd), var(--field-bd-focus) 25%);
+  }
+  &:focus-visible {
+    border-color: var(--field-bd-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--field-bd-focus), transparent 80%);
+  }
+
+  &--textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+}
+
+/* Error helper */
+.field__error {
+  font-size: .88rem;
+  color: var(--error);
+}
+
+/* Select wrapper (áp style chung cho headless select lib) */
+.select {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111827; /* gray-900 */
+  background-color: #f9fafb; /* gray-50 */
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.75rem;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  /* icon mũi tên */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%236b7280' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem 1rem;
+
+  &:hover {
+    border-color: #a5b4fc; /* indigo-300 */
+  }
+
+  &:focus-visible {
+    border-color: #6366f1; /* indigo-500 */
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+  }
+
+   /* option styling */
+  & option {
+    font-weight: 500;
+    background: #fff;
+    color: #111827;
+  }
+
+  /* hover option (works on most browsers except Safari) */
+  & option:hover {
+    background-color: #f3f4f6; /* gray-100 */
+    color: #111827;
+  }
+
+  /* selected option */
+  & option:checked {
+    background-color: #e0e7ff; /* indigo-100 */
+    color: #1e3a8a; /* indigo-900 */
+    font-weight: 600;
+  }
+}
+
+/* Button */
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 0;
+  border-radius: .625rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .15s ease, background .15s ease;
+
+  &:focus-visible {
+    outline: 2px solid #fcd34d; /* amber-300 */
+    outline-offset: 2px;
+  }
+
+  &--primary {
+    background: var(--btn-bg);
+    color: var(--btn-txt);
+  }
+  &--primary:hover { background: var(--btn-bg-hover); }
+  &--block { width: 100%; padding: .9rem 1rem; }
+}
+
+/* Responsive: tăng spacing và font ở md+ */
+@media (min-width: 768px) {
+  .form__body { gap: 1.125rem; }
+  .field__label { font-size: 1rem; }
+}

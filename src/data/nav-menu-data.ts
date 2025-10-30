@@ -4,7 +4,7 @@ export const NavMenuData: CategoryItem[] = [
     {
         id: 1,
         name: 'PTE iPASS',
-        url: '/home',
+        url: '/pte-ipass/ve-pte-ipass',
         icon: '/images/bxs_up-arrow.jpg',
         category_type: CategoryType.HEADER_MENU,
         children: [
@@ -16,13 +16,13 @@ export const NavMenuData: CategoryItem[] = [
     {
         id: 2,
         name: 'HV REVIEW',
-        url: '/review',
+        url: '/hoc-vien-review',
         category_type: CategoryType.HEADER_MENU,
     },
     {
         id: 3,
         name: 'KHÓA HỌC',
-        url: '#',
+        url: '/khoa-hoc',
         icon: '/images/bxs_up-arrow.jpg',
         category_type: CategoryType.HEADER_MENU,
         children: [
@@ -46,7 +46,7 @@ export const NavMenuData: CategoryItem[] = [
     {
         id: 4,
         name: 'KIẾN THỨC',
-        url: '#',
+        url: '/kien-thuc',
         icon: '/images/bxs_up-arrow.jpg',
         category_type: CategoryType.HEADER_MENU,
         children: [
@@ -63,7 +63,7 @@ export const NavMenuData: CategoryItem[] = [
     {
         id: 6,
         name: 'DU HỌC, ĐI LÀM & ĐỊNH CƯ',
-        url: '#',
+        url: '/du-hoc-di-lam-dinh-cu',
         icon: '/images/bxs_up-arrow.jpg',
         category_type: CategoryType.HEADER_MENU,
         children: [
@@ -75,7 +75,7 @@ export const NavMenuData: CategoryItem[] = [
     {
         id: 7,
         name: 'PTE ĐẠI HỌC',
-        url: '#',
+        url: '/pte-dai-hoc',
         icon: '/images/bxs_up-arrow.jpg',
         category_type: CategoryType.HEADER_MENU,
         children: [

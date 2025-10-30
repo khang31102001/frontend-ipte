@@ -1,0 +1,123 @@
+
+:root {
+  --popup-backdrop: rgba(0, 0, 0, 0.5);
+  --popup-bg: #ffffff;
+  --popup-radius: 1rem;             /* ~16px */
+  --popup-ring: 0 0 0 1px rgba(0,0,0,0.06);
+  --popup-shadow: 0 10px 40px rgba(0,0,0,0.18);
+   --popup-max-w: 64rem;        
+  --popup-max-h: 90vh;          /* 640px */
+  --popup-pad: 1.25rem;             /* 20px */
+ 
+  --popup-blur: 4px;
+}
+
+/* Dark mode (tuỳ cách bạn set: html.dark / [data-theme="dark"]) */
+// html.dark, [data-theme="dark"] & {
+//   --popup-bg: #0b0b0c;
+//   --popup-ring: 0 0 0 1px rgba(255,255,255,0.06);
+//   --popup-shadow: 0 10px 40px rgba(0,0,0,0.6);
+// }
+
+/* ========= Overlay ========= */
+.popup-overlay {
+  position: fixed; inset: 0;
+  z-index: 9998;
+  display: grid; place-items: center;
+  padding: 1.25rem;
+  background: var(--popup-backdrop);
+  backdrop-filter: blur(var(--popup-blur));
+  animation: popup-fade-in 150ms ease-out;
+
+  /* cuộn nếu panel cao hơn viewport */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* safe area */
+  padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0));
+}
+
+/* ========= Panel ========= */
+.popup__panel{
+  position: relative;
+  z-index: 9999;
+  width: 100%;
+  max-width: var(--popup-max-w);
+  max-height: var(--popup-max-h);      /* <- giới hạn chiều cao panel */
+  background: var(--popup-bg);
+  border-radius: var(--popup-radius);
+  box-shadow: var(--popup-ring), var(--popup-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;                    /* che content tràn khi scroll */
+  gap: 0.5rem;
+  padding: 8px 4px;
+
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: popup-scale-in 160ms ease-out;
+  }
+}
+
+/* nội dung thực */ /* ===== Content scroll area ===== */
+.popup__content{
+  /* phần này sẽ cuộn khi form dài */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* chiều cao tối đa: panel height - header - footer */
+  /* vì header/footer sticky nằm trong panel, chỉ cần padding là được */
+  padding: clamp(1rem, 2vw + .5rem, 2rem);
+
+  /* scrollbar gọn */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,.2) transparent;
+}
+.popup__content::-webkit-scrollbar{ width: 10px; }
+.popup__content::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.15); border-radius: 10px;
+}
+.popup__content::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+
+/* ========= Close button (nếu dùng) ========= */
+.popup__close{
+  width: 2.25rem; height: 2.25rem;
+  border: 0; border-radius: 50%; background: transparent;
+  cursor: pointer; position: relative; 
+  margin-left: 8px;
+  transition: background .15s ease;
+
+  &:hover{ background: rgba(0,0,0,.06); }
+  &:focus-visible{ outline: 3px solid var(--amber-focus); outline-offset: 2px; }
+
+  &::before, &::after{
+    content:""; position:absolute; inset:50%;
+    width: 1.125rem; height: 2px; background: currentColor;
+    transform-origin:center;
+  }
+  &::before{ transform: translate(-50%,-50%) rotate(45deg); }
+  &::after{  transform: translate(-50%,-50%) rotate(-45deg); }
+}
+
+/* ========= Fullscreen on very small screens ========= */ /* ===== Mobile tweaks ===== */
+
+@media (max-width: 420px){
+  .popup__panel{ border-radius: .75rem; max-width: 100%; }
+}
+
+/* ===== Animations ===== */ /* ========= Keyframes ========= */
+@keyframes popup-fade-in { from {opacity:0} to {opacity:1} }
+@keyframes popup-scale-in { from {opacity:0; transform:translateY(6px) scale(.98)} to {opacity:1; transform:translateY(0) scale(1)} }
+
+
+// @keyframes popup-fade-in {
+//   from { opacity: 0; }
+//   to   { opacity: 1; }
+// }
+// @keyframes popup-scale-in {
+//   from { opacity: 0; transform: translateY(4px) scale(0.98); }
+//   to   { opacity: 1; transform: translateY(0)    scale(1); }
+// }

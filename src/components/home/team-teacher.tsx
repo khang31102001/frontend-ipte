@@ -127,7 +127,7 @@ const TeamTeacherPTE = () => {
     const nextRef = useRef<HTMLButtonElement>(null);
     const breakpoints = {
         0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
-        340: { slidesPerView: 2, spaceBetween: 10 }, 
+        340: { slidesPerView: 1, spaceBetween: 10 }, 
         500: { slidesPerView: 3, spaceBetween: 10 },  // mobile nhỏ
         640: { slidesPerView: 4, spaceBetween: 10 },  // sm
         870: { slidesPerView: 5, spaceBetween: 10 },  // md
@@ -240,7 +240,7 @@ const TeamTeacherPTE = () => {
                         </div>
 
                         {/* swiper teacher list */}
-                        <div className="w-full flex flex-row items-center justify-end">
+                        <div className="w-full flex items-center justify-center">
                             <div className="flex flex-row items-center gap-2 max-w-full md:max-w-[38rem] w-full">
                                 {/* Prev button */}
                                 <button

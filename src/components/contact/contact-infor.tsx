@@ -1,7 +1,7 @@
 import { ArrowRight, Clock, Facebook, Phone, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
-import CommunityCard from '../community-pte-ipass/community-card';
+import CommunityCard from '../community/community-card';
 
 interface ContactItem {
     icon: React.ReactNode;

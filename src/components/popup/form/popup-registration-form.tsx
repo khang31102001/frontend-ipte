@@ -1,6 +1,7 @@
 import React from 'react'
 import PopupWrapper from '../popup-wrapper'
 import RegiterReceivedInfor from '@/components/form/register-received-infor'
+import SubscribePopup from '@/components/form/subscribe-popup';
 interface PopupRegistrationFormProps {
     className?: string;
     isPopup?: boolean;
@@ -17,9 +18,19 @@ const PopupRegistrationForm = ({
     return (
         <PopupWrapper
             onClose={onClose}
-            className={`fixed inset-0 z-[9999] ${className} flex flex-col items-center justify-center p-6`}
+            className={`popup-overlay  ${className} `}
         >
-            <RegiterReceivedInfor onSuccess={onClose} />
+            <div
+                className="popup__panel"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="popup-title"
+            >
+                <button className="popup__close" aria-label="Close" onClick={onClose} />
+                <div className="popup__content">
+                    <SubscribePopup onSuccess={onClose} />
+                </div>
+            </div>
         </PopupWrapper>
     )
 }

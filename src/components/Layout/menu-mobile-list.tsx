@@ -1,8 +1,9 @@
 import { CategoryItem } from '@/types/category'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import OnSubMenu from '../ui/DropdownMenu'
+
 import clsx from 'clsx'
+import OnSubMenu from './submenu/sub-menu'
 
 interface MenuMobileListProps {
   data: CategoryItem[]

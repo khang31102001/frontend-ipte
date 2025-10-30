@@ -1,146 +1,168 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* (Nếu là SCSS thực sự, thay @import bằng @use; nếu chỉ là CSS, giữ nguyên) */
 @import "./header";
+@import "./component/form";
+@import "./component/popup";
 
+/* ===================== */
+/*        BASE LAYER     */
+/* ===================== */
 @layer base {
-    :root {
-        --radius: 12px;
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
+  :root {
+    --radius: 12px;
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
+    /* shadcn tokens (HSL) */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 40% 98%;
-    }
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-        --card: 222.2 84% 4.9%;
-        --card-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-        --popover: 222.2 84% 4.9%;
-        --popover-foreground: 210 40% 98%;
+    /* thiếu ở light mode → bổ sung */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 11.2%;
+    /* animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-        --secondary: 217.2 32.6% 17.5%;
-        --secondary-foreground: 210 40% 98%;
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-        --muted: 217.2 32.6% 17.5%;
-        --muted-foreground: 215 20.2% 65.1%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-        --accent: 217.2 32.6% 17.5%;
-        --accent-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-        --border: 217.2 32.6% 17.5%;
-        --input: 217.2 32.6% 17.5%;
-        --ring: 212.7 26.8% 83.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-        /* Animations */
-        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+
+  /* Reset + shadcn base mapping */
+  * { @apply border-border; box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%; height: 100%;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    display: flex; flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 16px;
+    font-family: var(--font-inter, 'Inter', ui-sans-serif, system-ui, sans-serif);
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
 }
 
-
-@layer base {
-
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-}
-
+/* ===================== */
+/*     COMPONENTS        */
+/* ===================== */
 @layer components {
+  .pte-ipass-card {
+    @apply border bg-card text-card-foreground shadow-sm;
+    @apply shadow-md hover:shadow-lg transition-shadow;
+    @apply overflow-hidden;
+  }
 
-
-    .pte-ipass-card {
-        @apply border bg-card text-card-foreground shadow-sm;
-        @apply shadow-md hover:shadow-lg transition-shadow;
-        @apply overflow-hidden;
-    }
-
-    .card-box {
-        @apply bg-white border border-gray-100 rounded shadow-xl;
-    }
-
+  .card-box {
+    @apply bg-white border border-gray-100 rounded shadow-xl;
+  }
 }
 
+/* ===================== */
+/*      UTILITIES        */
+/* ===================== */
 @layer utilities {
+  .transition-smooth { transition: var(--transition-smooth); }
 
-    /* Smooth transitions */
-    .transition-smooth {
-        transition: var(--transition-smooth);
-    }
+  /* Custom scrollbar (dùng giá trị trực tiếp, tránh @apply trong pseudo) */
+  .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: hsl(var(--muted)); }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground)); border-radius: 999px;
+  }
 
-    /* Custom scrollbar */
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 8px;
-    }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    .custom-scrollbar::-webkit-scrollbar-track {
-        @apply bg-muted;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        @apply bg-muted-foreground rounded-full;
-    }
-}
-
-
-
-
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari */
-}
-
-.no-scrollbar {
-    -ms-overflow-style: none;
-    /* IE, Edge */
-    scrollbar-width: none;
-    /* Firefox */
-}
-
-
-
-
-.bg-hero-gradient {
+  .bg-hero-gradient {
     background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
-}
-
-.text-hero-gradient {
+  }
+  .text-hero-gradient {
     background: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;         text-fill-color: transparent;
+  }
+
+  /* Hero image (sửa typo 78hv → 78vh) */
+  .hero-image {
+    position: relative;
+    width: 100%;
+    min-height: 56vh;
+    max-height: 900px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+
+    @media (min-width: 768px) { min-height: 68vh; }
+    @media (min-width: 1024px) { min-height: 78vh; }
+    @media (min-width: 1440px) { max-height: 900px; }
+  }
+
+  .hero--fullscreen {
+    min-height: 100vh;
+    max-height: 100vh;
+  }
 }

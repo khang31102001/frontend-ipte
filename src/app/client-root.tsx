@@ -9,7 +9,7 @@ import { main_menu_categories } from "@/data/category";
 
 export default function ClientRoot({ children }: { children: React.ReactNode }) {
   const { isOpen, close } = useFirstVisitPopup({
-    storageKey: "popup:reg:v2",
+    storageKey: "popup:reg:v5",
     cooldownDays: 0.33333,
     delayMs: 200,
   });

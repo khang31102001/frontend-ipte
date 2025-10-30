@@ -1,4 +1,5 @@
-import HeroBanner from "@/components/banner/hero-banner";
+import HeroImage from "@/components/banner/banner";
+
 import { articles, pteTipData } from "@/data/news";
 import NewPage from "@/pages/pte-ipass/news/news-page";
 import { newsService } from "@/services/news/newsService";
@@ -8,7 +9,13 @@ export default async function IndexNews() {
     console.log("News and Tips data:", newsJoinedKnowledge);
     return (
         <div>
-            <HeroBanner img="/images/hero-banner-new.png" className="mb-12 " />
+            <HeroImage
+                src="/images/hero-banner-new.png"
+                objectPosition="center"
+                preset="soft"
+                className="hero--fullscreen"
+
+            />
             <NewPage
                 dataNews={newsJoinedKnowledge.news || articles}
                 dataTip={newsJoinedKnowledge.tips || pteTipData}

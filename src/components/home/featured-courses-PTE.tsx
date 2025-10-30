@@ -123,11 +123,13 @@ const FeaturedCoursesPTE = () => {
                     >
                         {FeturedCourses.map((item, index) => {
                             return (
-                                <CoursesCard 
-                                key={index} 
-                                data={item} 
-                              
-                                />
+                                <div key={index} className='w-full h-full' >
+                                    <CoursesCard
+
+                                        data={item}
+
+                                    />
+                                </div>
                             )
                         })}
                     </CustomSwiper>

@@ -1,5 +1,5 @@
 
-import CommunityPTEiPass from '@/components/community-pte-ipass/community-pte-ipass'
+import CommunityPTEiPass from '@/components/community/community-pte-ipass'
 import ConsultationForm from '@/components/form/consultation-form'
 import AboutPTE from '@/components/home/about-PTE'
 
@@ -8,7 +8,7 @@ import NewList from '@/components/home/news-list'
 // import PressSection from '@/components/home/PressSection'
 import StudentReview from '@/components/home/student-review'
 import StudyPathPTE from '@/components/home/study-path-PTE'
-import TeamTeacherPTE from '@/components/home/team-teacher-PTE'
+import TeamTeacherPTE from '@/components/home/team-teacher'
 import TrainingProgramPTE from '@/components/home/training-program-PTE'
 import KnowledgePTE from '@/components/knowledge/knowledge-pte'
 

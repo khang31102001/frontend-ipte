@@ -1,3 +1,4 @@
+import HeroImage from "@/components/banner/banner";
 import HeroBanner from "@/components/banner/hero-banner";
 import { SAMPLE_StudyWork } from "@/data/data-study-work";
 import KnowledgePage from "@/pages/knowledge/knowledge-page";
@@ -7,9 +8,15 @@ import StudyWorkImmigraionPage from "@/pages/study-work-immigration/study-work-i
 export default function WorkStudyIndex(){
     return(
         <div>
-            <HeroBanner
+            {/* <HeroBanner
             img="/images/hero-banner-primary.png"
             className="mb-12"
+            /> */}
+             <HeroImage
+                src="/images/hero-banner-primary.png"
+                objectPosition="center"
+                preset="soft"
+                className="hero--fullscreen"
             />
       
             <StudyWorkImmigraionPage data={SAMPLE_StudyWork}/>
