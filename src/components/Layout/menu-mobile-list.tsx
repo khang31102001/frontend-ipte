@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 import clsx from 'clsx'
 import OnSubMenu from './submenu/sub-menu'
+import SubMenuMobile from './submenu/sub-menu-mobile'
 
 interface MenuMobileListProps {
   data: CategoryItem[]
@@ -27,8 +28,9 @@ const MenuMobileList = ({
   }
 
   return (
-    <div className={clsx('mobile-menu', IsOpenMenu && 'mobile-menu--open', ClassName)}>
-      <nav className="mobile-menu__inner">
+    <div className={clsx('mobile-menu', IsOpenMenu ? 'mobile-menu--open' : 'mobile-menu--close', ClassName)}>
+      <nav className="mobile-menu__wrapper">
+        {/* <div className='mobile-menu__header'></div> */}
         <ul className="mobile-menu__list">
           {data.map((item, idx) => {
             const hasChildren = !!(item.children && item.children.length > 0)
@@ -36,54 +38,61 @@ const MenuMobileList = ({
 
             return (
               <li
+                onClick={handleToggle(idx, hasChildren)}
                 key={item.id ?? idx}
-                className={clsx('mobile-menu__item', { 'is-open': isOpen })}
+                className={clsx('mobile-menu__item', "")}
               >
                 <div className="mobile-menu__row">
-                  <a
-                    href={item.url}
-                    onClick={handleToggle(idx, hasChildren)}
-                    className="mobile-menu__link no-scrollbar"
-                    aria-expanded={isOpen}
-                    aria-controls={`submenu-l1-${idx}`}
-                  >
-                    {item.name}
-                  </a>
 
-                  {item.icon && hasChildren && (
+
+                  {hasChildren ? (
+                   <>
                     <button
                       onClick={handleToggle(idx, hasChildren)}
                       type="button"
-                      className="submenu-toggle ml-4"
-                      aria-expanded={isOpen}
-                      aria-controls={`submenu-l1-${idx}`}
-                      aria-label={isOpen ? 'Collapse submenu' : 'Expand submenu'}
+                      className="mobile-menu__toggle"
+              
                     >
-                      <span className="caret inline-flex">
-                        <Image
-                          src={item.icon}
+                      <span>{item.name}</span>
+                      <span className="ml-4">
+                        {/* <Image
+                          src={item.icon || ""}
                           alt=""
                           width={16}
                           height={16}
                           aria-hidden="true"
-                        />
+                        /> */}
+                        ▶
                       </span>
                     </button>
+                   </>
+                    
+                  ) : (
+                    <a
+                      href={item.url}
+                      onClick={handleToggle(idx, hasChildren)}
+                      className="mobile-menu__link no-scrollbar"
+                      aria-expanded={isOpen}
+                      
+                    >
+                      {item.name}
+                    </a>
                   )}
                 </div>
 
                 {hasChildren && (
-                  <OnSubMenu
+                  <SubMenuMobile
                     items={item.children}
                     variant="mobile"
-                    className={clsx('sub-menu-mobile', { 'is-open': isOpen })}
-                    // nếu muốn cấp 2 cũng chỉ mở 1 mục, để OnSubMenu tự quản lý state openIdx riêng (như mình hướng dẫn trước đó)
+                    className={clsx("submenu-mobile", isOpen ? "on-submenu-mobile" : "off-submenu-mobile")}
+                  // nếu muốn cấp 2 cũng chỉ mở 1 mục, để OnSubMenu tự quản lý state openIdx riêng (như mình hướng dẫn trước đó)
                   />
                 )}
               </li>
             )
           })}
         </ul>
+        {/* <div className='mobile-menu__footer'></div> */}
       </nav>
     </div>
   )

@@ -120,25 +120,15 @@ const Header = ({
       </header>
 
       {/* bottom nav desktop */}
-      <div id="nav-menu-pte-ipass">
-        <nav>
-          <ul
-            ref={menuRef}
-
-          >
+      <div id="nav-menu" className="nav-menu">
+        <nav className="nav-menu__wrapper">
+          <ul ref={menuRef} className="nav-menu__list">
             {NavMenuData.map((item, idx) => (
-              <li
-                key={idx}
-
-              >
-                <a
-                  href={item.url}
-                  className='link-underline group'
-
-                >
-                  <span>{item.name}</span>
+              <li key={idx} className="nav-menu__item group">
+                <a href={item.url} className="nav-menu__link link-underline ">
+                  <span className="nav-menu__text">{item.name}</span>
                   {item.icon && item.children && (
-                    <span className="w-3 h-3 flex items-center justify-center transition-transform duration-100  group-hover:rotate-180">
+                    <span className="nav-menu__icon group-hover:rotate-180">
                       <Image
                         src={item.icon}
                         alt={item.name}
@@ -152,16 +142,16 @@ const Header = ({
                 {item.children && (
                   <OnSubMenu
                     items={item.children}
-                    variant='desktop'
-                    className='sub-menu-desktop card-box'
+                    variant="desktop"
+                    className="on-submenu card-box"
                   />
                 )}
-
               </li>
             ))}
           </ul>
         </nav>
       </div>
+
     </>
   )
 }
