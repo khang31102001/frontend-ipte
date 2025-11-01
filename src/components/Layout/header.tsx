@@ -58,7 +58,7 @@ const Header = ({
   if (!menuItems || menuItems.length === 0) return null
   return (
     <>
-      <header className={` header ${isMobile && "header--sticky "} `}>
+      <header className={` header ${isMobile ? "header--sticky " : "no--sticky"} `}>
         {/* Top Header */}
         <div className="header__container">
           <div className="header__inner">

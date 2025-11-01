@@ -8,8 +8,8 @@ import SubMenuMobile from './submenu/sub-menu-mobile'
 
 interface MenuMobileListProps {
   data: CategoryItem[]
-  IsOpenMenu: boolean
-  ClassName?: string
+  IsOpenMenu: boolean;
+  ClassName?: string;
 }
 
 const MenuMobileList = ({
@@ -28,8 +28,8 @@ const MenuMobileList = ({
   }
 
   return (
-    <div className={clsx('mobile-menu', IsOpenMenu ? 'mobile-menu--open' : 'mobile-menu--close', ClassName)}>
-      <nav className="mobile-menu__wrapper">
+    <div className={clsx("mobile-menu", IsOpenMenu && "mobile-menu--open", ClassName)}>
+      <nav className="mobile-menu__wrapper" aria-label="Mobile main menu">
         {/* <div className='mobile-menu__header'></div> */}
         <ul className="mobile-menu__list">
           {data.map((item, idx) => {
@@ -38,9 +38,8 @@ const MenuMobileList = ({
 
             return (
               <li
-                onClick={handleToggle(idx, hasChildren)}
                 key={item.id ?? idx}
-                className={clsx('mobile-menu__item', "")}
+                className={clsx('mobile-menu__item')}
               >
                 <div className="mobile-menu__row">
 
@@ -53,8 +52,8 @@ const MenuMobileList = ({
                       className="mobile-menu__toggle"
               
                     >
-                      <span>{item.name}</span>
-                      <span className="ml-4">
+                      <span className="mobile-menu__text">{item.name}</span>
+                      <span className={clsx("mobile-menu__caret", isOpen && "is-rotated")} aria-hidden>
                         {/* <Image
                           src={item.icon || ""}
                           alt=""
@@ -83,8 +82,11 @@ const MenuMobileList = ({
                 {hasChildren && (
                   <SubMenuMobile
                     items={item.children}
+                    level={1}
                     variant="mobile"
-                    className={clsx("submenu-mobile", isOpen ? "on-submenu-mobile" : "off-submenu-mobile")}
+                    idPrefix={`submenu-l1-${idx}`}
+                    isOpen={isOpen }
+                    // className={clsx("submenu-mobile", isOpen ? "on-submenu-mobile" : "off-submenu-mobile")}
                   // nếu muốn cấp 2 cũng chỉ mở 1 mục, để OnSubMenu tự quản lý state openIdx riêng (như mình hướng dẫn trước đó)
                   />
                 )}
