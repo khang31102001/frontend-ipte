@@ -1,8 +1,8 @@
-import CommunityPTEiPass from '@/components/community/community-pte-ipass'
+// import CommunityPTEiPass from '@/components/community/community-pte-ipass'
 import ContactInfor from '@/components/contact/contact-infor'
 import LocationInfor from '@/components/contact/location-infor'
 import ConsultationForm from '@/components/form/consultation-form'
-import MapSection from '@/components/pte-ipass/about/map-section'
+// import MapSection from '@/components/pte-ipass/about/map-section'
 import { aboutMeService } from '@/services/about-me/aboutMeService';
 import React from 'react'
 

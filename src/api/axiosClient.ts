@@ -3,7 +3,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { getAccessToken, setAccessToken, clearAccessToken } from "./token";
 
 // --- Base URL: ưu tiên Vite env, fallback localhost ---
-const baseURL = process.env.NEXT_PUBLIC_URL_API || "http://localhost:4000/api";
+const baseURL = process.env.NEXT_PUBLIC_URL_API || "https://backend-ipte.onrender.com/api";
 
 console.log("API URL:", baseURL);
 

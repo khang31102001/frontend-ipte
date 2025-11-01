@@ -35,9 +35,7 @@ const LocationInfor = ({ branches }: any) => {
 
   const data = branches;
 
-  console.log("branches", data);
-
-  const [selectedBranch, setSelectedBranch] = useState<any>(data[0].map_url ?? null);
+  const [selectedBranch, setSelectedBranch] = useState<any>(data[0] ?? null);
   if(!branches || branches.length === 0) return null;
   return (
     <section className="bg-[#3a3a3a] py-16 px-6 lg:px-12">
@@ -49,26 +47,26 @@ const LocationInfor = ({ branches }: any) => {
             <div className="w-24 h-1 bg-[#fbbf24] mb-12" />
 
             <div className="space-y-6">
-              {branches?.map((branch: any) => (
+              {data?.map((branch: any) => (
                 <button
-                  key={branch.id}
+                  key={branch.about_id}
                   onClick={() => setSelectedBranch(branch)}
                   className={cn(
                     "flex items-start gap-4 text-left w-full p-4 rounded-lg transition-all",
                     "hover:bg-white/5",
-                    selectedBranch.about_id === branch.id && "bg-white/10",
+                    selectedBranch.about_id === branch.about_id && "bg-white/10",
                   )}
                 >
                   <MapPin
                     className={cn(
                       "w-6 h-6 flex-shrink-0 mt-1 transition-colors",
-                      selectedBranch.about_id === branch.id ? "text-[#fbbf24]" : "text-[#fbbf24]/70",
+                      selectedBranch.about_id === branch.about_id ? "text-[#fbbf24]" : "text-[#fbbf24]/70",
                     )}
                   />
                   <span
                     className={cn(
                       "text-base lg:text-lg transition-colors",
-                      selectedBranch.about_id === branch.id ? "text-white" : "text-white/80",
+                      selectedBranch.about_id === branch.about_id ? "text-white" : "text-white/80",
                     )}
                   >
                     {branch.address}
@@ -82,7 +80,7 @@ const LocationInfor = ({ branches }: any) => {
           <div className="relative">
             <div className="border-4 border-dashed border-[#fbbf24] rounded-lg overflow-hidden aspect-[4/3]">
               <iframe
-                key={selectedBranch.id}
+                key={selectedBranch.about_id}
                 src={selectedBranch.map_url}
                 width="100%"
                 height="100%"
