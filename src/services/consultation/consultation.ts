@@ -2,7 +2,7 @@ import { post } from "@/api/http";
 
 export class ConsultationService {
   async register(params: any): Promise<any> {
-    const response = await post("/consultation", params);
+    const response = await post("/consultations", params);
     return response;
   }
 }

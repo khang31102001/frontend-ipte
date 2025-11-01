@@ -20,7 +20,7 @@ interface KnowledgeListProps {
 }
 const KnowledgeList = ({
     data
-}: KnowledgeListProps) => {
+}: any) => {
    
     return (
         <div className="min-h-screen bg-white">

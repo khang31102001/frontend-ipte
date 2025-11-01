@@ -8,7 +8,8 @@ interface KnowledgePageProps {
 }
 const KnowledgePage = ({
   data
-}: KnowledgePageProps) => {
+}: any) => {
+  console.log("KnowledgePage data", data);
   return (
     <div>
         <KnowledgeList data={data}/>
