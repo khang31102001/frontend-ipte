@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { aboutMeService } from "@/services/about-me/newsService"
+import { aboutMeService } from "@/services/about-me/aboutMeService"
 
 // interface Branch {
 //   about_id: number

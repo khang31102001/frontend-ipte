@@ -1,7 +1,7 @@
 import HeroBanner from '@/components/banner/hero-banner'
 import AboutPage from '@/pages/pte-ipass/about/about-page'
 import { ecosystemData } from "@/data/ecosystemData";
-import { aboutMeService } from '@/services/about-me/newsService';
+import { aboutMeService } from '@/services/about-me/aboutMeService';
 import HeroImage from '@/components/banner/banner';
 
 export default async function IndexAbout() {

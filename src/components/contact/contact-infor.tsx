@@ -1,7 +1,9 @@
 import { ArrowRight, Clock, Facebook, Phone, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
+import { aboutMeService } from '@/services/about-me/aboutMeService';
 import CommunityCard from '../community/community-card';
+import { url } from 'inspector';
 
 interface ContactItem {
     icon: React.ReactNode;
@@ -12,28 +14,32 @@ interface ContactItem {
 
 
 
-const ContactInfor = () => {
+const ContactInfor = async ({data}: any) => {
+
     const dataSocial = [
         {
             id: 1,
             icon: "/images/icon/icon-facebook.png",
             title: "iPTE Facebook Group",
             description: "Nhóm Facebook với hơn 15,000 thành viên.",
-            bgColor: "blue"
+            bgColor: "blue",
+            url: data?.facebook_url || "#"
         },
         {
             id: 2,
             icon: "/images/icon/icon-youtube.png",
             title: "iPTE YouTube Channel",
             description: "Kênh YouTube với hơn 200 video",
-            bgColor: "red"
+            bgColor: "red",
+            url: data?.youtube_url || "#"
         },
         {
             id: 3,
             icon: "/images/icon/icon-tiktok.png",
             title: "iPTE TikTok",
             description: "Tài khoản TikTok với các meo học tập ngắn, thú vị",
-            bgColor: "black"
+            bgColor: "black",
+            url: data?.tiktok_url || "#"
         },
     ];
 
@@ -42,8 +48,8 @@ const ContactInfor = () => {
             icon: <Phone className="w-5 h-5 text-black mt-1 font-bold" />,
             title: "Hotline liên hệ",
             details: [
-                { label: "Việt Nam", value: "0902 386 332" },
-                { label: "Mail", value: "info@ipte.edu.vn", href: "mailto:info@ipte.edu.vn" },
+                { label: "Việt Nam", value: data.hotline },
+                { label: "Mail", value: data.email, href: `mailto:${data.email}` },
             ],
         },
         {

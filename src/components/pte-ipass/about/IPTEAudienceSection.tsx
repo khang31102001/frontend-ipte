@@ -1,6 +1,6 @@
 import { BookOpen } from "lucide-react"
 import TargetAudienceCard from "./card/TargetAudienceCard"
-import { aboutMeService } from "@/services/about-me/newsService"
+import { aboutMeService } from "@/services/about-me/aboutMeService"
 
 
 const IPTEAudienceSection = async () => {
