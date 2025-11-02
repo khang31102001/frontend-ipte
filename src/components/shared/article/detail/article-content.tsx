@@ -5,7 +5,7 @@ interface ArticleContentProps {
   content: string;
 }
 
-export function ArticleContent({ content }: ArticleContentProps) {
+const ArticleContent=({ content }: ArticleContentProps)=> {
   const sanitizedContent = useMemo(() => {
     const cleaned = sanitizeHtml(content);
     return processEmbeds(cleaned);
@@ -18,3 +18,5 @@ export function ArticleContent({ content }: ArticleContentProps) {
     />
   );
 }
+
+export default ArticleContent;

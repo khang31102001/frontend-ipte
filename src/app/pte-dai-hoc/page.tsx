@@ -1,8 +1,8 @@
 import HeroImage from "@/components/banner/banner";
 import HeroBanner from "@/components/banner/hero-banner";
 import { SAMPLE_PTEuniversity } from "@/data/daihoc";
-import { SAMPLE_Knowledge } from "@/data/data-pte-knowledge";
-import KnowledgePage from "@/pages/knowledge/knowledge-page";
+// import { SAMPLE_Knowledge } from "@/data/data-pte-knowledge";
+// import KnowledgePage from "@/pages/knowledge/knowledge-page";
 import PTEUniversityPage from "@/pages/pte-university/pte-university-page";
 
 

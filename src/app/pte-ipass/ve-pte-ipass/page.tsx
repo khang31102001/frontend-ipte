@@ -12,8 +12,8 @@ export default async function IndexAbout() {
             <HeroBanner img="/images/banner-team-teacher.jpg" className="mb-12 " />
             
             <AboutPage
-                dataEcosystem={dataEcosystem}
-                branches={branches}
+                dataEcosystem={dataEcosystem ?? []}
+                branches={branches ?? []}
             />
         </div>
     )

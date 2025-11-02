@@ -8,7 +8,7 @@ interface ArticleCoverProps {
 
 }
 
-export function ArticleCover({ image, caption, title }: ArticleCoverProps) {
+const ArticleCover =({ image, caption, title }: ArticleCoverProps)=> {
   if (!image) {
     return (
       <div className="w-full aspect-video bg-gradient-to-br from-primary to-primary-hover rounded-lg flex items-center justify-center my-8">
@@ -18,7 +18,7 @@ export function ArticleCover({ image, caption, title }: ArticleCoverProps) {
   }
 
   return (
-    <figure className="my-8">
+    <figure className=" my-8">
       <img
         src={image}
         alt={caption || title}
@@ -33,3 +33,5 @@ export function ArticleCover({ image, caption, title }: ArticleCoverProps) {
     </figure>
   );
 }
+
+export default ArticleCover;

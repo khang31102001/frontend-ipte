@@ -8,6 +8,10 @@ export interface Course {
         slug: string,
         summary: string; // Tóm tắt ngắn
         content: string; // Nội dung chi tiết
+        level?: string;
+        duration?: string;
+        schedule?: string;
+        tuition?: string;
         category?: CategoryItem;
         created_at?: string;
         updated_at?: string;

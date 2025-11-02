@@ -9,7 +9,7 @@ type FeatureListProps = {
 }
 
 export function FeaturesSection({ data }: FeatureListProps) {
-
+  if(!data || data.length === 0) return null;
   // strictly use only 3 icons
   const icons = [UserCheck, FileText, GraduationCap];
 

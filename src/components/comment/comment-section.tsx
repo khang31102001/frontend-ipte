@@ -165,22 +165,22 @@ export function CommentsSection({ courseId, totalComments = 156, averageRating =
   return (
     <section className="space-y-6">
       {/* Header Stats */}
-      <div className="card-box">
-        <div>
+      <div className="card-box rounded pad-sm">
+        <div className="">
           <div className="flex items-start justify-between">
             <div>
               <div className="flex items-center text-2xl">
                 <MessageSquare className="w-6 h-6 mr-2" />
-                Student Reviews
+                Bình luận học viên
               </div>
               <p className="text-sm text-muted-foreground mt-1">
-                {totalComments} reviews from our students
+                {totalComments} Đánh giá từ học viên
               </p>
             </div>
             
             <div className="text-right">
               <div className="flex items-center space-x-2">
-                <Star className="w-6 h-6 fill-accent text-accent" />
+                <Star className="w-6 h-6 fill-yellow-300 text-yellow-300" />
                 <span className="text-3xl font-bold">{averageRating}</span>
               </div>
               <div className="flex items-center space-x-1 mt-1">
@@ -189,7 +189,7 @@ export function CommentsSection({ courseId, totalComments = 156, averageRating =
                     key={i}
                     className={`w-4 h-4 ${
                       i < Math.floor(averageRating)
-                        ? "fill-accent text-accent"
+                        ? "fill-yellow-300 text-yellow-300"
                         : "text-muted-foreground"
                     }`}
                   />
@@ -201,25 +201,25 @@ export function CommentsSection({ courseId, totalComments = 156, averageRating =
       </div>
 
       {/* Add Comment Form */}
-      <div>
-        <div>
-          <h1 className="text-lg">Share Your Experience</h1>
+      <div className="card-box rounded overflow-hidden ">
+        <div className="card-header">
+          <h1 className="card-title ">Chia sẽ trãi nghiệm</h1>
         </div>
-        <span>
+        <span className="p-6">
           <CommentForm onSubmit={handleAddComment} />
         </span>
       </div>
 
       {/* Comments List */}
-      <div>
-        <div>
+      <div className="card-boxs">
+        <div className="card-header">
           <div className="flex items-center justify-between">
             <div className="text-lg">
-              All Reviews ({comments.length})
+              Tất cả bình luận ({comments.length})
             </div>
             
-            <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>
-              <SelectTrigger className="w-[140px]">
+            <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)} >
+              <SelectTrigger className="w-[140px]  transition-colors  duration-200 ease focus:ring-blue-800 ">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -230,7 +230,7 @@ export function CommentsSection({ courseId, totalComments = 156, averageRating =
             </Select>
           </div>
         </div>
-        <div className="space-y-6">
+        <div className="card-content space-y-6">
           {sortedComments.map((comment) => (
             <CommentItem
               key={comment.id}

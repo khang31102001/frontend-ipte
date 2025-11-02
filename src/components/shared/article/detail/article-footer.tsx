@@ -1,35 +1,53 @@
-// import { Badge } from "@/components/ui/badge";
-// import { Button } from "@/components/ui/button";
-import { Facebook, Twitter, Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
+"use client"
+import { Facebook, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 // import { toast } from "sonner";
 // import { Link } from "react-router-dom";
 
 interface ArticleFooterProps {
   tags?: string[];
-  prevCourse?: { id: string; title: string };
-  nextCourse?: { id: string; title: string };
-}
 
-export function ArticleFooter({ tags, prevCourse, nextCourse }: ArticleFooterProps) {
+}
+const ArticleFooter = ({
+  tags = ["PTE", " Speaking Test Preparation ", "Online Course Score 79+ "],
+
+}: ArticleFooterProps) => {
   const shareUrl = encodeURIComponent(window.location.href);
   const shareTitle = encodeURIComponent(document.title);
+  const dataSocial = [
+    {
+      id: 1,
+      icon: <Facebook className="w-4 h-4 mr-2" />,
+      title: "Facebook",
+      url: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
+    },
+    {
+      id: 2,
+      icon: <Twitter className="w-4 h-4 mr-2" />,
+      title: "Twitter",
+      url: `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`,
+    },
+    {
+      id: 3,
+      icon: <Linkedin className="w-4 h-4 mr-2" />,
+      title: "LinkedIn",
+      url: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
+    },
 
-  const shareLinks = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
-    twitter: `https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
-  };
+  ]
+
 
   return (
     <footer className="mt-12 pt-8 border-t space-y-6">
       {/* Tags */}
       {tags && tags.length > 0 && (
-        <div>
+        <div className="flex flex-col gap-2">
           <h3 className="text-sm font-semibold mb-3">Tags</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 ">
             {tags.map((tag) => (
-              <div key={tag} >
+              <div key={tag}
+                className="text-sm font-medium border border-gray-300 rounded p-2"
+              >
                 {tag}
               </div>
             ))}
@@ -41,58 +59,27 @@ export function ArticleFooter({ tags, prevCourse, nextCourse }: ArticleFooterPro
       <div>
         <h3 className="text-sm font-semibold mb-3">Share this course</h3>
         <div className="flex space-x-2">
-          <button
-           
-            onClick={() => window.open(shareLinks.facebook, "_blank")}
-          >
-            <Facebook className="w-4 h-4 mr-2" />
-            Facebook
-          </button>
-          <button
-            onClick={() => window.open(shareLinks.twitter, "_blank")}
-          >
-            <Twitter className="w-4 h-4 mr-2" />
-            Twitter
-          </button>
-          <button
-            onClick={() => window.open(shareLinks.linkedin, "_blank")}
-          >
-            <Linkedin className="w-4 h-4 mr-2" />
-            LinkedIn
-          </button>
+          {dataSocial.map((item, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => window.open(item.url, "_blank")}
+                className="btn-link text-sm font-semibold 
+                border border-gray-300 rounded p-2
+                hover:bg-hero-gradient hover:text-white 
+                transition-colors duration-200 ease-out
+
+                "
+              >
+                <span>{item.icon}</span>
+                <span>{item.title}</span>
+              </button>
+            )
+          })}
+
         </div>
       </div>
-
-      {/* Previous/Next Navigation */}
-      {(prevCourse || nextCourse) && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-          {prevCourse ? (
-            <Link href={`/pte/${prevCourse.id}`}>
-              <button  className="w-full justify-start">
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                <div className="text-left">
-                  <div className="text-xs text-muted-foreground">Previous</div>
-                  <div className="text-sm font-medium truncate">{prevCourse.title}</div>
-                </div>
-              </button>
-            </Link>
-          ) : (
-            <div />
-          )}
-          
-          {nextCourse && (
-            <Link href={`/pte/${nextCourse.id}`}>
-              <button  className="w-full justify-end">
-                <div className="text-right">
-                  <div className="text-xs text-muted-foreground">Next</div>
-                  <div className="text-sm font-medium truncate">{nextCourse.title}</div>
-                </div>
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </button>
-            </Link>
-          )}
-        </div>
-      )}
     </footer>
   );
 }
+export default ArticleFooter;

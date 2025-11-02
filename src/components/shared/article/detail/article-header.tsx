@@ -10,7 +10,7 @@ const ArticleHeader = ({
     className
 }: ArticleHeaderProps) => {
     return (
-        <header className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-3">
+        <header className="w-full px-4 sm:px-6 lg:px-8 mt-3">
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">{title}</h1>
             <p className="mt-3 text-lg text-gray-600 max-w-3xl">{summary}</p>
             <div className="mt-3 flex items-center gap-3 text-sm text-gray-500">

@@ -1,19 +1,22 @@
 import { CommentsSection } from "@/components/comment/comment-section"
-import { ArticleContent } from "@/components/shared/article/detail/article-content"
-import { ArticleCover } from "@/components/shared/article/detail/article-cover"
-
-import ArticleHeader from "@/components/shared/article/detail/article-header"
-import { AricleSidebar } from "@/components/shared/article/detail/article-sidebar"
+import CourseSidebar from "@/components/courses/detail/course-sidebar"
+import {
+  ArticleContent,
+  ArticleCovderImage,
+  ArticleFooter,
+  ArticleHeader,
+  ArticleSidebar
+} from "@/components/shared/article"
 import { dataDetailCourse } from "@/data/data-detail-course"
 import { notFound } from "next/navigation"
 
 
-interface CoursePageProps {
+interface CourseDeatilsProps {
   params: { slug: string }
 }
 
 
-export async function generateMetadata({ params }: CoursePageProps) {
+export async function generateMetadata({ params }: CourseDeatilsProps) {
   const course = dataDetailCourse.find((item) => item.slug === params.slug)
   if (!course) return { title: "Khóa học không tồn tại" }
   return {
@@ -22,61 +25,105 @@ export async function generateMetadata({ params }: CoursePageProps) {
   }
 }
 
-export default function CourseDetailIndex({ params }: CoursePageProps) {
+export default function CourseDetailIndex({ params }: CourseDeatilsProps) {
   const course = dataDetailCourse.find((item) => item.slug === params.slug)
 
   if (!course) return notFound();
 
   return (
     <article className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto pad-sm">
         <ArticleHeader
-         title={course.title}
-         summary={course.summary}
+          title={course.title}
+          summary={course.summary}
         />
 
-        <ArticleCover
+        <ArticleCovderImage
           title="title img"
           caption=""
           image={course.img}
-          
+
         />
 
-        <div className="grid grid-cols-1 lg:grid-col gap-8">
-          <div className="col-span-2 space-y-8">
-            <ArticleContent content={course.content}/>
-            {/* <ArticleFooter/> */}
-            <CommentsSection courseId="1"/>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-8">
+            <ArticleContent content={course.content} />
+            <ArticleFooter />
+            <CommentsSection courseId="1" />
           </div>
 
-          <div className="col-span-1">
-             {/* <div className="sticky top-8 space-y-6">
-             
+          <div className="lg:col-span-1">
+            <div className="sticky top-8 space-y-6">
+              {/*              
                 {tocItems.length > 0 && (
                   <div className="hidden lg:block bg-card rounded-lg p-4 border">
                     <TableOfContents items={tocItems} />
                   </div>
-                )}
+                )} */}
+              <CourseSidebar
+                level={course.level}
+                duration={course.duration}
+                schedule={course.schedule}
+                tuition={course.tuition}
 
-             
-                <CourseSidebar
-                  level={course.level}
-                  duration={course.duration}
-                  schedule={course.schedule}
-                  tuition={course.tuition}
-                  totalStudents={course.totalStudents}
-                  hotline={course.hotline}
-                  downloadLink={course.downloadLink}
-                  relatedCourses={course.relatedCourses}
-                />
-              </div> */}
+              />
+
+              <ArticleSidebar
+                title="Khóa học tiêu biểu"
+                items={[
+                  {
+                    id: "1",
+                    title: "Luyện thi PTE core chuyên biệt",
+                    image: "/images/course-1.jpg",
+                    badge: "Miễn phí",
+                  },
+                  {
+                    id: "2",
+                    title: "Luyện thi PTE core chuyên biệt",
+                    image: "/images/course-2.jpg",
+                    badge: "Miễn phí",
+                  },
+                  {
+                    id: "3",
+                    title: "Luyện thi PTE core chuyên biệt",
+                    image: "/images/course-3.jpg",
+                    badge: "Miễn phí",
+                  },
+                ]}
+              />
+
+              <ArticleSidebar
+                title="Cộng đồng PTE lớn nhất"
+                items={[
+                  {
+                    id: "1",
+                    title: "Join our PTE community",
+                    image: "/images/news-1.jpg",
+                  },
+                ]}
+                variant="large"
+              />
+
+              <ArticleSidebar
+                title="Cập nhật thông tin PTE"
+                items={[
+                  {
+                    id: "1",
+                    title: "Follow us on social media",
+                    image: "/images/news-2.jpg",
+                  },
+                ]}
+                variant="large"
+              />
+
+            </div>
           </div>
         </div>
 
       </div>
       {/* Floating CTA (Mobile) */}
-        {/* <FloatingCTA hotline={course.hotline} onRegisterClick={handleRegister} /> */}
-       {/* Style overrides for sanitized HTML */}
+      {/* <FloatingCTA hotline={course.hotline} onRegisterClick={handleRegister} /> */}
+      {/* Style overrides for sanitized HTML */}
       <style>{`
         .image { text-align:center; }
         .image figcaption { color:#6b7280; font-size:.9rem; margin-top:.25rem; }

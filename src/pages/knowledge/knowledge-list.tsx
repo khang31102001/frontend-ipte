@@ -19,17 +19,17 @@ interface KnowledgeListProps {
     data?: Article[]
 }
 const KnowledgeList = ({
-    data
+    data = []
 }: any) => {
-   
+    
     return (
         <div className="min-h-screen bg-white">
             {/* Header */}
             <Breadcrumb
-                items={breadcrumbItems}
+                items={breadcrumbItems ?? []}
                 className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
             />
-             <ArticleGridSection data = {data}/>
+             <ArticleGridSection data = {data ?? []}/>
         </div>
     )
 }

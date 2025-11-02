@@ -79,30 +79,48 @@
   }
 
   /* Reset + shadcn base mapping */
-  * { @apply border-border; box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-  html, body {
-    width: 100%; height: 100%;
+  html,
+  body {
+    width: 100%;
+    height: 100%;
     scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    scrollbar-gutter: stable;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     color-scheme: light dark;
   }
 
   body {
     @apply bg-background text-foreground;
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     line-height: 1.6;
     font-size: 16px;
     font-family: var(--font-inter, 'Inter', ui-sans-serif, system-ui, sans-serif);
     overflow-x: hidden;
+    overflow-y: auto;
   }
 
-  a { color: inherit; text-decoration: none; }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
   /* accessibility */
   @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    * {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -111,38 +129,125 @@
 /* ===================== */
 @layer components {
   .pte-ipass-card {
-    @apply border bg-card text-card-foreground shadow-sm;
+    @apply border bg-background text-card-foreground shadow-sm;
     @apply shadow-md hover:shadow-lg transition-shadow;
     @apply overflow-hidden;
   }
 
   .card-box {
-    @apply bg-white border border-gray-100 rounded shadow-xl;
+    @apply border bg-background text-card-foreground shadow-sm;
+  }
+
+  .card-content {
+    @apply p-6 pt-0
+  }
+
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+
+  .card-footer {
+    @apply flex items-center p-6 pt-0
+  }
+
+    .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap
+           rounded-md font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background
+           border border-transparent
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+   .btn-outline {
+    @apply border border-gray-300 bg-background text-foreground
+           hover:bg-gray-50 hover:text-blue-600 hover:border-blue-400
+           active:bg-gray-100;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800;
+  }
+  .btn-link {
+    @apply inline-flex items-center gap-2 px-4 py-2
   }
 }
-
+/* ===================== */
 /*      UTILITIES        */
 /* ===================== */
 @layer utilities {
-  .transition-smooth { transition: var(--transition-smooth); }
-
-  /* Custom scrollbar (dùng giá trị trực tiếp, tránh @apply trong pseudo) */
-  .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-  .custom-scrollbar::-webkit-scrollbar-track { background: hsl(var(--muted)); }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground)); border-radius: 999px;
+  .card-description {
+    @apply text-sm text-muted-foreground
   }
 
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
+
+  .btn-sm {
+    @apply h-8 px-3 text-xs;
+  }
+
+  .btn-md {
+    @apply h-10 px-4 text-sm;
+  }
+
+  .btn-lg {
+    @apply h-12 px-6 text-base;
+  }
+
+  .btn-icon {
+    @apply h-10 w-10 p-0;
+  }
+
+  .pad-sm {
+    @apply px-3 py-2 sm:px-4 sm:py-3;
+  }
+
+  .pad-md {
+    @apply px-4 py-3 sm:px-6 sm:py-4 md:px-8 md:py-6;
+  }
+
+  .pad-lg {
+    @apply px-6 py-5 sm:px-10 sm:py-8;
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Custom scrollbar (dùng giá trị trực tiếp, tránh @apply trong pseudo) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground));
+    border-radius: 999px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
   .bg-hero-gradient {
     background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
   }
+
   .text-hero-gradient {
     background: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;         text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
   }
 
   /* Hero image (sửa typo 78hv → 78vh) */
@@ -155,10 +260,18 @@
     background-position: center;
     overflow: hidden;
 
-    @media (min-width: 768px) { min-height: 68vh; }
-    @media (min-width: 1024px) { min-height: 78vh; }
-    @media (min-width: 1440px) { max-height: 900px; }
+    @media (min-width: 768px) {
+      min-height: 68vh;
+    }
+
+    @media (min-width: 1024px) {
+      min-height: 78vh;
+    }
+
+    @media (min-width: 1440px) {
+      max-height: 900px;
+    }
   }
 
-  
+
 }

@@ -92,7 +92,7 @@ export function CommentItem({
             <p className="text-sm leading-relaxed whitespace-pre-wrap">{comment.content}</p>
           </div>
 
-          <div className="flex items-center space-x-4 mt-2 ml-2">
+          {/* <div className="flex items-center space-x-4 mt-2 ml-2">
             <button
             
               onClick={handleLike}
@@ -121,7 +121,7 @@ export function CommentItem({
             >
               <Flag className="w-4 h-4" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 

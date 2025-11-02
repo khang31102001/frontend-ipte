@@ -15,8 +15,8 @@ export default async function TeacherIndex() {
         />
         
       <TeamTeacherPage
-        data={teachers.data}
-        features={teachers.features}
+        data={teachers.data ?? []}
+        features={teachers.features ?? []}
       />
     </div>
   );

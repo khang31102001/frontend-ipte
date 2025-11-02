@@ -12,10 +12,7 @@ export default function WorkStudyIndex(){
             img="/images/hero-banner-primary.png"
             className="mb-12"
             />
-            
-      
             <StudyWorkImmigraionPage data={SAMPLE_StudyWork}/>
-
         </div>   
     );
 }

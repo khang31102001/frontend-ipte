@@ -5,7 +5,7 @@ import { Phone, Download, Users, Calendar, DollarSign, TrendingUp } from "lucide
 import Link from "next/link";
 // import { Link } from "react-router-dom";
 
-interface ArticleSidebarProps {
+interface CourseSidebarProps {
   level?: string;
   duration?: string;
   schedule?: string;
@@ -21,20 +21,20 @@ interface ArticleSidebarProps {
   }>;
 }
 
-export function AricleSidebar({
-  level,
-  duration,
-  schedule,
-  tuition,
-  totalStudents,
-  hotline,
-  downloadLink,
+const CourseSidebar = ({
+  level = "79+",
+  duration = "8 weeks",
+  schedule = "Mon-Fri, 7:00 PM - 9:00 PM (GMT+8)",
+  tuition = "7.000.000",
+  totalStudents = 2500,
+  hotline = "1900 636 648",
+  downloadLink = "https://drive.google.com/file/d/1XMnIuFwNVua8YFGP7xawgrRYF_3AQZQx/view?usp=drive_link",
   relatedCourses,
-}: ArticleSidebarProps) {
+}: CourseSidebarProps) => {
   return (
     <aside className="space-y-6">
       {/* Course Info Card */}
-      <div>
+      <div className="card-box pad-sm rounded">
         <div>
           <h1 className="text-lg">PTE Course Info</h1>
         </div>
@@ -48,7 +48,7 @@ export function AricleSidebar({
               <span >{level}</span>
             </div>
           )}
-          
+
           {duration && (
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground flex items-center">
@@ -58,7 +58,7 @@ export function AricleSidebar({
               <span className="text-sm font-medium">{duration}</span>
             </div>
           )}
-          
+
           {schedule && (
             <div className="flex items-start justify-between">
               <span className="text-sm text-muted-foreground flex items-center">
@@ -68,7 +68,7 @@ export function AricleSidebar({
               <span className="text-sm font-medium text-right">{schedule}</span>
             </div>
           )}
-          
+
           {tuition && (
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground flex items-center">
@@ -78,7 +78,7 @@ export function AricleSidebar({
               <span className="text-sm font-medium">{tuition}</span>
             </div>
           )}
-          
+
           {totalStudents && (
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground flex items-center">
@@ -88,29 +88,49 @@ export function AricleSidebar({
               <span className="text-sm font-medium">{totalStudents}+</span>
             </div>
           )}
-          
+
           {hotline && (
-            <div className="pt-4 border-t">
-              <button className="w-full" >
-                <a href={`tel:${hotline}`}>
+            <div className="pt-4 border-t border-gray-600">
+              <button className=" btn w-full" >
+                <a href={`tel:${hotline}`} className="w-full btn-link justify-center btn-sm 
+              border border-gray-300 rounded  
+              bg-transparent hover:bg-hero-gradient hover:text-white
+              transition-colors duration-200 ease-out">
                   <Phone className="w-4 h-4 mr-2" />
                   {hotline}
                 </a>
               </button>
             </div>
           )}
+          <div className="w-full">
+            <button className="w-full btn-link justify-center font-semibold btn-sm 
+              border border-gray-300 rounded  
+              bg-transparent hover:bg-hero-gradient hover:text-white
+              transition-colors duration-200 ease-out" >
+
+              Đăng ký tư vấn
+
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Download Card */}
       {downloadLink && (
-        <div>
-          <div>
+        <div className="card-box pad-sm rounded">
+          <div className="card-title">
             <h1 className="text-lg">Resources</h1>
           </div>
-          <div>
-            <button  className="w-full" >
-              <a href={downloadLink} download target="_blank" rel="noopener noreferrer">
+          <div className="w-full pt-4 border-t border-gray-600 w">
+            <button className="btn w-full" >
+              <a href={downloadLink}
+                className="w-full btn-link justify-center btn-sm 
+              border border-gray-300 rounded  
+              bg-transparent hover:bg-hero-gradient hover:text-white
+              transition-colors duration-200 ease-out
+              "
+                download target="_blank" rel="noopener noreferrer"
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Download PTE Sample
               </a>
@@ -121,11 +141,11 @@ export function AricleSidebar({
 
       {/* Related Courses */}
       {relatedCourses && relatedCourses.length > 0 && (
-        <div>
-          <div>
+        <div className="card-box rounded pad-sm">
+          <div className="card-title">
             <h1 className="text-lg">Related Courses</h1>
           </div>
-          <div className="space-y-3">
+          <div className="card-content space-y-3">
             {relatedCourses.map((course) => (
               <Link
                 key={course.id}
@@ -151,7 +171,7 @@ export function AricleSidebar({
                       {course.title}
                     </h4>
                     {course.level && (
-                      <span  className="mt-1 text-xs">
+                      <span className="mt-1 text-xs">
                         {course.level}
                       </span>
                     )}
@@ -165,3 +185,5 @@ export function AricleSidebar({
     </aside>
   );
 }
+
+export default CourseSidebar

@@ -12,7 +12,7 @@ interface TableOfContentsProps {
   className?: string;
 }
 
-export function TableOfContents({ items, className }: TableOfContentsProps) {
+const TableOfContents=({ items, className }: TableOfContentsProps)=> {
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
@@ -68,3 +68,5 @@ export function TableOfContents({ items, className }: TableOfContentsProps) {
     </nav>
   );
 }
+
+export default TableOfContents

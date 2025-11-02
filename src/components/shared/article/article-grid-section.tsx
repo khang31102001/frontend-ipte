@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import ArticleCard from "./article-card"
-import SidebarSection from "./sidebar-section"
+import SidebarSection from "./article-sidebar"
 import ListGridControl from "../Control/list-grid-control"
 
 interface Article {
@@ -119,14 +119,14 @@ const ArticleGridSection = ({
         </div>
 
         {/* Right Sidebar */}
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <SidebarSection
             title="Khóa học tiêu biểu"
             items={[
               {
-                id: "1",
+                id: 1,
                 title: "Luyện thi PTE core chuyên biệt",
-                image: "/pte-exam-course.jpg",
+                img: "/pte-exam-course.jpg",
                 badge: "Miễn phí",
               },
               {
@@ -167,7 +167,7 @@ const ArticleGridSection = ({
             ]}
             variant="large"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   )

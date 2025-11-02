@@ -1,9 +1,10 @@
 import PTETip from '@/components/pte-ipass/news/pte-tip'
+import { PTETips } from '@/types/PTETips'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import React from 'react'
 
 interface NewsTipListProps {
-  data?: any[]
+  data?: PTETips[]
 }
 
 const NewsTipList = ({ data }: NewsTipListProps) => {

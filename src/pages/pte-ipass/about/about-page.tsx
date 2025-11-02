@@ -4,11 +4,12 @@ import IPTEAudienceSection from "@/components/pte-ipass/about/IPTEAudienceSectio
 import MapSection from "@/components/pte-ipass/about/map-section";
 import MissionSection from "@/components/pte-ipass/about/mission-section";
 import PTEcosystem from "@/components/pte-ipass/about/pte-ecosystem";
+import { About } from "@/types/about";
 import { PTEEcosystem } from "@/types/ecosystem";
 
 interface AboutPageProps {
   dataEcosystem?: PTEEcosystem[];
-  branches?: any[];
+  branches?: About[];
 }
 
 const AboutPage = ({ 
@@ -19,7 +20,7 @@ const AboutPage = ({
         <AboutPTEiPass />
         <MissionSection />
         <IPTEAudienceSection />
-        <MapSection branches={branches ?? []}/>
+        <MapSection data={branches ?? []}/>
         {/* <FacilitiesSection /> */}
         <PTEcosystem data={dataEcosystem ?? []} />
        

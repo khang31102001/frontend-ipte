@@ -4,6 +4,7 @@ import React from 'react'
 import { aboutMeService } from '@/services/about-me/aboutMeService';
 import CommunityCard from '../community/community-card';
 import { url } from 'inspector';
+import { About } from '@/types/about';
 
 interface ContactItem {
     icon: React.ReactNode;
@@ -11,11 +12,11 @@ interface ContactItem {
     details: { label: string; value: string; href?: string }[];
 }
 
-
-
-
-const ContactInfor = async ({data}: any) => {
-
+interface ContactInforProps {
+    data: About
+}
+const ContactInfor = async ({ data }: ContactInforProps) => {
+    if (!data || {}) return null;
     const dataSocial = [
         {
             id: 1,
@@ -48,8 +49,8 @@ const ContactInfor = async ({data}: any) => {
             icon: <Phone className="w-5 h-5 text-black mt-1 font-bold" />,
             title: "Hotline liên hệ",
             details: [
-                { label: "Việt Nam", value: data.hotline },
-                { label: "Mail", value: data.email, href: `mailto:${data.email}` },
+                { label: "Việt Nam", value: data.hotline ?? "" },
+                { label: "Mail", value: data.email ?? "", href: `mailto:${data.email}` },
             ],
         },
         {

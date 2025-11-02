@@ -12,7 +12,7 @@ const KnowledgePage = ({
   console.log("KnowledgePage data", data);
   return (
     <div>
-        <KnowledgeList data={data}/>
+        <KnowledgeList data={data ?? []}/>
     </div>
   )
 }

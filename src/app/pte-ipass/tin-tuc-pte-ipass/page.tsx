@@ -7,14 +7,14 @@ import { newsService } from "@/services/news/newsService";
 
 export default async function IndexNews() {
     const newsJoinedKnowledge = await newsService.getNewsAndTips({});
-    console.log("News and Tips data:", newsJoinedKnowledge);
+    // console.log("News and Tips data:", newsJoinedKnowledge);
     return (
         <div>
             <HeroBanner img="/images/hero-banner-new.png" className="mb-12"/>
-           
+            
             <NewPage
-                dataNews={newsJoinedKnowledge.news || articles}
-                dataTip={newsJoinedKnowledge.tips || pteTipData}
+                dataNews={newsJoinedKnowledge.news ?? [] }
+                dataTip={newsJoinedKnowledge.tips ?? []}
             />
         </div>
     )

@@ -16,8 +16,8 @@ interface TeamTeacherPageProps {
 const TeamTeacherPage = ({ data, features }: TeamTeacherPageProps) => {
   return (
     <div className='bg-background text-foreground'>
-      <FeaturesSection data={features}/>
-      <TeacherList data={data} />
+      <FeaturesSection data={features ?? []}/>
+      <TeacherList data={data ?? []} />
       <CommunityPTEiPass />
       <PTECallToAction />
     </div>

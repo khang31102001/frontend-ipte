@@ -7,9 +7,7 @@ interface PTEcosystemProps {
     data?: PTEEcosystem[]
 }
 const PTEcosystem = ({ data }: PTEcosystemProps) => {
-    if (!data || data.length === 0) {
-        return null; 
-    }
+    if (!data || data.length === 0) return null; 
 
     return (
         <section className=" py-16  lg:px-8">
