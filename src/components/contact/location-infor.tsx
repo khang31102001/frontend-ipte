@@ -1,16 +1,10 @@
 "use client"
-
 import { useState } from "react"
 import { MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { aboutMeService } from "@/services/about-me/aboutMeService"
+// import { aboutMeService } from "@/services/about-me/aboutMeService"
 import { About } from "@/types/about"
 
-interface Branch {
-  id: number
-  address: string
-  map_url: string
-}
 interface LocationInforProps{
   data: About[];
 }

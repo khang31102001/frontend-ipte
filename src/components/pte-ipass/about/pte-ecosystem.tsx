@@ -1,5 +1,3 @@
-import { BookOpen } from "lucide-react"
-import TargetAudienceCard from "./card/TargetAudienceCard"
 import PTEEcosystemCard from "./card/pte-ecosystem-card"
 import { PTEEcosystem } from "@/types/ecosystem"
 

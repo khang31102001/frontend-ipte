@@ -14,7 +14,9 @@ const ContactPage =  ({
   return (
     <div>
         <ContactInfor data={aboutData[0] ?? {}}/>
-        <LocationInfor data={aboutData?.length > 1 ? aboutData.slice(1) : aboutData} />
+        {/* <LocationInfor data={aboutData?.length > 1 ? aboutData.slice(1) : []} /> */}
+        <LocationInfor data={aboutData?.length > 1 ? aboutData.slice(1) : []} />
+
         <ConsultationForm/>
     </div>
   )

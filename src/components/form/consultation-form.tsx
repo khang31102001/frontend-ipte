@@ -1,7 +1,5 @@
 "use client"
-
 import type React from "react"
-
 import { useState } from "react"
 // import { Button } from "@/components/ui/button"
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,7 +9,7 @@ import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Check, Shield, Star } from "lucide-react"
-import { consultationService } from "@/services/consultation/consultation"
+// import { consultationService } from "@/services/consultation/consultation"
 
 const ConsultationForm = () => {
   const [formData, setFormData] = useState({
@@ -26,11 +24,11 @@ const ConsultationForm = () => {
     e.preventDefault()
     console.log("Form submitted:", formData)
     // Handle form submission here
-    consultationService.register(formData).then((response) => {
-      console.log("Consultation registered:", response)
-    }).catch((error) => {
-      console.error("Error registering consultation:", error)
-    })
+    // consultationService.register(formData).then((response) => {
+    //   console.log("Consultation registered:", response)
+    // }).catch((error) => {
+    //   console.error("Error registering consultation:", error)
+    // })
   }
 
   const handleInputChange = (field: string, value: string) => {

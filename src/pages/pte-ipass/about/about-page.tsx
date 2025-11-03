@@ -9,20 +9,24 @@ import { PTEEcosystem } from "@/types/ecosystem";
 
 interface AboutPageProps {
   dataEcosystem?: PTEEcosystem[];
-  branches?: About[];
+  dataBranches?: About[];
+  dataAudiences?: About[];
 }
 
 const AboutPage = ({ 
-  dataEcosystem, branches
+  dataEcosystem, 
+  dataBranches,
+  dataAudiences
 }: AboutPageProps) => {
   return (
     <div className='bg-background text-foreground'>
         <AboutPTEiPass />
         <MissionSection />
-        <IPTEAudienceSection />
-        <MapSection data={branches ?? []}/>
+        {/* lỗi nằm ở<IPTEAudienceSection /> */}
+        <IPTEAudienceSection data={dataAudiences} />
+        <MapSection data={dataBranches}/>
         {/* <FacilitiesSection /> */}
-        <PTEcosystem data={dataEcosystem ?? []} />
+        <PTEcosystem data={dataEcosystem } />
        
     </div>
   )

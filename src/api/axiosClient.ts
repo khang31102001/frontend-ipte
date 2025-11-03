@@ -5,7 +5,7 @@ import { getAccessToken, setAccessToken, clearAccessToken } from "./token";
 // --- Base URL: ưu tiên Vite env, fallback localhost ---
 const baseURL = process.env.NEXT_PUBLIC_URL_API || "https://backend-ipte.onrender.com/api";
 
-console.log("API URL:", baseURL);
+// console.log("API URL:", baseURL);
 
 // --- Axios instance ---
 const http = axios.create({

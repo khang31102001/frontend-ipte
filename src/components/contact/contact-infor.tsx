@@ -1,7 +1,6 @@
 import { ArrowRight, Clock, Facebook, Phone, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
-import { aboutMeService } from '@/services/about-me/aboutMeService';
 import CommunityCard from '../community/community-card';
 import { url } from 'inspector';
 import { About } from '@/types/about';
@@ -15,8 +14,8 @@ interface ContactItem {
 interface ContactInforProps {
     data: About
 }
-const ContactInfor = async ({ data }: ContactInforProps) => {
-    if (!data || {}) return null;
+const ContactInfor =  ({ data }: ContactInforProps) => {
+    if (!data || Object.keys(data).length === 0) return null;
     const dataSocial = [
         {
             id: 1,

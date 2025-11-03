@@ -1,14 +1,14 @@
 "use client"
-
 import { useState } from "react"
 import { MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { aboutMeService } from "@/services/about-me/aboutMeService"
 import { About } from "@/types/about"
 interface MapSectionProps{
-  data: About[]
+  data?: About[]
 }
-const MapSection = ({data}:MapSectionProps) => {
+const MapSection = ({
+  data = []
+}:MapSectionProps) => {
   const [selectedBranch, setSelectedBranch] = useState<About>(data[0] ?? null);
   if(!data || data.length === 0) return null;
   return (
