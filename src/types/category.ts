@@ -8,13 +8,14 @@ export enum CategoryType {
 
 export interface CategoryItem {
     id: number
+    level?: number,
     icon?: string,
     name: string,
     slug?: string,
     url?: string,
     description?: string,
     parent_id?: number | null,
-    category_type?: CategoryType,
+    category_type?: string,
     children?: CategoryItem[] ,
     meta_title?: string,
     meta_description?: string,

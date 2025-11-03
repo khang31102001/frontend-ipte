@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { useIsMobile } from '@/hooks/use-mobile'
 import Link from 'next/link'
-import { NavMenuData } from '@/data/nav-menu-data'
+
 import { CategoryItem } from '@/types/category'
 
 import MenuMobileList from './menu-mobile-list'
@@ -110,7 +110,7 @@ const Header = ({
                 </button>
 
                 {/* mobile menu */}
-                <MenuMobileList data={NavMenuData} IsOpenMenu={openMenu} />
+                <MenuMobileList data={menuItems} IsOpenMenu={openMenu} />
               </>
             )}
 
@@ -123,7 +123,7 @@ const Header = ({
       <div id="nav-menu" className="nav-menu">
         <nav className="nav-menu__wrapper">
           <ul ref={menuRef} className="nav-menu__list">
-            {NavMenuData.map((item, idx) => (
+            {menuItems.map((item, idx) => (
               <li key={idx} className="nav-menu__item group">
                 <a href={item.url} className="nav-menu__link link-underline ">
                   <span className="nav-menu__text">{item.name}</span>
