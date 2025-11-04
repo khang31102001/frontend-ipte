@@ -1,5 +1,6 @@
 import HeroImage from "@/components/banner/banner";
 import HeroBanner from "@/components/banner/hero-banner";
+import { getCourseByCate } from "@/data/data-course";
 import CoursePage from "@/pages/course/course-page";
 
 
@@ -12,7 +13,7 @@ export default function IndexCourse() {
             />
            
             <CoursePage
-                data={[]}
+                dataCourseByCate={getCourseByCate}
             />
         </div>
     );

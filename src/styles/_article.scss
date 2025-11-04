@@ -1,0 +1,79 @@
+  .image {
+      text-align: center;
+  }
+
+  .image figcaption {
+      color: #6b7280;
+      font-size: .9rem;
+      margin-top: .25rem;
+  }
+
+  .embed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #eef2f7;
+      background: #000;
+  }
+
+  .embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+  }
+
+  .article-body h2 {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      font-weight: 800;
+  }
+
+  .article-body h3 {
+      font-size: 1.15rem;
+      margin-top: 1.25rem;
+      font-weight: 700;
+  }
+
+  .article-body a {
+      color: #1d4ed8;
+      text-decoration: underline;
+  }
+
+  .article-body a:hover {
+      color: #1e40af;
+  }
+
+  .article-body blockquote {
+      border-left: 4px solid #e5e7eb;
+      padding: .5rem 1rem;
+      color: #374151;
+      background: #fafafa;
+      border-radius: 8px;
+      margin: 1rem 0;
+  }
+
+  .article-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .98rem;
+      margin: 1rem 0;
+  }
+
+  .article-body th,
+  .article-body td {
+      border: 1px solid #e5e7eb;
+      padding: .6rem .7rem;
+  }
+
+  .article-body th {
+      background: #f9fafb;
+      font-weight: 600;
+  }
+
+  .article-body tr:nth-child(even) td {
+      background: #fcfcfd;
+  }

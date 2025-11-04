@@ -1,8 +1,10 @@
 "use client"
 
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 interface CourseCardProps {
+    slug: string;
     image: string
     duration: string
     level: string
@@ -13,6 +15,7 @@ interface CourseCardProps {
 }
 
 const CourseCardRow = ({
+    slug,
     image,
     duration,
     level,
@@ -22,6 +25,7 @@ const CourseCardRow = ({
     // onButtonClick,
 }: CourseCardProps) => {
     return (
+      <Link href={`/khoa-hoc/${slug}`} className="block h-full focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl">
         <div className="flex gap-6 p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
             {/* Course Image */}
             <div className="flex-shrink-0">
@@ -61,6 +65,7 @@ const CourseCardRow = ({
                 </div>
             </div>
         </div>
+      </Link>
     )
 }
 

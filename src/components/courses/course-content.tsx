@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 interface CourseContentProps {
-    data: string
+    data?: string
 }
 const CourseContent = ({ data }: CourseContentProps) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);

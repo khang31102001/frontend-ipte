@@ -12,7 +12,7 @@ export const dataDetailCourse: Course[] = [
     duration: "6 tuần",
     schedule: "2-4-6 (Sáng) hoặc 3-5-CN (Tối)",
     tuition: "4.500.000 – 5.500.000đ",
-    summary:
+    description:
       "Khóa nền tảng giúp học viên làm quen format PTE, luyện phát âm và kỹ năng paraphrase cơ bản.",
     content: `
       <h2>Giới thiệu khóa học</h2>
@@ -54,7 +54,7 @@ export const dataDetailCourse: Course[] = [
     duration: "3 buổi test (tùy gói)",
     schedule: "Linh hoạt – Đặt lịch online",
     tuition: "1.200.000 – 3.000.000đ",
-    summary:
+    description:
       "Khóa luyện đề chuyên sâu với hệ thống chấm tự động theo tiêu chí PTE, có chữa từng câu bởi giảng viên.",
     content: `
       <h2>Giới thiệu khóa học</h2>
@@ -91,7 +91,7 @@ export const dataDetailCourse: Course[] = [
     duration: "4 tuần",
     schedule: "3 buổi/tuần (Tối 2-4-6)",
     tuition: "3.500.000đ",
-    summary:
+    description:
       "Chương trình chữa lỗi viết chuyên sâu – từ idea đến coherence, áp dụng được ngay cho Task 1 & 2.",
     content: `
       <h2>Giới thiệu khóa học</h2>
@@ -116,7 +116,7 @@ export const dataDetailCourse: Course[] = [
     duration: "3 tuần",
     schedule: "Tối 2-4-6 (Online)",
     tuition: "3.000.000đ",
-    summary:
+    description:
       "Rèn luyện kỹ năng nghe chính xác, tập trung các dạng khó như WFD, SST, HIW và LFIB.",
     content: `
       <h2>Giới thiệu</h2>
@@ -133,7 +133,7 @@ export const dataDetailCourse: Course[] = [
     duration: "7 ngày",
     schedule: "Học linh hoạt qua app + feedback GV",
     tuition: "1.200.000đ",
-    summary:
+    description:
       "Mini course 7 ngày giúp cải thiện fluency, pronunciation và response time đạt chuẩn AI scoring.",
     content: `
       <h2>Tổng quan</h2>
@@ -150,7 +150,7 @@ export const dataDetailCourse: Course[] = [
     duration: "4 buổi workshop",
     schedule: "Cuối tuần (T7 & CN)",
     tuition: "2.200.000đ",
-    summary:
+    description:
       "Workshop sửa phát âm từng cá nhân, luyện phản xạ nói tự nhiên theo tiêu chí examiner.",
     content: `
       <h2>Giới thiệu</h2>
@@ -167,7 +167,7 @@ export const dataDetailCourse: Course[] = [
     duration: "10 ngày",
     schedule: "Học mỗi ngày (Online)",
     tuition: "4.200.000đ",
-    summary:
+    description:
       "Khoá học rút gọn 10 ngày cho người cần thi gấp, tập trung kỹ thuật làm bài nhanh và mẹo scoring.",
     content: `
       <h2>Tổng quan</h2>
@@ -184,7 +184,7 @@ export const dataDetailCourse: Course[] = [
     duration: "8 tuần",
     schedule: "3 buổi/tuần (Tối 2-4-6 hoặc 3-5-CN)",
     tuition: "7.000.000đ",
-    summary:
+    description:
       "Chương trình toàn diện 8 tuần – luyện Writing, Speaking, Listening & Reading theo format IDP 2025.",
     content: `
       <h2>Giới thiệu khóa học</h2>
@@ -192,3 +192,5 @@ export const dataDetailCourse: Course[] = [
     `
   }
 ];
+
+
