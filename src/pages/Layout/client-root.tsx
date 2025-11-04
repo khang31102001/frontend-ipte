@@ -5,9 +5,11 @@ import PopupRegistrationForm from "@/components/popup/form/popup-registration-fo
 import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
 import MainLayout from "./main-layout";
 import FloatingChat from "@/components/Layout/FloatingChat";
-import { main_menu_categories } from "@/data/category";
+// import { main_menu_categories } from "@/data/category";
+import { CategoryItem } from '@/types/category'
 
-export default function ClientRoot({ children }: { children: React.ReactNode }) {
+export default function ClientRoot({ children, navMenuData }: { children: React.ReactNode, navMenuData: CategoryItem[]; }) {
+
   const { isOpen, close } = useFirstVisitPopup({
     storageKey: "popup:reg:v5",
     cooldownDays: 0.33333,
@@ -22,7 +24,7 @@ export default function ClientRoot({ children }: { children: React.ReactNode }) 
       disableTransitionOnChange
     >
       <MainLayout
-        menu={main_menu_categories}
+        menu={navMenuData}
       >
         {children}
       </MainLayout>
