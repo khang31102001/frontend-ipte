@@ -6,7 +6,7 @@ import CoursePage from "@/pages/course/course-page";
 
 
 export default function IndexCourse() {
-    const items= coursesServices.getCoursesList({});
+    // const items= coursesServices.getCoursesList({});
     // console.log("course:", items);
     return (
         <div>

@@ -19,7 +19,7 @@ export default async function RootLayout({
 }>) {
 
     const data = await categoriesServices.getCategoriesList({});
-    const navMenuData = data ?  data as CategoryItem[] : [];
+ 
 
     // console.log('navMenuData layout:', data);
 
@@ -29,7 +29,7 @@ export default async function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body suppressHydrationWarning={true} className={inter.className}>
-                <ClientRoot navMenuData={navMenuData}>
+                <ClientRoot navMenuData={data}>
                     {children}
                 </ClientRoot>
             </body>
