@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
 import ClientRoot from "@/pages/Layout/client-root";
-
 import { CategoryItem } from '@/types/category'
 import { categoriesServices } from "@/lib/service/category";
 
@@ -20,9 +19,9 @@ export default async function RootLayout({
 }>) {
 
     const data = await categoriesServices.getCategoriesList({});
-    const navMenuData = data ?  data.items as CategoryItem[] : [];
+    const navMenuData = data ?  data as CategoryItem[] : [];
 
-    // console.log('navMenuData layout:', navMenuData);
+    // console.log('navMenuData layout:', data);
 
     return (
         <html lang="en" suppressHydrationWarning={true}>
@@ -30,7 +29,7 @@ export default async function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body suppressHydrationWarning={true} className={inter.className}>
-                <ClientRoot navMenuData={navMenuData ?? []}>
+                <ClientRoot navMenuData={navMenuData}>
                     {children}
                 </ClientRoot>
             </body>

@@ -11,7 +11,8 @@ export class CategoriesServices {
 
   try {
     const res = await fetch(`${API}/categories/header-menu${qs}`, {
-      next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+        cache: 'no-store',
+      // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000), 
     });
     if (!res.ok) return { items: [], total: 0 };
