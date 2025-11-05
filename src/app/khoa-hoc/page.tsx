@@ -1,10 +1,13 @@
 import HeroImage from "@/components/banner/banner";
 import HeroBanner from "@/components/banner/hero-banner";
 import { getCourseByCate } from "@/data/data-course";
+import { coursesServices } from "@/lib/service/course";
 import CoursePage from "@/pages/course/course-page";
 
 
 export default function IndexCourse() {
+    const items= coursesServices.getCoursesList({});
+    // console.log("course:", items);
     return (
         <div>
             <HeroBanner

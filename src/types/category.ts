@@ -19,10 +19,7 @@ export interface Category {
     description?: string,
     parent_id?: number | null,
     category_type?: string,
-<<<<<<< HEAD
-=======
     children?: CategoryItem[] ,
->>>>>>> a77f5458682ae67dbe5574207ff3e496ce21907a
     meta_title?: string,
     meta_description?: string,
     h1_heading?: string,

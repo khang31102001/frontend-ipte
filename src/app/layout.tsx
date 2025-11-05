@@ -4,6 +4,7 @@ import "@/styles/globals.scss";
 import ClientRoot from "@/pages/Layout/client-root";
 
 import { CategoryItem } from '@/types/category'
+import { categoriesServices } from "@/lib/service/category";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +19,10 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/categories/header-menu`);
-    const navMenuData = res ? (await res.json()) as CategoryItem[] : [];
+    const data = await categoriesServices.getCategoriesList({});
+    const navMenuData = data ?  data.items as CategoryItem[] : [];
 
-    console.log('navMenuData layout:', navMenuData);
+    // console.log('navMenuData layout:', navMenuData);
 
     return (
         <html lang="en" suppressHydrationWarning={true}>
@@ -29,7 +30,7 @@ export default async function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body suppressHydrationWarning={true} className={inter.className}>
-                <ClientRoot navMenuData={navMenuData}>
+                <ClientRoot navMenuData={navMenuData ?? []}>
                     {children}
                 </ClientRoot>
             </body>

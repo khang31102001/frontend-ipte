@@ -14,7 +14,7 @@ const TeacherList = ({
   title = "Khám phá profile thầy cô iPTE tại đây!",
   data
 }: TeacherListProps) => {
-  const list = Array.isArray(data) ? data : [];
+  const list = useMemo(() => (Array.isArray(data) ? data : []), [data]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const totalPages = Math.max(1, Math.ceil(list.length / ITEMS_PER_PAGE));
 
