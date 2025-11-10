@@ -1,5 +1,6 @@
 import { News } from "@/types/news";
 import Image from "next/image"
+import Link from "next/link";
 
 interface TrendingNewsProps {
   data: News[]
@@ -13,7 +14,12 @@ const TrendingNews = ({ data }: TrendingNewsProps) => {
       {/* Left Column - Article List */}
       <div className="flex flex-col gap-6">
         {data.map((item) => (
-          <div key={item.id} className="group overflow-hidden transition-shadow hover:shadow-lg rounded-md ">
+          <Link 
+          key={item.id}
+          href={`/tin-tuc/${item.slug}`} 
+          className="block"
+          >
+           <div className="group overflow-hidden transition-shadow hover:shadow-lg rounded-md ">
             <div className="flex flex-row justify-between gap-4 p-0 ">
               {item.image && (
                 <div className="relative h-40 w-40 lg:h-48 lg:w-72 flex-shrink-0 overflow-hidden">
@@ -37,6 +43,8 @@ const TrendingNews = ({ data }: TrendingNewsProps) => {
               </div>
             </div>
           </div>
+          </Link>
+         
         ))}
       </div>
 

@@ -1,14 +1,16 @@
 import React from 'react'
 interface ArticleHeaderProps {
-    title?: string;
-    summary?: string;
-    className?: string;
+    title?: string | null;
+    summary?: string | null;
+    className?: string | null;
 }
 const ArticleHeader = ({
     title,
     summary,
     className
 }: ArticleHeaderProps) => {
+    if(!title &&  !summary) return null;;
+    
     return (
         <header className="w-full px-4 sm:px-6 lg:px-8 mt-3">
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">{title}</h1>

@@ -1,57 +1,39 @@
-import { CommentsSection } from "@/components/comment/comment-section"
-import CourseSidebar from "@/components/courses/detail/course-sidebar"
-import {
-  ArticleContent,
-  ArticleCovderImage,
-  ArticleFooter,
-  ArticleHeader,
-  ArticleSidebar
-} from "@/components/shared/article"
-import { ALLCOURSES } from "@/data/data-course"
-import { notFound } from "next/navigation"
-
+import { CommentsSection } from "@/components/comment/comment-section";
+import CourseSidebar from "@/components/courses/detail/course-sidebar";
+import { ArticleContent, ArticleCovderImage, ArticleHeader, ArticleSidebar } from "@/components/shared/article";
+import { FloatingCTA } from "@/components/shared/subscription/floating-cta";
+import { Course } from "@/types/courses";
 
 interface CourseDeatilsProps {
-  params: { slug: string }
+  course: Course | null;
+  breadcrumbs: any[] | null;
 }
+const CourseDetailPage = ({
+  course,
+  breadcrumbs = []
+}: CourseDeatilsProps) => {
 
+  // console.log("course", course);
 
-export async function generateMetadata({ params }: CourseDeatilsProps) {
-
-
-  const course = ALLCOURSES.find((item) => item.slug === params.slug)
-  if (!course) return { title: "Khóa học không tồn tại" }
-  return {
-    title: course.title,
-    description: course.description,
-  }
-}
-
-export default function CourseDetailIndex({ params }: CourseDeatilsProps) {
-  const course = ALLCOURSES.find((item) => item.slug === params.slug)
-
-  if (!course) return notFound();
+  if (!course) return null;
 
   return (
     <article className="min-h-screen bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto pad-sm">
-        
+
         <ArticleHeader
-          title={course.title || ""}
-          summary={course.description || ""}
+          title={course.title}
+          summary={course.description}
         />
 
         <ArticleCovderImage
-          title="title img"
-          caption=""
-          image={course.img || ""}
-
+          image={course.img}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
-            <ArticleContent content={course.content || ""} />
-            <ArticleFooter />
+            <ArticleContent content={course.content} />
+            {/* <ArticleFooter /> */}
             <CommentsSection courseId="1" />
           </div>
 
@@ -64,10 +46,11 @@ export default function CourseDetailIndex({ params }: CourseDeatilsProps) {
                   </div>
                 )} */}
               <CourseSidebar
-                level={course.level || ""}
-                duration={course.duration || ""}
-                schedule={course.schedule || ""}
-                tuition={course.tuition || ""}
+                Detailstitle="PTE Course Info"
+                level={course.level}
+                duration={course.duration}
+                schedule={course.schedule}
+                tuition={course.tuition}
 
               />
 
@@ -125,7 +108,9 @@ export default function CourseDetailIndex({ params }: CourseDeatilsProps) {
 
       </div>
       {/* Floating CTA (Mobile) */}
-      {/* <FloatingCTA hotline={course.hotline} onRegisterClick={handleRegister} /> */}
+      <FloatingCTA />
     </article>
   )
 }
+
+export default CourseDetailPage;

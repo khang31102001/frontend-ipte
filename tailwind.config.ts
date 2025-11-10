@@ -23,7 +23,9 @@ const config = {
         "4xl": "1920px",
       },
       maxWidth: {
-        'screen-3xl': '1800px',
+        container: "1280px",
+        'container-lg': "1440px",
+        'container-sm': "1024px",
       },
       fontSize: {
         md: '1.0625rem',

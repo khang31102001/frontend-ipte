@@ -6,37 +6,52 @@ import Link from "next/link";
 // import { Link } from "react-router-dom";
 
 interface CourseSidebarProps {
-  level?: string;
-  duration?: string;
-  schedule?: string;
-  tuition?: string;
-  totalStudents?: number;
-  hotline?: string;
+  Detailstitle: string | null
+  level?: string | null;
+  duration?: string | null;
+  schedule?: string | null;
+  tuition?: string | null;
+  totalStudents?: number | null;
+  hotline?: string | null;
   downloadLink?: string;
   relatedCourses?: Array<{
     id: string;
     title: string;
     image?: string;
     level?: string;
-  }>;
+  }>| null;
 }
 
 const CourseSidebar = ({
-  level = "79+",
-  duration = "8 weeks",
-  schedule = "Mon-Fri, 7:00 PM - 9:00 PM (GMT+8)",
-  tuition = "7.000.000",
-  totalStudents = 2500,
+  Detailstitle,
+  level ,
+  duration ,
+  schedule ,
+  tuition,
+  totalStudents,
   hotline = "1900 636 648",
   downloadLink = "https://drive.google.com/file/d/1XMnIuFwNVua8YFGP7xawgrRYF_3AQZQx/view?usp=drive_link",
   relatedCourses,
 }: CourseSidebarProps) => {
+  
+const isEmpty =
+    !level &&
+    !duration &&
+    !schedule &&
+    !tuition &&
+    !totalStudents &&
+    !hotline &&
+    !downloadLink &&
+    (!relatedCourses || relatedCourses.length === 0);
+
+  if(isEmpty) return null;
+ 
   return (
     <aside className="space-y-6">
       {/* Course Info Card */}
       <div className="card-box pad-sm rounded">
         <div>
-          <h1 className="text-lg">PTE Course Info</h1>
+          <h1 className="text-lg">{Detailstitle}</h1>
         </div>
         <div className="space-y-4">
           {level && (
@@ -102,7 +117,7 @@ const CourseSidebar = ({
               </button>
             </div>
           )}
-          <div className="w-full">
+          <div className="hidden md:block w-full">
             <button className="w-full btn-link justify-center font-semibold btn-sm 
               border border-gray-300 rounded  
               bg-transparent hover:bg-hero-gradient hover:text-white

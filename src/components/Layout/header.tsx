@@ -23,7 +23,7 @@ const Header = ({
   const [openMenu, setOpenMenu] = useState(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
-
+//  console.log("menuItems", menuItems);
   // useEffect(() => {
   //   function handleClickOutside(event: MouseEvent) {
   //     if (
@@ -90,8 +90,7 @@ const Header = ({
               />
             </div>
 
-            {isMobile && (
-              <>
+          
                 {/* Mobile Menu Button */}
                 <button
                   className="md:hidden flex flex-col justify-center items-center text-primary space-y-1.5 z-50"
@@ -111,8 +110,7 @@ const Header = ({
 
                 {/* mobile menu */}
                 <MenuMobileList data={menuItems} IsOpenMenu={openMenu} />
-              </>
-            )}
+    
 
           </div>
         </div>

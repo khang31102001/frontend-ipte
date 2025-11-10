@@ -79,7 +79,7 @@ const courses: Course[] = [
         image: "/images/course-4.jpg",
     },
 ]
-const Course = () => {
+const CourseSwiper = () => {
     // const [loadMore, setloadMore] = useState<boolean>()
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
@@ -141,4 +141,4 @@ const Course = () => {
     )
 }
 
-export default Course       
+export default CourseSwiper       

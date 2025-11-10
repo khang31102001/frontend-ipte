@@ -8,11 +8,12 @@ export class CategoriesServices {
     const qs = params ? '?' + new URLSearchParams(
       Object.entries(params).map(([k, v]) => [k, String(v)])
     ).toString() : '';
-
+    const url = `${API}/categories/header-menu${qs}`;
+    // console.log("url cate:", url)
     try {
-      const res = await fetch(`${API}/categories/header-menu${qs}`, {
+      const res = await fetch(url, {
         // cache: 'no-store',
-        next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+       // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return { items: [], total: 0 };
@@ -21,6 +22,50 @@ export class CategoriesServices {
       return { items: [], total: 0 }; // không throw để không vỡ build/render
     }
   }
+
+    async getItemBycategories(params?: Record<string, string | number>) {
+    const qs = params ? '?' + new URLSearchParams(
+      Object.entries(params).map(([k, v]) => [k, String(v)])
+    ).toString() : '';
+      const url = `${API}/categories${qs}`;
+      // console.log("url-category:", url);
+    try {
+      const res = await fetch(url, {
+        // cache: 'no-store',
+        // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!res.ok) return { items: [], total: 0 };
+      const data = res.json();
+      // console.log("data category:", data);
+      return data;
+    } catch {
+      return { items: [], total: 0 }; // không throw để không vỡ build/render
+    }
+  }
+
+   async getCourseByCategory(params?: Record<string, string | number>) {
+    const qs = params ? '?' + new URLSearchParams(
+      Object.entries(params).map(([k, v]) => [k, String(v)])
+    ).toString() : '';
+      const url = `${API}/categories/category-tree${qs}`;
+      // console.log("url-category:", url);
+    try {
+      const res = await fetch(url, {
+        // cache: 'no-store',
+        // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!res.ok) return { items: [], total: 0 };
+      const data = res.json();
+      // console.log("data course category:", data);
+      return data;
+    } catch {
+      return { items: [], total: 0 }; // không throw để không vỡ build/render
+    }
+  }
+
+
 
 
 

@@ -6,7 +6,10 @@ interface TrendingNewsListProps {
   title?: string
   data?: News[]
 }
-const TrendingNewsList = ({ data, title = "Thịnh hành" }: TrendingNewsListProps) => {
+const TrendingNewsList = ({ 
+  data, 
+  title = "Thịnh hành" 
+}: TrendingNewsListProps) => {
 
   if (!data || data.length === 0) return null;
 

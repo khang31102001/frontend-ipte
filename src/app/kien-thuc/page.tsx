@@ -2,7 +2,7 @@ import HeroImage from "@/components/banner/banner";
 import HeroBanner from "@/components/banner/hero-banner";
 import { SAMPLE_PTEuniversity } from "@/data/daihoc";
 import KnowledgePage from "@/pages/knowledge/knowledge-page";
-// import { knowledgeService } from "@/services/knowledge/knowledgeService";
+import { knowledgeService } from "@/services/knowledge/knowledgeService";
 
 
 export default function KnowledgeIndex() {

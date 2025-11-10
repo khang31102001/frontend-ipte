@@ -11,7 +11,7 @@ export class AboutSevice {
 
   try {
     const res = await fetch(`${API}/${qs}`, {
-      next: { revalidate: 300, tags: ['about'] }, // ISR 5 phút + tag
+      // next: { revalidate: 300, tags: ['about'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000), 
     });
     if (!res.ok) return { items: [], total: 0 };

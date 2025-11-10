@@ -3,11 +3,11 @@
 import { Course } from "@/types/courses"
 import Link from "next/link";
 interface SidebarItem {
-  id: string
-  title: string
-  image: string
-  badge?: string
-  href?: string;
+  id?: string | null ;
+  title?: string | null ;
+  image?: string | null ;
+  badge?: string | null ;
+  href?: string | null ;
 }
 interface ArticleSidebarProps {
   title: string
@@ -19,6 +19,7 @@ const ArticleSidebar=({
   items, 
   variant = "default" 
 }: ArticleSidebarProps)=> {
+  if(!items) return null;
   return (
     <div>
       <h3 className="mb-4 text-lg font-bold text-gray-900">{title}</h3>
@@ -30,12 +31,12 @@ const ArticleSidebar=({
           >
             {variant === "large" ? (
               <Link href={item.href ?? "#"} className="aspect-video overflow-hidden bg-gray-100">
-                <img src={item.image || "/placeholder.svg"} alt={item.title} className="h-full w-full object-cover" />
+                <img src={item.image || "/placeholder.svg"} alt={item.title ?? ""} className="h-full w-full object-cover" />
               </Link>
             ) : (
               <Link href={item.href ?? "#"} className="flex gap-3 ">
                 <div className="h-20 w-24 flex-shrink-0 overflow-hidden bg-gray-100">
-                  <img src={item.image || "/placeholder.svg"} alt={item.title} className="h-full w-full object-cover" />
+                  <img src={item.image || "/placeholder.svg"} alt={item.title ?? ""} className="h-full w-full object-cover" />
                 </div>
                 <div className="flex flex-1 flex-col justify-between p-3">
                   <h4 className="line-clamp-2 text-sm font-semibold text-gray-900">{item.title}</h4>

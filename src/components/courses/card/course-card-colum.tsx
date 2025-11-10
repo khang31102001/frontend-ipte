@@ -37,7 +37,7 @@ const CoursesCardColum = ({
                 {/* Image */}
                 <div className='w-full h-36 sm:h-40 md:h-44 lg:h-48 xl:h-56 2xl:h-60 overflow-hidden rounded-2xl'>
                     <Image
-                        src={image || "/imgaes/course-1.jpg"}
+                        src={image || "/images/course-1.jpg"}
                         alt={title || ""}
                         width={400}
                         height={200}

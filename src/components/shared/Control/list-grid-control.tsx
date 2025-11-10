@@ -2,51 +2,87 @@
 import React, { useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Search from '@/components/search/Search'
-import Button from '@/components/button/Button'
-import { Grid3x3, List, ChevronLeft, ChevronRight, ArrowRight, Loader2 } from "lucide-react"
+import { Grid3x3, List } from "lucide-react"
+import { CategoryItem } from '@/types/category'
 type ViewMode = "grid" | "list";
 interface ListGridControlProps {
-    className?: string
-    onChangeView: (type: ViewMode) => void
+    items?: CategoryItem[];
+    className?: string;
+    onChangeView: (type: ViewMode) => void;
+    onSelectSort?: (value: string) => void;
 }
 const ListGridControl = ({
+    items = [],
     className,
-    onChangeView
+    onChangeView,
+    onSelectSort
 }: ListGridControlProps) => {
 
-
+   
     //   const [searchQuery, setSearchQuery] = useState("")
-    const [sortBy, setSortBy] = useState("newest")
+    const [sortBy, setSortBy] = useState<string>();
+    const [isActive, setIsActive] = useState<ViewMode>("grid");
+    //  console.log("sort by cate: ----", sortBy)
+
+    const handleViewChange = (mode: ViewMode) => {
+        setIsActive(mode);
+        onChangeView(mode);
+    }
+    const handleSortChange = (value: string )=>{
+        setSortBy(value);
+        onSelectSort?.(value);
+    }
+    if (!items || items.length === 0) return null;
+
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-8">
             {/* Search */}
             <Search />
 
             {/* Sort */}
-            <Select value={sortBy} onValueChange={setSortBy}>
+            <Select value={sortBy} onValueChange={handleSortChange}>
                 <SelectTrigger className="w-full md:w-[200px]">
                     <SelectValue placeholder="Newly published" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="newest">Newly published</SelectItem>
-                    <SelectItem value="popular">Most popular</SelectItem>
-                    <SelectItem value="price-low">Price: Low to High</SelectItem>
-                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="all" >Tất cả</SelectItem>
+                    {
+                        items.map((item, index) => {
+                            return (
+                                <SelectItem key={item.category_id ?? item.slug ?? `idx-${index}`}
+                                    value={item.name}>{item.name}
+                                </SelectItem>
+                            )
+                        })
+                    }
+                     
                 </SelectContent>
             </Select>
 
             {/* View Toggle */}
             <div className="flex gap-2">
-                <Button
-                    onClick={() => onChangeView("grid")}
+                <button
+                    className={`
+                    p-2 rounded-md border border-gray-200
+                    text-primary hover:text-white hover:bg-hero-gradient 
+                    transition-colors duration-200 ease-out
+                    ${isActive === "grid" ? "bg-hero-gradient" : "bg-background"}
+                    `}
+                    onClick={() => handleViewChange("grid")}
                 >
-                    <Grid3x3 className="w-4 h-4" />
-                </Button>
-                <Button
-                    onClick={() => onChangeView("list")}
+                    <Grid3x3 className=" w-4 h-4 flex-shrink-0" />
+                </button>
+                <button
+                    className={`
+                    p-2 rounded-md border border-gray-200
+                    text-primary hover:text-white hover:bg-hero-gradient 
+                    transition-colors duration-200 ease-out
+                    ${isActive === "list" ? "bg-hero-gradient" : "bg-background"}
+                    `}
+                    onClick={() => handleViewChange("list")}
                 >
-                    <List className="w-4 h-4" />
-                </Button>
+                    <List className="w-4 h-4 flex-shrink-0" />
+                </button>
             </div>
         </div>
     )

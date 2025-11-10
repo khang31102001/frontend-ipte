@@ -1,16 +1,19 @@
 import { sanitizeHtml, processEmbeds } from "@/lib/sanitize";
 import { useMemo } from "react";
 
+type Content = string | null;
 interface ArticleContentProps {
-  content: string;
+  content?: Content;
 }
 
 const ArticleContent=({ content }: ArticleContentProps)=> {
+
   const sanitizedContent = useMemo(() => {
-    const cleaned = sanitizeHtml(content);
+    const cleaned = sanitizeHtml(content || "");
     return processEmbeds(cleaned);
   }, [content]);
-
+  
+  if(!content) return null;
   return (
     <article 
       className="prose prose-lg max-w-content"
