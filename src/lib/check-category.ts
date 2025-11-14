@@ -1,3 +1,4 @@
+import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { CategoryItem } from "@/types/category";
 
 const API = process.env.NEXT_PUBLIC_URL_API!;
@@ -7,23 +8,6 @@ const toSegments = (p?: string | null) => (p ?? '').split('/').filter(Boolean);
 /** Lấy segment cuối cùng: "/a/b" -> "b" */
 const lastSegment = (p?: string | null) => toSegments(p).slice(-1)[0] ?? '';
 
-export async function fetchRootTree(): Promise<CategoryItem[]> {
-
-  const url = `${API}/categories/header-menu`;
-  // console.log("url cate:", url)
-  try {
-    const res = await fetch(url, {
-      next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
-      signal: AbortSignal.timeout(15000),
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    // console.log("data tree nav:", data);
-    return Array.isArray(data) ? (data as CategoryItem[]) : [];
-  } catch {
-    return [];
-  }
-}
 /**
  * Duyệt cây theo mảng segment (params.slug), ví dụ:
  *  URL: /khoa-hoc/pte-ipass/khoa-hoc-pte-36
@@ -33,23 +17,14 @@ export async function fetchRootTree(): Promise<CategoryItem[]> {
  *   trùng s (so sánh với lastSegment(slug) hoặc lastSegment(url))
  * Nếu không thấy -> 404
  */
-export async function resolveNodeBySlugs(slugs: string[] = []) {
-  const tree = await fetchRootTree();
-  // console.log("tree:", tree);
-  // Lấy node gốc /khoa-hoc
-  const root = tree.find((i) => i.url === '/khoa-hoc') || null;
-  let currentLevel = root?.children || [];
-
-  // CASE: /khoa-hoc -> trả về node gốc để list children
-  if (slugs.length === 0) {
-    const breadcrumbs: Array<{ name: string; href: string }> = [];
-    if (root) breadcrumbs.push({ name: root.name, href: root.url || '/khoa-hoc' });
-    return { found: root, breadcrumbs };
-  }
-
- 
+export async function checkCategoryBySlugs(categoryTree: CategoryItem[] ,slugs: string[] = []):Promise<{
+  found: CategoryItem | null;
+  breadcrumbs: BreadcrumbItem[];
+}> {
+  console.log("checkCategoryBySlugs:", categoryTree);
+  let currentLevel = categoryTree ? categoryTree : [];
   let found: CategoryItem | null = null;
-  const breadcrumbs: Array<{ name: string; href: string }> = [];
+  const breadcrumbs: BreadcrumbItem[] = [];
   const accSegments: string[] = [];
 
   // danh mục cấp một 1

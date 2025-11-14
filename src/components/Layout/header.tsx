@@ -20,29 +20,10 @@ interface HeaderProps {
 const Header = ({
   menuItems
 }: HeaderProps) => {
+  
   const [openMenu, setOpenMenu] = useState(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
-//  console.log("menuItems", menuItems);
-  // useEffect(() => {
-  //   function handleClickOutside(event: MouseEvent) {
-  //     if (
-  //       menuRef.current &&
-  //       !menuRef.current.contains(event.target as Node)
-  //     ) {
-  //       setOpenSubMenu(null)
-  //     }
-  //   }
-  //   // listening a event to action something
-  //   document.addEventListener('mousedown', handleClickOutside)
-
-  //   // action the unmout it
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside)
-  //   }
-  // }, [])
-
-
 
   const dataHotline = [
     {

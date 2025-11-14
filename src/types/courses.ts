@@ -22,3 +22,11 @@ export interface Course {
   metaDescription?: string | null;
   keywords?: string[] | null;
 }
+
+export interface CourseListResponse {
+  items: Course[];
+  page: number | null;
+  page_size: number | null;
+  total: number | null;
+  total_pages: number | null;
+}

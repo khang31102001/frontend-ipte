@@ -18,10 +18,10 @@ export default async function RootLayout({
     children: React.ReactNode
 }>) {
 
-    const data = await categoriesServices.getCategoriesList({});
+    const data = await categoriesServices.getCategoryTree({});
  
-
-    // console.log('navMenuData layout:', data);
+    const menu  = Array.isArray(data) ? data : [];
+    // console.log('navMenuData layout:', menu);
 
     return (
         <html lang="en" suppressHydrationWarning={true}>
@@ -29,7 +29,7 @@ export default async function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body suppressHydrationWarning={true} className={inter.className}>
-                <ClientRoot navMenuData={data}>
+                <ClientRoot navMenuData={menu}>
                     {children}
                 </ClientRoot>
             </body>

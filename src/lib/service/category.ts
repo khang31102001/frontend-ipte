@@ -9,10 +9,10 @@ export class CategoriesServices {
       Object.entries(params).map(([k, v]) => [k, String(v)])
     ).toString() : '';
     const url = `${API}/categories/header-menu${qs}`;
-    // console.log("url cate:", url)
+    console.log("url cate:", url)
     try {
       const res = await fetch(url, {
-        // cache: 'no-store',
+        cache: 'no-store',
        // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000),
       });
@@ -44,7 +44,7 @@ export class CategoriesServices {
     }
   }
 
-   async getCourseByCategory(params?: Record<string, string | number>) {
+   async getCategoryTree(params?: Record<string, string | number>) {
     const qs = params ? '?' + new URLSearchParams(
       Object.entries(params).map(([k, v]) => [k, String(v)])
     ).toString() : '';

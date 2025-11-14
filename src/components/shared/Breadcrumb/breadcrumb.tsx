@@ -28,7 +28,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;
                     return (
-                        <li key={item.href} className="text-sm sm:text-md flex items-center">
+                        <li key={index} className="text-sm sm:text-md flex items-center">
                             {/* 1. Đường dẫn (Link hoặc Span) */}
                             {isLast ? (
                                 // Mục cuối cùng là trang hiện tại, không phải link
@@ -56,9 +56,6 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 
                 })}
             </ol>
-            {isLast &&(
-                <h1 className="text-3xl sm:text-4xl font-bold text-primary h-12 my-8">{isLast.name}</h1>
-            )}
         </nav>
     );
 };

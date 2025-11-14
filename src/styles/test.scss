@@ -1,0 +1,181 @@
+/* ============ Variables ============ */
+$bg-navy-1: #0b0f7a;   // navy sáng
+$bg-navy-2: #0a0a44;   // navy đậm
+$panel-tint: rgba(255,255,255,0.06);
+$panel-stroke: rgba(255,255,255,0.08);
+$quote: #ff7a00;
+$text-on-dark: #ffffff;
+$text-on-light: #0f1222;
+$card-bg: #ffffff;
+$shadow: 0 10px 26px rgba(12, 9, 47, 0.18);
+$shadow-strong: 0 14px 36px rgba(12, 9, 47, 0.22);
+
+/* ============ Section wrapper (2 cột cấp-1) ============ */
+.testi {
+  // nền tím xanh + bo góc như ảnh
+  background: radial-gradient(125% 120% at 0% 50%, $bg-navy-1 0%, $bg-navy-2 55%, $bg-navy-2 100%);
+  border-radius: 18px;
+  color: $text-on-dark;
+  padding: clamp(20px, 4vw, 32px);
+  display: grid;
+  grid-template-columns: 36% 1fr;        // cột trái 36%, cột phải chiếm phần còn lại
+  gap: clamp(18px, 3.5vw, 32px);
+  overflow: visible;                      // cho phép tràn shadow
+
+  /* -------- Cột trái -------- */
+  &__col-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 520px;                    // gần bằng ảnh
+    gap: 8px;
+  }
+
+  &__eyebrow {
+    font-weight: 700;
+    font-size: clamp(16px, 1.4vw, 18px);
+    opacity: .95;
+    margin: 0 0 6px;
+  }
+
+  &__title {
+    margin: 0 0 8px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: .2px;
+    font-size: clamp(32px, 4.2vw, 46px); // “Từ phía học viên”
+  }
+
+  &__desc {
+    max-width: 36ch;
+    line-height: 1.6;
+    opacity: .92;
+    font-size: clamp(14px, 1.3vw, 16px);
+    margin: 0;
+  }
+
+  /* -------- Cột phải (panel tối + lưới 2 cột card) -------- */
+  &__col-right {
+    position: relative;
+    overflow: visible;
+
+    // panel nền tối bo góc giống ảnh (viền sáng nhẹ bên trong)
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: $panel-tint;
+      box-shadow:
+        inset 0 0 0 1px $panel-stroke,
+        0 18px 40px rgba(20, 14, 76, .28);
+    }
+  }
+
+  // Lưới 2 cột con – “tràn” ngang + dọc để nhìn thoáng như ảnh
+  &__cards {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    gap: 18px 22px;
+    padding: 18px;
+
+    // tràn hai chiều: kéo lưới rộng hơn panel + vượt top/bottom
+    width: 112%;
+    transform: translateX(-6%);   // canh đều hai bên khi rộng hơn 100%
+    margin-top: -18px;
+    margin-bottom: -18px;
+
+    // canh chiều cao vùng phải “gần full” như ảnh
+    min-height: 560px;
+  }
+}
+
+/* ============ Testimonial Card ============ */
+.tcard {
+  position: relative;
+  background: $card-bg;
+  color: $text-on-light;
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  box-shadow: $shadow;
+  transition: transform .25s ease, box-shadow .25s ease;
+
+  &:hover { transform: translateY(-2px); box-shadow: $shadow-strong; }
+ 
+  &__quote {
+    position: relative;
+    top: -10px; left: -10px;
+    font-size: 28px;
+    color: $quote;
+    line-height: 1;
+    text-shadow: 0 2px 0 rgba(0,0,0,.08);
+    &::after {
+      content: "❝";
+      position: absolute;
+      top: 4px; left: 4px;
+      width: 6px; height: 6px;
+      background: $quote;
+      border-radius: 50%;
+    }
+  }
+
+  &__text {
+    margin: 10px 0 14px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  &__avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 2px #fff;
+  }
+
+  &__name {
+    font-weight: 700;
+    font-size: 14px;
+  }
+}
+
+/* ============ So-le như ảnh (masonry cảm giác bằng offset) ============ */
+.testi__cards {
+  .tcard:nth-child(odd)   { transform: translateY(12px); }
+  .tcard:nth-child(3n)    { transform: translateY(22px); }
+  .tcard:nth-child(5n)    { transform: translateY(8px);  }
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 1100px) {
+  .testi {
+    grid-template-columns: 1fr; // stack 1 cột
+    &__col-left { min-height: auto; }
+    &__col-right::before { margin-top: 6px; }
+    &__cards {
+      width: 104%;
+      transform: translateX(-2%);
+      min-height: 480px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .testi__cards {
+    grid-template-columns: 1fr;     // 1 cột card
+    width: 100%;
+    transform: none;
+    margin: 0;
+    min-height: auto;
+  }
+  .tcard { padding: 14px 14px 12px; }
+  .tcard__quote { font-size: 24px; top: -8px; left: -8px; }
+}
