@@ -11,7 +11,9 @@ export default function StudentRviewIndex(){
             />
 
             
-            <StudentReviewPage/>
+         
+             <StudentReviewPage/>
+
 
         </div>   
     );

@@ -7,7 +7,8 @@ import {
   ArticleHeader,
   ArticleSidebar
 } from "@/components/shared/article"
-import { ALLCOURSES } from "@/data/data-course"
+import { newServices } from "@/lib/service/new"
+import { News } from "@/types/news"
 import { notFound } from "next/navigation"
 
 
@@ -18,41 +19,43 @@ interface CourseDeatilsProps {
 
 export async function generateMetadata({ params }: CourseDeatilsProps) {
 
+  const article:News = await newServices.getNewsList({ 
+    slug: params.slug 
+  }).then(res => res.items[0] ?? null);
 
-  const course = ALLCOURSES.find((item) => item.slug === params.slug)
-  if (!course) return { title: "Khóa học không tồn tại" }
+  if (!article) return { title: "Khóa học không tồn tại" }
   return {
-    title: course.title,
-    description: course.description,
+    title: article.title,
+    description: article.description,
   }
 }
 
-export default function NewsDetailIndex({ params }: CourseDeatilsProps) {
-  const course = ALLCOURSES.find((item) => item.slug === params.slug)
+export default async function NewsDetailIndex({ params }: CourseDeatilsProps) {
 
+ const article:News = await newServices.getNewsList({ slug: params.slug }).then(res => res.items[0]);
  
-
-  if (!course) return notFound();
+ console.log('article', article);
+  if (!article) return notFound();
 
   return (
     <article className="min-h-screen bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto pad-sm">
         
         <ArticleHeader
-          title={course.title || ""}
-          summary={course.description || ""}
+          title={article.title}
+          summary={article.description}
         />
 
         <ArticleCovderImage
           title="title img"
           caption=""
-          image={course.img || ""}
+          image={article.image}
 
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
-            <ArticleContent content={course.content || ""} />
+            <ArticleContent content={article.content} />
             <ArticleFooter />
             <CommentsSection courseId="1" />
           </div>

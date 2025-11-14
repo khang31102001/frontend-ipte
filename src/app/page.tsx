@@ -1,5 +1,5 @@
 
-import HeroImage from "@/components/banner/banner";
+
 import HeroBanner from "@/components/banner/hero-banner";
 import MainHomePage from "@/pages/home/home-page";
 

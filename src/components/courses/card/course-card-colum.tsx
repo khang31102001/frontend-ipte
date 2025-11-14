@@ -5,13 +5,13 @@ import React from 'react'
 
 interface CoursesCardProps {
     id?: number,
-    slug: string,
-    image?: string,
-    duration?: string,
-    level?: string,
-    title: string,
-    description: string,
-    textBtn?: string,
+    slug: string | null,
+    image?: string | null,
+    duration?: string | null,
+    level?: string | null,
+    title: string | null,
+    description: string | null,
+    textBtn?: string | null,
 }
 
 const CoursesCardColum = ({
@@ -24,71 +24,48 @@ const CoursesCardColum = ({
     level,
     textBtn
 }: CoursesCardProps) => {
-
     return (
-        <Link
-            href={`/khoa-hoc/${slug}`}
-            className="block h-full focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl">
-
-            <div className='flex flex-col flex-shrink-0 justify-between gap-3 p-4 
-                rounded-3xl shadow-lg bg-white 
-                overflow-hidden 
-                h-full '>
-                {/* Image */}
-                <div className='w-full h-36 sm:h-40 md:h-44 lg:h-48 xl:h-56 2xl:h-60 overflow-hidden rounded-2xl'>
+        <Link href={`/khoa-hoc/${slug}`} className="course-card-link">
+            <article className="course-card">
+                {/* IMAGE */}
+                <div className="course-card__image-wrapper">
                     <Image
                         src={image || "/images/course-1.jpg"}
                         alt={title || ""}
-                        width={400}
-                        height={200}
-                        className="w-full h-full object-cover rounded-2xl"
+                        fill
+                        className="course-card__image"
                     />
                 </div>
 
-                {/* Tags */}
-                {duration && level && (
-                    <div className='flex flex-wrap text-xs sm:text-sm md:text-base text-gray-500 mt-3 mb-2 gap-2'>
-                        <span className='border border-gray-300 px-2 py-1 rounded-md'>
-                            {duration}
-                        </span>
-                        <span className='border border-gray-300 px-2 py-1 rounded-md'>
-                            {level}
-                        </span>
+                {/* BODY */}
+                <div className="course-card__body">
+                    {duration && level && (
+                        <div className="course-card__tags">
+                            <span className="course-card__tag">{duration}</span>
+                            <span className="course-card__tag">{level}</span>
+                        </div>
+                    )}
+
+                    <h3 className="course-card__title">
+                        {title}
+                    </h3>
+
+                    <p className="course-card__description">
+                        {description}
+                    </p>
+
+                    <div className="course-card__footer">
+                        <button className="course-card__button">
+                            {textBtn || "Tìm hiểu thêm"}
+                            <ArrowRight className="course-card__button-icon" size={16} />
+                        </button>
                     </div>
-
-                )}
-
-                {/* Title */}
-                <h3 className='text-lg md:text-xl font-semibold line-clamp-2'>
-                    {title}
-                </h3>
-
-                {/* Description */}
-                <p className=' text-sm text-muted-foreground sm:text-base  my-2 leading-relaxed line-clamp-3'>
-                    {description}
-                </p>
-
-                {/* Button */}
-                <div className='mt-auto'>
-                    <button
-                        className='w-full group bg-gradient-to-r from-brandBlue-900 to-brandBlue-500
-                 text-white font-medium 
-                 px-4 py-3 rounded-full 
-                 hover:opacity-90 transition duration-300 
-                 flex justify-center items-center 
-                 text-sm sm:text-base md:text-lg'
-                    >
-                        {textBtn || "Tìm hiểu thêm"}
-                        <ArrowRight
-                            size={16}
-                            className='ml-3 h-6 w-6 transform transition-transform duration-300 group-hover:translate-x-2'
-                        />
-                    </button>
                 </div>
-            </div>
+            </article>
         </Link>
 
-    )
-}
+    );
+};
+
 
 export default CoursesCardColum

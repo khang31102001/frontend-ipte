@@ -1,4 +1,5 @@
 import exp from "constants"
+import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 
 interface StoryCard {
@@ -25,10 +26,10 @@ const  StoriesSection =({
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-2 text-pretty">
+          <h2 className="text-4xl md:text-5xl font-bold text-hero-gradient mb-2 text-pretty min-h-16">
            {title}
           </h2>
-          <p className="text-lg text-blue-600">{description}</p>
+          <p className="text-lg text-hero-gradient min-h-8">{description}</p>
         </div>
 
         {/* Grid of Stories */}
@@ -51,9 +52,11 @@ const  StoriesSection =({
 
         {/* See More Button */}
         <div className="flex justify-center">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2">
-            Xem thêm
-            <span className="text-lg">→</span>
+          <button className="bg-hero-gradient hover:opacity-90 text-white rounded-full font-semibold">
+            <a href="#" className="w-full px-8 py-3 flex items-center gap-2">
+              Xem thêm
+              <span className="text-lg"><ArrowRight className="ml-3 w-4 h-4"/></span>
+            </a>
           </button>
         </div>
       </div>

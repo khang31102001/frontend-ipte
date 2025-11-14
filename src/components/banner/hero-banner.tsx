@@ -13,16 +13,13 @@ interface HeroBannerProps {
 export const HeroBanner = ({ img, className }: HeroBannerProps) => {
   return (
     <section className={`relative w-full ${className}`}>
-      <div className="w-full">
         <Image
           src={img}
           alt="PTE Hero Banner"
           fill
-          className="w-full h-auto object-cover"
+          className="w-full h-auto object-cover object-center opacity-90"
           priority
         />
-
-      </div>
 
     </section>
   )

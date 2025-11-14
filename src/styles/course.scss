@@ -1,0 +1,224 @@
+/* ===================== */
+/*     card course col        */
+/* ===================== */
+.course-card-link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid #5b21ff;
+    border-radius: 24px;
+    outline-offset: 2px;
+  }
+}
+
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: #0a0a441a 1px solid;
+//   box-shadow: 0 10px 24px rgba(10, 10, 68, 0.12);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(10, 10, 68, 0.16);
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* 16:9 aspect ratio → card không bị nhảy chiều cao khi load ảnh */
+    padding-top: 56.25%;
+    overflow: hidden;
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 18px 18px;
+    color: #0a0a44;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  &__tag {
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+  }
+
+  &__title {
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 600;
+    margin: 4px 0 6px;
+    /* giữ chiều cao ổn định cho 2 dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3.2rem;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6b7280;
+    margin-bottom: 10px;
+
+    /* clamp 3 dòng + min-height để card đều nhau */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 4.2rem;
+  }
+
+  &__footer {
+    margin-top: auto; // đẩy button xuống đáy card
+  }
+
+  &__button {
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+    border-radius: 999px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    background-image: linear-gradient(90deg, #1b0f91, #5d3bff);
+    color: #ffffff;
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      opacity: 0.85;
+    }
+  }
+
+  &__button-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover &__button-icon {
+    transform: translateX(4px);
+  }
+}
+
+.swiper-nav-btn {
+  width: 40px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1px solid #d1d5db;       // gray-300
+  background: #ffffff;
+  color: #6b7280;                   // gray-600
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    background: #1b0f91;            // primary
+    border-color: #1b0f91;
+    color: #ffffff;
+
+    svg {
+      transform: translateX(2px);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+
+.swiper-course{
+    background: transparent !important;
+    box-shadow: none !important;
+
+   
+    padding: 0 !important;
+    .swiper-wrapper {
+     background: transparent !important;
+     padding: 0 !important;
+  }
+
+  .swiper-slide {
+    background: transparent;
+    box-shadow: none;
+  }
+
+}
+
+/* Responsive nhẹ nhàng */
+@media (min-width: 768px) {
+  .course-card {
+    &__title {
+      font-size: 18px;
+    }
+
+    &__description {
+      font-size: 15px;
+    }
+
+    &__button {
+      font-size: 15px;
+      padding: 12px 18px;
+    }
+  }
+}

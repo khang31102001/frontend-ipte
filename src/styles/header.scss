@@ -63,6 +63,24 @@
         }
     }
 
+    &__logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 6rem;
+        height: 6rem;
+
+        @media (min-width: 768px) {
+            width: 7rem;
+            height: 7rem;
+        }
+
+        @media (min-width: 1024px) {
+            width: 8rem;
+            height: 8rem;
+        }
+    }
+    
     &__search {
         display: none;
         /* ẩn mobile */

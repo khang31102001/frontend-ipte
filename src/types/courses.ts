@@ -1,9 +1,9 @@
 import { CategoryItem } from "./category";
 
 export interface Course {
-  id?: number | null;
+  course_id?: number | null;
   author_id?: number | null;
-  img?: string | null;
+  image?: string | null;
   title?: string | null;
   slug?: string | null;
   description?: string | null; // Tóm tắt ngắn
@@ -30,3 +30,4 @@ export interface CourseListResponse {
   total: number | null;
   total_pages: number | null;
 }
+

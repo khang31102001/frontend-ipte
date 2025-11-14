@@ -44,13 +44,13 @@ const Header = ({
         <div className="header__container">
           <div className="header__inner">
             {/* logo */}
-            <Link href="/" className="block overflow-hidden rounded-full w-48 h-28">
+            <Link href="/" className="header__logo">
               <Image
                 src="/images/logo/log-2.jpg"
                 alt="logo"
-                width={80}
+                width={160}
                 height={80}
-                className="object-cover w-full h-full"
+                className="object-contain"
               />
             </Link>
 

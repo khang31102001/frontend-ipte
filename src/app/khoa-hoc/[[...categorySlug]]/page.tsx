@@ -11,6 +11,7 @@ import { checkCategoryBySlugs } from "@/lib/check-category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import CourseList from "@/components/courses/course-list";
 import { CourseListResponse } from "@/types/courses";
+import CourseSwiper from "@/components/courses/course-swiper";
 
 
 
@@ -26,11 +27,11 @@ async function CategorySection({
   //  Trả về UI render sẵn (SSR)
   if (!courses || courses.length === 0) return null;
   return (
-    <CategoryGroupItem
-      courses={courses}
-      viewMode="grid"
+    <CourseSwiper
+      data={courses}
       title={courseCategory.name}
-      subTitle="Danh sách các khóa học thuộc danh mục này"
+      description={courseCategory.description || ""}
+      url={courseCategory.url || ""}
     />
 
   );
@@ -105,11 +106,12 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   const lastUrl = categorySlug[categorySlug.length - 1];
-  console.log("lastUrl:", lastUrl);
+  // console.log("lastUrl:", lastUrl);
 
   const isCourse = await coursesServices.getCoursesDetails({ slug: lastUrl });
+  // console.log("isCourse:", isCourse);
  
-  if(isCourse && isCourse.id){
+  if(isCourse){
     return(
       <CourseDetailPage course={isCourse} breadcrumbs={[]}/>
     )

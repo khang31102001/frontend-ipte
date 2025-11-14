@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import 'server-only';
 
 const API = process.env.NEXT_PUBLIC_URL_API!;
@@ -29,14 +30,18 @@ export class NewServices {
         const qs = params ? '?' + new URLSearchParams(
             Object.entries(params).map(([k, v]) => [k, String(v)])
         ).toString() : '';
-
+        const url = `${API}/news${qs}`;
+        console.log('fetch url news', url);
         try {
-            const res = await fetch(`${API}/news${qs}`, {
+            const res = await fetch(url, {
                 next: { revalidate: 300, tags: ['news'] }, // ISR 5 phút + tag
                 signal: AbortSignal.timeout(15000), 
             });
             if (!res.ok) return { items: [], total: 0 };
-            return res.json();
+            const data = await res.json();
+            console.log('data news', data);
+
+            return data;
         } catch {
             return { items: [], total: 0 }; // không throw để không vỡ build/render
         }

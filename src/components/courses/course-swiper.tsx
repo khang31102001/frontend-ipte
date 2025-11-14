@@ -1,85 +1,23 @@
 "use client"
 import React, { useRef, useState } from 'react'
 import CustomSwiper from '../ui/custom-swiper'
-import CoursesCard from '../home/card/courses-card'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Course } from '@/types/courses'
+import CoursesCardColum from './card/course-card-colum'
+import Link from 'next/link'
 
-interface Course {
-    id: number
-    title: string
-    description: string
-    duration: string
-    level: string
-    image: string
+
+interface CourseSwiperProps {
+    data?: Course[];
+    title?: string;
+    description?: string;
+    url?: string;
 }
-
-const courses: Course[] = [
-    {
-        id: 1,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-1.jpg",
-    },
-    {
-        id: 2,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-2.jpg",
-    },
-    {
-        id: 3,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-3.jpg",
-    },
-    {
-        id: 4,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-4.jpg",
-    },
-     {
-        id: 1,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-1.jpg",
-    },
-    {
-        id: 2,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-2.jpg",
-    },
-    {
-        id: 3,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-3.jpg",
-    },
-    {
-        id: 4,
-        title: "PTE Academic",
-        description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-        duration: "4 Weeks",
-        level: "Popular",
-        image: "/images/course-4.jpg",
-    },
-]
-const CourseSwiper = () => {
+const CourseSwiper = ({
+    data = [],
+    title = "Khóa học nổi bật",
+    description = "Luyện chuyên sâu cho học viên muốn đạt điểm cao tuyệt đối."
+}: CourseSwiperProps) => {
     // const [loadMore, setloadMore] = useState<boolean>()
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
@@ -89,55 +27,65 @@ const CourseSwiper = () => {
         870: { slidesPerView: 3, spaceBetween: 10 },  // md
         1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
     };
+
+    if (!data || data.length === 0) return null;
     return (
-       <div className="py-16">
-         <div className="container mx-auto px-4">
-            <div className='w-full flex items-center justify-between'>
-                <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-primary">Khóa học nổi bật</h3>
-                    <p className="text-muted-foreground mt-1">Luyện chuyên sâu cho học viên muốn đạt điểm cao tuyệt đối.</p>
+        <div className="py-8">
+            <div className="container mx-auto px-4">
+                <div className='w-full flex items-center justify-between min-h-20 mb-8'>
+                    <div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-primary">{title}</h3>
+                        <p className="text-muted-foreground mt-1">{description}.</p>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                        <button
+
+                            ref={prevRef}
+                            className="swiper-nav-btn"
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                        </button>
+
+                        <button
+                            ref={nextRef}
+                            className="swiper-nav-btn"
+                        >
+                            <ChevronRight className="w-4 h-4" />
+                        </button>
+                    </div>
                 </div>
-                <div className="flex items-center justify-center gap-2">
-                    <button
-                    
-                        ref={prevRef}              
-                        className="inline-flex items-center justify-center rounded-full bg-transparent p-2"
+                <div className='w-full h-auto'>
+                    <CustomSwiper
+                        breakpoint={
+                            breakpoints
+                        }
+
+                        loop
+                        navigation={{ prevEl: prevRef, nextEl: nextRef }}
+                        className="swiper-course"
                     >
-                    </button>
-                    <ChevronLeft className="w-4 h-4" />
-                    <button
-                        ref={nextRef}
-                        className="inline-flex items-center justify-center rounded-full bg-transparent p-2 "
-                    >
-                        <ChevronRight className="w-4 h-4" />
-                    </button>
+                        {data.map((item, index) => (
+                            <CoursesCardColum
+                                key={index}
+                                title={item.title ?? ""}
+                                slug={item.slug ?? ""}
+                                image={item.image ?? ""}
+                                description={item.description ?? ""}
+                                duration={item.duration ?? ""}
+                                level={item.level ?? ""}
+                            />
+                        ))}
+                    </CustomSwiper>
                 </div>
-            </div>
-            <div className='w-full h-auto'>
-                <CustomSwiper
-                    breakpoint={
-                        breakpoints
-                    }
-                    autoplay
-                    loop
-                    navigation={{ prevEl: prevRef, nextEl: nextRef }}
-                >
-                    {courses.map((item, index) => (
-                        <CoursesCard key={index} data={item} />
-                    ))}
-                </CustomSwiper>
-            </div>
-             <div className="flex justify-center mt-8">
-              <button
-                className="text-primary font-semibold inline-flex items-center group"
-               
-              >
-                Xem thêm
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+                <div className="w-full max-w-56 mx-auto mt-8">
+
+                    <Link href="/khoa-hoc" className="btn-link-custom">
+                        Xem thêm
+                        <ArrowRight className="btn-link-custom__icon" />
+                    </Link>
+                </div>
             </div>
         </div>
-       </div>
     )
 }
 

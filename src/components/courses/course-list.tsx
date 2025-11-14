@@ -55,20 +55,20 @@ const CourseList = ({
     >
       {currentCourse?.map((item, index) => {
         return viewMode === "grid" ? (
-          <div key={item.id ?? item.slug ?? `idx-${index}`}>
+          <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
             <CoursesCardColum
               slug={item.slug!}
               title={item.title || ""}
-              image={item.img || ""}
+              image={item.image || ""}
               description={item.description || ""}
             />
           </div>
 
         ) : (
-          <div key={item.id ?? item.slug ?? `idx-${index}`}>
+          <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
             <CourseCardRow
               slug={item.slug!}
-              image={item.img || ""}
+              image={item.image || ""}
               duration={item.duration || ""}
               level={item.level || ""}
               title={item.title || ""}

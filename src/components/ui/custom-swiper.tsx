@@ -76,7 +76,7 @@ const CustomSwiper = ({
 
         >
             {slides.map((child, index) => (
-                <SwiperSlide key={index} className="!flex !justify-center !items-stretch !px-2 !py-6">
+                <SwiperSlide key={index} className="!flex !justify-center !items-stretch !px-2 !py-4">
                     {child}
                 </SwiperSlide>
             ))}

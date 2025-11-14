@@ -6,8 +6,11 @@
 @import "./header";
 @import "./component/form";
 @import "./component/popup";
+@import "./component/button.scss";
 @import "./article";
 @import "./student-review";
+@import "./course.scss";
+
 
 /* ===================== */
 /*        BASE LAYER     */
@@ -252,28 +255,7 @@
     text-fill-color: transparent;
   }
 
-  /* Hero image (sửa typo 78hv → 78vh) */
-  .hero-image {
-    position: relative;
-    width: 100%;
-    min-height: 56vh;
-    max-height: 900px;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-
-    @media (min-width: 768px) {
-      min-height: 68vh;
-    }
-
-    @media (min-width: 1024px) {
-      min-height: 78vh;
-    }
-
-    @media (min-width: 1440px) {
-      max-height: 900px;
-    }
-  }
+  
 
 
 }

@@ -159,10 +159,8 @@ const StudentReviewPage = ({
   dataStories = stories,
 }: StudentReviewPageProps) => {
   return (
-    <div className="px-4 py-8 bg-transparent">
-
+    <div className="bg-transparent">
       <VideoSwiper videos={dataVideo} />
-     
       <StoriesSection stories={dataStories} />
       <StudentComment comments={dataComments} />
     </div>
