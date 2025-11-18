@@ -21,7 +21,7 @@ interface CustomSwiperProps {
 
 const CustomSwiper = ({
     children,
-    slidesPerView,
+    slidesPerView = 4,
     spaceBetween,
     autoplay = false,
     loop = false,

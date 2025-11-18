@@ -10,14 +10,15 @@ export class CoursesServices {
         const qs = params ? '?' + new URLSearchParams(
             Object.entries(params).map(([k, v]) => [k, String(v)])
         ).toString() : '';
-
+        const url = `${API}/courses/${qs}`;
         try {
-            const res = await fetch(`${API}/courses/lug/:${qs}`, {
+            const res = await fetch(url, {
                 // next: { revalidate: 300, tags: ['courses'] }, // ISR 5 phút + tag
                 signal: AbortSignal.timeout(15000),
             });
             if (!res.ok) return { items: [], total: 0 };
-            return res.json();
+            const data = await res.json()
+            return data;
         } catch {
             return { items: [], total: 0 }; // không throw để không vỡ build/render
         }

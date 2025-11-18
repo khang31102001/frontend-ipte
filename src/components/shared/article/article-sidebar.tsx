@@ -1,54 +1,93 @@
-
-
-import { Course } from "@/types/courses"
+import Image from "next/image";
 import Link from "next/link";
+
 interface SidebarItem {
-  id?: string | null ;
-  title?: string | null ;
-  image?: string | null ;
-  badge?: string | null ;
-  href?: string | null ;
-}
-interface ArticleSidebarProps {
-  title: string
-  items: SidebarItem[];
-  variant?: "default" | "large"
-}
-const ArticleSidebar=({ 
-  title, 
-  items, 
-  variant = "default" 
-}: ArticleSidebarProps)=> {
-  if(!items) return null;
-  return (
-    <div>
-      <h3 className="mb-4 text-lg font-bold text-gray-900">{title}</h3>
-      <div className="space-y-3">
-        {items.map((item, idx) => (
-          <div
-            key={idx}
-            className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
-          >
-            {variant === "large" ? (
-              <Link href={item.href ?? "#"} className="aspect-video overflow-hidden bg-gray-100">
-                <img src={item.image || "/placeholder.svg"} alt={item.title ?? ""} className="h-full w-full object-cover" />
-              </Link>
-            ) : (
-              <Link href={item.href ?? "#"} className="flex gap-3 ">
-                <div className="h-20 w-24 flex-shrink-0 overflow-hidden bg-gray-100">
-                  <img src={item.image || "/placeholder.svg"} alt={item.title ?? ""} className="h-full w-full object-cover" />
-                </div>
-                <div className="flex flex-1 flex-col justify-between p-3">
-                  <h4 className="line-clamp-2 text-sm font-semibold text-gray-900">{item.title}</h4>
-                  {item.badge && <p className="text-xs font-semibold text-blue-600">{item.badge}</p>}
-                </div>
-              </Link>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  id?: number | string;
+  title?: string;
+  image?: string;
+  badge?: string;
+  href?: string;
 }
 
-export default ArticleSidebar
+interface ArticleSidebarProps {
+  title: string;
+  items: SidebarItem[];
+  variant?: "default" | "large";
+}
+
+const ArticleSidebar = ({
+  title,
+  items,
+  variant = "default",
+}: ArticleSidebarProps) => {
+  if (!items || items.length === 0) return null;
+
+  return (
+    <aside className="article-sidebar">
+      <h3 className="article-sidebar__title">{title}</h3>
+
+      <div className="article-sidebar__list">
+        {items.map((item, idx) => {
+          const href = item.href ?? "#";
+
+          return (
+            <article
+              key={item.id ?? idx}
+              className={`sidebar-card ${
+                variant === "large"
+                  ? "sidebar-card--large"
+                  : "sidebar-card--compact"
+              }`}
+            >
+              {variant === "large" ? (
+                <Link href={href} className="sidebar-card__link">
+                  <div className="sidebar-card__media sidebar-card__media--large">
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.title ?? ""}
+                      fill
+                      className="sidebar-card__image"
+                    />
+                  </div>
+                  <div className="sidebar-card__body">
+                    <h4 className="sidebar-card__title sidebar-card__title--two-lines">
+                      {item.title}
+                    </h4>
+                    {item.badge && (
+                      <p className="sidebar-card__badge">{item.badge}</p>
+                    )}
+                  </div>
+                </Link>
+              ) : (
+                <Link
+                  href={href}
+                  className="sidebar-card__link sidebar-card__link--compact"
+                >
+                  <div className="sidebar-card__media sidebar-card__media--compact">
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.title ?? ""}
+                      fill
+                      className="sidebar-card__image"
+                    />
+                  </div>
+
+                  <div className="sidebar-card__body">
+                    <h4 className="sidebar-card__title sidebar-card__title--two-lines">
+                      {item.title}
+                    </h4>
+                    {item.badge && (
+                      <p className="sidebar-card__badge">{item.badge}</p>
+                    )}
+                  </div>
+                </Link>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </aside>
+  );
+};
+
+export default ArticleSidebar;

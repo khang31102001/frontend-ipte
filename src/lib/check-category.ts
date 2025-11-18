@@ -21,7 +21,7 @@ export async function checkCategoryBySlugs(categoryTree: CategoryItem[] ,slugs: 
   found: CategoryItem | null;
   breadcrumbs: BreadcrumbItem[];
 }> {
-  console.log("checkCategoryBySlugs:", categoryTree);
+  // console.log("checkCategoryBySlugs:", categoryTree);
   let currentLevel = categoryTree ? categoryTree : [];
   let found: CategoryItem | null = null;
   const breadcrumbs: BreadcrumbItem[] = [];
@@ -42,7 +42,7 @@ export async function checkCategoryBySlugs(categoryTree: CategoryItem[] ,slugs: 
     // console.log("Found segment:", seg);
     if (seg) accSegments.push(seg);
     const href = '/' + accSegments.join('/');
-    breadcrumbs.push({ name: found.name, href });
+    breadcrumbs.push({ name: found.name, href: href });
 
     // tiếp tục kiểm tra cấp con
     currentLevel = found.children || [];
@@ -55,4 +55,4 @@ export async function checkCategoryBySlugs(categoryTree: CategoryItem[] ,slugs: 
 }
 
 /** leaf = không có children hoặc children rỗng */
-export const isLeaf = (node?: CategoryItem | null) => !!node && (!node.children || node.children.length === 0);
+export const isChildren = (node?: CategoryItem | null) => !!node && (!node.children || node.children.length === 0);

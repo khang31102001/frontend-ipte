@@ -1,9 +1,10 @@
 "use client"
 import React, { useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Search from '@/components/search/Search'
+
 import { Grid3x3, List } from "lucide-react"
 import { CategoryItem } from '@/types/category'
+import SearchLayout from '@/components/ui/search'
 type ViewMode = "grid" | "list";
 interface ListGridControlProps {
     items?: CategoryItem[];
@@ -37,7 +38,7 @@ const ListGridControl = ({
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-8">
             {/* Search */}
-            <Search />
+            <SearchLayout onSearch={()=>{}} />
 
             {/* Sort */}
             <Select value={sortBy} onValueChange={handleSortChange}>

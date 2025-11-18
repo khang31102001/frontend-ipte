@@ -8,18 +8,21 @@
 // }
 
 import { Course } from "./courses";
+import { News } from "./news";
 
 export interface Category {
     category_id: number;
-    level?: number,
-    icon?: string,
-    name: string,
-    slug?: string,
-    url?: string,
-    description?: string,
-    parent_id?: number | null,
-    category_type?: string,
-    children?: CategoryItem[] ,
+    level?: number;
+    icon?: string;
+    name: string;
+    slug?: string;
+    url?: string;
+    description?: string;
+    parent_id?: number | null;
+    category_type?: string;
+    children?: CategoryItem[];
+    is_featured?: boolean;
+    is_disable?: boolean;
     created_at?: string ;
     updated_at?: string;
     meta_title?: string,
@@ -43,6 +46,8 @@ export interface CategoryItem {
     level: number | null;
     category_type?: string,
     children?: CategoryItem[];
+     is_featured?: boolean;
+    is_disable?: boolean;
      created_at?: string ;
     updated_at?: string;
     meta_title?: string;
@@ -59,6 +64,13 @@ export interface CourseCategory extends Omit<CategoryItem, "children"> {
     children?: CourseCategory[];
     courses?: Course[];
 }
+
+export interface NewsCategory extends Omit<CategoryItem, "children"> {
+    children?: NewsCategory[];
+    news?: News[];
+}
+
+
 
 
 

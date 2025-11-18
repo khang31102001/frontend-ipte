@@ -1,79 +1,497 @@
-  .image {
-      text-align: center;
-  }
+// Optional: mixin line-clamp dùng lại nhiều lần
+@mixin line-clamp($lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
-  .image figcaption {
-      color: #6b7280;
-      font-size: .9rem;
-      margin-top: .25rem;
-  }
+.image {
+    text-align: center;
+}
 
-  .embed {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid #eef2f7;
-      background: #000;
-  }
+.image figcaption {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
 
-  .embed iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-  }
+.embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #eef2f7;
+    background: #000;
+}
 
-  .article-body h2 {
-      font-size: 1.5rem;
-      margin-top: 1.5rem;
-      font-weight: 800;
-  }
+.embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
 
-  .article-body h3 {
-      font-size: 1.15rem;
-      margin-top: 1.25rem;
-      font-weight: 700;
-  }
+.article-body h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    font-weight: 800;
+}
 
-  .article-body a {
-      color: #1d4ed8;
-      text-decoration: underline;
-  }
+.article-body h3 {
+    font-size: 1.15rem;
+    margin-top: 1.25rem;
+    font-weight: 700;
+}
 
-  .article-body a:hover {
-      color: #1e40af;
-  }
+.article-body a {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
 
-  .article-body blockquote {
-      border-left: 4px solid #e5e7eb;
-      padding: .5rem 1rem;
-      color: #374151;
-      background: #fafafa;
-      border-radius: 8px;
-      margin: 1rem 0;
-  }
+.article-body a:hover {
+    color: #1e40af;
+}
 
-  .article-body table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .98rem;
-      margin: 1rem 0;
-  }
+.article-body blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding: 0.5rem 1rem;
+    color: #374151;
+    background: #fafafa;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
 
-  .article-body th,
-  .article-body td {
-      border: 1px solid #e5e7eb;
-      padding: .6rem .7rem;
-  }
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.98rem;
+    margin: 1rem 0;
+}
 
-  .article-body th {
-      background: #f9fafb;
-      font-weight: 600;
-  }
+.article-body th,
+.article-body td {
+    border: 1px solid #e5e7eb;
+    padding: 0.6rem 0.7rem;
+}
 
-  .article-body tr:nth-child(even) td {
-      background: #fcfcfd;
-  }
+.article-body th {
+    background: #f9fafb;
+    font-weight: 600;
+}
+
+.article-body tr:nth-child(even) td {
+    background: #fcfcfd;
+}
+
+/* ========================== */
+/*    featured    article card          */
+/* ========================== */
+
+.featured-row {
+    // để card không dính sát các thành phần khác
+    margin-bottom: 2rem;
+
+    &__link {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0; // giống gap-0
+        text-decoration: none;
+        color: inherit;
+
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); // shadow-sm
+        transition:
+            box-shadow 0.25s ease,
+            transform 0.25s ease;
+
+        // hover toàn card
+        &:hover {
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+            transform: translateY(-4px);
+
+            .featured-row__image {
+                transform: scale(1.05);
+            }
+
+            .featured-row__title {
+                background: linear-gradient(
+                    to right,
+                    #04016c,
+                    #1e1a9f,
+                    #3e3aa7
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+    }
+
+    // ============== MEDIA / IMAGE ==============
+    &__media {
+        position: relative;
+        width: 100%;
+        // tỷ lệ ảnh desktop: 16:9
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.5s ease; // zoom khi hover
+    }
+
+    // ============== CONTENT ==============
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.25rem 1.5rem; // p-6
+    }
+
+    &__category {
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem; // text-sm
+        font-weight: 600;
+
+        background: linear-gradient(to right, #04016c, #1e1a9f, #3e3aa7);
+
+        /* Đây là phần cực quan trọng */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        display: inline-flex;
+    }
+
+    &__title {
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem; // ~ text-xl
+        line-height: 1.3;
+        font-weight: 800;
+        color: #0f172a; // slate-900
+    }
+
+    &__excerpt {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #4b5563; // gray-600
+    }
+
+    // ============== BREAKPOINT MD UP ==============
+    @media (min-width: 768px) {
+        &__link {
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+            // tăng chiều cao ảnh
+        }
+
+        &__media {
+            aspect-ratio: auto; // bỏ ratio, dùng height cố định
+            height: 380px; // md:h-96 ~ 384px
+        }
+
+        &__content {
+            padding: 2rem 2.5rem; // md:p-8
+        }
+
+        &__title {
+            font-size: 1.5rem; // sm:text-2xl
+        }
+    }
+
+    // ============== LARGE DESKTOP ==============
+    @media (min-width: 1024px) {
+        &__media {
+            height: 420px;
+        }
+    }
+}
+
+.article-card {
+    border-radius: 0.75rem; // ~ rounded-lg
+    border: 1px solid #e5e7eb; // gray-200
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+
+    &__link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    &:hover {
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+        transform: translateY(-3px);
+
+        .article-card__image {
+            transform: scale(1.05);
+        }
+
+        .article-card__title {
+            background: linear-gradient(to right, #04016c, #1e1a9f, #3e3aa7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    // ============= Layout GRID (card cột) =============
+    &--grid {
+        .article-card__media {
+            &--grid {
+                position: relative;
+                width: 100%;
+                background-color: #f3f4f6; // gray-100
+                overflow: hidden;
+                aspect-ratio: 16 / 9; // giống aspect-video
+            }
+        }
+
+        .article-card__body {
+            padding: 1rem; // p-4
+
+            @media (min-width: 640px) {
+                padding: 1.25rem;
+            }
+        }
+    }
+
+    // ============= Layout LIST (card hàng ngang) =============
+    &--list {
+        .article-card__inner {
+            display: flex;
+            gap: 1rem; // gap-4
+            padding: 1rem; // p-4
+        }
+
+        .article-card__media {
+            &--list {
+                width: 8rem; // w-32
+                height: 6rem; // h-24
+                border-radius: 0.5rem;
+                overflow: hidden;
+                flex-shrink: 0;
+                background-color: #f3f4f6;
+            }
+        }
+
+        .article-card__body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0; // vì padding đã ở inner
+        }
+
+        @media (max-width: 480px) {
+            .article-card__inner {
+                align-items: flex-start;
+            }
+        }
+    }
+
+    // ============= MEDIA / IMAGE =============
+    &__media {
+        // base nếu cần
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+
+    // ============= BODY / TEXT =============
+    &__body {
+        // dùng riêng cho grid/list ở trên
+    }
+
+    &__category {
+        margin-bottom: 0.35rem;
+        font-size: 0.75rem; // text-xs
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+
+        background: linear-gradient(to right, #04016c, #1e1a9f, #3e3aa7);
+
+        /* Đây là phần cực quan trọng */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        /* Optional: mượt hơn */
+        display: inline-block;
+    }
+
+    &__title {
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #111827; // gray-900
+        line-height: 1.4;
+
+        &--two-lines {
+            @include line-clamp(2);
+        }
+    }
+
+    &__excerpt {
+        font-size: 0.875rem; // text-sm
+        color: #4b5563; // gray-600;
+        line-height: 1.5;
+
+        &--two-lines {
+            @include line-clamp(2);
+        }
+
+        &--three-lines {
+            @include line-clamp(3);
+        }
+    }
+}
+
+/* ====== SIDEBAR WRAPPER ====== */
+.article-sidebar {
+    &__title {
+        margin-bottom: 1rem; // mb-4
+        font-size: 1.125rem; // text-lg
+        font-weight: 700;
+        color: #111827; // gray-900
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; // space-y-3
+    }
+}
+
+/* ====== SIDEBAR CARD BASE ====== */
+.sidebar-card {
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb; // gray-200
+    background-color: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+
+    &:hover {
+        box-shadow: 0 14px 35px rgba(15, 23, 42, 0.18);
+        transform: translateY(-2px);
+
+        .sidebar-card__image {
+            transform: scale(1.05);
+        }
+
+        .sidebar-card__title {
+            background: linear-gradient(to right, #04016c, #1e1a9f, #3e3aa7);
+
+            /* Đây là phần cực quan trọng */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    &__link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+
+        &--compact {
+            display: flex;
+            align-items: stretch;
+            gap: 0.75rem; // gap-3
+            padding: 0.75rem; // p-3
+        }
+    }
+
+    &__media {
+        position: relative;
+        overflow: hidden;
+        background-color: #f3f4f6; // gray-100
+
+        &--large {
+            width: 100%;
+            aspect-ratio: 16 / 9; // giống aspect-video
+        }
+
+        &--compact {
+            width: 6rem; // ~ w-24
+            height: 5rem; // ~ h-20
+            border-radius: 0.5rem;
+            flex-shrink: 0;
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.4s ease;
+    }
+
+    &__body {
+        padding: 0.75rem; // p-3
+
+        // với compact link đã có padding nên bỏ
+        .sidebar-card__link--compact & {
+            padding: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    &__title {
+        margin-bottom: 0.35rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #111827;
+        line-height: 1.4;
+
+        &--two-lines {
+            @include line-clamp(2);
+        }
+    }
+
+    &__badge {
+        margin-top: 0.1rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #2563eb; // blue-600
+    }
+}
+
+/* ====== SIDEBAR CARD RESPONSIVE ====== */
+@media (max-width: 640px) {
+    .sidebar-card {
+        &__link--compact {
+            gap: 0.5rem;
+        }
+
+        &__media--compact {
+            width: 5.25rem;
+            height: 4.25rem;
+        }
+
+        &__title {
+            font-size: 0.85rem;
+        }
+    }
+}

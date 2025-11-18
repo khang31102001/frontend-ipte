@@ -6,7 +6,7 @@ export interface News {
     title?: string | null,
     slug?: string,
     description?: string | null; // Tóm tắt ngắn
-    content?: string | null; // Nội dung chi tiết
+    content?: string | null; // Nội dung chi tiết render bằng html
     category_id?: number | null,
     category?: string | null;
     created_at?: string;
@@ -23,3 +23,5 @@ export interface News {
     keywords?: string[];
 }
 
+
+export interface NewsItem extends News{} 

@@ -1,41 +1,42 @@
 "use client"
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
-import ArticleCard from "./article-card"
-import SidebarSection from "./article-sidebar"
+// import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
+import ArticleCard from "./card/article-card"
 import ListGridControl from "../Control/list-grid-control"
+import FeaturedArticleCard from "./card/featured-article-card"
+import ArticleSidebar from "./article-sidebar"
+import { CategoryItem } from "@/types/category"
 
-interface Article {
-  id: string
-  title: string
-  excerpt: string
-  image: string
-  category: string
-  featured?: boolean
-}
+
+
 
 
 interface ArticleGridSectionProps {
-  data?: Article[]
+  category: CategoryItem;
+  data?: any[];
 }
 const ArticleGridSection = ({
+  category,
   data
 }: ArticleGridSectionProps) => {
+  // console.log("ArticleGridSection", data);
   const [currentPage, setCurrentPage] = useState(1)
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [searchQuery, setSearchQuery] = useState("")
 
   const articlesPerPage = 6
-  const featuredArticle = data?.find((a) => a.featured)
-  const regularArticles = data?.filter((a) => !a.featured)
+  // const featuredArticle = data?.find((a) => a.featured)
+  // const regularArticles = data?.filter((a) => !a.featured)
 
-  const filteredArticles = regularArticles?.filter((article) =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+  // const filteredArticles = regularArticles?.filter((article) =>
+  //   article.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  // )
 
-  const totalPages = filteredArticles ? Math.ceil(filteredArticles.length / articlesPerPage) : 0
-  const startIndex = (currentPage - 1) * articlesPerPage
-  const paginatedArticles = filteredArticles ? filteredArticles.slice(startIndex, startIndex + articlesPerPage) : [];
+  // const totalPages = filteredArticles ? Math.ceil(filteredArticles.length / articlesPerPage) : 0
+  // const startIndex = (currentPage - 1) * articlesPerPage
+
+  // ham này để map hiển thị
+  // const paginatedArticles = filteredArticles ? filteredArticles.slice(startIndex, startIndex + articlesPerPage) : [];
 
   if (!data || data.length === 0) return null;
 
@@ -46,44 +47,51 @@ const ArticleGridSection = ({
         {/* Left Column - Featured + Articles */}
         <div className="lg:col-span-2">
           {/* Featured Article */}
-          {featuredArticle && (
+      
             <div className="mb-8">
-              <div className="overflow-hidden rounded-lg bg-white shadow-sm">
-                <div className="grid gap-0 md:grid-cols-2">
-                  <div className="aspect-square overflow-hidden md:aspect-auto md:h-96">
-                    <img
-                      src={featuredArticle.image || "/placeholder.svg"}
-                      alt={featuredArticle.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center p-6 md:p-8">
-                    <p className="mb-2 text-sm font-semibold text-blue-600">{featuredArticle.category}</p>
-                    <h2 className="mb-4 text-xl font-bold text-gray-900 sm:text-2xl">{featuredArticle.title}</h2>
-                    <p className="text-sm text-gray-600">{featuredArticle.excerpt}</p>
-                  </div>
-                </div>
-              </div>
+              <FeaturedArticleCard
+                baseUrl={category.url}
+                href={data[0].slug ?? ""}
+                image={data[0].image}
+                category={data[0].category}
+                title={data[0].title}
+                description={data[0].description}
+              />
             </div>
-          )}
+       
 
           {/* Articles Grid/List */}
           {viewMode === "grid" ? (
             <div className="grid gap-6 sm:grid-cols-2">
-              {paginatedArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
+              {data.map((item, index) => (
+                <ArticleCard
+                  key={index}
+                  baseUrl={category.url}
+                  href={item.slug}
+                  image={item.image}
+                  title={item.title}
+                   description={item.description}
+                 
+                />
               ))}
             </div>
           ) : (
             <div className="space-y-4">
-              {paginatedArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} layout="list" />
+              {data.map((item, index) => (
+                <ArticleCard key={index}
+                  baseUrl={category.url}
+                  href={item.slug}
+                  image={item.image}
+                  title={item.title}
+                  description={item.description}
+                  layout="list" />
               ))}
             </div>
           )}
 
           {/* Pagination */}
-          <div className="mt-8 flex items-center justify-center gap-2">
+
+          {/* <div className="mt-8 flex items-center justify-center gap-2">
             <button
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
@@ -99,7 +107,7 @@ const ArticleGridSection = ({
                   key={pageNum}
                   onClick={() => setCurrentPage(pageNum)}
                   className={`h-8 w-8 rounded-md text-sm font-medium transition-colors ${currentPage === pageNum
-                    ? "bg-blue-600 text-white"
+                    ? "bg-hero-gradient text-white"
                     : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
                     }`}
                 >
@@ -115,18 +123,18 @@ const ArticleGridSection = ({
             >
               <ChevronRight className="h-4 w-4" />
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Sidebar */}
-        {/* <div className="space-y-6">
-          <SidebarSection
+        <div className="space-y-6">
+          <ArticleSidebar
             title="Khóa học tiêu biểu"
             items={[
               {
                 id: 1,
                 title: "Luyện thi PTE core chuyên biệt",
-                img: "/pte-exam-course.jpg",
+                image: "/pte-exam-course.jpg",
                 badge: "Miễn phí",
               },
               {
@@ -144,7 +152,7 @@ const ArticleGridSection = ({
             ]}
           />
 
-          <SidebarSection
+          <ArticleSidebar
             title="Cộng đồng PTE lớn nhất"
             items={[
               {
@@ -156,7 +164,7 @@ const ArticleGridSection = ({
             variant="large"
           />
 
-          <SidebarSection
+          <ArticleSidebar
             title="Cập nhật thông tin PTE"
             items={[
               {
@@ -167,7 +175,7 @@ const ArticleGridSection = ({
             ]}
             variant="large"
           />
-        </div> */}
+        </div>
       </div>
     </div>
   )

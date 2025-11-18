@@ -15,6 +15,7 @@ interface CourseSwiperProps {
 }
 const CourseSwiper = ({
     data = [],
+    url = "",
     title = "Khóa học nổi bật",
     description = "Luyện chuyên sâu cho học viên muốn đạt điểm cao tuyệt đối."
 }: CourseSwiperProps) => {
@@ -31,7 +32,7 @@ const CourseSwiper = ({
     if (!data || data.length === 0) return null;
     return (
         <div className="py-8">
-            <div className="container mx-auto px-4">
+            <div className="w-full h-auto">
                 <div className='w-full flex items-center justify-between min-h-20 mb-8'>
                     <div>
                         <h3 className="text-2xl md:text-3xl font-bold text-primary">{title}</h3>
@@ -59,7 +60,7 @@ const CourseSwiper = ({
                         breakpoint={
                             breakpoints
                         }
-
+                        slidesPerView={4}
                         loop
                         navigation={{ prevEl: prevRef, nextEl: nextRef }}
                         className="swiper-course"
@@ -79,7 +80,7 @@ const CourseSwiper = ({
                 </div>
                 <div className="w-full max-w-56 mx-auto mt-8">
 
-                    <Link href="/khoa-hoc" className="btn-link-custom">
+                    <Link href={url} className="btn-link-custom">
                         Xem thêm
                         <ArrowRight className="btn-link-custom__icon" />
                     </Link>

@@ -7,4 +7,5 @@ export interface TeacherProfile {
     reading: number;
     speaking: number;
     writing: number;
+    content?: string;
 } 

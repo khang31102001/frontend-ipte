@@ -4,8 +4,6 @@ import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 
-import Button from '../button/Button'
-
 export function ThemeToggle() {
     const { setTheme, theme } = useTheme()
     const [isDarkMode, setIsDarkMode] = useState(theme === 'dark' ? true : false)
@@ -19,7 +17,7 @@ export function ThemeToggle() {
     }, [isDarkMode, setTheme])
 
     return (
-        <Button
+        <button
             onClick={onToggle}
             className="p-2 border-2 rounded-full border-transparent  hover:border-blue-600"
         >
@@ -28,6 +26,6 @@ export function ThemeToggle() {
             ) : (
                 <MoonIcon className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             )}
-        </Button>
+        </button>
     )
 }

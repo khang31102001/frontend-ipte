@@ -31,7 +31,7 @@ export class NewServices {
             Object.entries(params).map(([k, v]) => [k, String(v)])
         ).toString() : '';
         const url = `${API}/news${qs}`;
-        console.log('fetch url news', url);
+        // console.log('fetch url news', url);
         try {
             const res = await fetch(url, {
                 next: { revalidate: 300, tags: ['news'] }, // ISR 5 phút + tag
@@ -39,7 +39,7 @@ export class NewServices {
             });
             if (!res.ok) return { items: [], total: 0 };
             const data = await res.json();
-            console.log('data news', data);
+            // console.log('data news', data);
 
             return data;
         } catch {

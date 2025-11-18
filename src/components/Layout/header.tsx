@@ -5,7 +5,7 @@ import {
   Search,
 
 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useIsMobile } from '@/hooks/use-mobile'
 import Link from 'next/link'
 
@@ -20,10 +20,32 @@ interface HeaderProps {
 const Header = ({
   menuItems
 }: HeaderProps) => {
-  
+
   const [openMenu, setOpenMenu] = useState(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
+  // const menuFiltered = menuItems.filter((item)=> !item.is_disable);
+
+  const menuFiltered = (menuItems: CategoryItem[]): CategoryItem[] => {
+    if (!Array.isArray(menuItems) || menuItems.length === 0) return [];
+
+    const parentMenu = menuItems.filter(item => !item.is_disable);
+
+    return parentMenu.map((parent) => {
+      if (!parent.children || parent.children.length === 0) {
+        return parent;
+      }
+
+      const filteredChildren = menuFiltered(parent.children);
+
+      return {
+        ...parent,
+        children: filteredChildren,
+      };
+    });
+  };
+
+  const menuData = menuItems ? menuFiltered(menuItems) : [];
 
   const dataHotline = [
     {
@@ -36,7 +58,7 @@ const Header = ({
     },
   ]
 
-  if (!menuItems || menuItems.length === 0) return null
+  if (!menuData || menuData.length === 0) return null
   return (
     <>
       <header className={` header ${isMobile ? "header--sticky " : "no--sticky"} `}>
@@ -71,27 +93,27 @@ const Header = ({
               />
             </div>
 
-          
-                {/* Mobile Menu Button */}
-                <button
-                  className="md:hidden flex flex-col justify-center items-center text-primary space-y-1.5 z-50"
-                  onClick={() => setOpenMenu(!openMenu)}
-                  aria-label="open menu"
-                >
-                  <span
-                    className={`block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${openMenu ? 'rotate-45 translate-y-2' : ''}`}
-                  ></span>
-                  <span
-                    className={`block w-6 h-0.5 bg-current transition-all duration-300 ease-in-out ${openMenu ? 'opacity-0' : 'opacity-100'}`}
-                  ></span>
-                  <span
-                    className={`block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${openMenu ? '-rotate-45 -translate-y-2' : ''}`}
-                  ></span>
-                </button>
 
-                {/* mobile menu */}
-                <MenuMobileList data={menuItems} IsOpenMenu={openMenu} />
-    
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden flex flex-col justify-center items-center text-primary space-y-1.5 z-50"
+              onClick={() => setOpenMenu(!openMenu)}
+              aria-label="open menu"
+            >
+              <span
+                className={`block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${openMenu ? 'rotate-45 translate-y-2' : ''}`}
+              ></span>
+              <span
+                className={`block w-6 h-0.5 bg-current transition-all duration-300 ease-in-out ${openMenu ? 'opacity-0' : 'opacity-100'}`}
+              ></span>
+              <span
+                className={`block w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${openMenu ? '-rotate-45 -translate-y-2' : ''}`}
+              ></span>
+            </button>
+
+            {/* mobile menu */}
+            <MenuMobileList data={menuItems} IsOpenMenu={openMenu} />
+
 
           </div>
         </div>
@@ -102,7 +124,7 @@ const Header = ({
       <div id="nav-menu" className="nav-menu">
         <nav className="nav-menu__wrapper">
           <ul ref={menuRef} className="nav-menu__list">
-            {menuItems.map((item, idx) => (
+            {menuData.map((item, idx) => (
               <li key={idx} className="nav-menu__item group">
                 <a href={item.url} className="nav-menu__link link-underline ">
                   <span className="nav-menu__text">{item.name}</span>
