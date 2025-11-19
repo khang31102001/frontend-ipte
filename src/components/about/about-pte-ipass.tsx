@@ -32,18 +32,7 @@ const AboutPTEiPass = () => {
                                     <Play width={44} height={44} className="text-white" />
                                 </div>
                             </div>
-
-                            {/* Popup Video Player */}
-                            {openVideo && (
-                                <FullscreenVideoPlayer
-                                    src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                                    poster="/images/about-banner.png"
-                                    isOpen={openVideo}
-                                    onClose={() => setOpenVideo(false)}
-                                />
-                            )}
                         </div>
-
                     </div>
                 </div>
 
@@ -95,6 +84,15 @@ const AboutPTEiPass = () => {
                 </div>
 
             </div>
+            {/* Popup Video Player */}
+            {openVideo && (
+                <FullscreenVideoPlayer
+                    src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                    poster="/images/about-banner.png"
+                    isOpen={openVideo}
+                    onClose={() => setOpenVideo(false)}
+                />
+            )}
         </section>
     )
 }

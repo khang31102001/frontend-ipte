@@ -1,0 +1,157 @@
+/* ===================== */
+/*     comunity section scss      */
+/* ===================== */
+
+.community {
+  padding: 4rem 1.5rem;
+  background: #F7F7F8;// from-gray-50 to-gray-100
+
+  @media (min-width: 1024px) {
+    padding-inline: 2.5rem;
+  }
+
+  &__container {
+    max-width: 1120px; // ~ max-w-7xl
+    margin-inline: auto;
+  }
+
+  &__layout {
+    display: grid;
+    gap: 3rem;
+    align-items: stretch;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    }
+  }
+
+  /* LEFT SIDE */
+  &__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 100%;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: clamp(2rem, 3.3vw, 3rem); // text-4xl ~ 5xl
+    font-weight: 700;
+    color: #0f172a; // text-brandBlue-900 (tuỳ brand)
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  &__desc {
+    font-size: 1.05rem; // text-lg
+    color: #4b5563;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* LIST CARD */
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    padding-block: 1rem;
+    // mặc định: auto height, không scroll nếu <= 3 card
+  }
+
+  &__list-item {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+
+    
+  &__list--scroll {
+    max-height: 22rem;                 
+    overflow-y: auto;
+    padding-right: 0.25rem;
+
+    /* Ẩn/tuỳ chỉnh scrollbar cho đẹp */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.8) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.9);
+      border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 1);
+    }
+  }
+
+  /* RIGHT SIDE – IMAGE */
+  &__right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    // max-width: 26rem;
+    height: 100%;
+    width: 100%;
+    margin-inline: auto;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.25),
+      0 0 0 1px rgba(148, 163, 184, 0.3);
+     background: #fbbf24;
+
+    /* nhẹ nhàng thêm hiệu ứng hover cho sang */
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+//   &__image-wrap::before {
+//     content: "";
+//     position: absolute;
+//     inset: 0;
+//     background: radial-gradient(
+//       circle at 0% 0%,
+//       rgba(255, 255, 255, 0.12),
+//       transparent 55%
+//     );
+//     pointer-events: none;
+//     mix-blend-mode: screen;
+//   }
+
+  &__image-wrap:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow:
+      0 24px 60px rgba(15, 23, 42, 0.35),
+      0 0 0 1px rgba(30, 64, 175, 0.4);
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+}

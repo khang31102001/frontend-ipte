@@ -3,118 +3,118 @@
 /* ===================== */
 
 .facility-gallery {
-    padding: 80px 0;
-    max-width: 1280px;
-    margin: 0 auto;
+  padding: 80px 0;
+  max-width: 1280px;
+  margin: 0 auto;
 
-    &__header {
-        text-align: center;
-        margin-bottom: 40px;
+  &__header {
+    text-align: center;
+    margin-bottom: 40px;
 
-        h2 {
-            font-size: 32px;
-            font-weight: 800;
-            color: #4a16bd; // tím chủ đạo PTE iPass
-            margin-bottom: 12px;
-        }
-
-        p {
-            font-size: 17px;
-            color: #555;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
+    h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #4a16bd; // tím chủ đạo PTE iPass
+      margin-bottom: 12px;
     }
 
-    /* GRID GALLERY */
-    &__grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+    p {
+      font-size: 17px;
+      color: #555;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
 
-        /* Layout đặc biệt tạo độ hút visual */
-        &> :nth-child(1) {
-            grid-row: span 2;
-        }
+  /* GRID GALLERY */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 
-        &> :nth-child(4) {
-            grid-column: span 2;
-        }
-
-        @media (max-width: 900px) {
-            grid-template-columns: repeat(2, 1fr);
-
-            &> :nth-child(1),
-            &> :nth-child(4) {
-                grid-column: span 2;
-                grid-row: unset;
-            }
-        }
-
-        @media (max-width: 600px) {
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
+    /* Layout đặc biệt tạo độ hút visual */
+    &> :nth-child(1) {
+      grid-row: span 2;
     }
 
-    /* ITEM */
-    &__item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 14px;
-        cursor: pointer;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: translateY(-6px);
-        }
-
-        .facility-gallery__btn {
-            padding: 0;
-            border: none;
-            background: none;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            display: block;
-
-            /* remove outline khi click */
-            &:focus {
-                outline: none;
-            }
-        }
-
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            display: block;
-        }
-
-        &:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Overlay fade đẹp */
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg,
-                    transparent 0%,
-                    rgba(0, 0, 0, 0.35) 100%);
-            opacity: 0;
-            transition: opacity 0.35s ease;
-        }
-
-        &:hover::before {
-            opacity: 1;
-        }
+    &> :nth-child(4) {
+      grid-column: span 2;
     }
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+
+      &> :nth-child(1),
+      &> :nth-child(4) {
+        grid-column: span 2;
+        grid-row: unset;
+      }
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+
+  /* ITEM */
+  &__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-6px);
+    }
+
+    .facility-gallery__btn {
+      padding: 0;
+      border: none;
+      background: none;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      display: block;
+
+      /* remove outline khi click */
+      &:focus {
+        outline: none;
+      }
+    }
+
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+
+    &:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Overlay fade đẹp */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(0, 0, 0, 0.35) 100%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+  }
 }
 
 
@@ -137,27 +137,41 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45); 
+    background: rgb(0 0 0 / 61%);
     z-index: 1;
   }
 
   &__content {
     position: relative;
-    z-index: 2; 
+    z-index: 2;
     max-width: 900px;
     padding: 0 16px;
     color: #fff;
   }
 
   &__title {
-    font-size: 42px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    line-height: 1.2;
 
-    span {
-      color: #ffcc32;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 700;
+      color: #ffff;
+      margin: 0;
+      line-height: 1.3;
     }
+
+    svg {
+      width: clamp(120px, 20vw, 180px); 
+      height: auto;
+      display: block;
+    }
+
+
   }
 
   &__desc {
@@ -192,5 +206,164 @@
       color: #000;
       transform: translateY(-3px);
     }
+  }
+}
+
+/* ===================== */
+/*     map section scss      */
+/* ===================== */
+
+.branches {
+  position: relative;
+  padding: 4rem 1.5rem; 
+  color: #ffffff;
+  isolation: isolate; // giúp z-index hoạt động an toàn, tránh bị lẫn context
+  
+
+  @media (min-width: 1024px) {
+    padding-inline: 3rem; // lg:px-12
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.4);
+    mix-blend-mode: multiply; // giúp blend đẹp với background image
+
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px; 
+    margin-inline: auto;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 3rem;
+    align-items: flex-start;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+  }
+
+  /* LEFT SIDE */
+  &__left {
+    position: relative;
+  }
+
+  &__title {
+    font-size: clamp(2rem, 3.2vw, 3rem); // text-4xl ~ 5xl
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: #ffffff;
+  }
+
+  &__underline {
+    width: 6rem; // w-24
+    height: 0.25rem; // h-1
+    border-radius: 999px;
+    background: #fbbf24;
+    margin-bottom: 3rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__item {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.06); // hover:bg-white/5
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    /* State active */
+    &--active {
+      background-color: rgba(255, 255, 255, 0.10); // bg-white/10
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    transition: color 0.25s ease;
+
+    /* màu default (chưa chọn) */
+    color: rgba(251, 191, 36, 0.7); // text-[#fbbf24]/70
+  }
+
+  &__address {
+    font-size: clamp(0.95rem, 1.05vw, 1.125rem); // text-base ~ lg
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.25s ease;
+  }
+
+  /* Khi item active thì đổi màu icon + text */
+  &__item--active &__icon {
+    color: #fbbf24; // text-[#fbbf24]
+  }
+
+  &__item--active &__address {
+    color: #ffffff;
+  }
+
+  /* RIGHT SIDE */
+  &__right {
+    position: relative;
+  }
+
+  &__map-frame {
+    border-radius: 1rem;
+    border: 3px dashed #fbbf24;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: rgba(0, 0, 0, 0.3);
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    transform-origin: center;
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+
+    /* khi hover khối map */
+    &:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.65);
+    }
+  }
+
+  &__map {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }

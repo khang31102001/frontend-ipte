@@ -65,14 +65,16 @@ const Header = ({
         {/* Top Header */}
         <div className="header__container">
           <div className="header__inner">
+           
             {/* logo */}
             <Link href="/" className="header__logo">
               <Image
-                src="/images/logo/log-2.jpg"
-                alt="logo"
-                width={160}
-                height={80}
-                className="object-contain"
+                src="/images/logo/logo-header.png"
+                alt="PTE iPASS"
+                width={300}
+                height={180}
+                className="header__logo-img"
+                priority
               />
             </Link>
 
@@ -96,7 +98,7 @@ const Header = ({
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden flex flex-col justify-center items-center text-primary space-y-1.5 z-50"
+              className="md:hidden flex flex-col justify-center items-center text-primary max-w-52 space-y-1.5 z-50"
               onClick={() => setOpenMenu(!openMenu)}
               aria-label="open menu"
             >

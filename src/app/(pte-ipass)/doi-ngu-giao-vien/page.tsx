@@ -1,6 +1,7 @@
 // import HeroImage from "@/components/banner/banner";
-import HeroBanner from "@/components/banner/hero-banner";
+
 import CommunityPTEiPass from "@/components/community/community-pte-ipass";
+import HeroBanner from "@/components/shared/banner/hero-banner";
 import Skeleton from "@/components/shared/loading/Skeleton";
 import { FeaturesSection } from "@/components/teacher/featured-section";
 import PTECallToAction from "@/components/teacher/pte-call-to-action";
@@ -120,6 +121,7 @@ async function TeacherPage() {
   console.log("data teacher:", teacherItem);
   return (
    <section>
+    <HeroBanner img="/images/banner/teacher-banner.png"/>.
       <FeaturesSection data={features}/>
       <TeacherList data={items} />
       <CommunityPTEiPass />
@@ -141,11 +143,6 @@ export default async function TeacherIndex() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HeroBanner 
-        img="/images/banner-team-teacher.jpg" 
-        className="mb-12 "
-        />
-        
       <Suspense fallback={<Skeleton title="đang tải........."/>}>
         <TeacherPage/>
       </Suspense>

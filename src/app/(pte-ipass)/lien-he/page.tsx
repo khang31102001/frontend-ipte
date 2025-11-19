@@ -1,6 +1,7 @@
 
-import ContactInfor from "@/components/contact/contact-infor";
-import LocationInfor from "@/components/contact/location-infor";
+import ContactInfor from "@/components/about/contact-infor";
+import MapSection from "@/components/about/map-section";
+import LocationInfor from "@/components/about/map-section";
 import ConsultationForm from "@/components/form/consultation-form";
 import { aboutService } from "@/lib/service/about";
 
@@ -13,9 +14,8 @@ export default async function ContactIndex() {
     return (
         <div>
             <ContactInfor data={data[0]} />
-            <LocationInfor data={data} />
+            <MapSection data={data} />
             <ConsultationForm />
-
         </div>
     );
 }

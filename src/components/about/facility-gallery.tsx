@@ -33,27 +33,10 @@ const images = [
     alt: "Person writing notes",
 
   },
-  {
-    id: 5,
-    src: "/images/facility-5.jpg",
-    alt: "Teacher at chalkboard",
-
-  },
-  {
-    id: 6,
-    src: "/images/facility-6.jpg",
-    alt: "Teacher at chalkboard",
-
-  },
-  {
-    id: 7,
-    src: "/images/facility-6.jpg",
-    alt: "Teacher at chalkboard",
-
-  },
+  
 ]
 export const FacilityGallery = ({
-    title,
+    title = "Cơ sở vật chất",
     desc,
     imgItems
 
@@ -63,7 +46,7 @@ export const FacilityGallery = ({
   return (
     <section className="facility-gallery">
       <div className="facility-gallery__header">
-        <h2>{title}</h2>
+        <h2 className="facility-gallery">{title}</h2>
         <p>
          {desc}
         </p>
