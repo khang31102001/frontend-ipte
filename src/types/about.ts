@@ -21,3 +21,11 @@ export interface About {
     tiktok_url?: string | null
     youtube_url?: string | null
 }
+
+export interface AboutItem {
+    items: About[];
+    page: number | null;
+    page_size: number | null;
+    total: number | null;
+    total_pages: number | null;
+}

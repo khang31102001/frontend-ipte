@@ -14,6 +14,7 @@ import { Metadata } from "next";
 import CategoryLayout from "@/components/shared/category/category-layout";
 import { FaqAccordion } from "@/components/courses/faq-accordion";
 import ProblemsAndSolutionList from "@/components/courses/problem-solution-list";
+import { CourseStageSection } from "@/components/courses/course-stage-section";
 
 
 type PageProps = {
@@ -244,6 +245,7 @@ async function CourseListing({
           <CategorySection key={item.id} courseCategory={item} />
         ))}
         <ProblemsAndSolutionList backgroundImage="/images/bg-pte-pob-solution.jpg"/>
+        <CourseStageSection/>
         <FaqAccordion/>
       </>
     </CategoryLayout>

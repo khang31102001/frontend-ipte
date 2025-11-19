@@ -13,6 +13,8 @@
 @import "./new.scss";
 @import "./teacher.scss";
 @import "./pte-issues.scss";
+@import "./common.scss";
+@import "./abouts.scss";
 
 
 /* ===================== */
@@ -158,27 +160,23 @@
     @apply flex items-center p-6 pt-0
   }
 
-    .btn {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap
-           rounded-md font-medium transition-all duration-200
-           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background
-           border border-transparent
-           disabled:pointer-events-none disabled:opacity-50;
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background border border-transparent disabled:pointer-events-none disabled:opacity-50;
   }
 
-   .btn-outline {
-    @apply border border-gray-300 bg-background text-foreground
-           hover:bg-gray-50 hover:text-blue-600 hover:border-blue-400
-           active:bg-gray-100;
+  .btn-outline {
+    @apply border border-gray-300 bg-background text-foreground hover:bg-gray-50 hover:text-blue-600 hover:border-blue-400 active:bg-gray-100;
   }
 
   .btn-primary {
     @apply bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800;
   }
+
   .btn-link {
     @apply inline-flex items-center gap-2 px-4 py-2
   }
 }
+
 /* ===================== */
 /*      UTILITIES        */
 /* ===================== */
@@ -224,42 +222,42 @@
   }
 
   .scroll-container {
-  /* Luôn dành chỗ cho scrollbar nhưng làm trong suốt */
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
+    /* Luôn dành chỗ cho scrollbar nhưng làm trong suốt */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
 
-.scroll-container::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
-}
+  .scroll-container::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
 
-.scroll-container::-webkit-scrollbar-track {
-  background: transparent;
-}
+  .scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-.scroll-container::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 10px;
-}
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+  }
 
-/* Chỉ hiện màu khi hover */
-.scroll-container:hover {
-  scrollbar-color: #888 #f1f1f1;
-}
+  /* Chỉ hiện màu khi hover */
+  .scroll-container:hover {
+    scrollbar-color: #888 #f1f1f1;
+  }
 
-.scroll-container:hover::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
+  .scroll-container:hover::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
 
-.scroll-container:hover::-webkit-scrollbar-thumb {
-  background: #888;
-}
+  .scroll-container:hover::-webkit-scrollbar-thumb {
+    background: #888;
+  }
 
-.scroll-container:hover::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+  .scroll-container:hover::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
   .bg-hero-gradient {
     background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
@@ -273,7 +271,24 @@
     text-fill-color: transparent;
   }
 
-  
+  .hero-image {
+    position: relative;
+    width: 100%;
+    min-height: clamp(320px, 55vw, 640px);
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  .hero-image__img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (min-width: 992px) {
+    .hero-image {
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+  }
 
 
 }

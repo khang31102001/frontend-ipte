@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw } from "lucide-react"
-import Button from "../button/Button";
 import Image from "next/image";
 
 
@@ -59,37 +58,37 @@ export default function ImageLightbox({ images, currentIndex, onClose, onNavigat
   return (
     <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center">
       {/* Close Button */}
-      <Button
+      <button
        
         onClick={onClose}
         className="absolute top-4 right-4 text-white hover:bg-white/20 z-10"
       >
         <X className="h-6 w-6" />
         <span className="sr-only">Close</span>
-      </Button>
+      </button>
 
       {/* Navigation Buttons */}
-      <Button
+      <button
        
         onClick={handlePrevious}
         className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 z-10"
       >
         <ChevronLeft className="h-8 w-8" />
         <span className="sr-only">Previous image</span>
-      </Button>
+      </button>
 
-      <Button
+      <button
        
         onClick={handleNext}
         className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20 z-10"
       >
         <ChevronRight className="h-8 w-8" />
         <span className="sr-only">Next image</span>
-      </Button>
+      </button>
 
       {/* Zoom and Rotate Controls */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/50 rounded-full p-2 z-10">
-        <Button
+        <button
           
           onClick={handleZoomOut}
           disabled={scale <= 0.5}
@@ -97,11 +96,11 @@ export default function ImageLightbox({ images, currentIndex, onClose, onNavigat
         >
           <ZoomOut className="h-5 w-5" />
           <span className="sr-only">Zoom out</span>
-        </Button>
+        </button>
 
         <span className="text-white text-sm font-medium min-w-[60px] text-center">{Math.round(scale * 100)}%</span>
 
-        <Button
+        <button
           
           onClick={handleZoomIn}
           disabled={scale >= 3}
@@ -109,14 +108,14 @@ export default function ImageLightbox({ images, currentIndex, onClose, onNavigat
         >
           <ZoomIn className="h-5 w-5" />
           <span className="sr-only">Zoom in</span>
-        </Button>
+        </button>
 
         <div className="w-px h-6 bg-white/30 mx-1" />
 
-        <Button  onClick={handleRotate} className="text-white hover:bg-white/20">
+        <button  onClick={handleRotate} className="text-white hover:bg-white/20">
           <RotateCw className="h-5 w-5" />
           <span className="sr-only">Rotate</span>
-        </Button>
+        </button>
       </div>
 
       {/* Image Counter */}

@@ -1,7 +1,6 @@
 
-import { Plane, BookOpen, GraduationCap, Globe } from "lucide-react"
-import Button from "../button/Button"
 import Image from "next/image"
+import clsx from "clsx"
 
 interface HeroBannerProps {
   img: string
@@ -12,12 +11,13 @@ interface HeroBannerProps {
 }
 export const HeroBanner = ({ img, className }: HeroBannerProps) => {
   return (
-    <section className={`relative w-full ${className}`}>
+    
+    <section className={clsx("hero-image", className)}>
         <Image
           src={img}
           alt="PTE Hero Banner"
           fill
-          className="w-full h-auto object-cover object-center opacity-90"
+          className="hero-image__img"
           priority
         />
 

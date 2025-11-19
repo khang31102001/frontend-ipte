@@ -1,34 +1,34 @@
 import AboutPTEiPass from "@/components/about/about-pte-ipass";
-// import FacilitiesSection from "@/components/pte-ipass/about/facilities-section";
+
 import IPTEAudienceSection from "@/components/about/IPTEAudienceSection";
 import MapSection from "@/components/about/map-section";
 import MissionSection from "@/components/about/mission-section";
 import PTEcosystem from "@/components/about/pte-ecosystem";
-import { About } from "@/types/about";
+import { About, AboutItem } from "@/types/about";
 import { PTEEcosystem } from "@/types/ecosystem";
+import { FacilityGallery } from "./FacilityGallery";
 
 interface AboutPageProps {
-  dataEcosystem?: PTEEcosystem[];
-  dataBranches?: About[];
-  dataAudiences?: About[];
+ data: AboutItem
 }
 
-const AboutPage = ({ 
-  dataEcosystem, 
-  dataBranches,
-  dataAudiences
+const AboutListing = ({ 
+ data
 }: AboutPageProps) => {
+  const dataEcosystem = data ? data.items.filter((i)=>i.category === "ABOUT_ME"): [];
+  const dataBranches = data ? data.items.filter((i)=> i.category === "BRANCH") : [];
+  const dataAudiences = data ? data.items.filter((i)=> i.category === "AUDIENCE"): [];
   return (
     <section>
         <AboutPTEiPass />
         <MissionSection />
-        {/* lỗi nằm ở<IPTEAudienceSection /> */}
         <IPTEAudienceSection data={dataAudiences} />
         <MapSection data={dataBranches}/>
         {/* <FacilitiesSection /> */}
-        <PTEcosystem data={dataEcosystem } />
+        <FacilityGallery/>
+        <PTEcosystem data={dataEcosystem as any} />
     </section>
   )
 }
 
-export default AboutPage
+export default AboutListing

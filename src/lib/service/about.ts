@@ -8,14 +8,16 @@ export class AboutSevice {
   const qs = params ? '?' + new URLSearchParams(
     Object.entries(params).map(([k, v]) => [k, String(v)])
   ).toString() : '';
-
+  const url = `${API}/about${qs}`
   try {
-    const res = await fetch(`${API}/${qs}`, {
+    const res = await fetch(url, {
       // next: { revalidate: 300, tags: ['about'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000), 
     });
     if (!res.ok) return { items: [], total: 0 };
-    return res.json();
+    const data = await res.json();
+    // console.log("about: ",data)
+    return data;
   } catch {
     return { items: [], total: 0 }; // không throw để không vỡ build/render
   }

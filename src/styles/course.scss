@@ -22,7 +22,7 @@
   background-color: #ffffff;
   border-radius: 12px;
   border: #0a0a441a 1px solid;
-//   box-shadow: 0 10px 24px rgba(10, 10, 68, 0.12);
+  //   box-shadow: 0 10px 24px rgba(10, 10, 68, 0.12);
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 
@@ -157,10 +157,10 @@
   justify-content: center;
 
   border-radius: 50%;
-  border: 1px solid #d1d5db;       // gray-300
+  border: 1px solid #d1d5db; // gray-300
   background: #ffffff;
-  color: #6b7280;                   // gray-600
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  color: #6b7280; // gray-600
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
   cursor: pointer;
   transition: all 0.25s ease;
@@ -172,7 +172,7 @@
   }
 
   &:hover {
-    background: #1b0f91;            // primary
+    background: #1b0f91; // primary
     border-color: #1b0f91;
     color: #ffffff;
 
@@ -187,15 +187,16 @@
 }
 
 
-.swiper-course{
-    background: transparent !important;
-    box-shadow: none !important;
+.swiper-course {
+  background: transparent !important;
+  box-shadow: none !important;
 
-   
+
+  padding: 0 !important;
+
+  .swiper-wrapper {
+    background: transparent !important;
     padding: 0 !important;
-    .swiper-wrapper {
-     background: transparent !important;
-     padding: 0 !important;
   }
 
   .swiper-slide {
@@ -223,4 +224,113 @@
   }
 }
 
+
+/* ===================== */
+/*     card course stage      */
+/* ===================== */
+
+.course-stage-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 40px;
+ 
+
+  &--bg {
+  //  background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
+
+  }
+}
+
+$course-stage-content-font-size: 15px;
+$course-stage-content-line-height: 1.5;
+$course-stage-content-max-lines: 14;
+
+$course-stage-title-font-size: 22px;
+$course-stage-title-lines: 2;
+
+.course-stage-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 4px solid #FFB608;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  }
+
+  &__title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: $course-stage-content-line-height;
+    margin-bottom: 12px;
+    min-height: $course-stage-title-font-size * $course-stage-content-line-height * $course-stage-title-lines;
+
+    display: -webkit-box;
+    -webkit-line-clamp: $course-stage-title-lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+  }
+
+  &__desc {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    // margin-bottom: 20px;
+    min-height: $course-stage-title-font-size * $course-stage-content-line-height * $course-stage-title-lines;
+
+    display: -webkit-box;
+    -webkit-line-clamp: $course-stage-title-lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__content {
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: $course-stage-content-max-lines * $course-stage-content-line-height * 1em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    h4 {
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin-top: 6px;
+
+      li {
+        margin-bottom: 6px;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  &__btn {
+    background: #2832c6;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #FFB608;
+    }
+  }
+}
 
