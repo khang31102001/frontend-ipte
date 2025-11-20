@@ -13,6 +13,7 @@ import { CategoryItem } from '@/types/category'
 
 import MenuMobileList from './menu-mobile-list'
 import OnSubMenu from './submenu/sub-menu'
+import { cn } from '@/lib/utils'
 
 interface HeaderProps {
   menuItems: CategoryItem[]
@@ -61,11 +62,11 @@ const Header = ({
   if (!menuData || menuData.length === 0) return null
   return (
     <>
-      <header className={` header ${isMobile ? "header--sticky " : "no--sticky"} `}>
+      <header  className="header">
         {/* Top Header */}
         <div className="header__container">
           <div className="header__inner">
-           
+
             {/* logo */}
             <Link href="/" className="header__logo">
               <Image
@@ -123,7 +124,7 @@ const Header = ({
       </header>
 
       {/* bottom nav desktop */}
-      <div id="nav-menu" className="nav-menu">
+      <div id="nav-menu" className="nav-menu is-sticky">
         <nav className="nav-menu__wrapper">
           <ul ref={menuRef} className="nav-menu__list">
             {menuData.map((item, idx) => (

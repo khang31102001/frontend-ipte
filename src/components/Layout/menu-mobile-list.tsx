@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import clsx from 'clsx'
 import OnSubMenu from './submenu/sub-menu'
 import SubMenuMobile from './submenu/sub-menu-mobile'
+import { useLockScroll } from '@/hooks/use-locked-scroll'
 
 interface MenuMobileListProps {
   data: CategoryItem[]
@@ -19,7 +20,8 @@ const MenuMobileList = ({
 }: MenuMobileListProps) => {
 
   // index của mục cấp 1 đang mở (null = đóng hết)
-  const [openIdx, setOpenIdx] = useState<number | null>(null)
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  useLockScroll(IsOpenMenu);
 
   const handleToggle = (idx: number, hasChildren?: boolean) => (e: React.MouseEvent) => {
     if (!hasChildren) return // mục lá: cho đi link
@@ -38,7 +40,7 @@ const MenuMobileList = ({
 
             return (
               <li
-                key={item.id ?? idx}
+                key={idx}
                 className={clsx('mobile-menu__item')}
               >
                 <div className="mobile-menu__row">

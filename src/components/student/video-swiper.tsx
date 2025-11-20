@@ -98,7 +98,7 @@ export function VideoSwiper({
   if(!videos || videos.length === 0) return null;
   return (
     <div ref={containerRef} className="w-full bg-gradient-to-b from-gray-800 to-gray-900 py-12 px-4 md:px-8">
-      <div className={`${isFullscreen ? "max-w-full" : "max-w-6xl"} mx-auto`}>
+      <div className={`${isFullscreen ? "max-w-full" : "max-w-4xl"} mx-auto`}>
         {/* Video Container */}
         <div
           ref={videoContainerRef}

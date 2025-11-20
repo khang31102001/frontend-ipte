@@ -5,22 +5,12 @@
 .header {
     position: relative;
     z-index: 100;
-
     width: 100%;
     //   min-height: 110px;
     background-color: #f6e10e;
+    padding: 12px 0;
     color: hsl(var(--foreground));
-    border-bottom: 1px solid hsl(var(--border));
-
-    /* Sticky header (optional) */
-    &--sticky {
-        position: sticky;
-        z-index: 100;
-        // inset: 0;
-        top: 0;
-        backdrop-filter: blur(8px);
-        background-color: #f6e10e;
-    }
+    border-bottom: 1px solid hsl(var(--border)); 
 
     /* Transparent variant (hero overlay) */
     &--transparent {
@@ -34,17 +24,10 @@
 
     /* Container — luôn bọc toàn bộ phần tử con */
     &__container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1280px;
-        margin: 1rem auto;
+        max-width: 1400px;
+        margin: 0.6rem auto;
         padding-inline: clamp(1rem, 4vw, 2rem);
-        height: 84px;
 
-        @media (min-width: 1024px) {
-            height: 110px;
-        }
     }
 
     /* Khối bên trong chuyển đổi flex -> grid ở md+ */
@@ -82,23 +65,19 @@
     }
 
     &__search {
-        display: none;
-        /* ẩn mobile */
+  
+        flex-grow: 1;
+        max-width: 330px;
+        width: min(20rem, 100%);
+        margin: 0 auto;
         position: relative;
 
-        @media (min-width: 768px) {
-            display: block;
-            justify-self: end;
-
-            width: min(20rem, 100%);
-            /* md:w-80 ~ 320px */
+        @media (max-width: 768px) {
+            display: none;
+            
         }
 
-        @media (min-width: 1024px) {
-            width: 18rem;
-        }
-
-        /* lg:w-72 */
+     
 
         .search-icon {
             position: absolute;
@@ -117,6 +96,7 @@
             border: 1px solid hsl(var(--input));
             background: hsl(var(--background));
             padding: 0.75rem 1rem 0.75rem 2.5rem;
+            min-height: 40px;
             /* pl-10 pr-4 py-3 */
             font-size: 0.875rem;
             /* text-sm */
@@ -148,20 +128,19 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            height: 3rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid #e5e7eb;
+            min-height: 40px;
+            padding: 0.8rem 1rem;
+            border: 1px solid #000;
             border-radius: 999px;
+            box-shadow: 0 0 0 2px hsl(var(--ring));
+
             background: #000;
+
             color: #fff;
             cursor: pointer;
             transition: var(--transition-smooth);
             max-width: 18rem;
 
-            &:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-            }
         }
 
         .hotline-text {
@@ -211,16 +190,14 @@
 /* =========================================*/
 /*        nav menu for desktop SCSS         */
 /* =========================================*/
+
 .nav-menu {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    position: sticky;
-    top: 0;
-    // inset: 0;
+    min-height: 60px;
     width: 100%;
-    z-index: 90;
     border-top: 1px solid #eee;
     background: #fff;
     border-bottom-width: 1px;
@@ -232,7 +209,7 @@
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
         var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 
-    height: 60px;
+
 
     &__wrapper {
         min-height: 60px;

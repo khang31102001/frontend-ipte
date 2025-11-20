@@ -114,38 +114,24 @@ const jsonLd = {
 };
 
 
-async function TeacherPage() {
-  const teacherItem = await getTeachersList({});
-  const features = teacherItem.features ?? [];
-  const items = teacherItem.data ?? [];
-  console.log("data teacher:", teacherItem);
-  return (
-   <section>
-    <HeroBanner img="/images/banner/teacher-banner.png"/>.
-      <FeaturesSection data={features}/>
-      <TeacherList data={items} />
-      <CommunityPTEiPass />
-      <PTECallToAction />
-    </section>
-     
-  );
-}
 
 
-export default async function TeacherIndex() {
+
+export default async function TeacherPage() {
   const data = await getTeachersList({});
   const features = data.features ?? [];
   const items = data.data ?? [];
   // console.log("features:", features);
   return (
-    <>
+    <section>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Suspense fallback={<Skeleton title="đang tải........."/>}>
-        <TeacherPage/>
-      </Suspense>
-    </>
+      <FeaturesSection data={features}/>
+      <TeacherList data={items} />
+      <CommunityPTEiPass />
+      <PTECallToAction />
+    </section>
   );
 }

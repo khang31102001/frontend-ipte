@@ -3,6 +3,7 @@ import StoriesSection from '@/components/student/stories-section';
 import StudentComment from '@/components/student/student-comment'
 import { VideoSwiper } from '@/components/student/video-swiper'
 import React from 'react'
+import ConsultationForm from '../form/consultation-form';
 const commentsData = [
   {
     id: 1,
@@ -163,6 +164,7 @@ const StudentReviewPage = ({
       <VideoSwiper videos={dataVideo} />
       <StoriesSection stories={dataStories} />
       <StudentComment comments={dataComments} />
+      <ConsultationForm/>
     </div>
   )
 }

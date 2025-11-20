@@ -125,6 +125,34 @@
     text-decoration: none;
   }
 
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+
   /* accessibility */
   @media (prefers-reduced-motion: reduce) {
     * {
@@ -282,10 +310,10 @@
   }
 
   .hero-image__img {
-  //  position: absolute;
-  //   inset: 0;
-    
-    object-fit: cover;   
+    //  position: absolute;
+    //   inset: 0;
+
+    object-fit: cover;
     object-position: center;
   }
 
@@ -297,3 +325,18 @@
 
 
 }
+
+.no-scroll {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.is-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #fff; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+

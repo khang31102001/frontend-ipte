@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const  PTECallToAction = ()=> {
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 text-center px-4 rounded-md">
+    <div className="bg-hero-gradient text-white py-16 text-center px-4">
       <h2 className="text-2xl md:text-3xl font-semibold mb-4">
         Sẵn sàng chinh phục PTE Academic?
       </h2>
@@ -11,7 +11,7 @@ const  PTECallToAction = ()=> {
       </p>
       <div className="flex justify-center gap-4 flex-wrap">
         <Link href="/dang-ky">
-          <div className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
+          <div className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
             Đăng ký ngay
           </div>
         </Link>

@@ -1,5 +1,4 @@
-// import HeroImage from "@/components/banner/banner";
-import HeroBanner from "@/components/banner/hero-banner";
+
 import Skeleton from "@/components/shared/loading/Skeleton";
 import TeacherDetails from "@/components/teacher/details/teacher-detail";
 import TeacherDetail from "@/components/teacher/details/teacher-detail";
@@ -133,11 +132,7 @@ export default async function TeacherDetailsPage({ params }: TeacherDetailsPageP
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HeroBanner
-        img="/images/banner-team-teacher.jpg"
-        className="mb-12 "
-      />
-
+     
       <Suspense fallback={<Skeleton title="đang tải........." />}>
         <TeacherContent teacherSlug={lastUrl} />
       </Suspense>
