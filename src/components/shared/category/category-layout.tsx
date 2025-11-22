@@ -18,15 +18,14 @@ export default function CategoryLayout({
     <div className="bg-background text-foreground">
       <Breadcrumb
         items={breadcrumbs}
-        className="container mx-auto px-4 mt-4"
+        className="pte-container section--sm"
       />
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="pte-container ">
         <h1 className="text-3xl font-bold text-primary mb-2">{title}</h1>
-      
       </div>
 
-      <div className="container mx-auto px-4 space-y-10">
+      <div className="pte-container space-y-10">
         {children}
       </div>
     </div>

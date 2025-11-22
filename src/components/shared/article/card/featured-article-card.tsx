@@ -18,7 +18,7 @@ const FeaturedArticleCard = ({
     title,
     description
 }: FeaturedArticleCardProps) => {
-    const url = `${baseUrl}/${href}/`;
+    const url = `/${baseUrl}/${href}/`;
     return (
         <article className="featured-row">
             <Link href={url} className="featured-row__link">

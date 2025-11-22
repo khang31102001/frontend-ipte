@@ -24,7 +24,7 @@
 
     /* Container — luôn bọc toàn bộ phần tử con */
     &__container {
-        max-width: 1400px;
+        max-width: 1536px;
         margin: 0.6rem auto;
         padding-inline: clamp(1rem, 4vw, 2rem);
 
@@ -330,7 +330,8 @@
 .submenu {
     // display: none;
     padding: 0.4rem;
-    width: 200px;
+    min-width: 200px;
+    max-width: 400px;
     transform: translateY(-8px);
     transition: transform 0.25s ease;
 

@@ -27,7 +27,7 @@ export class CoursesServices {
     async getCoursesDetails(params: CourseParams) {
        const [slug, value] = Object.entries(params)[0];
        const url = `${API}/courses/${slug}/${value}`;
-       console.log("url", url);
+    //    console.log("url", url);
         try {
             const res = await fetch(url, {
                 next: { revalidate: 300, tags: ['courses'] }, // ISR 5 phút + tag

@@ -9,13 +9,13 @@ import { Course } from "@/types/courses"
 import ArticleCard from "../card/article-card"
 
 
-
+const ITEMS_PER_LOAD = 4;
 type ViewMode = "grid" | "list";
 interface ArticleListSectionProps {
     data?: any[];
     viewMode?: ViewMode
 }
-const ITEMS_PER_LOAD = 4;
+
 const ArticleListSection = ({
     data = [],
     viewMode = "grid",
@@ -28,8 +28,6 @@ const ArticleListSection = ({
     const currentArticle = useMemo(() => {
         return data.slice(0, currentItem);
     }, [data, currentItem]);
-
-
 
 
 

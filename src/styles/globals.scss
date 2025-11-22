@@ -21,6 +21,13 @@
 /* ===================== */
 /*        BASE LAYER     */
 /* ===================== */
+// Base Layer:
+// - Token, variables
+// - Reset styles
+// - HTML element styles
+// - Typography global
+// - Accessibility
+
 @layer base {
   :root {
     --radius: 12px;
@@ -166,6 +173,11 @@
 /* ===================== */
 /*     COMPONENTS        */
 /* ===================== */
+// Components Layer:
+// - UI blocks (header, cards, banner, popup)
+// - Components with structure & layout
+// - Complex styles
+
 @layer components {
   .pte-ipass-card {
     @apply border bg-background text-card-foreground shadow-sm;
@@ -178,7 +190,7 @@
   }
 
   .card-content {
-    @apply p-6 pt-0
+    @apply p-6 pt-0;
   }
 
   .card-header {
@@ -186,7 +198,7 @@
   }
 
   .card-footer {
-    @apply flex items-center p-6 pt-0
+    @apply flex items-center p-6 pt-0;
   }
 
   .btn {
@@ -202,16 +214,78 @@
   }
 
   .btn-link {
-    @apply inline-flex items-center gap-2 px-4 py-2
+    @apply inline-flex items-center gap-2 px-4 py-2;
+  }
+
+  .hero-image {
+    position: relative;
+    aspect-ratio: 21 / 9;
+    width: 100%;
+    min-height: clamp(320px, 55vw, 640px);
+    overflow: hidden;
+    border-radius: 0;
+
+    @media (min-width: 992px) {
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+  }
+
+  .hero-image__img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 10px;
+    }
+
+    &:hover {
+      scrollbar-color: #888 #f1f1f1;
+    }
+
+    &:hover::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    &:hover::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
   }
 }
+
 
 /* ===================== */
 /*      UTILITIES        */
 /* ===================== */
+// Utilities Layer:
+// - 1 purpose helper class
+// - Spacing helpers
+// - Container helpers
+// - Text/background helpers
+// - Small variants
+
 @layer utilities {
   .card-description {
-    @apply text-sm text-muted-foreground
+    @apply text-sm text-muted-foreground;
   }
 
   .card-title {
@@ -250,44 +324,6 @@
     transition: var(--transition-smooth);
   }
 
-  .scroll-container {
-    /* Luôn dành chỗ cho scrollbar nhưng làm trong suốt */
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  }
-
-  .scroll-container::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-  }
-
-  .scroll-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scroll-container::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 10px;
-  }
-
-  /* Chỉ hiện màu khi hover */
-  .scroll-container:hover {
-    scrollbar-color: #888 #f1f1f1;
-  }
-
-  .scroll-container:hover::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-
-  .scroll-container:hover::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-
-  .scroll-container:hover::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
   .bg-hero-gradient {
     background-image: linear-gradient(to right, #04016C, #1E1A9F, #3E3AA7);
   }
@@ -300,43 +336,61 @@
     text-fill-color: transparent;
   }
 
-  .hero-image {
-    position: relative;
-    aspect-ratio: 21 / 9; /// or 21 / 9
+  /* >>>> ĐẶT 3 THẰNG NÀY VÀO ĐÂY <<<< */
+
+  .pte-container {
     width: 100%;
-    min-height: clamp(320px, 55vw, 640px);
-    overflow: hidden;
-    border-radius: 0;
-  }
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 
-  .hero-image__img {
-    //  position: absolute;
-    //   inset: 0;
+    @media (min-width: 1536px) {
+      max-width: 1400px;
+    }
 
-    object-fit: cover;
-    object-position: center;
-  }
+    &--narrow {
+      max-width: 960px;
+    }
 
-  @media (min-width: 992px) {
-    .hero-image {
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    &--wide {
+      max-width: 1440px;
+    }
+
+    &--full {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
+  .section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 
+    &--lg {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+
+    &--sm {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  .no-scroll {
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  .is-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+  }
 }
-
-.no-scroll {
-  overflow: hidden;
-  touch-action: none;
-}
-
-.is-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  background-color: #fff; 
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
-}
-

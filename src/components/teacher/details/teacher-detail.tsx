@@ -1,9 +1,66 @@
 'use client';
-import { TeacherProfile } from '@/types/teacher';
 
+import { Teacher } from "@/types/teacher";
 
+const content = `
+
+<h3>👋 Giới thiệu</h3>
+<p>
+  Tôi là <strong>Nguyen Anh Minh</strong>, giảng viên PTE với hơn 
+  <strong>6 năm kinh nghiệm</strong> đào tạo học viên ở các mức điểm 
+  từ 30–79+. Tôi tập trung vào xây dựng phương pháp học hiệu quả, giúp học viên 
+  tiết kiệm thời gian và đạt mục tiêu nhanh hơn.
+</p>
+
+<h3>🎓 Chuyên môn</h3>
+<ul>
+  <li>✔ Kinh nghiệm luyện thi PTE cho du học & định cư Úc</li>
+  <li>✔ Chuyên sâu Speaking & Writing (phù hợp học viên mất gốc)</li>
+  <li>✔ Kỹ năng chấm bài chi tiết, feedback rõ ràng – dễ hiểu</li>
+  <li>✔ Am hiểu cấu trúc đề thi thật & scoring của Pearson AI</li>
+</ul>
+
+<h3>📘 Phương pháp giảng dạy</h3>
+<p>
+  Tôi tập trung vào <strong>tư duy làm bài</strong> thay vì học mẹo. Mỗi bài giảng đều được
+  thiết kế để học viên hiểu bản chất, từ đó nâng điểm đồng đều ở cả 4 kỹ năng.
+</p>
+<ul>
+  <li>🎯 Học – luyện – sửa theo <strong>chu trình 3 bước</strong></li>
+  <li>🎧 Luyện Listening theo từng dạng câu hỏi – có file audio riêng</li>
+  <li>🗣 Speaking luyện theo mẫu câu chuẩn, sửa phát âm chi tiết</li>
+  <li>📝 Writing có template dễ nhớ nhưng vẫn đúng scoring</li>
+  <li>📈 Tracking tiến độ hàng tuần để đảm bảo học viên đạt mục tiêu</li>
+</ul>
+
+<h3>🏆 Thành tích nổi bật</h3>
+<ul>
+  <li>🌟 Hơn 350+ học viên đạt PTE 50–65</li>
+  <li>🌟 120+ học viên đạt PTE 79+ trong 2 năm gần đây</li>
+  <li>🌟 Nhiều học viên từ mất gốc lên PTE 50 chỉ trong 4–6 tuần</li>
+</ul>
+
+<h3>💬 Cam kết cho học viên</h3>
+<p>
+  Tôi luôn đồng hành 1–1 để đảm bảo từng học viên hiểu rõ cách làm bài, sửa lỗi chi tiết và cải thiện
+  từng kỹ năng. Học viên sẽ luôn nhận được:
+</p>
+<ul>
+  <li>✔ Feedback rõ ràng – chỉnh đúng lỗi</li>
+  <li>✔ Lộ trình học cá nhân hóa theo điểm mục tiêu</li>
+  <li>✔ Bộ tài liệu PTE nội bộ + AI Template</li>
+  <li>✔ Hỗ trợ qua Zalo/Whatsapp sau giờ học</li>
+</ul>
+
+<h3>📩 Liên hệ</h3>
+<p>
+  Nếu bạn muốn bắt đầu hành trình PTE với tôi, hãy để lại thông tin hoặc nhắn tin trực tiếp —
+  tôi luôn sẵn sàng hỗ trợ bạn! 🚀
+</p>
+
+`
 interface TeacherDetailProps {
-    teacher: TeacherProfile;
+    teacher: Teacher;
 }
 
 const SkillScore = ({ label, score }: { label: string; score: number }) => (
@@ -21,12 +78,12 @@ const SkillScore = ({ label, score }: { label: string; score: number }) => (
     </div>
 );
 
-const TeacherDetails =({ teacher }: TeacherDetailProps)=> {
+const TeacherDetails = ({ teacher }: TeacherDetailProps) => {
     const skills = [
-        { label: 'Listening', score: teacher.listening },
-        { label: 'Reading', score: teacher.reading },
-        { label: 'Speaking', score: teacher.speaking },
-        { label: 'Writing', score: teacher.writing },
+        { label: 'Listening', score: Number(teacher.listening_score) },
+        { label: 'Reading', score: Number(teacher.reading_score) },
+        { label: 'Speaking', score: Number(teacher.speaking_score) },
+        { label: 'Writing', score: Number(teacher.writing_score) },
     ];
 
     return (
@@ -44,7 +101,7 @@ const TeacherDetails =({ teacher }: TeacherDetailProps)=> {
                             <h1 className="teacher-title">{teacher.name}</h1>
 
                             <div className="teacher-score-display">
-                                <span className="teacher-score-value">{teacher.overallScore}</span>
+                                <span className="teacher-score-value">{teacher.overall_score}</span>
                                 <span className="teacher-score-max">/ 100</span>
                             </div>
 
@@ -85,7 +142,7 @@ const TeacherDetails =({ teacher }: TeacherDetailProps)=> {
                                     <div key={skill.label} className="teacher-chart-item">
                                         <div
                                             className="teacher-chart-bar"
-                                            style={{ height: `${(skill.score / 100) * 240}px` }}
+                                            style={{ height: `${(skill.score / 10) * 240}px` }}
                                         >
                                             <span className="teacher-chart-value">{skill.score}</span>
                                         </div>
@@ -98,13 +155,13 @@ const TeacherDetails =({ teacher }: TeacherDetailProps)=> {
                 </section>
 
                 {/* Content Section */}
-                {teacher.content && (
+                {teacher && (
                     <section className="teacher-section">
                         <h2 className="teacher-section-title">About</h2>
 
                         <div
                             className="teacher-content"
-                            dangerouslySetInnerHTML={{ __html: teacher.content }}
+                            dangerouslySetInnerHTML={{ __html: content }}
                         />
                     </section>
                 )}

@@ -6,7 +6,8 @@ import Skeleton from "@/components/shared/loading/Skeleton";
 import { FeaturesSection } from "@/components/teacher/featured-section";
 import PTECallToAction from "@/components/teacher/pte-call-to-action";
 import TeacherList from "@/components/teacher/teacher-list";
-import { getTeachersList } from "@/lib/service/teacher";
+import { teacherServices } from "@/lib/service/teacher";
+
 
 
 // app/doi-ngu-giao-vien/page.tsx
@@ -118,10 +119,10 @@ const jsonLd = {
 
 
 export default async function TeacherPage() {
-  const data = await getTeachersList({});
+  const data = await teacherServices.getTeachersList({});
   const features = data.features ?? [];
-  const items = data.data ?? [];
-  // console.log("features:", features);
+  const items = data.items ?? [];
+  console.log("data:", data);
   return (
     <section>
       <script

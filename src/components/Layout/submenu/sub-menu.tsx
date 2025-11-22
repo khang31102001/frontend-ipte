@@ -2,18 +2,20 @@
 import React from "react";
 import clsx from "clsx";
 import { CategoryItem } from "@/types/category";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
-type Variant = "auto" | "desktop" | "mobile";
+
 interface OnSubMenuProps {
   items?: CategoryItem[];
   className?: string;
-  variant?: Variant;
+
 }
 
 const OnSubMenu = ({
   items,
   className,
-  variant
+
 }: OnSubMenuProps) => {
   const [openIdx, setOpenIdx] = React.useState<number | null>(null);
   if (!items || items.length === 0) return null;
@@ -44,15 +46,18 @@ const OnSubMenu = ({
                 className="submenu__link"
               >
                 <span className="submenu__text truncate">{item.name}</span>
-                {hasChildren && <span className="submenu__icon group-hover:text-indigo-500">▶</span>}
+                {hasChildren && (
+                  <span className="submenu__icon group-hover:text-indigo-500">
+                     <ChevronDown className="submenu__icon group-hover:text-indigo-500" />
+                  </span>
+                ) }
               </a>
               {hasChildren && (
-              <OnSubMenu
-                items={item.children}
-                variant={variant}
-                className="on-submenu card-box"
-              />
-            )}
+                <OnSubMenu
+                  items={item.children}
+                  className="on-submenu card-box"
+                />
+              )}
             </li>
           )
         })}

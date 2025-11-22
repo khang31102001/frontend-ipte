@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import {
+  ChevronDown,
   Phone,
   Search,
 
@@ -62,7 +63,7 @@ const Header = ({
   if (!menuData || menuData.length === 0) return null
   return (
     <>
-      <header  className="header">
+      <header className="header">
         {/* Top Header */}
         <div className="header__container">
           <div className="header__inner">
@@ -131,22 +132,26 @@ const Header = ({
               <li key={idx} className="nav-menu__item group">
                 <a href={item.url} className="nav-menu__link link-underline ">
                   <span className="nav-menu__text">{item.name}</span>
-                  {item.icon && item.children && (
-                    <span className="nav-menu__icon group-hover:rotate-180">
-                      <Image
-                        src={item.icon}
-                        alt={item.name}
-                        width={16}
-                        height={16}
-                      />
-                    </span>
+                  {item.children?.length !==0 && (
+                    item.icon ? (
+                      <span className="nav-menu__icon group-hover:rotate-180">
+                        <Image
+                          src={item.icon}
+                          alt={item.name}
+                          width={16}
+                          height={16}
+                        />
+                      </span>
+                    ) : (
+                      <ChevronDown size={16} className="nav-menu__icon group-hover:rotate-180" />
+                    )
                   )}
                 </a>
 
                 {item.children && (
                   <OnSubMenu
                     items={item.children}
-                    variant="desktop"
+      
                     className="on-submenu card-box"
                   />
                 )}

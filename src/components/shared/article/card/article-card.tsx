@@ -21,7 +21,7 @@ export default function ArticleCard({
   layout = "grid",
 }: ArticleCardColProps) {
 
-  const url = `${baseUrl}/${href}/`;
+  const url = `/${baseUrl}/${href}/`;
   // console.log("`${baseUrl}` +`${href}`", url)
   if (layout === "list") {
     return (

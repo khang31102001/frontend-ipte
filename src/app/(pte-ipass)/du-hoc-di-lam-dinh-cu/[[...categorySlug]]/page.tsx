@@ -1,4 +1,7 @@
+
 import CourseDetailPage from "@/components/courses/detail/course-detail-page"
+import PteCategoryPage from "@/components/pte-category/pte-category-page"
+
 import { ArticleGridSection } from "@/components/shared/article"
 import CategoryLayout from "@/components/shared/category/category-layout"
 import Skeleton from "@/components/shared/loading/Skeleton"
@@ -12,7 +15,6 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React, { Suspense } from "react"
 
-
 type PageProps = {
   params: {
     categorySlug?: string[]
@@ -20,60 +22,72 @@ type PageProps = {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-// ----------- Helpers giả (bạn thay bằng API thật) -------------
+/**
+ * Hàm fake lấy data cho trang PTE Đại học
+ * Bạn thay bằng gọi API thật (category/article theo slug)
+ */
 async function getPageData(slugs?: string[]) {
-  // slugs = ["uc", "di-lam"] kiểu vậy
   const lastSlug = slugs?.[slugs.length - 1]
 
+  // Trường hợp không có slug: /pte-dai-hoc
   if (!lastSlug) {
-    // Trang tổng /pte-du-hoc-di-lam-dinh
     return {
       type: "listing" as const,
-      title: "PTE – Du học & Định cư | Hướng dẫn từ A-Z",
+      title: "PTE cho Du học Đại học | Lộ trình từ A–Z",
       description:
-        "Tổng hợp kiến thức PTE cho du học, đi làm, định cư Úc – lộ trình học, kinh nghiệm thi, chia sẻ thực tế.",
+        "Tổng hợp kiến thức, lộ trình học và kinh nghiệm thi PTE dành cho du học bậc Đại học: yêu cầu điểm, chiến lược ôn tập, bí quyết đạt target nhanh.",
       slugPath: [],
-      ogImage: "/images/og/pte-du-hoc-di-lam-dinh.jpg",
+      ogImage: "/images/og/pte-dai-hoc.jpg", // đổi đường dẫn ảnh OG thực tế của bạn
       breadcrumbs: [
         { name: "Trang chủ", href: "/" },
-        { name: "PTE Du học – Đi làm – Định cư", href: "/pte-du-hoc-di-lam-dinh" },
+        { name: "PTE Du học Đại học", href: "/pte-dai-hoc" },
       ],
+      // Bạn có thể thêm field khác: listCategory, listArticles,...
     }
   }
 
-  // Ví dụ: gọi API CMS để lấy category/article theo slug cuối
-  // const data = await categoryServices.getBySlug(lastSlug)
-  // if (!data) { return null }
+  // 👉 Ở đây là ví dụ demo: coi slug cuối là bài viết
+  // Thực tế bạn có thể:
+  // 1. Gọi categoryServices.getBySlug(lastSlug) → nếu là category thì trả về type: "category"
+  // 2. Nếu không có category thì thử articleServices.getArticleBySlug(lastSlug) → type: "article"
 
-  // Demo: giả sử đây là page bài viết
+  // Ví dụ: data bài viết
   return {
     type: "article" as const,
-    title: "Kinh nghiệm thi PTE để định cư Úc 2025",
+    title: "Kinh nghiệm thi PTE để vào Đại học tại Úc",
     description:
-      "Chia sẻ thực tế cách đạt điểm PTE đủ điều kiện định cư Úc: chiến lược học, phân bổ thời gian, mẹo làm từng dạng.",
+      "Chia sẻ thực tế cách chuẩn bị PTE để đủ điều kiện nhập học Đại học tại Úc: yêu cầu điểm, kế hoạch học theo từng giai đoạn và mẹo thi.",
     slugPath: slugs,
-    ogImage: "/images/og/pte-dinh-cu-2025.jpg",
+    ogImage: "/images/og/pte-dai-hoc-kinh-nghiem.jpg",
     breadcrumbs: [
       { name: "Trang chủ", href: "/" },
-      { name: "PTE Du học – Đi làm – Định cư", href: "/pte-du-hoc-di-lam-dinh" },
-      { name: "Kinh nghiệm thi PTE định cư Úc 2025", href: "/pte-du-hoc-di-lam-dinh/kinh-nghiem-thi-pte-dinh-cu-2025" },
+      { name: "PTE Du học Đại học", href: "/pte-dai-hoc" },
+      {
+        name: "Kinh nghiệm thi PTE để vào Đại học tại Úc",
+        href: "/pte-dai-hoc/kinh-nghiem-thi-pte-vao-dai-hoc-tai-uc",
+      },
     ],
-    // thêm data khác của bài viết nếu cần
+    // có thể thêm: content, author, datePublished, ...
   }
 }
 
-// Build canonical URL từ slug
+/**
+ * Canonical URL cho route /pte-dai-hoc
+ */
 function buildCanonical(slugs?: string[]) {
   const base =
     process.env.NEXT_PUBLIC_SITE_URL || "https://www.iptepass.com" // đổi domain của bạn
+
   if (!slugs || slugs.length === 0) {
-    return `${base}/pte-du-hoc-di-lam-dinh`
+    return `${base}/pte-dai-hoc`
   }
-  return `${base}/pte-du-hoc-di-lam-dinh/${slugs.join("/")}`
+
+  return `${base}/pte-dai-hoc/${slugs.join("/")}`
 }
 
-// ----------- SEO: generateMetadata ------------------
-
+/**
+ * SEO: generateMetadata – chạy trên server trước khi render page
+ */
 export async function generateMetadata(
   { params }: PageProps
 ): Promise<Metadata> {
@@ -81,7 +95,7 @@ export async function generateMetadata(
   const data = await getPageData(slugs)
 
   if (!data) {
-    // Nếu slug không tồn tại => 404
+    // nếu slug không tồn tại → để Next xử lý 404
     return {}
   }
 
@@ -126,9 +140,11 @@ export async function generateMetadata(
   }
 }
 
-// ----------- JSON-LD helpers ------------------
-
+/**
+ * JSON-LD Breadcrumb
+ */
 function getBreadcrumbJsonLd(breadcrumbs: { name: string; href: string }[]) {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || ""
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -136,14 +152,18 @@ function getBreadcrumbJsonLd(breadcrumbs: { name: string; href: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${process.env.NEXT_PUBLIC_SITE_URL || ""}${item.href}`,
+      item: `${base}${item.href}`,
     })),
   }
 }
 
+/**
+ * JSON-LD Article – chỉ thêm nếu là bài viết
+ */
 function getArticleJsonLd(data: any) {
   if (data.type !== "article") return null
 
+  const base = process.env.NEXT_PUBLIC_SITE_URL || ""
   const canonical = buildCanonical(data.slugPath)
 
   return {
@@ -151,9 +171,7 @@ function getArticleJsonLd(data: any) {
     "@type": "Article",
     headline: data.title,
     description: data.description,
-    image: data.ogImage
-      ? [`${process.env.NEXT_PUBLIC_SITE_URL || ""}${data.ogImage}`]
-      : [],
+    image: data.ogImage ? [`${base}${data.ogImage}`] : [],
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": canonical,
@@ -167,34 +185,18 @@ function getArticleJsonLd(data: any) {
       name: "PTE iPASS",
       logo: {
         "@type": "ImageObject",
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/images/logo.png`,
+        url: `${base}/images/logo.png`,
       },
     },
-    // Bạn có thể thêm datePublished, dateModified nếu có
+    // Nếu backend của bạn trả về → thêm:
+    // datePublished: data.datePublished,
+    // dateModified: data.dateModified,
   }
 }
 
-// ----------- PAGE COMPONENT ------------------
-async function CategorySection({
-  pteDuHocDinhCuCategory
-}: { pteDuHocDinhCuCategory: any | null }) {
-
-  if (!pteDuHocDinhCuCategory) return null;
-  // console.log("category in section", id, name, url);
-  const pteDuHocDinhCu = Array.isArray(pteDuHocDinhCuCategory.pteDuHocDinhCu) ? pteDuHocDinhCuCategory.pteDuHocDinhCu : [];
-  // console.log(`courses in section: `, courses);
-  //  Trả về UI render sẵn (SSR)
-  if (!pteDuHocDinhCu || pteDuHocDinhCu.length === 0) return null;
-  return (
-
-   <>
-   
-   </>
-  );
-}
 
 
-async function PteDuHocDinhCuListing({
+async function StudyWorkMigratePage({
   found,
   breadcrumbs,
 }: {
@@ -203,69 +205,49 @@ async function PteDuHocDinhCuListing({
 }) {
   const categories = found?.children ?? [];
   const categoryRoot = found ?? null;
-  const courses:CourseListResponse = await coursesServices.getCoursesList({categoryId: found.id});
-  const courseList =  Array.isArray(courses.items) ? courses.items : [];
-  // console.log("PteDuHocDinhCu", courses);
- 
+  const courses = await coursesServices.getCoursesList({
+    categoryId: found.id
+  }).then((res)=> res.items);
 
-  // const categoryResults = await Promise.all(
-  //   categories.map(async (item: any) => {
-  //     try {
-  //       const data = await coursesServices.getCoursesByCate({
-  //         categoryId: item.id,
-  //       });
-  //       const courses = Array.isArray(data?.items) ? data.items : [];
-  //       // console.log("courses in page", courses);
-  //       return { ...item, courses: courses };
-  //     } catch (err) {
-  //       // console.error("Fetch error:", err);
-  //       return { ...item, courses: [] };
-  //     }
-  //   })
-  // );
 
-  // console.log("categoryResults in contianer", categoryResults);
+  const categoryResults = await Promise.all(
+    categories.map(async (item: any) => {
+      try {
+        const data = await coursesServices.getCoursesList({
+          categoryId: item.id,
+        });
+        const courses = Array.isArray(data?.items) ? data.items : [];
+        return { ...item, courses: courses };
+      } catch (err) {
+        return { ...item, courses: [] };
+      }
+    })
+  );
+
+
   return (
     <CategoryLayout
-      title="PTE DU HỌC, ĐI LÀM, ĐỊNH CƯ"
-      description="test"
-      breadcrumbs={[]}
+      title={found.name}
+      description={found.description}
+      breadcrumbs={breadcrumbs}
     >
-      <>
-     
-        {courseList &&(
-          <ArticleGridSection category={categoryRoot} data={courseList}/>
-        )}
-
-        
-
-        {/* render list category nếu cần */}
-      </>
+      <PteCategoryPage 
+      categoryParent={categoryRoot} 
+      categoryCourse={categoryResults}  
+      data={courses}
+      />
     </CategoryLayout>
   );
 }
+export default async function Page({ params }: PageProps) {
 
-// async function PteDuHocDinhCuDetailsPage({
-//   data,
-//   breadcrumbs,
-// }: {
-//   data: any[];
-//   breadcrumbs: BreadcrumbItem[];
-// }) {
+  const {categorySlug} = params ?? [];
 
-//   if(!data) return null;
-//   return <NewsDetail news={data ?? null} />
-// }
+  const pteCategory = await categoriesServices.getCategoryTree({ slug: "du-hoc-di-lam-dinh-cu" });
+  // console.log("pteCategory: ", pteCategory);
+  // console.log("categorySlug:", categorySlug);
 
-
-
-export default async function PteDuHocDinhCuPage({ params }: PageProps) {
-   const slugs = params.categorySlug ?? [];
-
-  const category:CategoryItem = await categoriesServices.getCategoryTree({ url: "/du-hoc-di-lam-dinh-cu" });
-  // console.log("category",category);
-
-  if(!slugs || slugs.length === 0){
+  if(!categorySlug){
     return(
       <>
         {/* JSON-LD SEO */}
@@ -286,15 +268,20 @@ export default async function PteDuHocDinhCuPage({ params }: PageProps) {
         />
       )} */}
       <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <PteDuHocDinhCuListing found={category} breadcrumbs={[]}/>
+          <StudyWorkMigratePage 
+          found={pteCategory}  
+          breadcrumbs={[
+            { name: "Trang chủ", href: "/" },
+            { name: pteCategory.name, href: pteCategory.url ?? "" }
+          ]}/>
       </Suspense>
       </>
     )
   }
 
-  const lastUrl = slugs[slugs.length -1];
+  const lastUrl = categorySlug[categorySlug.length -1];
   const course = await coursesServices.getCoursesDetails({slug: lastUrl}); 
-  // console.log(" course pte du hoc: ", course);
+ 
 
   if(course){
     return(
@@ -302,10 +289,14 @@ export default async function PteDuHocDinhCuPage({ params }: PageProps) {
     )
   }
 
-  const categories = category.children ?? [];
-  const {found, breadcrumbs} = await checkCategoryBySlugs(categories, slugs);
+  const categories = pteCategory.children ?? [];
+  const {found, breadcrumbs} = await checkCategoryBySlugs(categories, categorySlug);
   if(found){
-   return (<h1>helllo</h1>)
+   return (
+     <Suspense fallback={<Skeleton title="đang tải...."/>}>
+          <StudyWorkMigratePage found={found} breadcrumbs={breadcrumbs}/>
+      </Suspense>
+   )
   }
 
   return notFound();

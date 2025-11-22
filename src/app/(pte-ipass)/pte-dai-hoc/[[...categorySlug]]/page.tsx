@@ -1,5 +1,7 @@
 
 import CourseDetailPage from "@/components/courses/detail/course-detail-page"
+import PteCategoryPage from "@/components/pte-category/pte-category-page"
+
 import { ArticleGridSection } from "@/components/shared/article"
 import CategoryLayout from "@/components/shared/category/category-layout"
 import Skeleton from "@/components/shared/loading/Skeleton"
@@ -7,6 +9,7 @@ import { checkCategoryBySlugs } from "@/lib/check-category"
 import { categoriesServices } from "@/lib/service/category"
 import { coursesServices } from "@/lib/service/course"
 import { BreadcrumbItem } from "@/types/breadcrumbs"
+import { CategoryItem } from "@/types/category"
 import { CourseListResponse } from "@/types/courses"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -191,30 +194,9 @@ function getArticleJsonLd(data: any) {
   }
 }
 
-/**
- * PAGE COMPONENT
- */
-
-async function CategorySection({
-  pteDuHocDinhCuCategory
-}: { pteDuHocDinhCuCategory: any | null }) {
-
-  if (!pteDuHocDinhCuCategory) return null;
-  // console.log("category in section", id, name, url);
-  const pteDuHocDinhCu = Array.isArray(pteDuHocDinhCuCategory.pteDuHocDinhCu) ? pteDuHocDinhCuCategory.pteDuHocDinhCu : [];
-  // console.log(`courses in section: `, courses);
-  //  Trả về UI render sẵn (SSR)
-  if (!pteDuHocDinhCu || pteDuHocDinhCu.length === 0) return null;
-  return (
-
-   <>
-   
-   </>
-  );
-}
 
 
-async function PteDaiHocListing({
+async function PteUniPage({
   found,
   breadcrumbs,
 }: {
@@ -223,56 +205,50 @@ async function PteDaiHocListing({
 }) {
   const categories = found?.children ?? [];
   const categoryRoot = found ?? null;
-  const courses:CourseListResponse = await coursesServices.getCoursesList({categoryId: found.id});
-  const courseList =  Array.isArray(courses.items) ? courses.items : [];
-  console.log("PteDuHocDinhCu", courses);
+  const courses = await coursesServices.getCoursesList({
+    categoryId: found.id
+  }).then((res)=> res.items);
+
+
  
 
-  // const categoryResults = await Promise.all(
-  //   categories.map(async (item: any) => {
-  //     try {
-  //       const data = await coursesServices.getCoursesByCate({
-  //         categoryId: item.id,
-  //       });
-  //       const courses = Array.isArray(data?.items) ? data.items : [];
-  //       // console.log("courses in page", courses);
-  //       return { ...item, courses: courses };
-  //     } catch (err) {
-  //       // console.error("Fetch error:", err);
-  //       return { ...item, courses: [] };
-  //     }
-  //   })
-  // );
+  const categoryResults = await Promise.all(
+    categories.map(async (item: any) => {
+      try {
+        const data = await coursesServices.getCoursesList({
+          categoryId: item.id,
+        });
+        const courses = Array.isArray(data?.items) ? data.items : [];
+        return { ...item, courses: courses };
+      } catch (err) {
+        return { ...item, courses: [] };
+      }
+    })
+  );
 
-  // console.log("categoryResults in contianer", categoryResults);
+
   return (
     <CategoryLayout
-      title="PTE đại học"
-      description="test"
+      title={found.name}
+      description={found.description}
       breadcrumbs={breadcrumbs}
     >
-      <>
-     
-        {courseList &&(
-          <ArticleGridSection category={categoryRoot} data={courseList}/>
-        )}
-
-        
-
-        {/* render list category nếu cần */}
-      </>
+      <PteCategoryPage 
+      categoryParent={categoryRoot} 
+      categoryCourse={categoryResults}  
+      data={courses}
+      />
     </CategoryLayout>
   );
 }
-export default async function PteDaiHocPage({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
 
-  const slugs = params.categorySlug ?? [];
+  const {categorySlug} = params ?? [];
 
-  const category = await categoriesServices.getCategoryTree({ url: "/pte-dai-hoc" });
-  console.log("category",category);
-  console.log("slug", slugs)
+  const pteCategory = await categoriesServices.getCategoryTree({ slug: "pte-dai-hoc" });
+ 
 
-  if(!slugs || slugs.length === 0){
+  if(!categorySlug){
     return(
       <>
         {/* JSON-LD SEO */}
@@ -293,15 +269,20 @@ export default async function PteDaiHocPage({ params }: PageProps) {
         />
       )} */}
       <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <PteDaiHocListing found={category} breadcrumbs={[]}/>
+          <PteUniPage 
+          found={pteCategory}  
+          breadcrumbs={[
+            { name: "Trang chủ", href: "/" },
+            { name: pteCategory.name, href: pteCategory.url ?? "" }
+          ]}/>
       </Suspense>
       </>
     )
   }
 
-  const lastUrl = slugs[slugs.length -1];
+  const lastUrl = categorySlug[categorySlug.length -1];
   const course = await coursesServices.getCoursesDetails({slug: lastUrl}); 
-  // console.log(" course pte du hoc: ", course);
+
 
   if(course){
     return(
@@ -309,10 +290,14 @@ export default async function PteDaiHocPage({ params }: PageProps) {
     )
   }
 
-  const categories = category.children ?? [];
-  const {found, breadcrumbs} = await checkCategoryBySlugs(categories, slugs);
+  const categories = pteCategory.children ?? [];
+  const {found, breadcrumbs} = await checkCategoryBySlugs(categories, categorySlug);
   if(found){
-   return (<h1>helllo chưa sử lý danh mục</h1>)
+   return (
+     <Suspense fallback={<Skeleton title="đang tải...."/>}>
+          <PteUniPage found={found} breadcrumbs={breadcrumbs}/>
+      </Suspense>
+   )
   }
 
   return notFound();

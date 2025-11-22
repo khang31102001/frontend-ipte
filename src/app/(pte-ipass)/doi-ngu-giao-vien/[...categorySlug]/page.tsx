@@ -2,7 +2,8 @@
 import Skeleton from "@/components/shared/loading/Skeleton";
 import TeacherDetails from "@/components/teacher/details/teacher-detail";
 import TeacherDetail from "@/components/teacher/details/teacher-detail";
-import { getTeachersList } from "@/lib/service/teacher";
+import { teacherServices } from "@/lib/service/teacher";
+
 // app/doi-ngu-giao-vien/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -109,8 +110,8 @@ const jsonLd = {
 };
 
 
-async function TeacherContent({ teacherSlug }: { teacherSlug: string }) {
-  const dataTeacher = await getTeachersList({ slug: teacherSlug });
+async function TeacherDetailsPage({ teacherSlug }: { teacherSlug: string }) {
+  const dataTeacher = await teacherServices.getTechersDetails({ slug: teacherSlug });
   console.log("dataTeacher:", dataTeacher);
   return <TeacherDetails teacher={dataTeacher} />
 }
@@ -119,7 +120,7 @@ interface TeacherDetailsPageProps {
   params: { categorySlug: string[] }
 }
 
-export default async function TeacherDetailsPage({ params }: TeacherDetailsPageProps) {
+export default async function Page({ params }: TeacherDetailsPageProps) {
   const { categorySlug } = params ?? [];
   console.log("categorySlug", categorySlug);
 
@@ -134,7 +135,7 @@ export default async function TeacherDetailsPage({ params }: TeacherDetailsPageP
       />
      
       <Suspense fallback={<Skeleton title="đang tải........." />}>
-        <TeacherContent teacherSlug={lastUrl} />
+        <TeacherDetailsPage teacherSlug={lastUrl} />
       </Suspense>
     </>
   );

@@ -1,20 +1,18 @@
 import { notFound } from "next/navigation";
-import { coursesServices } from "@/lib/service/course";
-import CourseDetailPage from "@/components/courses/detail/course-detail-page";
 import { Suspense } from "react";
 import Skeleton from "@/components/shared/loading/Skeleton";
-import { CategoryItem, CourseCategory } from "@/types/category";
+import { CategoryItem, KnowledgesCategory } from "@/types/category";
 import { categoriesServices } from "@/lib/service/category";
-import { checkCategoryBySlugs } from "@/lib/check-category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
-import CourseList from "@/components/courses/course-list";
-import { CourseListResponse } from "@/types/courses";
-import CourseSwiper from "@/components/courses/course-swiper";
 import { Metadata } from "next";
 import CategoryLayout from "@/components/shared/category/category-layout";
-import { FaqAccordion } from "@/components/courses/faq-accordion";
-import ProblemsAndSolutionList from "@/components/courses/problem-solution-list";
-import { CourseStageSection } from "@/components/courses/course-stage-section";
+import { knowledgesServices } from "@/lib/service/knowlege";
+import KnowlegeDetail from "@/components/knowledge/details/knowledge-details";
+import { checkCategoryBySlugs } from "@/lib/check-category";
+import KnowledgesListPage from "@/components/knowledge/list/knowledges-section";
+import KnowledgesSection from "@/components/knowledge/list/knowledges-section";
+
+
 
 
 type PageProps = {
@@ -109,13 +107,13 @@ export async function generateMetadata(
       siteName: "PTE iPASS",
       images: imageUrl
         ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ]
         : undefined,
     },
     twitter: {
@@ -180,74 +178,49 @@ function getArticleJsonLd(data: any) {
 }
 
 
-async function CategorySection({
-  courseCategory
-}: { courseCategory: CourseCategory | null }) {
 
-  if (!courseCategory) return null;
-  // console.log("category in section", id, name, url);
-  const courses = Array.isArray(courseCategory.courses) ? courseCategory.courses : [];
-  // console.log(`courses in section: `, courses);
-  //  Trả về UI render sẵn (SSR)
-  if (!courses || courses.length === 0) return null;
-  return (
-    <CourseSwiper
-      data={courses}
-      title={courseCategory.name}
-      description={courseCategory.description || ""}
-      url={courseCategory.url || ""}
-    />
-
-  );
-}
-
-async function CourseListing({
+async function KnowledgeListPage({
   found,
   breadcrumbs,
 }: {
-  found: any;
+  found: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
   const categories = found?.children ?? [];
-  const courses: CourseListResponse = await coursesServices.getCoursesByCate({
-    categoryId: found.id,
-  });
-
+  // console.log("KnowledgeListing:", found)
+  // console.log("categories:", categories)
+  const knowledgesItem =  await knowledgesServices.getKnowledgeList({
+    categoryType: found.category_type!
+  }).then((res)=> res.items ?? []);
+  // console.log("knowledgesItem", knowledgesItem)
 
   const categoryResults = await Promise.all(
     categories.map(async (item: any) => {
       try {
-        const data = await coursesServices.getCoursesByCate({
-          categoryId: item.id,
+        const data = await knowledgesServices.getKnowledgeList({
+          categoryType: item.category_type,
         });
-        const courses = Array.isArray(data?.items) ? data.items : [];
+        const items = Array.isArray(data?.items) ? data.items : [];
         // console.log("courses in page", courses);
-        return { ...item, courses: courses };
+        return { ...item, knowledges: items };
       } catch (err) {
         // console.error("Fetch error:", err);
-        return { ...item, courses: [] };
+        return { ...item, knowledges: [] };
       }
     })
   );
 
-  // console.log("categoryResults in contianer", categoryResults);
+  
   return (
     <CategoryLayout
       title={found.name}
       description={found.description}
       breadcrumbs={breadcrumbs}
     >
-      <>
-        {courses && courses.items && courses.items.length > 0 && (
-          <CourseList viewMode="grid" data={courses.items} />
-        )}
-        {categories && categoryResults.map((item: any) => (
-          <CategorySection key={item.id} courseCategory={item} />
-        ))}
-        <ProblemsAndSolutionList backgroundImage="/images/bg-pte-pob-solution.jpg"/>
-        <CourseStageSection/>
-        <FaqAccordion/>
-      </>
+      <KnowledgesSection 
+      data={knowledgesItem}
+      categoryParent={found} 
+      categoryKnowledge={categoryResults} />
     </CategoryLayout>
   );
 }
@@ -255,15 +228,14 @@ async function CourseListing({
 
 
 export default async function Page({ params }: PageProps) {
-  const { categorySlug } = params ?? []; 
-  const data = await categoriesServices.getCategoryTree({ slug: "khoa-hoc" });
-  const categoryCourse: CategoryItem = data ?? []
- 
+  const { categorySlug } = params ?? [];
+  const data = await categoriesServices.getCategoryTree({ slug: "kiem-tra-mien-phi" });
+  const categoryCourse: CategoryItem = data ?? [];
 
-  if (!categorySlug ) {
+  if (!categorySlug) {
     return (
       <Suspense fallback={<Skeleton title={categoryCourse.name} />}>
-        <CourseListing
+        <KnowledgeListPage
           found={categoryCourse}
           breadcrumbs={[
             { name: "Trang chủ", href: "/" },
@@ -277,24 +249,24 @@ export default async function Page({ params }: PageProps) {
   const lastUrl = categorySlug[categorySlug.length - 1];
   // console.log("lastUrl:", lastUrl);
 
-  const course = await coursesServices.getCoursesDetails({ slug: lastUrl });
-  const isCourse = course !== null ? true : false;
- 
+  const knowledge = await knowledgesServices.getKnowledgeDetail({ slug: lastUrl });
 
-  if (isCourse) {
+  console.log("knowledge", knowledge)
+
+  if (knowledge) {
     return (
-      <CourseDetailPage course={course} breadcrumbs={[]} />
+      <KnowlegeDetail knowledge={knowledge} breadcrumbs={[]} />
     )
   }
 
   // kiểm tra lastUrl có phải là category không
   const { found, breadcrumbs } = await checkCategoryBySlugs(categoryCourse.children ?? [], categorySlug);
 
-  
+  // console.log("found category:", found);
   if (found) {
     return (
       <Suspense fallback={<Skeleton title={found.name} />}>
-        <CourseListing
+        <KnowledgeListPage
           found={found}
           breadcrumbs={breadcrumbs}
         />

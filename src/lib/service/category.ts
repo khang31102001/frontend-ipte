@@ -9,11 +9,11 @@ export class CategoriesServices {
       Object.entries(params).map(([k, v]) => [k, String(v)])
     ).toString() : '';
     const url = `${API}/categories/header-menu${qs}`;
-    console.log("url cate:", url)
+    // console.log("url cate:", url)
     try {
       const res = await fetch(url, {
         cache: 'no-store',
-       // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+       next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return { items: [], total: 0 };
@@ -32,7 +32,7 @@ export class CategoriesServices {
     try {
       const res = await fetch(url, {
         // cache: 'no-store',
-        // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+        next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return { items: [], total: 0 };
@@ -53,7 +53,7 @@ export class CategoriesServices {
     try {
       const res = await fetch(url, {
         // cache: 'no-store',
-        // next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
+        next: { revalidate: 300, tags: ['categories'] }, // ISR 5 phút + tag
         signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return { items: [], total: 0 };

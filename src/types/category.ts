@@ -8,6 +8,7 @@
 // }
 
 import { Course } from "./courses";
+import { Knowledges } from "./knowledges";
 import { News } from "./news";
 
 export interface Category {
@@ -68,6 +69,11 @@ export interface CourseCategory extends Omit<CategoryItem, "children"> {
 export interface NewsCategory extends Omit<CategoryItem, "children"> {
     children?: NewsCategory[];
     news?: News[];
+}
+
+export interface KnowledgesCategory extends Omit<CategoryItem, "children"> {
+    children?: NewsCategory[];
+    knowledges?: Knowledges[];
 }
 
 
