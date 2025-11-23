@@ -1,73 +1,55 @@
 
 "use client"
-import React, { useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useState } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
-
 import TabScroll from '../ui/tabSroll'
 import CustomSwiper from '../ui/custom-swiper'
 import KnowledgeCard from './knowledge-card'
+import { Knowledges } from '@/types/knowledges'
+import { CategoryItem } from '@/types/category'
+import { useKnowledgeByCategory } from '@/hooks/knowledges/useKnowledgeByCategory'
+import { ChevronRight } from 'lucide-react'
+import SectionLoading from '../shared/loading/section-loading'
 
-
-const courseData = [
-  {
-    id: 1,
-    image: "/images/featured-course-1.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 2,
-    image: "/images/featured-course-2.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 3,
-    image: "/images/featured-course-3.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 4,
-    image: "/images/featured-course-4.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 5,
-    image: "/images/featured-course-1.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 6,
-    image: "/images/featured-course-2.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 7,
-    image: "/images/featured-course-3.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-  {
-    id: 8,
-    image: "/images/featured-course-4.png",
-    title: "PTE Speaking & writing",
-    description: "Bí quyết đạt điểm cao trong phần thi Speaking & Writing",
-  },
-]
-const KnowledgePTE = () => {
+export interface TabItem {
+  id: string | number;
+  label: string;
+}
+interface PTEKnowledgeProps {
+  data?: Knowledges[];
+  category?: CategoryItem;
+}
+const KnowledgePTE = ({
+  data,
+  category
+}: PTEKnowledgeProps) => {
   // const [activeTab, setActiveTab] = useState("writing");
-  const tabs = [
-    { id: "writing", label: "Writing" },
-    { id: "listening", label: "Listening" },
-    { id: "speaking", label: "Speaking" },
-    { id: "vocabulary", label: "Vocabulary" },
-  ];
+  // console.log("knowleds cate: ", category);
+  const tabs: TabItem[] = useMemo(() => {
+    return (
+      category?.children?.map((item) => ({
+        id: item.category_type!,
+        label: item.name,
+      })) ?? []
+    );
+  }, [category]);
+  // console.log("tab cate:", tabs)
+  const [activeTab, setActiveTab] = useState<number | string>("");
+  console.log("activeTab:", activeTab);
+
+  useEffect(() => {
+    if (tabs.length && !activeTab) {
+      setActiveTab(tabs[0].id);
+    }
+
+  }, [tabs, activeTab]);
+
+  const {
+    data: knowledgeItems = [],
+    isLoading,
+  } = useKnowledgeByCategory(activeTab);
+
+
 
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
@@ -77,6 +59,7 @@ const KnowledgePTE = () => {
     870: { slidesPerView: 3, spaceBetween: 10 },  // md
     1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
   };
+
 
   return (
     <section className="py-16 bg-white">
@@ -89,26 +72,36 @@ const KnowledgePTE = () => {
 
 
         {/* Navigation Tabs */}
-        <TabScroll tabs={tabs} navigation={true} />.
-
-        {/* Course Cards Grid */}
+        <TabScroll
+          tabs={tabs}
+          activeTab={activeTab}
+          navigation={true}
+          onTabChange={setActiveTab}
+        />
         <div className="w-full h-auto mb-12">
-          <CustomSwiper
-            breakpoint={
-              breakpoints
-            }
-            autoplay
-            loop
-          >
-            {courseData.map((item, index) => (
-              <KnowledgeCard 
-              key={index} 
-              data={item} 
-                className="flex flex-col  justify-center"
-              />
-            ))}
 
-          </CustomSwiper>
+          {/* Loading state */}
+          {isLoading && (
+            <SectionLoading text="Đang tải nội dung..." />
+          )}
+
+          {/* Render Swiper khi đã có data */}
+          {!isLoading && (
+            <CustomSwiper
+              breakpoint={breakpoints}
+              // autoplay
+              slidesPerView={4}
+              loop
+            >
+              {knowledgeItems?.map((item, index) => (
+                <KnowledgeCard
+                  key={index}
+                  data={item}
+                  className="flex flex-col justify-center"
+                />
+              ))}
+            </CustomSwiper>
+          )}
         </div>
 
         {/* View All Materials Button */}

@@ -7,7 +7,7 @@ interface PaginationProps {
     onPageChange: (page: any) => void
     className?: string
 }
-const Pagination = ({
+const CirclePagination = ({
     currentPage,
     totalPages,
     onPageChange,
@@ -19,9 +19,9 @@ const Pagination = ({
             <button
                 onClick={() => onPageChange((prev: any) => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
-                className="rounded-full  p-4 transition-colors group"
+                className="rounded-full  transition-colors hover:bg-gray-400 p-3"
             >
-                <ChevronLeft className="h-5 w-5 group-hover:bg-gray-900" />
+                <ChevronLeft className="h-5 w-5 " />
             </button>
 
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -38,7 +38,7 @@ const Pagination = ({
             <button
                 onClick={() => onPageChange((prev:any) => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
-                className=" rounded-full  transition-colors hover:bg-gray-400 p-4"
+                className=" rounded-full  transition-colors hover:bg-gray-400 p-3"
             >
                 <ChevronRight className="h-5 w-5" />
             </button>
@@ -46,4 +46,4 @@ const Pagination = ({
     )
 }
 
-export default Pagination
+export default CirclePagination

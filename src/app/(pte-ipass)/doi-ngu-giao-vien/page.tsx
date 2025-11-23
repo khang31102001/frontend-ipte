@@ -119,10 +119,11 @@ const jsonLd = {
 
 
 export default async function TeacherPage() {
+ 
   const data = await teacherServices.getTeachersList({});
   const features = data.features ?? [];
   const items = data.items ?? [];
-  console.log("data:", data);
+  // console.log("data:", data);
   return (
     <section>
       <script

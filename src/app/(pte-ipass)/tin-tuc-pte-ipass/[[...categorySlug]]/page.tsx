@@ -1,8 +1,9 @@
 // app/new/page.tsx
 
 import NewsCategoryItem from "@/components/news/news-category-item";
-import NewsDetail from "@/components/news/news-details";
-import NewsList from "@/components/news/news-list";
+import NewsDetail from "@/components/news/detail/news-details";
+import NewsList from "@/components/news/list/news-list-items";
+import NewListPage from "@/components/news/news-list-page";
 import TrendingNews from "@/components/news/trend-new";
 import CategoryLayout from "@/components/shared/category/category-layout";
 
@@ -75,84 +76,37 @@ const jsonLd = {
   },
 };
 
-async function CategorySection({
-  newsCategory
-}: { newsCategory: NewsCategory | null }) {
-
-  if (!newsCategory) return null;
-  // console.log("category in section", id, name, url);
-  const news = Array.isArray(newsCategory.news) ? newsCategory.news : [];
-  // console.log(`courses in section: `, courses);
-  //  Trả về UI render sẵn (SSR)
-  if (!news || news.length === 0) return null;
-  return (
-
-    <NewsCategoryItem
-      title={newsCategory.name}
-      desription={newsCategory.description}
-      newList={news}
-      category_url={newsCategory.url}
-      layout_type="swiper"
-    />
-  );
-}
-
 
 async function NewsListing({
-  found,
+  newsCate,
+  knowledgesCate,
   breadcrumbs,
 }: {
-  found?: any;
+  newsCate?: CategoryItem;
+  knowledgesCate?: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
-  const categories = found?.children ?? [];
-  const dataNew = await newServices.getNewsList({}).then((res) => res.items ?? []);
  
-
-  // const categoryResults = await Promise.all(
-  //   categories.map(async (item: any) => {
-  //     try {
-  //       const data = await coursesServices.getCoursesByCate({
-  //         categoryId: item.id,
-  //       });
-  //       const courses = Array.isArray(data?.items) ? data.items : [];
-  //       // console.log("courses in page", courses);
-  //       return { ...item, courses: courses };
-  //     } catch (err) {
-  //       // console.error("Fetch error:", err);
-  //       return { ...item, courses: [] };
-  //     }
-  //   })
-  // );
-
-  // console.log("categoryResults in contianer", categoryResults);
+  const dataNew = await newServices.getNewsList({
+    categoryType: newsCate?.category_type ?? ""
+  }).then((res) => res.items ?? []);
+ 
+  
   return (
     <CategoryLayout
-      title="new"
-      description="test"
-      breadcrumbs={[]}
+      title={newsCate?.name || ""}
+      description={newsCate?.description}
+      breadcrumbs={breadcrumbs}
     >
-      <>
-        <TrendingNews data={dataNew}/>
-        <NewsList data={dataNew} />
-
-        {/* render list category nếu cần */}
-      </>
+      <NewListPage
+        newsList={dataNew}
+        newsFeatured={dataNew}
+        knowledgesCategory={knowledgesCate}
+       />
     </CategoryLayout>
   );
 }
 
-async function NewsDetailsPage({
-  Slug,
-  breadcrumbs,
-}: {
-  Slug: string;
-  breadcrumbs: BreadcrumbItem[];
-}) {
-  const data = await newServices.getNewsList({slug: Slug});
-  if(!data) return null;
-  return <NewsDetail news={data ?? null} />
-}
 
 
 interface PageProps{
@@ -161,12 +115,27 @@ interface PageProps{
 
 export default async function NewsPage({params}:PageProps) {
     const { categorySlug } = params ?? []; 
+    const cateSlugs = ["tin-tuc-pte-ipass", "kiem-tra-mien-phi"];
 
-  const category:CategoryItem = await categoriesServices.getCategoryTree({ url: "/tin-tuc-pte-ipass" });
- 
-
-  console.log("categorySlug: ", categorySlug);
-  if(!categorySlug || categorySlug.length === 0 ){
+  const cateNewsAndKnowledges = await Promise.all(
+      cateSlugs.map(async (item: string) => {
+        try {
+          const data = await categoriesServices.getCategoryTree({
+            slug: item,
+          });
+          // console.log("data", data)
+          const items = data ? data : null;
+          return items;
+        } catch (err) {
+          return null;
+        }
+      })
+    );
+  
+  
+  
+  
+  if(!categorySlug){
     return(
        <>
       {/* JSON-LD cho SEO */}
@@ -178,7 +147,10 @@ export default async function NewsPage({params}:PageProps) {
       {/* CONTENT TRANG TIN TỨC */}
       <Suspense fallback={<Skeleton title="đang tải......" />}>
         <NewsListing
-          breadcrumbs={[]}
+          knowledgesCate={cateNewsAndKnowledges[1]}
+          breadcrumbs={[
+            {name: "Trang chủ", href: cateNewsAndKnowledges[0].url}
+          ]}
         />
       </Suspense>
     </>
@@ -186,29 +158,25 @@ export default async function NewsPage({params}:PageProps) {
   }
 
   const lastUrl = categorySlug[categorySlug.length - 1];
-    console.log("lastUrl", lastUrl)
+    // console.log("lastUrl", lastUrl)
   
-  if(lastUrl) {
-    return (
-      <Suspense fallback={<Skeleton title="đang tải......"></Skeleton>}>
-        <NewsDetailsPage Slug={lastUrl} breadcrumbs={[]} />
-      </Suspense>
-    )
+  const news = await newServices.getNewsList({slug: lastUrl});
+  if(news){
+    return <NewsDetail news={news}/>
   }
 
-
-  const categories = category.children ?? []
-  const {found, breadcrumbs} =  await checkCategoryBySlugs(categories, categorySlug);
+  const cateNews = cateNewsAndKnowledges[0].children ?? []
+  const {found, breadcrumbs} =  await checkCategoryBySlugs(cateNews, categorySlug);
   if(found){
     return(
       <Suspense fallback={<Skeleton title="đang tải......"></Skeleton>}>
         <NewsListing
-          found={found}
+          newsCate={found}
           breadcrumbs={breadcrumbs}
         />
       </Suspense>
     )
   }
-  console.log("new cate: ", category)
+
   return notFound();
 }

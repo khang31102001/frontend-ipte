@@ -26,7 +26,7 @@ interface NewsJoinedKnowledge  {
 };
 
 export class NewServices {
-    async getNewsList(params?: Record<string, string | number>) {
+    async getNewsList(params?: Record<string, string | number | null>) {
         const qs = params ? '?' + new URLSearchParams(
             Object.entries(params).map(([k, v]) => [k, String(v)])
         ).toString() : '';

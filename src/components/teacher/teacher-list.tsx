@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 
 
-import Pagination from "../shared/Control/pagination";
+import Pagination from "../shared/control/pagination";
 import TeacherProfilesList from "./teacher-profiles-list";
 import { Teacher } from "@/types/teacher";
 import { usePathname } from "next/navigation";

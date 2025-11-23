@@ -1,32 +1,28 @@
 "use client"
-
-import { useState } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
-import { PTETips } from "@/types/PTETips"
 import { News } from "@/types/news"
-import NewscardCol from "./card/news-card-col"
+import NewscardCol from "../card/news-card-col"
+import CirclePagination from "@/components/shared/control/pagination";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 interface NewsListProps {
     title?: string;
     description?: string;
-
     data?: News[]
 }
-const NewsList = ({
+const NewsListItems = ({
     title,
     description,
     data = []
 }: NewsListProps) => {
-    // const [currentIndex, setCurrentIndex] = useState(0)
+    const pathname = usePathname();
+    const [currentPage, setCurrentPage] = useState(1);
+    const newsPerPage = 4;
+    const totalPages = data ? Math.ceil(data.length / newsPerPage) : 0
+    const startIndex = (currentPage - 1) * newsPerPage
 
-    // const handlePrevious = () => {
-    //   setCurrentIndex((prev) => (prev > 0 ? prev - 1 : articles.length - 1))
-    // }
-
-    // const handleNext = () => {
-    //   setCurrentIndex((prev) => (prev < articles.length - 1 ? prev + 1 : 0))
-    // }
+    // ham này để map hiển thị
+    const paginatedNews = data ? data.slice(startIndex, startIndex + newsPerPage) : [];
     if (!data || data.length === 0) return null;
 
     return (
@@ -42,10 +38,10 @@ const NewsList = ({
                         </div>
                     )}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {data.map((item, index) => (
+                        {paginatedNews.map((item, index) => (
                             <NewscardCol
                                 key={index}
-                                href={item.slug ?? ""}
+                                href={`${pathname}/${item.slug}/`}
                                 image={item.image ?? ""}
                                 title={item.title ?? ""}
                                 description={item.description ?? ""}
@@ -54,9 +50,14 @@ const NewsList = ({
                             />
                         ))}
                     </div>
+                    <CirclePagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
                 </div>
             </div>
         </section>
     )
 }
-export default NewsList
+export default NewsListItems

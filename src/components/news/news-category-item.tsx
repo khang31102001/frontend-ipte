@@ -1,4 +1,4 @@
-import NewsList from '@/components/news/news-list';
+import NewsList from '@/components/news/list/news-list-items';
 import NewsSwiper from '@/components/news/news-swiper';
 import { News } from '@/types/news'
 import React from 'react'

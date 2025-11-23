@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import { CategoryItem, CourseCategory } from "@/types/category"
-import ListGridControl from "../shared/Control/list-grid-control";
+import ListGridControl from "../shared/control/list-grid-control";
 import FeaturedArticleCard from "../shared/article/card/featured-article-card";
 import ArticleCard from "../shared/article/card/article-card";
 import { ArticleSidebar } from "../shared/article";

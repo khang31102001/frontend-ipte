@@ -112,7 +112,7 @@ const jsonLd = {
 
 async function TeacherDetailsPage({ teacherSlug }: { teacherSlug: string }) {
   const dataTeacher = await teacherServices.getTechersDetails({ slug: teacherSlug });
-  console.log("dataTeacher:", dataTeacher);
+  // console.log("dataTeacher:", dataTeacher);
   return <TeacherDetails teacher={dataTeacher} />
 }
 
@@ -122,7 +122,7 @@ interface TeacherDetailsPageProps {
 
 export default async function Page({ params }: TeacherDetailsPageProps) {
   const { categorySlug } = params ?? [];
-  console.log("categorySlug", categorySlug);
+  // console.log("categorySlug", categorySlug);
 
   const lastUrl = categorySlug ? categorySlug[categorySlug.length - 1] : null;
   if (!lastUrl) return notFound();

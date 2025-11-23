@@ -1,7 +1,7 @@
 "use client"
 import { useMemo, useState } from "react"
 import { ArrowRight, Loader2 } from "lucide-react"
-import ListGridControl from "@/components/shared/Control/list-grid-control"
+import ListGridControl from "@/components/shared/control/list-grid-control"
 import CoursesCardColum from "@/components/courses/card/course-card-colum"
 import CourseCardRow from "@/components/courses/card/course-card-row"
 import Link from "next/link"

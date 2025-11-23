@@ -14,5 +14,13 @@ export interface Knowledges {
   keywords?: string[] | null;
 }
 
+export interface KnowledgeListRes {
+  items: Knowledges[];
+  page: number;
+  page_size: number;
+  total: number;
+  total_pages: number;
+}
+
 
 

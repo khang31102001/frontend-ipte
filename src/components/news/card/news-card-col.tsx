@@ -16,6 +16,7 @@ interface NewcardColProps {
 }
 
 const NewscardCol = ({
+    
     href,
     image,
     title,

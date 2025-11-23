@@ -10,12 +10,17 @@ interface TabScrollProps {
     tabs: Tab[];
     navigation: boolean,
     activeTab?: string | number;
-    setActiveTab?: (id: string | number) => void;
+    onTabChange?: (id: string | number) => void;
 }
 
-const TabScroll = ({ tabs, navigation=false }: TabScrollProps) => {
+const TabScroll = ({ 
+    tabs, 
+    activeTab,
+    navigation=false,
+    onTabChange
+}: TabScrollProps) => {
     const scrollRef = useRef<HTMLUListElement | null>(null);
-    const [activeTab, setActiveTab] = useState<number | string>("writing");
+    
     const onMouseDown = (e: React.MouseEvent) => {
         const slider = scrollRef.current;
         if (!slider) return;
@@ -64,7 +69,7 @@ const TabScroll = ({ tabs, navigation=false }: TabScrollProps) => {
                 {tabs.map((tab) => (
                     <li key={tab.id} className="flex-shrink-0 snap-start">
                         <button
-                            onClick={() => setActiveTab(tab.id)}
+                            onClick={() => onTabChange?.(tab.id)}
                             className={`
                                 rounded-tl-sm rounded-tr-sm font-medium transition-all
                                 text-sm md:text-base lg:text-lg

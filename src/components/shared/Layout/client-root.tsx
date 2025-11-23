@@ -8,9 +8,10 @@ import FloatingChat from "@/components/Layout/FloatingChat";
 // import { main_menu_categories } from "@/data/category";
 import { CategoryItem } from '@/types/category'
 import MainLayout from "./main-layout";
+import { ClientQueryProvider } from "@/providers/ClientQueryProvider";
 
-export default function ClientRoot({ 
-  children, navMenuData=[] 
+export default function ClientRoot({
+  children, navMenuData = []
 }: { children: React.ReactNode, navMenuData: CategoryItem[]; }) {
 
   const { isOpen, close } = useFirstVisitPopup({
@@ -20,20 +21,22 @@ export default function ClientRoot({
   });
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <MainLayout
-        menu={navMenuData}
+    <ClientQueryProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
       >
-        {children}
-      </MainLayout>
-      <FloatingChat />
+        <MainLayout
+          menu={navMenuData}
+        >
+          {children}
+        </MainLayout>
+        <FloatingChat />
 
-      <PopupRegistrationForm isPopup={isOpen} onClose={close} />
-    </ThemeProvider>
+        <PopupRegistrationForm isPopup={isOpen} onClose={close} />
+      </ThemeProvider>
+    </ClientQueryProvider>
   );
 }

@@ -10,8 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Check, Shield, Star } from "lucide-react"
 // import { consultationService } from "@/services/consultation/consultation"
-
-const ConsultationForm = () => {
+interface ConsultationFormPops{
+  className?: string;
+}
+const ConsultationForm = ({
+  className
+}:ConsultationFormPops) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -36,7 +40,7 @@ const ConsultationForm = () => {
   }
 
   return (
-    <div className=" bg-gradient-to-br from-amber-50 to-orange-100 py-16">
+    <div className={`py-16 ${className}`}>
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Registration Form */}
