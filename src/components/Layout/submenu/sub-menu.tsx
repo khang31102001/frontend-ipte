@@ -31,17 +31,11 @@ const OnSubMenu = ({
       <ul className="submenu__list">
         {items.map((item, idx) => {
           const hasChildren = !!(item.children && item.children.length > 0);
-          const isThisOpen = openIdx === idx; // mục con ở cấp hiện tại có đang mở?
-
-          const onToggle = (e: React.MouseEvent) => {
-            if (!hasChildren) return;          // mục lá -> cho đi link
-            e.preventDefault();                // chặn điều hướng khi toggle
-            setOpenIdx((prev) => (prev === idx ? null : idx));
-          };
+        
           return (
             <li key={idx} className={clsx("submenu__item  group")}>
               <a
-                onClick={onToggle}
+             
                 href={item.url}
                 className="submenu__link"
               >

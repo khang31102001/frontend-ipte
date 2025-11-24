@@ -61,8 +61,8 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(300px, 1fr));
         gap: 18px 22px;
-        height: 150%;
-        transform: translateY(-25%);
+        height: 100%;
+        // transform: translateY(-25%);
         min-height: 560px
     }
 

@@ -72,8 +72,7 @@ const KnowledgesSection = ({
                             return viewMode === "grid" ? (
                                 <div key={item.id ?? `idx-${index}`}>
                                     <ArticleCard
-                                        baseUrl={categoryParent?.slug}
-                                        href={item.slug!}
+                                        href={categoryParent?.slug}
                                         title={item.title}
                                         image={item.image}
                                         description={item.description}
@@ -84,8 +83,7 @@ const KnowledgesSection = ({
                             ) : (
                                 <div key={item.id ?? `idx-${index}`}>
                                     <ArticleCard
-                                         baseUrl={categoryParent?.slug}
-                                        href={item.slug!}
+                                        href={categoryParent?.slug}
                                         image={item.image}
                                         title={item.title}
                                         description={item.description}

@@ -3,18 +3,14 @@ import { coursesServices } from "@/lib/service/course";
 import CourseDetailPage from "@/components/courses/detail/course-detail-page";
 import { Suspense } from "react";
 import Skeleton from "@/components/shared/loading/Skeleton";
-import { CategoryItem, CourseCategory } from "@/types/category";
+import { CategoryItem } from "@/types/category";
 import { categoriesServices } from "@/lib/service/category";
 import { checkCategoryBySlugs } from "@/lib/check-category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
-import CourseList from "@/components/courses/course-list";
 import { CourseListResponse } from "@/types/courses";
-import CourseSwiper from "@/components/courses/course-swiper";
 import { Metadata } from "next";
 import CategoryLayout from "@/components/shared/category/category-layout";
-import { FaqAccordion } from "@/components/courses/faq-accordion";
-import ProblemsAndSolutionList from "@/components/courses/problem-solution-list";
-import { CourseStageSection } from "@/components/courses/course-stage-section";
+import CoursesListPage from "@/components/courses/courses-list-page";
 
 
 type PageProps = {
@@ -109,13 +105,13 @@ export async function generateMetadata(
       siteName: "PTE iPASS",
       images: imageUrl
         ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ]
         : undefined,
     },
     twitter: {
@@ -180,28 +176,9 @@ function getArticleJsonLd(data: any) {
 }
 
 
-async function CategorySection({
-  courseCategory
-}: { courseCategory: CourseCategory | null }) {
 
-  if (!courseCategory) return null;
-  // console.log("category in section", id, name, url);
-  const courses = Array.isArray(courseCategory.courses) ? courseCategory.courses : [];
-  // console.log(`courses in section: `, courses);
-  //  Trả về UI render sẵn (SSR)
-  if (!courses || courses.length === 0) return null;
-  return (
-    <CourseSwiper
-      data={courses}
-      title={courseCategory.name}
-      description={courseCategory.description || ""}
-      url={courseCategory.url || ""}
-    />
 
-  );
-}
-
-async function CourseListing({
+async function CourseListingPage({
   found,
   breadcrumbs,
 }: {
@@ -237,17 +214,11 @@ async function CourseListing({
       description={found.description}
       breadcrumbs={breadcrumbs}
     >
-      <>
-        {courses && courses.items && courses.items.length > 0 && (
-          <CourseList viewMode="grid" data={courses.items} />
-        )}
-        {categories && categoryResults.map((item: any) => (
-          <CategorySection key={item.id} courseCategory={item} />
-        ))}
-        <ProblemsAndSolutionList backgroundImage="/images/bg-pte-pob-solution.jpg"/>
-        <CourseStageSection/>
-        <FaqAccordion/>
-      </>
+      <CoursesListPage
+        category={found}
+        coursesItems={courses.items}
+        categoryItems={categoryResults}
+      />
     </CategoryLayout>
   );
 }
@@ -255,15 +226,16 @@ async function CourseListing({
 
 
 export default async function Page({ params }: PageProps) {
-  const { categorySlug } = params ?? []; 
+  const { categorySlug } = params ?? [];
+
   const data = await categoriesServices.getCategoryTree({ slug: "khoa-hoc" });
   const categoryCourse: CategoryItem = data ?? []
- 
 
-  if (!categorySlug ) {
+
+  if (!categorySlug) {
     return (
       <Suspense fallback={<Skeleton title={categoryCourse.name} />}>
-        <CourseListing
+        <CourseListingPage
           found={categoryCourse}
           breadcrumbs={[
             { name: "Trang chủ", href: "/" },
@@ -274,33 +246,37 @@ export default async function Page({ params }: PageProps) {
     );
   }
 
-  const lastUrl = categorySlug[categorySlug.length - 1];
-  // console.log("lastUrl:", lastUrl);
 
-  const course = await coursesServices.getCoursesDetails({ slug: lastUrl });
-  const isCourse = course !== null ? true : false;
- 
+  if (categorySlug?.length >= 1) {
+    const lastUrl = categorySlug[categorySlug.length - 1];
+    //  const categoryPath = categorySlug.slice(0, -1).join("/");
+    //  console.log("categoryPath: ", categoryPath)
 
-  if (isCourse) {
-    return (
-      <CourseDetailPage course={course} breadcrumbs={[]} />
-    )
+    // 1. Kiểm tra last có phải là 1 slug khóa học hợp lệ không
+    const course = await coursesServices.getCoursesDetails({ slug: lastUrl });
+    if (course) {
+      return (
+        <CourseDetailPage course={course} breadcrumbs={[]} />
+      )
+    }
+
+     // 2. Nếu không phải course thì coi như là danh mục
+
+    const { found, breadcrumbs } = await checkCategoryBySlugs(categoryCourse.children ?? [], categorySlug);
+      
+    if (found) {
+      return (
+        <Suspense fallback={<Skeleton title={found.name} />}>
+          <CourseListingPage
+            found={found}
+            breadcrumbs={[ { name: "Trang chủ", href: "/" }, ...breadcrumbs]}
+          />
+        </Suspense>
+      )
+    }
+
   }
 
-  // kiểm tra lastUrl có phải là category không
-  const { found, breadcrumbs } = await checkCategoryBySlugs(categoryCourse.children ?? [], categorySlug);
-
-  
-  if (found) {
-    return (
-      <Suspense fallback={<Skeleton title={found.name} />}>
-        <CourseListing
-          found={found}
-          breadcrumbs={breadcrumbs}
-        />
-      </Suspense>
-    )
-  }
 
   return notFound();
 }

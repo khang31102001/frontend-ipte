@@ -1,6 +1,6 @@
 
 import CourseDetailPage from "@/components/courses/detail/course-detail-page"
-import PteCategoryPage from "@/components/pte-category/pte-category-page"
+import PteCategoryPage from "@/components/courses/category/pte-category-page"
 
 import { ArticleGridSection } from "@/components/shared/article"
 import CategoryLayout from "@/components/shared/category/category-layout"

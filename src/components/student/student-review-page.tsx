@@ -83,36 +83,36 @@ const videosData = [
     title: "Video test 1 – PTE Motivation",
     description:
       "Video giúp bạn có thêm động lực trong quá trình luyện thi PTE.",
-    thumbnail: "https://img.youtube.com/vi/5MgBikgcWnY/maxresdefault.jpg",
+    thumbnail: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970449/student-review-2_ci40pt.png",
     author: "Education Channel",
-    videoUrl: "https://www.youtube.com/watch?v=5MgBikgcWnY",
+    videoUrl: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970449/student-review-2_ci40pt.png",
   },
   {
     id: 2,
     title: "Video test 2 – English Learning Tips",
     description:
       "Những mẹo quan trọng giúp cải thiện tiếng Anh nhanh hơn.",
-    thumbnail: "https://img.youtube.com/vi/VBlFHuCzPgY/maxresdefault.jpg",
+    thumbnail: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970451/student-review-3_q0qbbw.png",
     author: "English Mastery",
-    videoUrl: "https://www.youtube.com/watch?v=VBlFHuCzPgY",
+    videoUrl: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970451/student-review-3_q0qbbw.png",
   },
   {
     id: 3,
     title: "Video test 3 – Improve Speaking Fast",
     description:
       "Cách cải thiện Speaking hiệu quả trong thời gian ngắn.",
-    thumbnail: "https://img.youtube.com/vi/q6EoRBvdVPQ/maxresdefault.jpg",
+    thumbnail: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970449/student-review-4_trf1wt.png",
     author: "Fluent Academy",
-    videoUrl: "https://www.youtube.com/watch?v=q6EoRBvdVPQ",
+    videoUrl: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970449/student-review-4_trf1wt.png",
   },
   {
     id: 4,
     title: "Video test 4 – Mindset for Exam Success",
     description:
       "Suy nghĩ đúng giúp bạn đạt điểm cao trong bất kỳ kỳ thi nào.",
-    thumbnail: "https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg",
+    thumbnail: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970445/student-review-1_bziodx.png",
     author: "Study Coach",
-    videoUrl: "https://www.youtube.com/watch?v=UB1O30fR-EE",
+    videoUrl: "https://res.cloudinary.com/dwqqve7ja/image/upload/v1763970445/student-review-1_bziodx.png",
   },
 ];
 

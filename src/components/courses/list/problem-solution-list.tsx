@@ -1,7 +1,7 @@
 
 import { title } from 'process'
 import React from 'react'
-import ProblemsAndSolutionItem from './problem-solution-item';
+import ProblemsAndSolutionItem from '../problem-solution-item';
 
 
 interface CardItem {
@@ -108,8 +108,8 @@ backgroundImage
 
 
     return (
-        <section className="py-4 md:py-8  bg-transparent" style={styleBackground}>
-            <div className="container mx-auto px-4">
+        <section className="py-4 md:py-8  bg-transparent" >
+            <div className="container mx-auto px-4" style={styleBackground}>
                 <div className="mb-4">
                     {data.map((item, index) => {
                         return (

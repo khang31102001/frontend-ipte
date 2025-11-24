@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import FeaturedArticleCard from '../shared/article/card/featured-article-card';
+import FeaturedArticleCard from '../../shared/article/card/featured-article-card';
 import { Course } from '@/types/courses';
-import ArticleCard from '../shared/article/card/article-card';
+import ArticleCard from '../../shared/article/card/article-card';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PtelistItemsProps {
@@ -15,9 +15,9 @@ const PtelistItems = ({
     viewMode = "grid"
 }: PtelistItemsProps) => {
 
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const [searchQuery, setSearchQuery] = useState("")
+    const [searchQuery, setSearchQuery] = useState("");
     const CoursesPerPage = 4
     // const featuredArticle = data?.find((a) => a.featured)
     // const regularArticles = data?.filter((a) => !a.featured)
@@ -26,8 +26,8 @@ const PtelistItems = ({
     //   article.title.toLowerCase().includes(searchQuery.toLowerCase()),
     // )
 
-    const totalPages = items ? Math.ceil(items.length / CoursesPerPage) : 0
-    const startIndex = (currentPage - 1) * CoursesPerPage
+    const totalPages = items ? Math.ceil(items.length / CoursesPerPage) : 0;
+    const startIndex = (currentPage - 1) * CoursesPerPage;
 
     // ham này để map hiển thị
     const paginatedPteuni = items ? items.slice(startIndex, startIndex + CoursesPerPage) : [];
@@ -55,8 +55,8 @@ const PtelistItems = ({
                     return viewMode === "grid" ? (
                         <div key={item.course_id ?? `idx-${index}`}>
                             <ArticleCard
-                                baseUrl={base_url}
-                                href={item.slug!}
+                                 href={base_url}
+                 
                                 title={item.title}
                                 image={item.image}
                                 description={item.description}
@@ -67,8 +67,7 @@ const PtelistItems = ({
                     ) : (
                         <div key={item.course_id ?? `idx-${index}`}>
                             <ArticleCard
-                                baseUrl={base_url}
-                                href={item.slug!}
+                                href={base_url}
                                 image={item.image}
                                 title={item.title}
                                 description={item.description}

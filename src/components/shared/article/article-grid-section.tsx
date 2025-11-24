@@ -50,8 +50,7 @@ const ArticleGridSection = ({
       
             <div className="mb-8">
               <FeaturedArticleCard
-                baseUrl={category.url}
-                href={data[0].slug ?? ""}
+                href={category.url}
                 image={data[0].image}
                 category={data[0].category}
                 title={data[0].title}
@@ -66,8 +65,7 @@ const ArticleGridSection = ({
               {data.map((item, index) => (
                 <ArticleCard
                   key={index}
-                  baseUrl={category.url}
-                  href={item.slug}
+                  href={category.url}
                   image={item.image}
                   title={item.title}
                    description={item.description}
@@ -79,8 +77,7 @@ const ArticleGridSection = ({
             <div className="space-y-4">
               {data.map((item, index) => (
                 <ArticleCard key={index}
-                  baseUrl={category.url}
-                  href={item.slug}
+                  href={category.url}
                   image={item.image}
                   title={item.title}
                   description={item.description}

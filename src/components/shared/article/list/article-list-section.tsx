@@ -2,25 +2,27 @@
 import { useMemo, useState } from "react"
 import { ArrowRight, Loader2 } from "lucide-react"
 import ListGridControl from "@/components/shared/control/list-grid-control"
-import CoursesCardColum from "@/components/courses/card/course-card-colum"
-import CourseCardRow from "@/components/courses/card/course-card-row"
+import CourseCardRow from "@/components/courses/card/course-card"
 import Link from "next/link"
 import { Course } from "@/types/courses"
 import ArticleCard from "../card/article-card"
+import { CategoryItem } from "@/types/category"
+import { buildUrl } from "@/utils/helpers"
 
 
 const ITEMS_PER_LOAD = 4;
 type ViewMode = "grid" | "list";
 interface ArticleListSectionProps {
+    category?: CategoryItem;
     data?: any[];
     viewMode?: ViewMode
 }
 
 const ArticleListSection = ({
     data = [],
+    category ,
     viewMode = "grid",
 }: ArticleListSectionProps) => {
-
 
     // số lượng item đang hiển thị
     const [currentItem, setCurrentItem] = useState(ITEMS_PER_LOAD);
@@ -33,7 +35,7 @@ const ArticleListSection = ({
 
     if (!data || data.length === 0) return null;
     return (
-        <section className="w-full py-6">
+        <section className="w-full h-a section--sm">
             <div
                 className={
                     viewMode === "grid" 
@@ -42,10 +44,14 @@ const ArticleListSection = ({
                 }
             >
                 {currentArticle?.map((item, index) => {
+                     const base_url = buildUrl({ 
+                        baseUrl: category?.url, 
+                        slug: item?.slug
+                    });
                     return viewMode === "grid" ? (
                         <div key={item.id ?? item.slug ?? `idx-${index}`}>
                             <ArticleCard
-                                href={item.slug!}
+                                href={base_url}
                                 title={item.title}
                                 image={item.image}
                                 description={item.description}
@@ -56,7 +62,7 @@ const ArticleListSection = ({
                     ) : (
                         <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
                             <ArticleCard
-                                href={item.slug!}
+                                href={base_url}
                                 image={item.image}
                                 title={item.title}
                                 description={item.description}

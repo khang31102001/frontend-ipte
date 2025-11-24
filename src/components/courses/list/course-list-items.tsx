@@ -1,27 +1,28 @@
 "use client"
 import { useMemo, useState } from "react"
-import { ArrowRight, Loader2 } from "lucide-react"
-import ListGridControl from "@/components/shared/control/list-grid-control"
-import CoursesCardColum from "@/components/courses/card/course-card-colum"
-import CourseCardRow from "@/components/courses/card/course-card-row"
-import Link from "next/link"
 import { Course } from "@/types/courses"
+import CourseCard from "@/components/courses/card/course-card"
+import { CategoryItem } from "@/types/category";
+import { buildUrl } from "@/utils/helpers";
 
 
 
 type ViewMode = "grid" | "list";
 interface CourseListProps {
+  category?: CategoryItem;
   data?: Course[];
   viewMode?: ViewMode
 }
 const ITEMS_PER_LOAD = 4;
-const CourseList = ({
+const CourseListItems = ({
+  category,
   data = [],
   viewMode
 
 }: CourseListProps) => {
 
   const [loadMore, setloadMore] = useState<boolean>(false);// số lượng item đang hiển thị
+  console.log("khoa học có category", category)
 
   // số lượng item đang hiển thị
   const [currentItem, setCurrentItem] = useState(ITEMS_PER_LOAD);
@@ -47,32 +48,41 @@ const CourseList = ({
 
   if (!data || data.length === 0) return null;
   return (
-   <section>
+   <section className="section--sm ">
      <div
       className={
         viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" : "flex flex-col gap-4"
       }
     >
       {currentCourse?.map((item, index) => {
+        const base_url = buildUrl({
+          baseUrl: category?.url,
+          slug: item?.slug ?? "",
+        });
+        console.log("course base_url", base_url);
         return viewMode === "grid" ? (
           <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
-            <CoursesCardColum
-              slug={item.slug!}
-              title={item.title || ""}
-              image={item.image || ""}
-              description={item.description || ""}
-            />
-          </div>
-
-        ) : (
-          <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
-            <CourseCardRow
-              slug={item.slug!}
+            <CourseCard
+              href={base_url}
               image={item.image || ""}
               duration={item.duration || ""}
               level={item.level || ""}
               title={item.title || ""}
               description={item.description || ""}
+              card_layout="col"
+            />
+          </div>
+
+        ) : (
+          <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
+            <CourseCard
+              href={base_url}
+              image={item.image || ""}
+              duration={item.duration || ""}
+              level={item.level || ""}
+              title={item.title || ""}
+              description={item.description || ""}
+              card_layout="row"
             />
           </div>
         );
@@ -83,4 +93,4 @@ const CourseList = ({
   )
 }
 
-export default CourseList
+export default CourseListItems

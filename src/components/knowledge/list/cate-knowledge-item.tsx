@@ -72,7 +72,6 @@ const CateKnowledgesItem = ({
                     >
                         {data.map((item, index) => (
                             <ArticleCard key={index}
-                                baseUrl={categoryParent.slug}
                                 title={item.title}
                                 href={item.slug ?? ""}
                                 image={item.image }

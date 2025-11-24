@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 interface ArticleCardColProps {
-  baseUrl?: string;
   href?: string;
   image?: string | null
   category?: string | null
@@ -12,7 +11,6 @@ interface ArticleCardColProps {
 }
 
 export default function ArticleCard({
-  baseUrl,
   href,
   image,
   category,
@@ -21,12 +19,11 @@ export default function ArticleCard({
   layout = "grid",
 }: ArticleCardColProps) {
 
-  const url = `/${baseUrl}/${href}/`;
   // console.log("`${baseUrl}` +`${href}`", url)
   if (layout === "list") {
     return (
       <article className="article-card article-card--list">
-        <Link href={url} className="article-card__link">
+        <Link href={href ?? "#"} className="article-card__link">
           <div className="article-card__inner">
             <div className="article-card__media article-card__media--list">
               <Image
@@ -55,7 +52,7 @@ export default function ArticleCard({
   // layout = "grid"
   return (
     <article className="article-card article-card--grid">
-      <Link href={url} className="article-card__link">
+      <Link href={href ?? ""} className="article-card__link">
         <div className="article-card__media article-card__media--grid">
           <Image
             src={image || "/images/co-so-vat-chat-2.png"}

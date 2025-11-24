@@ -158,10 +158,11 @@ export default async function NewsPage({params}:PageProps) {
   }
 
   const lastUrl = categorySlug[categorySlug.length - 1];
-    // console.log("lastUrl", lastUrl)
+    console.log("lastUrl", lastUrl)
   
-  const news = await newServices.getNewsList({slug: lastUrl});
-  if(news){
+  const news = await newServices.getNewsList({slug: lastUrl}).then((res)=> res.items ?? null);
+  console.log("news", news)
+  if(news.length > 0){
     return <NewsDetail news={news}/>
   }
 
@@ -172,6 +173,7 @@ export default async function NewsPage({params}:PageProps) {
       <Suspense fallback={<Skeleton title="đang tải......"></Skeleton>}>
         <NewsListing
           newsCate={found}
+          knowledgesCate={cateNewsAndKnowledges[1]}
           breadcrumbs={breadcrumbs}
         />
       </Suspense>

@@ -89,7 +89,7 @@ const KnowledgePTE = ({
           {!isLoading && (
             <CustomSwiper
               breakpoint={breakpoints}
-              // autoplay
+              autoplay
               slidesPerView={4}
               loop
             >

@@ -2,13 +2,13 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import { CategoryItem, CourseCategory } from "@/types/category"
-import ListGridControl from "../shared/control/list-grid-control";
-import FeaturedArticleCard from "../shared/article/card/featured-article-card";
-import ArticleCard from "../shared/article/card/article-card";
-import { ArticleSidebar } from "../shared/article";
+import ListGridControl from "../../shared/control/list-grid-control";
+import FeaturedArticleCard from "../../shared/article/card/featured-article-card";
+import ArticleCard from "../../shared/article/card/article-card";
+import { ArticleSidebar } from "../../shared/article";
 import { Knowledges } from "@/types/knowledges";
 import { Course } from "@/types/courses";
-import { PteCategorySection } from "./pte-catehory-section";
+import { PteCategorySection } from "./pte-category-section";
 import PtelistItems from "./pte-list-items";
 
 
