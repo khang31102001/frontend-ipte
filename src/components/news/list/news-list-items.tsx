@@ -3,7 +3,7 @@ import { News } from "@/types/news";
 import NewscardCol from "../card/news-card-col";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import CirclePagination from "@/components/shared/control/pagination";
+// import CirclePagination from "@/components/shared/control/pagination";
 
 interface NewsListProps {
     title?: string;
@@ -50,11 +50,11 @@ const NewsListItems = ({
                             />
                         ))}
                     </div>
-                    <CirclePagination
+                    {/* <CirclePagination
                         currentPage={currentPage}
                         totalPages={totalPages}
                         onPageChange={setCurrentPage}
-                    />
+                    /> */}
                 </div>
             </div>
         </section>

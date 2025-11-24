@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import TeacherProfilesList from "./teacher-profiles-list";
 import { Teacher } from "@/types/teacher";
 import { usePathname } from "next/navigation";
-import CirclePagination from "../shared/control/pagination";
+// import CirclePagination from "../shared/control/pagination";
 
 
 
@@ -57,11 +57,11 @@ const TeacherList = ({
           )}
         </section>
 
-        <CirclePagination
+        {/* <CirclePagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
-        />
+        /> */}
       </div>
     </section>
   )
