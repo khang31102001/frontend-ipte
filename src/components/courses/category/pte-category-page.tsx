@@ -9,7 +9,7 @@ import { Knowledges } from "@/types/knowledges";
 import { Course } from "@/types/courses";
 import { PteCategorySection } from "./pte-category-section";
 import PtelistItems from "./pte-list-items";
-import ListGridControl from "@/components/shared/control/list-grid-control";
+
 
 
 
@@ -32,7 +32,7 @@ const PteCategoryPage = ({
    
     return (
         <section className="section--sm">
-            <ListGridControl onChangeView={setViewMode} />
+            {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
                 {/* Left Column - Featured + Articles */}
                 <div className="lg:col-span-2">

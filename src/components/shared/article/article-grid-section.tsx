@@ -1,11 +1,11 @@
-"use client"
-import { useState } from "react"
+"use client";
+import { useState } from "react";
 // import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
-import ArticleCard from "./card/article-card"
-import FeaturedArticleCard from "./card/featured-article-card"
-import ArticleSidebar from "./article-sidebar"
-import { CategoryItem } from "@/types/category"
-import ListGridControl from "../control/list-grid-control"
+import ArticleCard from "./card/article-card";
+import FeaturedArticleCard from "./card/featured-article-card";
+import ArticleSidebar from "./article-sidebar";
+import { CategoryItem } from "@/types/category";
+
 
 
 
@@ -42,7 +42,7 @@ const ArticleGridSection = ({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <ListGridControl onChangeView={setViewMode} />
+      {/* <ListGridControl onChangeView={setViewMode} /> */}
       <div className="grid gap-8 lg:grid-cols-3">
         {/* Left Column - Featured + Articles */}
         <div className="lg:col-span-2">

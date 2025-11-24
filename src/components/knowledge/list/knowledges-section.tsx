@@ -2,7 +2,6 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import { CategoryItem, KnowledgesCategory } from "@/types/category"
-import ListGridControl from "../../shared/control/list-grid-control";
 import FeaturedArticleCard from "../../shared/article/card/featured-article-card";
 import ArticleCard from "../../shared/article/card/article-card";
 import { ArticleSidebar } from "../../shared/article";
@@ -45,7 +44,7 @@ const KnowledgesSection = ({
 
     return (
         <section className="section--sm">
-            <ListGridControl onChangeView={setViewMode} />
+            {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
                 {/* Left Column - Featured + Articles */}
                 <div className="lg:col-span-2">
@@ -53,8 +52,7 @@ const KnowledgesSection = ({
 
                     <div className="mb-8">
                         <FeaturedArticleCard
-                            baseUrl={categoryParent?.slug}
-                            href={data[0].slug ?? ""}
+                            href={categoryParent?.slug}
                             image={data[0].image}
                             title={data[0].title}
                             description={data[0].description}
