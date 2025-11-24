@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React from 'react'
 
 interface FeaturedArticleCardProps {
-    baseUrl?: string;
     href?: string;
     image?: string | null
     category?: string | null
@@ -11,17 +10,16 @@ interface FeaturedArticleCardProps {
     description?: string | null
 }
 const FeaturedArticleCard = ({
-    baseUrl,
     href,
     image,
     category,
     title,
     description
 }: FeaturedArticleCardProps) => {
-    const url = `/${baseUrl}/${href}/`;
+   
     return (
         <article className="featured-row">
-            <Link href={url} className="featured-row__link">
+            <Link href={href ?? ""} className="featured-row__link">
                 <div className="featured-row__media">
                     <Image
                         src={image || '/images/course-1.jpg'}

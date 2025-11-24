@@ -2,15 +2,12 @@
 import CourseDetailPage from "@/components/courses/detail/course-detail-page"
 import PteCategoryPage from "@/components/courses/category/pte-category-page"
 
-import { ArticleGridSection } from "@/components/shared/article"
 import CategoryLayout from "@/components/shared/category/category-layout"
 import Skeleton from "@/components/shared/loading/Skeleton"
 import { checkCategoryBySlugs } from "@/lib/check-category"
 import { categoriesServices } from "@/lib/service/category"
 import { coursesServices } from "@/lib/service/course"
 import { BreadcrumbItem } from "@/types/breadcrumbs"
-import { CategoryItem } from "@/types/category"
-import { CourseListResponse } from "@/types/courses"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React, { Suspense } from "react"
@@ -232,7 +229,7 @@ async function StudyWorkMigratePage({
       breadcrumbs={breadcrumbs}
     >
       <PteCategoryPage 
-      categoryParent={categoryRoot} 
+      category={categoryRoot} 
       categoryCourse={categoryResults}  
       data={courses}
       />
@@ -294,7 +291,10 @@ export default async function Page({ params }: PageProps) {
   if(found){
    return (
      <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <StudyWorkMigratePage found={found} breadcrumbs={breadcrumbs}/>
+          <StudyWorkMigratePage 
+          found={found} 
+          breadcrumbs={[{ name: "Trang chủ", href: "/" }, ...breadcrumbs]}
+          />
       </Suspense>
    )
   }

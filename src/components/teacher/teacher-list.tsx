@@ -1,11 +1,9 @@
-"use client"
-import { useEffect, useMemo, useState } from "react"
-
-
-import Pagination from "../shared/control/pagination";
+"use client";
+import { useEffect, useMemo, useState } from "react";
 import TeacherProfilesList from "./teacher-profiles-list";
 import { Teacher } from "@/types/teacher";
 import { usePathname } from "next/navigation";
+import CirclePagination from "../shared/control/pagination";
 
 
 
@@ -58,7 +56,7 @@ const TeacherList = ({
           )}
         </section>
 
-        <Pagination
+        <CirclePagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}

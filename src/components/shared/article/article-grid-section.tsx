@@ -2,10 +2,10 @@
 import { useState } from "react"
 // import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import ArticleCard from "./card/article-card"
-import ListGridControl from "../control/list-grid-control"
 import FeaturedArticleCard from "./card/featured-article-card"
 import ArticleSidebar from "./article-sidebar"
 import { CategoryItem } from "@/types/category"
+import ListGridControl from "../control/list-grid-control"
 
 
 

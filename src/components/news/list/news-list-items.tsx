@@ -1,9 +1,9 @@
-"use client"
-import { News } from "@/types/news"
-import NewscardCol from "../card/news-card-col"
-import CirclePagination from "@/components/shared/control/pagination";
+"use client";
+import { News } from "@/types/news";
+import NewscardCol from "../card/news-card-col";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import CirclePagination from "@/components/shared/control/pagination";
 
 interface NewsListProps {
     title?: string;

@@ -19,7 +19,6 @@ export default function ArticleCard({
   layout = "grid",
 }: ArticleCardColProps) {
 
-  // console.log("`${baseUrl}` +`${href}`", url)
   if (layout === "list") {
     return (
       <article className="article-card article-card--list">

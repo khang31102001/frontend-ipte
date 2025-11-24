@@ -209,9 +209,6 @@ async function PteUniPage({
     categoryId: found.id
   }).then((res)=> res.items);
 
-
- 
-
   const categoryResults = await Promise.all(
     categories.map(async (item: any) => {
       try {
@@ -234,7 +231,7 @@ async function PteUniPage({
       breadcrumbs={breadcrumbs}
     >
       <PteCategoryPage 
-      categoryParent={categoryRoot} 
+      category={categoryRoot} 
       categoryCourse={categoryResults}  
       data={courses}
       />
@@ -295,7 +292,10 @@ export default async function Page({ params }: PageProps) {
   if(found){
    return (
      <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <PteUniPage found={found} breadcrumbs={breadcrumbs}/>
+          <PteUniPage  
+          found={found} 
+          breadcrumbs={[{ name: "Trang chủ", href: "/" }, ...breadcrumbs]}
+          />
       </Suspense>
    )
   }

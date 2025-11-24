@@ -3,20 +3,21 @@ import FeaturedArticleCard from '../../shared/article/card/featured-article-card
 import { Course } from '@/types/courses';
 import ArticleCard from '../../shared/article/card/article-card';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { CategoryItem } from '@/types/category';
+import { buildUrl } from '@/utils/helpers';
 
 interface PtelistItemsProps {
+    category?: CategoryItem;
     items: Course[];
-    base_url: string;
     viewMode?: "grid" | "list";
 }
 const PtelistItems = ({
+    category,
     items,
-    base_url,
     viewMode = "grid"
 }: PtelistItemsProps) => {
 
     const [currentPage, setCurrentPage] = useState(1);
-
     const [searchQuery, setSearchQuery] = useState("");
     const CoursesPerPage = 4
     // const featuredArticle = data?.find((a) => a.featured)
@@ -33,11 +34,9 @@ const PtelistItems = ({
     const paginatedPteuni = items ? items.slice(startIndex, startIndex + CoursesPerPage) : [];
     return (
         <section>
-
             <div className="mb-8">
                 <FeaturedArticleCard
-                    baseUrl={base_url}
-                    href={items[0].slug ?? ""}
+                    href={buildUrl({baseUrl: category?.url, slug: items[0]?.slug ?? ""})}
                     image={items[0].image}
                     title={items[0].title}
                     description={items[0].description}
@@ -55,8 +54,7 @@ const PtelistItems = ({
                     return viewMode === "grid" ? (
                         <div key={item.course_id ?? `idx-${index}`}>
                             <ArticleCard
-                                 href={base_url}
-                 
+                                href={buildUrl({baseUrl: category?.url, slug: item?.slug ?? ""})}
                                 title={item.title}
                                 image={item.image}
                                 description={item.description}
@@ -67,7 +65,7 @@ const PtelistItems = ({
                     ) : (
                         <div key={item.course_id ?? `idx-${index}`}>
                             <ArticleCard
-                                href={base_url}
+                                href={buildUrl({baseUrl: category?.url, slug: item?.slug ?? ""})}
                                 image={item.image}
                                 title={item.title}
                                 description={item.description}
