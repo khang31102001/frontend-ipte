@@ -1,4 +1,4 @@
-import Breadcrumb from "@/components/shared/breadcrumb/breadcrumb";
+import Breadcrumb from "../breadcrumb/breadcrumb";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 
 
