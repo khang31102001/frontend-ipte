@@ -1,4 +1,4 @@
-import Breadcrumb from "../breadcrumb/breadcrumb";
+import Breadcrumb from "../breadcrumb";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 
 
