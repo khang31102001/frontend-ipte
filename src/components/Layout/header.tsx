@@ -15,6 +15,7 @@ import { CategoryItem } from '@/types/category'
 import MenuMobileList from './menu-mobile-list'
 import OnSubMenu from './submenu/sub-menu'
 import { cn } from '@/lib/utils'
+import { fixUrl } from '@/utils/helpers'
 
 interface HeaderProps {
   menuItems: CategoryItem[]
@@ -128,9 +129,11 @@ const Header = ({
       <div id="nav-menu" className="nav-menu is-sticky">
         <nav className="nav-menu__wrapper">
           <ul ref={menuRef} className="nav-menu__list">
-            {menuData.map((item, idx) => (
-              <li key={idx} className="nav-menu__item group">
-                <a href={item.url} className="nav-menu__link link-underline ">
+            {menuData.map((item, idx) => {
+              const fixedUrl = fixUrl(item.url ?? "/");
+              return(
+                <li key={idx} className="nav-menu__item group">
+                <a href={fixedUrl} className="nav-menu__link link-underline ">
                   <span className="nav-menu__text">{item.name}</span>
                   {item.children?.length !==0 && (
                     item.icon ? (
@@ -156,7 +159,8 @@ const Header = ({
                   />
                 )}
               </li>
-            ))}
+              )
+            })}
           </ul>
         </nav>
       </div>

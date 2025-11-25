@@ -27,3 +27,25 @@ export const buildUrl = ({
   if (!path.startsWith("/")) return `/${path}`;
   return path;
 };
+
+export function fixUrl(url: string): string {
+  if (!url) return "/";
+
+  // Trim khoảng trắng
+  let cleanUrl = url.trim();
+
+  // Nếu có full URL rồi → giữ nguyên
+  if (cleanUrl.startsWith("http://") || cleanUrl.startsWith("https://")) {
+    return cleanUrl;
+  }
+
+  // Nếu bắt đầu bằng "/" → OK
+  if (cleanUrl.startsWith("/")) {
+    return cleanUrl;
+  }
+
+  // Nếu KHÔNG có "/" → thêm vào
+  return "/" + cleanUrl;
+}
+
+

@@ -21,7 +21,7 @@ export const RowLayout = ({ image, title, duration, level, description, btnText 
 
         <div className="flex-shrink-0">
             <Image
-                src={image || "/placeholder.svg"}
+                src={image}
                 alt={title}
                 width={256}
                 height={192}

@@ -57,14 +57,14 @@ const CourseListItems = ({
         {currentCourse?.map((item, index) => {
           const base_url = buildUrl({
             baseUrl: category?.url,
-            slug: item?.slug ?? "",
+            slug: item?.slug ?? undefined,
           });
           console.log("course base_url", base_url);
           return viewMode === "grid" ? (
             <CourseCard
               key={`idx-${index}`}
               href={base_url}
-              image={item.image || ""}
+              image={item.image || "/images/course-3.jpg"}
               duration={item.duration || ""}
               level={item.level || ""}
               title={item.title || ""}
@@ -77,7 +77,7 @@ const CourseListItems = ({
             <CourseCard
               key={`idx-${index}`}
               href={base_url}
-              image={item.image || ""}
+              image={item.image || "/images/course-3.jpg"}
               duration={item.duration || ""}
               level={item.level || ""}
               title={item.title || ""}
