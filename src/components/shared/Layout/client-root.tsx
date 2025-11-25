@@ -35,7 +35,7 @@ export default function ClientRoot({
         </MainLayout>
         <FloatingChat />
 
-        {/* <PopupRegistrationForm isPopup={isOpen} onClose={close} /> */}
+        <PopupRegistrationForm isPopup={isOpen} onClose={close} />
       </ThemeProvider>
     </ClientQueryProvider>
   );

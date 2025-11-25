@@ -22,14 +22,14 @@
 /* ========= Overlay ========= */
 .popup-overlay {
   position: fixed; inset: 0;
-  z-index: 9998;
+  z-index: 9990;
   display: grid; place-items: center;
   padding: 1.25rem;
   background: var(--popup-backdrop);
   backdrop-filter: blur(var(--popup-blur));
   animation: popup-fade-in 150ms ease-out;
 
-  /* cuộn nếu panel cao hơn viewport */
+  
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
@@ -40,7 +40,7 @@
 /* ========= Panel ========= */
 .popup__panel{
   position: relative;
-  z-index: 9999;
+  z-index: 9991;
   width: 100%;
   max-width: var(--popup-max-w);
   max-height: var(--popup-max-h);      /* <- giới hạn chiều cao panel */
@@ -84,6 +84,7 @@
 
 /* ========= Close button (nếu dùng) ========= */
 .popup__close{
+  padding: 1rem;
   width: 2.25rem; height: 2.25rem;
   border: 0; border-radius: 50%; background: transparent;
   cursor: pointer; position: relative; 

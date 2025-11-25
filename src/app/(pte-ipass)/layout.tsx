@@ -21,7 +21,7 @@ export default async function RootLayout({
     const data = await categoriesServices.getCategoryTree({});
 
     const menu = Array.isArray(data) ? data : [];
-    console.log('navMenuData layout:', data);
+    // console.log('navMenuData layout:', data);
 
     return (
         <html lang="en" suppressHydrationWarning={true}>

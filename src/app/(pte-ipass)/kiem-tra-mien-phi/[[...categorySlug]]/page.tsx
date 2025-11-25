@@ -9,8 +9,8 @@ import CategoryLayout from "@/components/shared/category/category-layout";
 import { knowledgesServices } from "@/lib/service/knowlege";
 import KnowlegeDetail from "@/components/knowledge/details/knowledge-details";
 import { checkCategoryBySlugs } from "@/lib/check-category";
-import KnowledgesListPage from "@/components/knowledge/list/knowledges-section";
-import KnowledgesSection from "@/components/knowledge/list/knowledges-section";
+import KnowledgesListPage from "@/components/knowledge/knowledges-section";
+import KnowledgesSection from "@/components/knowledge/knowledges-section";
 
 
 
@@ -219,7 +219,7 @@ async function KnowledgeListPage({
     >
       <KnowledgesSection 
       data={knowledgesItem}
-      categoryParent={found} 
+      category={found} 
       categoryKnowledge={categoryResults} />
     </CategoryLayout>
   );

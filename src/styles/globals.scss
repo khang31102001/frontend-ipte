@@ -185,6 +185,9 @@
     @apply shadow-md hover:shadow-lg transition-shadow;
     @apply overflow-hidden;
   }
+   .no-focus {
+    @apply focus:outline-none focus:ring-0 focus:ring-offset-0;
+  }
 
   .card-box {
     @apply border bg-background text-card-foreground shadow-sm;

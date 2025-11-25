@@ -48,21 +48,21 @@ const CourseListItems = ({
 
   if (!data || data.length === 0) return null;
   return (
-   <section className="section--sm ">
-     <div
-      className={
-        viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" : "flex flex-col gap-4"
-      }
-    >
-      {currentCourse?.map((item, index) => {
-        const base_url = buildUrl({
-          baseUrl: category?.url,
-          slug: item?.slug ?? "",
-        });
-        console.log("course base_url", base_url);
-        return viewMode === "grid" ? (
-          <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
+    <section className="section--sm ">
+      <div
+        className={
+          viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" : "flex flex-col gap-4"
+        }
+      >
+        {currentCourse?.map((item, index) => {
+          const base_url = buildUrl({
+            baseUrl: category?.url,
+            slug: item?.slug ?? "",
+          });
+          console.log("course base_url", base_url);
+          return viewMode === "grid" ? (
             <CourseCard
+              key={`idx-${index}`}
               href={base_url}
               image={item.image || ""}
               duration={item.duration || ""}
@@ -71,11 +71,11 @@ const CourseListItems = ({
               description={item.description || ""}
               card_layout="col"
             />
-          </div>
 
-        ) : (
-          <div key={item.course_id ?? item.slug ?? `idx-${index}`}>
+          ) : (
+
             <CourseCard
+              key={`idx-${index}`}
               href={base_url}
               image={item.image || ""}
               duration={item.duration || ""}
@@ -84,12 +84,12 @@ const CourseListItems = ({
               description={item.description || ""}
               card_layout="row"
             />
-          </div>
-        );
-      })}
 
-    </div>
-   </section>
+          );
+        })}
+
+      </div>
+    </section>
   )
 }
 

@@ -1,13 +1,7 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
-// import { Button } from "@/components/ui/button"
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
-// import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Check, Shield, Star } from "lucide-react"
@@ -65,23 +59,20 @@ const SubscribePopup = ({
                     <input id="email" type="email" className="field__control" />
                 </div>
 
-                <div className="field">
-                    <label className="field__label" htmlFor="target-score">Target PTE Score</label>
-                    {/* wrapper để đồng bộ style select lib */}
-                    <div className="form-select">
-                        <select
-                            id="target-score"
-                            value={formData.targetScore}
-                            onChange={(e) => handleInputChange("targetScore", e.target.value)}
-                            className="select"
-                        >
-                            <option value="">Choose target score</option>
-                            <option value="50-59">50–59 (Competent)</option>
-                            <option value="65-79">65–79 (Proficient)</option>
-                            <option value="79+">79+ (Superior)</option>
-                        </select>
-
-                    </div>
+                <div className="field slelect">
+                    <label className="field__label">Target PTE Score</label>
+                    <Select
+                        value={formData.targetScore}
+                    >
+                        <SelectTrigger className="field__control select-trigger">
+                            <SelectValue placeholder="Choose target score" />
+                        </SelectTrigger>
+                        <SelectContent className="select__content">
+                            <SelectItem value="50-59">50–59 (Competent)</SelectItem>
+                            <SelectItem value="65-79">65–79 (Proficient)</SelectItem>
+                            <SelectItem value="79+">79+ (Superior)</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
 
                 <div className="field">

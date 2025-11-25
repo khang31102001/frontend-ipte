@@ -1,7 +1,7 @@
 import { KnowledgesCategory } from "@/types/category";
 import CateKnowledgesItem from "./list/cate-knowledge-item";
 
-export  function CateKnowledgesSection({
+export function CateKnowledgesSection({
   knowledgeCategory
 }: { knowledgeCategory: KnowledgesCategory}) {
 
@@ -14,7 +14,7 @@ export  function CateKnowledgesSection({
   return (
 
     <CateKnowledgesItem
-      categoryParent={knowledgeCategory}
+      category={knowledgeCategory}
       data={knowleges}
       layout_type="swiper"
     />

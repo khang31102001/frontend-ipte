@@ -88,7 +88,7 @@ const CourseCard = ({
 }: CourseCardProps) => {
 
     return (
-        <Link href={href} className="block h-full rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary">
+        <Link href={href} className="block h-full no-focus">
             {card_layout === "row" ? (
                 <RowLayout
                     href={href}

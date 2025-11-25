@@ -2,11 +2,12 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import { CategoryItem, KnowledgesCategory } from "@/types/category"
-import FeaturedArticleCard from "../../shared/article/card/featured-article-card";
-import ArticleCard from "../../shared/article/card/article-card";
-import { ArticleSidebar } from "../../shared/article";
+import FeaturedArticleCard from "../shared/article/card/featured-article-card";
+import ArticleCard from "../shared/article/card/article-card";
+import { ArticleSidebar } from "../shared/article";
 import { Knowledges } from "@/types/knowledges";
-import { CateKnowledgesSection } from "../cate-knowledge-section";
+import { CateKnowledgesSection } from "./cate-knowledge-section";
+import { buildUrl } from "@/utils/helpers";
 
 
 
@@ -14,15 +15,15 @@ import { CateKnowledgesSection } from "../cate-knowledge-section";
 
 interface KnowledgesListPageProps {
     categoryKnowledge?: KnowledgesCategory[];
-    categoryParent?: CategoryItem;
+    category?: CategoryItem;
     data: Knowledges[];
 }
 const KnowledgesSection = ({
     categoryKnowledge,
-    categoryParent,
+    category,
     data
 }: KnowledgesListPageProps) => {
-    // console.log("cate parent: ", categoryParent)
+    console.log("cate parent: ", category)
     const [currentPage, setCurrentPage] = useState(1)
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
     const [searchQuery, setSearchQuery] = useState("")
@@ -39,6 +40,7 @@ const KnowledgesSection = ({
 
     // ham này để map hiển thị
     const paginatedKnowledges = data ? data.slice(startIndex, startIndex + knowledgesPerPage) : [];
+   
 
     if (!data || data.length === 0) return null;
 
@@ -52,7 +54,10 @@ const KnowledgesSection = ({
 
                     <div className="mb-8">
                         <FeaturedArticleCard
-                            href={categoryParent?.slug}
+                            href={buildUrl({
+                                baseUrl: category?.url,
+                                slug: data[0].slug ?? ""
+                            })}
                             image={data[0].image}
                             title={data[0].title}
                             description={data[0].description}
@@ -67,10 +72,14 @@ const KnowledgesSection = ({
                         }
                     >
                         {paginatedKnowledges?.map((item, index) => {
+                            const base_url = buildUrl({
+                                baseUrl: category?.url,
+                                slug: item?.slug ?? "" 
+                            });
                             return viewMode === "grid" ? (
                                 <div key={item.id ?? `idx-${index}`}>
                                     <ArticleCard
-                                        href={categoryParent?.slug}
+                                        href={base_url}
                                         title={item.title}
                                         image={item.image}
                                         description={item.description}
@@ -81,7 +90,7 @@ const KnowledgesSection = ({
                             ) : (
                                 <div key={item.id ?? `idx-${index}`}>
                                     <ArticleCard
-                                        href={categoryParent?.slug}
+                                        href={base_url}
                                         image={item.image}
                                         title={item.title}
                                         description={item.description}
@@ -95,7 +104,6 @@ const KnowledgesSection = ({
 
 
                     {/* Pagination */}
-
                     <div className="mt-8 flex items-center justify-center gap-2">
                         <button
                             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -182,14 +190,14 @@ const KnowledgesSection = ({
                     />
                 </div>
             </div>
-            <div>
+            <section>
                 {categoryKnowledge && categoryKnowledge.map((item, index) => (
                     <CateKnowledgesSection
                         key={index}
                         knowledgeCategory={item}
                     />
                 ))}
-            </div>
+            </section>
         </section>
     )
 }
