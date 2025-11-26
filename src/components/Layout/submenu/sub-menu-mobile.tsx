@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { ChevronRight } from "lucide-react";
 
 type Variant = "mobile";
 
@@ -66,7 +67,7 @@ const SubMenuMobile: React.FC<SubMenuMobileProps> = ({
                       className={clsx("submenu-mobile__icon", childOpen && "is-rotated")}
                       aria-hidden
                     >
-                      ▶
+                      <ChevronRight size={16} className="submenu-mobile__icon"/>
                     </span>
                   </button>
 

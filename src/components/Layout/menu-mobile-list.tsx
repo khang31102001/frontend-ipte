@@ -6,6 +6,8 @@ import clsx from 'clsx'
 import OnSubMenu from './submenu/sub-menu'
 import SubMenuMobile from './submenu/sub-menu-mobile'
 import { useLockScroll } from '@/hooks/use-locked-scroll'
+import { ChevronRight } from 'lucide-react'
+import { fixUrl } from '@/utils/helpers'
 
 interface MenuMobileListProps {
   data: CategoryItem[]
@@ -63,14 +65,14 @@ const MenuMobileList = ({
                           height={16}
                           aria-hidden="true"
                         /> */}
-                        ▶
+                        <ChevronRight size={16} className="mobile-menu__caret" />
                       </span>
                     </button>
                    </>
                     
                   ) : (
                     <a
-                      href={item.url}
+                      href={fixUrl(item.url ?? "/")}
                       onClick={handleToggle(idx, hasChildren)}
                       className="mobile-menu__link no-scrollbar"
                       aria-expanded={isOpen}

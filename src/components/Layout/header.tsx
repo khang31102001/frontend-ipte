@@ -16,6 +16,11 @@ import MenuMobileList from './menu-mobile-list'
 import OnSubMenu from './submenu/sub-menu'
 import { cn } from '@/lib/utils'
 import { fixUrl } from '@/utils/helpers'
+import {
+  usePathname,
+  useRouter,
+  useSearchParams
+} from 'next/navigation'
 
 interface HeaderProps {
   menuItems: CategoryItem[]
@@ -27,6 +32,15 @@ const Header = ({
   const [openMenu, setOpenMenu] = useState(false)
   const menuRef = useRef<HTMLUListElement>(null);
   const isMobile = useIsMobile();
+  const [searchText, setSearchText] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    // Sync giá trị ô search với param ?q hiện tại (nếu có)
+    const currentQ = searchParams.get('search') || 'something'
+    setSearchText(currentQ)
+  }, [searchParams])
   // const menuFiltered = menuItems.filter((item)=> !item.is_disable);
 
   const menuFiltered = (menuItems: CategoryItem[]): CategoryItem[] => {
@@ -61,6 +75,23 @@ const Header = ({
     },
   ]
 
+  const handleSearchQuery = (value?: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value?.trim()) {
+      params.set('search', value.trim())
+      console.log("tạo params search", params.toString());
+    } else {
+      params.delete('search');
+    }
+    const queryString = params.toString(); //search = value;
+
+    //vd: http://localhost:3000/hoc-vien-review?search=sdasd;
+    const url = queryString ? `${pathname}?${queryString}` : pathname;
+    router.push(url, { scroll: false });
+
+  }
+
   if (!menuData || menuData.length === 0) return null
   return (
     <>
@@ -92,6 +123,13 @@ const Header = ({
             <div className="header__search">
               <Search size={18} className="search-icon" />
               <input
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearchQuery(searchText)
+                  }
+                }}
                 className="search-input"
                 type="text"
                 placeholder="Tìm kiếm khóa học..."
@@ -131,34 +169,34 @@ const Header = ({
           <ul ref={menuRef} className="nav-menu__list">
             {menuData.map((item, idx) => {
               const fixedUrl = fixUrl(item.url ?? "/");
-              return(
+              return (
                 <li key={idx} className="nav-menu__item group">
-                <a href={fixedUrl} className="nav-menu__link link-underline ">
-                  <span className="nav-menu__text">{item.name}</span>
-                  {item.children?.length !==0 && (
-                    item.icon ? (
-                      <span className="nav-menu__icon group-hover:rotate-180">
-                        <Image
-                          src={item.icon}
-                          alt={item.name}
-                          width={16}
-                          height={16}
-                        />
-                      </span>
-                    ) : (
-                      <ChevronDown size={16} className="nav-menu__icon group-hover:rotate-180" />
-                    )
-                  )}
-                </a>
+                  <a href={fixedUrl} className="nav-menu__link link-underline ">
+                    <span className="nav-menu__text">{item.name}</span>
+                    {item.children?.length !== 0 && (
+                      item.icon ? (
+                        <span className="nav-menu__icon group-hover:rotate-180">
+                          <Image
+                            src={item.icon}
+                            alt={item.name}
+                            width={16}
+                            height={16}
+                          />
+                        </span>
+                      ) : (
+                        <ChevronDown size={16} className="nav-menu__icon group-hover:rotate-180" />
+                      )
+                    )}
+                  </a>
 
-                {item.children && (
-                  <OnSubMenu
-                    items={item.children}
-      
-                    className="on-submenu card-box"
-                  />
-                )}
-              </li>
+                  {item.children && (
+                    <OnSubMenu
+                      items={item.children}
+
+                      className="on-submenu card-box"
+                    />
+                  )}
+                </li>
               )
             })}
           </ul>

@@ -380,7 +380,7 @@
 
 /* ====== SIDEBAR CARD BASE ====== */
 .sidebar-card {
-    border-radius: 0.75rem;
+    border-radius: 0.4rem;
     border: 1px solid #e5e7eb; // gray-200
     background-color: #ffffff;
     overflow: hidden;
@@ -432,7 +432,7 @@
         &--compact {
             width: 6rem; // ~ w-24
             height: 5rem; // ~ h-20
-            border-radius: 0.5rem;
+            border-radius: 0.2rem;
             flex-shrink: 0;
         }
     }
