@@ -1,5 +1,6 @@
 export interface About {
     about_id: number
+    image:  string;
     title?: string
     description?: string | null
     mission?: string | null

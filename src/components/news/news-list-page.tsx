@@ -1,9 +1,8 @@
 import KnowledgePTE from "@/components/knowledge/knowledge-pte";
-import NewsTipList from "./news-tip-list";
-import FeaturedNewsList from "./featured-new-list";
+// import NewsTipList from "./news-tip-list";
+// import FeaturedNewsList from "./featured-new-list";
 import ConsultationForm from "@/components/form/consultation-form";
 import { News } from "@/types/news";
-import { PTETips } from "@/types/PTETips";
 import TrendingNews from "./trend-new";
 import NewsListItems from "./list/news-list-items";
 import { CategoryItem, NewsCategory } from "@/types/category";

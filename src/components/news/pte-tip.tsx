@@ -1,12 +1,10 @@
 "use client"
-
-import { useState } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
-import { PTETips } from "@/types/PTETips"
+import { About } from "@/types/about"
+
 
 interface PTETipProps {
-  data?: PTETips[]
+  data?: About[]
 }
 const PTETip = ({ data }: PTETipProps) => {
   // const [currentIndex, setCurrentIndex] = useState(0)
@@ -24,7 +22,7 @@ const PTETip = ({ data }: PTETipProps) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       {data.map((item) => (
         <div
-          key={item.id}
+          key={item.about_id}
           className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
         >
           <div className="relative h-64 w-full">
@@ -48,10 +46,10 @@ const PTETip = ({ data }: PTETipProps) => {
                   className="object-cover"
                 />
               </div>
-              {item.authorname &&(
+              {/* {item.authorname &&(
                 <span className="text-sm text-gray-600">{item.authorname}</span>
               )}
-              
+               */}
             </div>
 
             <time className="text-sm text-gray-600 block mb-3">20/10/2025</time>

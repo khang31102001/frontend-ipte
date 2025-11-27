@@ -29,9 +29,9 @@ export default async function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body suppressHydrationWarning={true} className={inter.className}>
-                    <ClientRoot navMenuData={menu}>
-                        {children}
-                    </ClientRoot>
+                <ClientRoot navMenuData={menu}>
+                    {children}
+                </ClientRoot>
             </body>
         </html>
     )

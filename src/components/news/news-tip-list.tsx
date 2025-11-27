@@ -1,10 +1,10 @@
 import PTETip from '@/components/news/pte-tip'
-import { PTETips } from '@/types/PTETips'
+import { About } from '@/types/about'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import React from 'react'
 
 interface NewsTipListProps {
-  data?: PTETips[]
+  data?: About[]
 }
 
 const NewsTipList = ({ data }: NewsTipListProps) => {
