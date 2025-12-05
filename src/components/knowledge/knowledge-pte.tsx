@@ -28,14 +28,14 @@ const KnowledgePTE = ({
   const tabs: TabItem[] = useMemo(() => {
     return (
       category?.children?.map((item) => ({
-        id: item.category_type!,
+        id: item.categoryType!,
         label: item.name,
       })) ?? []
     );
   }, [category]);
   // console.log("tab cate:", tabs)
   const [activeTab, setActiveTab] = useState<number | string>("");
-  console.log("activeTab:", activeTab);
+ 
 
   useEffect(() => {
     if (tabs.length && !activeTab) {

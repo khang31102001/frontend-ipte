@@ -66,8 +66,8 @@ const TabScroll = ({
                 cursor-grab active:cursor-grabbing
                 "
             >
-                {tabs.map((tab) => (
-                    <li key={tab.id} className="flex-shrink-0 snap-start">
+                {tabs.map((tab, idx) => (
+                    <li key={tab.id ?? idx} className="flex-shrink-0 snap-start">
                         <button
                             onClick={() => onTabChange?.(tab.id)}
                             className={`

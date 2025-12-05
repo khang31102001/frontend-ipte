@@ -50,7 +50,7 @@ const ListGridControl = ({
                     {
                         items.map((item, index) => {
                             return (
-                                <SelectItem key={item.category_id ?? item.slug ?? `idx-${index}`}
+                                <SelectItem key={item.categoryId ?? item.slug ?? `idx-${index}`}
                                     value={item.name}>{item.name}
                                 </SelectItem>
                             )

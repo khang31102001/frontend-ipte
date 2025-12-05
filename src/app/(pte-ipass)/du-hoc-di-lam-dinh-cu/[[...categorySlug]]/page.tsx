@@ -276,7 +276,8 @@ export default async function Page({ params }: PageProps) {
     )
   }
 
-  const lastUrl = categorySlug[categorySlug.length -1];
+  if(categorySlug.length >= 1){
+    const lastUrl = categorySlug[categorySlug.length -1];
   const course = await coursesServices.getCoursesDetails({slug: lastUrl}); 
  
 
@@ -297,6 +298,7 @@ export default async function Page({ params }: PageProps) {
           />
       </Suspense>
    )
+  }
   }
 
   return notFound();

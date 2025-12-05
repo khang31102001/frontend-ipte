@@ -35,7 +35,7 @@ const KnowlegeDetail = ({
           <div className="lg:col-span-2 space-y-8">
             <ArticleContent content={knowledge.content} />
             {/* <ArticleFooter /> */}
-            <CommentsSection courseId="1" />
+            {/* <CommentsSection courseId="1" /> */}
           </div>
 
           <div className="lg:col-span-1">

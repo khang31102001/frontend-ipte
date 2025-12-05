@@ -25,21 +25,21 @@ const ContactInfor = ({
             icon: "/images/icon/icon-facebook.png",
             title: "iPTE Facebook Group",
             description: "Nhóm Facebook với hơn 15,000 thành viên.",
-            url: data?.facebook_url || "#"
+            url: data?.facebookUrl || "#"
         },
         {
             id: 2,
             icon: "/images/icon/icon-youtube.png",
             title: "iPTE YouTube Channel",
             description: "Kênh YouTube với hơn 200 video",
-            url: data?.youtube_url || "#"
+            url: data?.youtubeUrl || "#"
         },
         {
             id: 3,
             icon: "/images/icon/icon-tiktok.png",
             title: "iPTE TikTok",
             description: "Tài khoản TikTok với các meo học tập ngắn, thú vị",
-            url: data?.tiktok_url || "#"
+            url: data?.tiktokUrl || "#"
         },
     ];
 

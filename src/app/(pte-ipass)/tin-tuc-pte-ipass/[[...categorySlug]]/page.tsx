@@ -86,12 +86,12 @@ async function NewsListing({
   knowledgesCate?: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
- 
+
   const dataNew = await newServices.getNewsList({
-    categoryType: newsCate?.category_type ?? ""
+    categoryType: newsCate?.categoryType ?? ""
   }).then((res) => res.items ?? []);
- 
-  
+
+console.log("dataNew", dataNew)
   return (
     <CategoryLayout
       title={newsCate?.name || ""}
@@ -102,82 +102,85 @@ async function NewsListing({
         newsList={dataNew}
         newsFeatured={dataNew}
         knowledgesCategory={knowledgesCate}
-       />
+      />
     </CategoryLayout>
   );
 }
 
 
 
-interface PageProps{
-    params: {categorySlug: string[]}
+interface PageProps {
+  params: { categorySlug: string[] }
 }
 
-export default async function NewsPage({params}:PageProps) {
-    const { categorySlug } = params ?? []; 
-    const cateSlugs = ["tin-tuc-pte-ipass", "kiem-tra-mien-phi"];
+export default async function NewsPage({ params }: PageProps) {
+  const { categorySlug } = params ?? [];
+  const cateSlugs = ["tin-tuc-pte-ipass", "kiem-tra-mien-phi"];
 
   const cateNewsAndKnowledges = await Promise.all(
-      cateSlugs.map(async (item: string) => {
-        try {
-          const data = await categoriesServices.getCategoryTree({
-            slug: item,
-          });
-          // console.log("data", data)
-          const items = data ? data : null;
-          return items;
-        } catch (err) {
-          return null;
-        }
-      })
-    );
-  
-  
-  
-  
-  if(!categorySlug){
-    return(
-       <>
-      {/* JSON-LD cho SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    cateSlugs.map(async (item: string) => {
+      try {
+        const data = await categoriesServices.getCategoryTree({
+          slug: item,
+        });
+        // console.log("data", data)
+        const items = data ? data : null;
+        return items;
+      } catch (err) {
+        return null;
+      }
+    })
+  );
 
-      {/* CONTENT TRANG TIN TỨC */}
-      <Suspense fallback={<Skeleton title="đang tải......" />}>
-        <NewsListing
-          knowledgesCate={cateNewsAndKnowledges[1]}
-          breadcrumbs={[
-            {name: "Trang chủ", href: cateNewsAndKnowledges[0].url}
-          ]}
+
+
+
+  if (!categorySlug) {
+    return (
+      <>
+        {/* JSON-LD cho SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Suspense>
-    </>
+
+        {/* CONTENT TRANG TIN TỨC */}
+        <Suspense fallback={<Skeleton title="đang tải......" />}>
+          <NewsListing
+            knowledgesCate={cateNewsAndKnowledges[1]}
+            breadcrumbs={[
+              { name: "Trang chủ", href: cateNewsAndKnowledges[0].url }
+            ]}
+          />
+        </Suspense>
+      </>
     )
   }
+  if (categorySlug.length >= 1) {
 
-  const lastUrl = categorySlug[categorySlug.length - 1];
-    console.log("lastUrl", lastUrl)
-  
-  const news = await newServices.getNewsList({slug: lastUrl}).then((res)=> res.items ?? null);
-  console.log("news", news)
-  if(news.length > 0){
-    return <NewsDetail news={news}/>
-  }
+    const lastUrl = categorySlug[categorySlug.length - 1];
+    // console.log("lastUrl", lastUrl)
 
-  const cateNews = cateNewsAndKnowledges[0].children ?? []
-  const {found, breadcrumbs} =  await checkCategoryBySlugs(cateNews, categorySlug);
-  if(found){
-    return(
-      <Suspense fallback={<Skeleton title="đang tải......"></Skeleton>}>
-        <NewsListing
-          newsCate={found}
-          knowledgesCate={cateNewsAndKnowledges[1]}
-          breadcrumbs={breadcrumbs}
-        />
-      </Suspense>
-    )
+    const news = await newServices.getNewsList({ slug: lastUrl }).then((res) => res.items ?? null);
+    // console.log("news", news)
+    if (news) {
+      return <NewsDetail news={news} />
+    }
+
+    const cateNews = cateNewsAndKnowledges[0].children ?? []
+    const { found, breadcrumbs } = await checkCategoryBySlugs(cateNews, categorySlug);
+    if (found) {
+      return (
+        <Suspense fallback={<Skeleton title="đang tải......"></Skeleton>}>
+          <NewsListing
+            newsCate={found}
+            knowledgesCate={cateNewsAndKnowledges[1]}
+            breadcrumbs={breadcrumbs}
+          />
+        </Suspense>
+      )
+    }
+
   }
 
   return notFound();

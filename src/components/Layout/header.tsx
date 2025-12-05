@@ -37,7 +37,7 @@ const Header = ({
   const menuFiltered = (menuItems: CategoryItem[]): CategoryItem[] => {
     if (!Array.isArray(menuItems) || menuItems.length === 0) return [];
 
-    const parentMenu = menuItems.filter(item => !item.is_disable);
+    const parentMenu = menuItems.filter(item => !item.isDisable);
 
     return parentMenu.map((parent) => {
       if (!parent.children || parent.children.length === 0) {

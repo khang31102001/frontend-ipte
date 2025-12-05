@@ -120,17 +120,17 @@ const jsonLd = {
 
 export default async function TeacherPage() {
  
-  const data = await teacherServices.getTeachersList({});
-  const features = data.features ?? [];
+  const data = await teacherServices.getTeachersList({ page: 1, pageSize: 10,});
+  // const features = data.features ?? [];
   const items = data.items ?? [];
-  // console.log("data:", data);
+  // console.log("data teacher:", data);
   return (
     <section>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <FeaturesSection data={features}/>
+      {/* <FeaturesSection data={features}/> */}
       <TeacherList data={items} />
       <CommunityPTEiPass />
       <PTECallToAction />

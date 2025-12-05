@@ -2,7 +2,6 @@
 import { useState } from "react"
 import { MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
-// import { aboutMeService } from "@/services/about-me/aboutMeService"
 import { About } from "@/types/about"
 
 interface LocationInforProps{
@@ -34,13 +33,13 @@ const MapSection = ({
         <div className="branches__underline" />
 
         <div className="branches__list">
-          {data?.map((branch: any) => (
+          {data?.map((branch, index) => (
             <button
-              key={branch.about_id}
+              key={branch.aboutId ?? index}
               onClick={() => setSelectedBranch(branch)}
               className={cn(
                 "branches__item",
-                selectedBranch.about_id === branch.about_id && "branches__item--active",
+                selectedBranch.aboutId === branch.aboutId && "branches__item--active",
               )}
             >
               <MapPin className="branches__icon" />
@@ -57,8 +56,8 @@ const MapSection = ({
       <div className="branches__right">
         <div className="branches__map-frame">
           <iframe
-            key={selectedBranch.about_id}
-            src={selectedBranch.map_url ?? "#"}
+            key={selectedBranch.aboutId}
+            src={selectedBranch.mapUrl ?? "#"}
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"

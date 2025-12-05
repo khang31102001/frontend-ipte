@@ -25,12 +25,7 @@ const MenuMobileList = ({
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   useLockScroll(IsOpenMenu);
 
-  const handleToggle = (idx: number, hasChildren?: boolean) => (e: React.MouseEvent) => {
-    if (!hasChildren) return // mục lá: cho đi link
-    e.preventDefault()
-    setOpenIdx(prev => (prev === idx ? null : idx))
-  }
-
+ 
   return (
     <div className={clsx("mobile-menu", IsOpenMenu && "mobile-menu--open", ClassName)}>
       <nav className="mobile-menu__wrapper" aria-label="Mobile main menu">
@@ -51,7 +46,7 @@ const MenuMobileList = ({
                   {hasChildren ? (
                    <>
                     <button
-                      onClick={handleToggle(idx, hasChildren)}
+                      
                       type="button"
                       className="mobile-menu__toggle"
               
@@ -73,7 +68,6 @@ const MenuMobileList = ({
                   ) : (
                     <a
                       href={fixUrl(item.url ?? "/")}
-                      onClick={handleToggle(idx, hasChildren)}
                       className="mobile-menu__link no-scrollbar"
                       aria-expanded={isOpen}
                       

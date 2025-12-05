@@ -3,7 +3,6 @@ import IPTEAudienceSection from "@/components/about/IPTEAudienceSection";
 import MissionSection from "@/components/about/mission-section";
 import PTEcosystem from "@/components/about/pte-ecosystem";
 import { About, AboutItem } from "@/types/about";
-import { PTEEcosystem } from "@/types/ecosystem";
 import { FacilityGallery } from "./facility-gallery";
 import MapSection from "./map-section";
 import ContactInfor from "./contact-infor";
@@ -20,6 +19,8 @@ const AboutListing = ({
   const dataEcosystem = data ? data.items.filter((i)=>i.category === "ABOUT_ME"): [];
   const dataBranches = data ? data.items.filter((i)=> i.category === "BRANCH") : [];
   const dataAudiences = data ? data.items.filter((i)=> i.category === "AUDIENCE"): [];
+
+ 
   return (
     <section>
         {/* <HeroBanner img="/images/banner/about-us-banner.png"/> */}

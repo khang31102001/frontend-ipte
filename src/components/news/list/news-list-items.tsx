@@ -45,8 +45,8 @@ const NewsListItems = ({
                                 image={item.image ?? ""}
                                 title={item.title ?? ""}
                                 description={item.description ?? ""}
-                                date={item.created_at}
-                                authorname={item.authorname ?? ""}
+                                date={item.createdAt}
+                                authorname={item.authorName ?? ""}
                             />
                         ))}
                     </div>

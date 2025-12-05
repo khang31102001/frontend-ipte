@@ -1,8 +1,8 @@
+import { About } from "@/types/about";
 import PTEEcosystemCard from "./card/pte-ecosystem-card"
-import { PTEEcosystem } from "@/types/ecosystem"
 
 interface PTEcosystemProps {
-    data?: PTEEcosystem[]
+    data?: About[]
 }
 const PTEcosystem = ({ data }: PTEcosystemProps) => {
     if (!data || data.length === 0) return null; 

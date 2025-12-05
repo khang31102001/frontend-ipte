@@ -1,15 +1,11 @@
 "use client"
 import type React from "react"
 import { useState } from "react"
-// import { Button } from "@/components/ui/button"
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
-// import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Check, Shield, Star } from "lucide-react"
-// import { consultationService } from "@/services/consultation/consultation"
+
+
 interface ConsultationFormPops{
   className?: string;
 }
@@ -55,18 +51,18 @@ const ConsultationForm = ({
             <div>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <label htmlFor="name">Full Name</label>
+                  <label htmlFor="name">Họ và tên đầy đủ</label>
                   <input
                     id="name"
-                    placeholder="John Doe"
+                    placeholder="PTE IPASS"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    className="w-full px-4 py-4 rounded bg-gray-50 border-gray-200"
+                    className="w-full px-4 py-4 rounded bg-gray-50 border-gray-200 "
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="phone">Phone Number</label>
+                  <label htmlFor="phone">Số điện thoại</label>
                   <input
                     id="phone"
                     placeholder="(555) 123-4567"
@@ -103,10 +99,10 @@ const ConsultationForm = ({
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message">Message</label>
+                  <label htmlFor="message">Tin nhắn</label>
                   <textarea
                     id="message"
-                    placeholder="Tell us about your learning goals and any specific requirements..."
+                    placeholder="Hãy cho chúng tôi biết về mục tiêu học tập của bạn và bất kỳ yêu cầu cụ thể nào..."
                     value={formData.message}
                     onChange={(e) => handleInputChange("message", e.target.value)}
                     className="w-full rounded bg-gray-50 border-gray-200 min-h-[100px] p-4"
@@ -114,7 +110,7 @@ const ConsultationForm = ({
                 </div>
 
                 <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3">
-                  Send Information
+                  Gửi thông tin
                 </button>
               </form>
             </div>
@@ -134,11 +130,10 @@ const ConsultationForm = ({
                   <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <Shield className="w-6 h-6 text-red-500" />
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900">Our Guarantee</h1>
+                  <h1 className="text-2xl font-bold text-gray-900">Sự đảm bảo của chúng tôi</h1>
                 </div>
                 <p className="text-gray-600 text-balance">
-                  We are confident in our teaching methods and educational quality, which is why iPTE guarantees 100%
-                  completion if students do not achieve their target score.
+                 Chúng tôi tự tin vào phương pháp giảng dạy và chất lượng giáo dục của mình, đó là lý do tại sao PTE IPASS đảm bảo 100% học viên hoàn thành bài thi nếu không đạt được điểm mục tiêu.
                 </p>
               </div>
               <div className="space-y-4">
@@ -147,9 +142,9 @@ const ConsultationForm = ({
                     <Check className="w-4 h-4 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Score Guarantee</h3>
+                    <h3 className="font-semibold text-gray-900 mb-1">Đảm bảo điểm số</h3>
                     <p className="text-gray-600 text-sm">
-                      Guaranteed to achieve target score according to agreement or get 100% refund.
+                      Đảm bảo đạt được điểm mục tiêu theo thỏa thuận hoặc được hoàn tiền 100%.
                     </p>
                   </div>
                 </div>
@@ -159,8 +154,8 @@ const ConsultationForm = ({
                     <Check className="w-4 h-4 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Free Retake</h3>
-                    <p className="text-gray-600 text-sm">Free retake until you achieve your target score.</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">Thi lại miễn phí</h3>
+                    <p className="text-gray-600 text-sm">Thi lại miễn phí cho đến khi đạt được điểm mục tiêu.</p>
                   </div>
                 </div>
 
@@ -169,9 +164,9 @@ const ConsultationForm = ({
                     <Check className="w-4 h-4 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Personalized Support</h3>
+                    <h3 className="font-semibold text-gray-900 mb-1">Hỗ trợ cá nhân</h3>
                     <p className="text-gray-600 text-sm">
-                      Each student gets assigned a dedicated instructor to track progress and provide timely support.
+                      Mỗi học viên sẽ được chỉ định một giảng viên riêng để theo dõi tiến độ và hỗ trợ kịp thời.
                     </p>
                   </div>
                 </div>

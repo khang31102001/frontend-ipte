@@ -1,11 +1,10 @@
 import { get } from "@/api/http";
 import { Teacher } from "@/types/teacher";
-import { TeacherFeature } from "@/types/teacherFeatures";
 
 
 interface TeacherResponse {
   data?: Teacher[];
-  features?: TeacherFeature[]; 
+  // features?: TeacherFeature[]; 
 }
 
 export class TeacherService {

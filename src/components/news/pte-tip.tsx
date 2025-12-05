@@ -22,7 +22,7 @@ const PTETip = ({ data }: PTETipProps) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       {data.map((item) => (
         <div
-          key={item.about_id}
+          key={item.aboutId}
           className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
         >
           <div className="relative h-64 w-full">

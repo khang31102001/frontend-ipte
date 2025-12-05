@@ -190,7 +190,7 @@ async function KnowledgeListPage({
   // console.log("KnowledgeListing:", found)
   // console.log("categories:", categories)
   const knowledgesItem =  await knowledgesServices.getKnowledgeList({
-    categoryType: found.category_type!
+    categoryType: found.categoryType!
   }).then((res)=> res.items ?? []);
   // console.log("knowledgesItem", knowledgesItem)
 

@@ -22,7 +22,7 @@ const CourseListItems = ({
 }: CourseListProps) => {
 
   const [loadMore, setloadMore] = useState<boolean>(false);// số lượng item đang hiển thị
-  console.log("khoa học có category", category)
+  // console.log("khoa học có category", category)
 
   // số lượng item đang hiển thị
   const [currentItem, setCurrentItem] = useState(ITEMS_PER_LOAD);

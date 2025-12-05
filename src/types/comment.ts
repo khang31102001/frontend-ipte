@@ -1,8 +1,8 @@
 export interface Comment {
-  id: string;
-  courseId: string;
-  userId: string;
-  userName: string;
+  id?: string;
+  courseId?: number;
+  userId?: number;
+  userName?: string;
   userAvatar?: string;
   content: string;
   rating?: number; // 1-5 stars

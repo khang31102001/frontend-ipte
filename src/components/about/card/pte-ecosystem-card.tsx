@@ -1,14 +1,15 @@
 import exp from "constants"
 import { BookOpen, ChevronRight } from "lucide-react"
 import TargetAudienceCard from "./TargetAudienceCard"
-import { PTEEcosystem } from "@/types/ecosystem"
+import { About } from "@/types/about"
+
 
 interface PTEEcosystemCardProps {
-    data?: PTEEcosystem
+    data?: About
 }
 
 const PTEEcosystemCard = ({ data }: PTEEcosystemCardProps) => {
-    const { icon, title, description } = data || {}
+    const {  title, description } = data || {}
     return (
         <div className="relative rounded-2xl bg-white p-6">
             {/* Gradient border effect */}

@@ -17,3 +17,11 @@ export interface Teacher {
   version: number;
   slug: string;
 }
+
+export interface TeacherItemsRes {
+  items: Teacher[];
+  page?: number;
+  pageSize?: number;
+  total?: number;
+  totalPages?: number;
+}

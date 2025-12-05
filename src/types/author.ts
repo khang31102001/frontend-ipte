@@ -3,11 +3,12 @@ export interface Author {
   avatar?: string;
 }
 
-export interface User{
-  user_id: number;
+export interface User {
+  userId: number;
+
   username?: string;
   password?: string;
   email?: string;
-  full_name?: string;
 
+  fullName?: string;
 }

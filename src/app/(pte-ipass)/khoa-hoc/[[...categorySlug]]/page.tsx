@@ -254,6 +254,7 @@ export default async function Page({ params }: PageProps) {
 
     // 1. Kiểm tra last có phải là 1 slug khóa học hợp lệ không
     const course = await coursesServices.getCoursesDetails({ slug: lastUrl });
+    console.log("course:", course);
     if (course) {
       return (
         <CourseDetailPage course={course} breadcrumbs={[]} />

@@ -13,7 +13,7 @@ interface CommentItemProps {
   comment: Comment;
   onReply: (parentId: string, content: string, rating?: number) => void;
   onLike: (commentId: string) => void;
-  onReport: (commentId: string) => void;
+  onReport?: (commentId: string) => void;
   currentUserName?: string;
   currentUserAvatar?: string;
   depth?: number;
@@ -32,13 +32,13 @@ export function CommentItem({
   const [isLiked, setIsLiked] = useState(false);
 
   const handleReply = (data: { content: string; rating?: number }) => {
-    onReply(comment.id, data.content, data.rating);
+    onReply(comment.id ??"", data.content, data.rating);
     setShowReplyForm(false);
   };
 
   const handleLike = () => {
     setIsLiked(!isLiked);
-    onLike(comment.id);
+    onLike(comment.id ?? "");
   };
 
   const formatDate = (dateString: string) => {
@@ -63,7 +63,7 @@ export function CommentItem({
       <div className="flex items-start space-x-3">
         <Avatar className="w-10 h-10 flex-shrink-0">
           <AvatarImage src={comment.userAvatar} alt={comment.userName} />
-          <AvatarFallback>{comment.userName.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{comment?.userName?.charAt(0)}</AvatarFallback>
         </Avatar>
 
         <div className="flex-1 min-w-0">

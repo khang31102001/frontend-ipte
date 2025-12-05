@@ -52,7 +52,7 @@ const PtelistItems = ({
             >
                 {paginatedPteuni?.map((item, index) => {
                     return viewMode === "grid" ? (
-                        <div key={item.course_id ?? `idx-${index}`}>
+                        <div key={item.courseId ?? `idx-${index}`}>
                             <ArticleCard
                                 href={buildUrl({baseUrl: category?.url, slug: item?.slug ?? ""})}
                                 title={item.title}
@@ -63,7 +63,7 @@ const PtelistItems = ({
                         </div>
 
                     ) : (
-                        <div key={item.course_id ?? `idx-${index}`}>
+                        <div key={item.courseId ?? `idx-${index}`}>
                             <ArticleCard
                                 href={buildUrl({baseUrl: category?.url, slug: item?.slug ?? ""})}
                                 image={item.image}

@@ -37,9 +37,9 @@ const TrendingNews = ({
                     </div>
                   )}
                   <div className="trending-news__item-content">
-                    {item.authorname && (
+                    {item.authorName && (
                       <p className="trending-news__author">
-                        {item.authorname}
+                        {item.authorName}
                       </p>
                     )}
                     <h3 className="trending-news__title">{item.title}</h3>
@@ -72,7 +72,7 @@ const TrendingNews = ({
 
                 <div>
                   <p className="trending-news__featured-author">
-                    {data[0]?.authorname}
+                    {data[0]?.authorName}
                   </p>
                   <h3 className="trending-news__featured-title">
                     {data[0]?.title}

@@ -1,46 +1,25 @@
 import { CategoryItem } from "@/types/category";
 
-type ApiCategory = {
-  category_id: number;
-  icon: string | null;
-  name: string;
-  slug: string | null;
-  description: string | null;
-  parent_id: number | null;
-  category_type: string | null;
-  meta_title: string | null;
-  meta_description: string | null;
-  h1_heading: string | null;
-  seo_content_top: string | null;
-  seo_content_bottom: string | null;
-  canonical_url: string | null;
-  noindex: boolean;
-  created_at: string ;
-  updated_at: string;
-  version: number | null;
-  url: string | null;
-  level: number | null;
-};
 
-function normalize(api: ApiCategory): CategoryItem {
+function normalize(api: CategoryItem): CategoryItem {
   return {
-    category_id: api.category_id,
+    categoryId: api.categoryId,
     icon: api.icon ?? undefined,
     name: api.name,
     slug: api.slug ?? undefined,
     url: api.url ?? undefined,
     description: api.description ?? undefined,
-    parent_id: api.parent_id,
-    category_type: api.category_type ?? undefined,
-    meta_title: api.meta_title ??  undefined,
-    meta_description: api.meta_description ?? undefined,
-    h1_heading: api.h1_heading ?? undefined,
-    seo_content_top: api.seo_content_top ?? undefined,
-    seo_content_bottom: api.seo_content_bottom ?? undefined,
-    canonical_url: api.canonical_url ?? undefined,
+    parentId: api.parentId,
+    categoryType: api.categoryType ?? undefined,
+    metaTitle: api.metaTitle ??  undefined,
+    metaDescription: api.metaDescription ?? undefined,
+    h1Heading: api.h1Heading ?? undefined,
+    seoContentTop: api.seoContentTop ?? undefined,
+    seoContentBottom: api.seoContentBottom ?? undefined,
+    canonicalUrl: api.canonicalUrl ?? undefined,
     noindex: api.noindex,
-    created_at: api.created_at,
-    updated_at: api.updated_at,
+    createdAt: api.createdAt,
+    updatedAt: api.updatedAt,
     version: api.version,
     level: api.level,
     children: [],
@@ -55,9 +34,9 @@ function sortCategories(a: CategoryItem, b: CategoryItem) {
   if (la !== lb) return la - lb;
 
   // rồi theo created_at (cũ → mới)
-  if (a.created_at && b.created_at) {
-    const da = new Date(a.created_at).getTime();
-    const db = new Date(b.created_at).getTime();
+  if (a.createdAt && b.createdAt) {
+    const da = new Date(a.createdAt).getTime();
+    const db = new Date(b.createdAt).getTime();
     if (da !== db) return da - db;
   }
 
@@ -71,22 +50,22 @@ function sortCategories(a: CategoryItem, b: CategoryItem) {
  * @param filterHeaderOnly chỉ giữ HEADER_MENU (tuỳ chọn)
  */
 export function buildCategoryTree(
-  rows: ApiCategory[],
+  rows: CategoryItem[],
   filterHeaderOnly = true
 ): CategoryItem[] {
   const items = (filterHeaderOnly
-    ? rows.filter(r => r.category_type === 'HEADER_MENU')
+    ? rows.filter(r => r.categoryType === 'HEADER_MENU')
     : rows
   ).map(normalize);
 
   const byId = new Map<number, CategoryItem>();
-  items.forEach(it => byId.set(it.category_id, it));
+  items.forEach(it => byId.set(it.categoryId, it));
 
   const roots: CategoryItem[] = [];
 
   for (const it of items) {
-    if (it.parent_id && byId.has(it.parent_id)) {
-      const parent = byId.get(it.parent_id)!;
+    if (it.parentId && byId.has(it.parentId)) {
+      const parent = byId.get(it.parentId)!;
       parent.children = parent.children ?? [];
       parent.children.push(it);
     } else {
