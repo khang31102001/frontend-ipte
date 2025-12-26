@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { Teacher } from "@/types/teacher";
 
 const content = `
@@ -92,10 +93,12 @@ const TeacherDetails = ({ teacher }: TeacherDetailProps) => {
                 {/* Header Section */}
                 <div className="teacher-header">
                     <div className="teacher-header-content">
-                        <img
-                            src={teacher.image || "/placeholder.svg?height=160&width=160"}
-                            alt={teacher.name}
-                            className="teacher-profile-image"
+                        <Image
+                          src={teacher.image || "/placeholder.svg?height=160&width=160"}
+                          alt={teacher.name}
+                          width={160}
+                          height={160}
+                          className="teacher-profile-image"
                         />
                         <div className="teacher-header-info">
                             <h1 className="teacher-title">{teacher.name}</h1>

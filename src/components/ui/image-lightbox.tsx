@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCw } from "lucide-react"
 import Image from "next/image";
 
@@ -22,6 +22,14 @@ export default function ImageLightbox({ images, currentIndex, onClose, onNavigat
     setRotation(0)
   }, [currentIndex])
 
+  const handlePrevious = useCallback(() => {
+    onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1)
+  }, [currentIndex, images.length, onNavigate])
+
+  const handleNext = useCallback(() => {
+    onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0)
+  }, [currentIndex, images.length, onNavigate])
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
@@ -31,15 +39,7 @@ export default function ImageLightbox({ images, currentIndex, onClose, onNavigat
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [currentIndex])
-
-  const handlePrevious = () => {
-    onNavigate(currentIndex > 0 ? currentIndex - 1 : images.length - 1)
-  }
-
-  const handleNext = () => {
-    onNavigate(currentIndex < images.length - 1 ? currentIndex + 1 : 0)
-  }
+  }, [handleNext, handlePrevious, onClose])
 
   const handleZoomIn = () => {
     setScale((prev) => Math.min(prev + 0.25, 3))

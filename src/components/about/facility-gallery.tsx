@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image";
 import { useState } from "react";
 import ImageLightbox from "../ui/image-lightbox";
 
@@ -56,7 +57,13 @@ export const FacilityGallery = ({
         {images.map((img, index) => (
           <div className="facility-gallery__item" key={index}>
             <button onClick={()=>setSelectedImageIndex(index)} className="facility-gallery__btn">
-                <img src={img.src} alt={`facility-${index}`} />
+                <Image
+                  src={img.src}
+                  alt={img.alt || `facility-${index}`}
+                  width={800}
+                  height={600}
+                  className="facility-gallery__image"
+                />
             </button>
           </div>
         ))}

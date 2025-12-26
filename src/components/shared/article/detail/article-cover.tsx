@@ -1,4 +1,5 @@
 import { BookOpen } from "lucide-react";
+import Image from "next/image";
 
 interface ArticleCoverProps {
   image?: string | null;
@@ -19,11 +20,12 @@ const ArticleCover =({ image, caption, title }: ArticleCoverProps)=> {
 
   return (
     <figure className=" my-8">
-      <img
+      <Image
         src={image}
         alt={caption ?? ""}
+        width={1280}
+        height={720}
         className="w-full aspect-video object-cover rounded-lg"
-        loading="lazy"
       />
       {caption && (
         <figcaption className="text-sm text-muted-foreground text-center mt-2">

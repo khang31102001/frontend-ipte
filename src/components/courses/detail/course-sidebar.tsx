@@ -2,6 +2,7 @@
 // // import { Badge } from "@/components/ui/badge";
 // import { Button } from "@/components/ui/button";
 import { Phone, Download, Users, Calendar, DollarSign, TrendingUp } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 // import { Link } from "react-router-dom";
 
@@ -169,9 +170,11 @@ const isEmpty =
               >
                 <div className="flex items-start space-x-3 p-2 rounded-lg hover:bg-muted transition-colors">
                   {course.image ? (
-                    <img
+                    <Image
                       src={course.image}
                       alt={course.title}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded object-cover"
                     />
                   ) : (

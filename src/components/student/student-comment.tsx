@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from 'react'
 interface StudentCommentItem {
   id: number
@@ -35,7 +36,13 @@ const StudentComment = ({
                   <p className="card__text">{student.comment}</p>
 
                   <div className="card__author">
-                    <img className="card__avatar" src={student.avatar} alt={student.name} />
+                    <Image
+                      className="card__avatar"
+                      src={student.avatar}
+                      alt={student.name}
+                      width={28}
+                      height={28}
+                    />
                     <span className="card__name">{student.name}</span>
                   </div>
                 </article>

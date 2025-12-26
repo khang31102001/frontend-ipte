@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight, Play, Maximize2, X } from "lucide-react"
+import Image from "next/image";
 
 
 interface VideoItem {
@@ -34,7 +35,7 @@ export function VideoSwiper({
   const currentVideo = videos[currentIndex]
 
   useEffect(() => {
-    if (autoplay && !isPlaying) {
+    if (autoplay && !isPlaying && videos.length) {
       autoplayRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % videos.length)
       }, autoplayInterval)
@@ -47,16 +48,16 @@ export function VideoSwiper({
     }
   }, [autoplay, autoplayInterval, isPlaying, videos.length])
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + videos.length) % videos.length)
-  }
+  }, [videos.length])
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % videos.length)
-  }
+  }, [videos.length])
 
   const handlePlayClick = () => {
-    setIsPlaying(!isPlaying)
+    setIsPlaying((prev) => !prev)
   }
 
   const handleFullscreenClick = async () => {
@@ -93,7 +94,7 @@ export function VideoSwiper({
       document.removeEventListener("fullscreenchange", handleFullscreenChange)
       window.removeEventListener("keydown", handleKeyPress)
     }
-  }, [isFullscreen]);
+  }, [goToNext, goToPrevious, isFullscreen]);
   
   if(!videos || videos.length === 0) return null;
   return (
@@ -122,10 +123,13 @@ export function VideoSwiper({
           >
             <div className={`w-full ${isFullscreen ? "h-full" : "h-0 pb-[56.25%]"} relative bg-black`}>
               {/* Thumbnail */}
-              <img
+              <Image
                 src={currentVideo.thumbnail || "/placeholder.svg"}
                 alt={currentVideo.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 className="absolute inset-0 w-full h-full object-cover"
+                priority={isFullscreen}
               />
 
               {/* Play Button Overlay */}
