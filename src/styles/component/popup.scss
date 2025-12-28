@@ -22,7 +22,7 @@
 /* ========= Overlay ========= */
 .popup-overlay {
   position: fixed; inset: 0;
-  z-index: 9990;
+  z-index: 999999;
   display: grid; place-items: center;
   padding: 1.25rem;
   background: var(--popup-backdrop);

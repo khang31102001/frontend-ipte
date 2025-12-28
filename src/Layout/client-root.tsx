@@ -10,39 +10,31 @@ import { ClientQueryProvider } from "@/providers/ClientQueryProvider";
 
 export default function ClientRoot({
   data = [],
-  children, 
+  children,
 
 }: { children: React.ReactNode, data: CategoryItem[]; }) {
 
   const { isOpen, close } = useFirstVisitPopup({
-    storageKey: "popup:reg:v5",
+    storageKey: "popup:reg:v6",
     cooldownDays: 0.33333,
     delayMs: 200,
-  });  
-  
-  const logoApp = useMemo(()=> data.find((i) => i.categoryType === "HEADER_LOGO")?.url, [data]);
-  const menuItems = useMemo(()=> data.find((i)=> i.categoryType === "HEADER_MENU")?.children, [data]);
+  });
+
+  const logoApp = useMemo(() => data.find((i) => i.categoryType === "HEADER_LOGO")?.url, [data]);
+  const menuItems = useMemo(() => data.find((i) => i.categoryType === "HEADER_MENU")?.children, [data]);
 
   // console.log("logoApp", logoApp)
 
   return (
-    <ClientQueryProvider>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
+    <>
+      <MainLayout
+        headerlogo={logoApp}
+        headerMenu={menuItems}
       >
-        <MainLayout
-          headerlogo={logoApp}
-          headerMenu={menuItems}
-        >
-          {children}
-        </MainLayout>
-        <FloatingChat />
-
-        <PopupRegistrationForm isPopup={isOpen} onClose={close} />
-      </ThemeProvider>
-    </ClientQueryProvider>
+        {children}
+      </MainLayout>
+      <FloatingChat />
+      <PopupRegistrationForm isPopup={isOpen} onClose={close} />
+    </>
   );
 }

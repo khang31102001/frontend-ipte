@@ -5,6 +5,7 @@ import { categoriesServices } from "@/lib/service/category";
 import ClientRoot from "@/Layout/client-root";
 import { CategoryProvider } from "@/context/category-context";
 import { getBaseUrl } from "@/utils/helpers";
+import Providers from "@/providers";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -96,9 +97,11 @@ export default async function RootLayout({
     return (
         <html lang="vi" suppressHydrationWarning={true}>
             <body suppressHydrationWarning={true} className={`${roboto.variable} font-sans`}>
-                <ClientRoot data={items}>
+              <Providers>
+                 <ClientRoot data={items}>
                     {children}
                 </ClientRoot>
+              </Providers>
             </body>
         </html>
     )

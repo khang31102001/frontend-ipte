@@ -1,8 +1,9 @@
 import React from 'react'
 import PopupWrapper from '../popup-wrapper'
 import RegiterReceivedInfor from '@/components/form/register-received-infor'
-import SubscribePopup from '@/components/form/subscribe-popup';
+
 import Portal from '@/components/ui/portal';
+import ContactForm from '@/components/form/contact-form';
 interface PopupRegistrationFormProps {
     className?: string;
     isPopup?: boolean;
@@ -30,7 +31,7 @@ const PopupRegistrationForm = ({
                 >
                     <button className="popup__close" aria-label="Close" onClick={onClose} />
                     <div className="popup__content">
-                        <SubscribePopup onSuccess={onClose} />
+                        <ContactForm onSuccess={onClose} />
                     </div>
                 </div>
             </PopupWrapper>
