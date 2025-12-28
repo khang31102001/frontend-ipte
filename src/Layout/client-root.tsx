@@ -1,24 +1,29 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import PopupRegistrationForm from "@/components/popup/form/popup-registration-form";
 import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
-
 import FloatingChat from "@/components/Layout/FloatingChat";
-// import { main_menu_categories } from "@/data/category";
 import { CategoryItem } from '@/types/category'
 import MainLayout from "./main-layout";
 import { ClientQueryProvider } from "@/providers/ClientQueryProvider";
 
 export default function ClientRoot({
-  children, navMenuData = []
-}: { children: React.ReactNode, navMenuData: CategoryItem[]; }) {
+  data = [],
+  children, 
+
+}: { children: React.ReactNode, data: CategoryItem[]; }) {
 
   const { isOpen, close } = useFirstVisitPopup({
     storageKey: "popup:reg:v5",
     cooldownDays: 0.33333,
     delayMs: 200,
-  });
+  });  
+  
+  const logoApp = useMemo(()=> data.find((i) => i.categoryType === "HEADER_LOGO")?.url, [data]);
+  const menuItems = useMemo(()=> data.find((i)=> i.categoryType === "HEADER_MENU")?.children, [data]);
+
+  // console.log("logoApp", logoApp)
 
   return (
     <ClientQueryProvider>
@@ -29,7 +34,8 @@ export default function ClientRoot({
         disableTransitionOnChange
       >
         <MainLayout
-          menu={navMenuData}
+          headerlogo={logoApp}
+          headerMenu={menuItems}
         >
           {children}
         </MainLayout>

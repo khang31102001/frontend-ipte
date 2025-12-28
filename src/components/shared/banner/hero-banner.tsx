@@ -1,28 +1,24 @@
+import Image from "next/image";
 
-import Image from "next/image"
-import clsx from "clsx"
+type HeroBannerProps = {
+  src: string;
+  alt: string;
+  priority?: boolean;
+};
 
-interface HeroBannerProps {
-  img: string
-  className?: string
-  height?: string
-  width?: string
-
-}
-export const HeroBanner = ({ img, className }: HeroBannerProps) => {
+export function HeroBanner({ src, alt, priority }: HeroBannerProps) {
   return (
-    
-    <section className={clsx("hero-image", className)}>
+    <section className="hero">
+      <div className="hero__media">
         <Image
-          src={img}
-          alt="PTE Hero Banner"
+          src={src}
+          alt={alt}
           fill
-          className="hero-image__img"
-          priority
+          priority={priority}
+           sizes="100vw"    
+          className="hero__img"
         />
-
+      </div>
     </section>
-  )
+  );
 }
-
-export default HeroBanner

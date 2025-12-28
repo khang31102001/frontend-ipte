@@ -7,7 +7,7 @@ import { FullscreenVideoPlayer } from '../ui/fullscreen-video-player';
 const AboutPTE = () => {
     const [openVideo, setOpenVideo] = useState<boolean>(false);
     return (
-        <section className='w-full py-16 bg-white '>
+        <section className='section sm:section-sm lg:section-lg bg-white '>
             <div className="container mx-auto space-y-6 ">
                 {/* video */}
                 <div className="w-full flex-col items-center justify-center">

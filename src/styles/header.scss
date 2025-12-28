@@ -3,16 +3,8 @@
 /* ========================== */
 
 .header {
-    position: relative;
-    z-index: 100;
-    width: 100%;
-    //   min-height: 110px;
     background-color: #f6e10e;
-    padding: 12px 0;
-    color: hsl(var(--foreground));
-    border-bottom: 1px solid hsl(var(--border)); 
 
-    /* Transparent variant (hero overlay) */
     &--transparent {
         position: absolute;
         top: 0;
@@ -25,24 +17,24 @@
     /* Container — luôn bọc toàn bộ phần tử con */
     &__container {
         max-width: 1536px;
-        margin: 0.6rem auto;
+        margin: 0 auto;
         padding-inline: clamp(1rem, 4vw, 2rem);
-
     }
 
     /* Khối bên trong chuyển đổi flex -> grid ở md+ */
     &__inner {
-        /* Mobile: flex 1 hàng như cũ */
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 0.5rem;
-        height: 5rem;
+        gap: 12px;
+        min-height: 100px;
+        height: 4rem;
         width: 100%;
 
         /* h-20 */
         @media (min-width: 768px) {
-            height: 8rem;
+            min-height: 96px;
+            padding: 16px 0;
         }
     }
 
@@ -65,7 +57,6 @@
     }
 
     &__search {
-  
         flex-grow: 1;
         max-width: 330px;
         width: min(20rem, 100%);
@@ -74,10 +65,7 @@
 
         @media (max-width: 768px) {
             display: none;
-            
         }
-
-     
 
         .search-icon {
             position: absolute;
@@ -95,9 +83,9 @@
             border-radius: 999px;
             border: 1px solid hsl(var(--input));
             background: hsl(var(--background));
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            min-height: 40px;
-            /* pl-10 pr-4 py-3 */
+            padding: 0 14px;
+            min-height: 36px;
+            padding-left: 42px;
             font-size: 0.875rem;
             /* text-sm */
             outline: none;
@@ -113,14 +101,10 @@
     &__hotline {
         display: none;
 
-        /* ẩn mobile */
         @media (min-width: 1024px) {
-            /* lg trở lên mới hiện như yêu cầu ban đầu */
             display: flex;
             gap: 0.75rem;
-
             justify-self: start;
-            /* NẰM MÉ TRÁI */
             align-self: center;
         }
 
@@ -128,8 +112,8 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            min-height: 40px;
-            padding: 0.8rem 1rem;
+            min-height: 36px;
+            padding: 0 14px;
             border: 1px solid #000;
             border-radius: 999px;
             box-shadow: 0 0 0 2px hsl(var(--ring));
@@ -140,7 +124,6 @@
             cursor: pointer;
             transition: var(--transition-smooth);
             max-width: 18rem;
-
         }
 
         .hotline-text {
@@ -192,11 +175,11 @@
 /* =========================================*/
 
 .nav-menu {
+   
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 60px;
     width: 100%;
     border-top: 1px solid #eee;
     background: #fff;
@@ -208,17 +191,22 @@
         0 1px 2px -1px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
         var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-
-
+    // optional: tránh rung khi scroll trên safari
+    -webkit-transform: translateZ(0);
 
     &__wrapper {
-        min-height: 60px;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0.35rem 1.25rem;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        //scroll
+        // overflow-x: auto;
+        // overflow-y: hidden;
+        white-space: nowrap;
+        scrollbar-width: none;
 
         @media (min-width: 1200px) {
             max-width: 1200px;
@@ -228,7 +216,9 @@
     &__list {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        height: 60px;
+        min-height: 60px;
         gap: 1.5rem;
         list-style: none;
         margin: 0;
@@ -252,7 +242,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        padding: 0;
+        padding: 10px 2px;
         color: hsl(var(--primary));
         text-decoration: none;
         transition:
@@ -278,11 +268,12 @@
         }
 
         &.link-underline {
+            padding-bottom: 12px;
             &::after {
                 content: '';
                 position: absolute;
                 left: 0;
-                bottom: -4px;
+                bottom: 6px;
                 width: 100%;
                 height: 3px;
                 border-radius: 4px;
@@ -322,10 +313,13 @@
     }
 }
 
+.nav-menu__list::-webkit-scrollbar {
+    display: none;
+} // Chrome
+
 /* =========================================*/
 /*        sub menu for destop SCSS         */
 /* =========================================*/
-
 
 .submenu {
     // display: none;
@@ -434,7 +428,7 @@
 
 /* ----- CẤP 1: mở xuống dưới ----- */
 .nav-menu__item::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 100%;
@@ -446,7 +440,7 @@
     z-index: 5;
 }
 
-.nav-menu__item:hover>.on-submenu {
+.nav-menu__item:hover > .on-submenu {
     display: block;
     position: absolute;
     top: 100%;
@@ -458,7 +452,7 @@
 
 /* ----- CẤP 2+: mở sang phải ----- */
 .submenu__item::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 100%;
@@ -469,7 +463,7 @@
     z-index: 5;
 }
 
-.submenu__item>.on-submenu {
+.submenu__item > .on-submenu {
     top: 0;
     left: 100%;
     margin-top: 0;
@@ -477,15 +471,15 @@
     transform: translateX(-8px);
 }
 
-.submenu__item:hover>.on-submenu {
+.submenu__item:hover > .on-submenu {
     display: block !important;
     position: absolute !important;
     transform: translateX(8px);
     z-index: 10;
 }
 
-.submenu__item:hover>.submenu__list,
-.submenu__item:has(> .submenu__list:hover)>.submenu__list {
+.submenu__item:hover > .submenu__list,
+.submenu__item:has(> .submenu__list:hover) > .submenu__list {
     display: block;
     /* hoặc opacity/visibility */
 }
@@ -525,7 +519,6 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
     &--open {
         transform: translateY(0);
     }
-
 
     /* Khóa body scroll khi menu mở (thêm class trên <body> từ JS) */
     /* body.no-scroll { overflow: hidden; touch-action: none; } */
@@ -584,7 +577,6 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
     &__item {
         position: relative;
     }
-
 
     /* Tap target >= 44px theo Apple HIG */
     .mobile-menu__row {
@@ -650,7 +642,6 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
             transform: rotate(180deg);
         }
     }
-
 }
 
 /* =========================================*/
@@ -734,11 +725,14 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
         text-decoration: none;
         border-radius: 8px;
         cursor: pointer;
-        transition: color .2s ease, background-color .2s ease, transform .06s ease;
+        transition:
+            color 0.2s ease,
+            background-color 0.2s ease,
+            transform 0.06s ease;
 
         &:hover,
         &:focus-visible {
-            background-color: rgba(37, 99, 235, .08);
+            background-color: rgba(37, 99, 235, 0.08);
             color: #1f2937;
             outline: none;
         }
@@ -761,7 +755,7 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: transform .2s ease;
+        transition: transform 0.2s ease;
 
         &.is-rotated {
             transform: rotate(180deg);
@@ -774,7 +768,7 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
         margin-left: 8px;
         /* indent cấp con */
 
-        >.submenu-mobile__panel {
+        > .submenu-mobile__panel {
             width: 100%;
             padding-left: 12px;
             /* tăng indent hiển thị */
@@ -789,7 +783,6 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
     }
 }
-
 
 /* Giảm chuyển động nếu người dùng chọn */
 @media (prefers-reduced-motion: reduce) {
@@ -809,7 +802,6 @@ $ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
     }
 }
-
 
 /* =========================================*/
 /*        link underline       */

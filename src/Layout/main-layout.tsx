@@ -3,17 +3,23 @@ import Header from '@/components/Layout/header';
 import { CategoryItem } from '@/types/category';
 import React from 'react'
 interface MainLayoutProps {
-    children: React.ReactNode
-    menu: CategoryItem[] 
+    children: React.ReactNode;
+    headerlogo?: string;
+    headerMenu?: CategoryItem[];
+    footerMenu?: CategoryItem[];
 
 }
 const MainLayout = ({
   children,
-  menu 
+  headerlogo,
+  headerMenu 
 }: MainLayoutProps) => {
   return (
     <div className='min-h-screen flex flex-col'>
-        <Header menuItems={menu }/>
+        <Header 
+          logo={headerlogo} 
+          menuItems={headerMenu}
+        />
         <main className='flex-1 w-full'>
             {children}
         </main>

@@ -9,6 +9,7 @@ import StudyPathPTE from "@/components/home/study-path-PTE";
 import TeamTeacherPTE from "@/components/home/team-teacher";
 import TrainingProgramPTE from "@/components/home/training-program-PTE";
 import KnowledgePTE from "@/components/knowledge/knowledge-pte";
+import { HeroBanner } from "@/components/shared/banner/hero-banner";
 import { homeSchema } from "@/lib/schema/homeSchema";
 
 
@@ -70,6 +71,11 @@ export default function Home() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
+            />
+            <HeroBanner
+                alt="Trang chủ pte ipass"
+                src="/images/banner/about-us-banner.png"
+                priority= {true}
             />
 
             <AboutPTE />

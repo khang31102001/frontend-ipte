@@ -19,9 +19,11 @@ import {
 } from 'next/navigation'
 
 interface HeaderProps {
-  menuItems: CategoryItem[]
+  logo?: string;
+  menuItems?: CategoryItem[]
 }
 const Header = ({
+  logo,
   menuItems
 }: HeaderProps) => {
 
@@ -32,7 +34,6 @@ const Header = ({
   const router = useRouter();
   const pathname = usePathname();
 
-  // const menuFiltered = menuItems.filter((item)=> !item.is_disable);
 
   const menuFiltered = (menuItems: CategoryItem[]): CategoryItem[] => {
     if (!Array.isArray(menuItems) || menuItems.length === 0) return [];
@@ -83,7 +84,7 @@ const Header = ({
 
   }
 
-  if (!menuData || menuData.length === 0) return null
+  if (!menuItems || menuItems.length === 0) return null
   return (
     <>
       <header className="header">
@@ -155,7 +156,7 @@ const Header = ({
       </header>
 
       {/* bottom nav desktop */}
-      <div id="nav-menu" className="nav-menu is-sticky">
+      <div id="nav-menu" className="nav-menu is-sticky ">
         <nav className="nav-menu__wrapper">
           <ul ref={menuRef} className="nav-menu__list">
             {menuData.map((item, idx) => {
