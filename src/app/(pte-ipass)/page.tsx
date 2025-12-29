@@ -1,16 +1,18 @@
 
+import AboutSection from "@/components/about/about-section";
 import CommunityPTEiPass from "@/components/community/community-pte-ipass";
 import ConsultationForm from "@/components/form/consultation-form";
-import AboutPTE from "@/components/home/about-PTE";
 import FeaturedCoursesPTE from "@/components/home/featured-courses-PTE";
 import NewList from "@/components/home/news-list";
 import StudentReview from "@/components/home/student-review";
 import StudyPathPTE from "@/components/home/study-path-PTE";
 import TeamTeacherPTE from "@/components/home/team-teacher";
-import TrainingProgramPTE from "@/components/home/training-program-PTE";
+import TrainingProgramsSection from "@/components/home/training-program-section";
 import KnowledgePTE from "@/components/knowledge/knowledge-pte";
 import { HeroBanner } from "@/components/shared/banner/hero-banner";
 import { homeSchema } from "@/lib/schema/homeSchema";
+import { aboutService } from "@/lib/service/about";
+import { categoriesServices } from "@/lib/service/category";
 
 
 export const metadata = {
@@ -65,8 +67,16 @@ export const metadata = {
 
 
 
-export default function Home() {
-    return (
+export default async function Home() {
+
+    const aboutData = await aboutService.getAboutMeList({}).then((result)=> result.items );
+    const cateCourses = await categoriesServices.getCategoryTree({categoryType: "H_MENU_COURSE"});
+    // const pageSection:any[] = pageHome[0].children ?? [];
+    // const trainingProgram =  pageSection.filter((i)=> i.categoryType === "HOME_PROGRAM_OVERVIEW") ?? null;
+
+    // console.log("check data about", aboutData)
+    console.log("check cate  categoryCourses:", cateCourses)
+    return ( 
         <div className='bg-background text-foreground'>
             <script
                 type="application/ld+json"
@@ -78,9 +88,9 @@ export default function Home() {
                 priority= {true}
             />
 
-            <AboutPTE />
+            <AboutSection data={aboutData[0]} />
             <StudyPathPTE />
-            <TrainingProgramPTE />
+            <TrainingProgramsSection data={cateCourses[0]}  />
             <FeaturedCoursesPTE />
             <TeamTeacherPTE />
             <StudentReview />

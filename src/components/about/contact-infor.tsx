@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import React from 'react'
 import CommunityCard from '../community/community-card';
-import { About } from '@/types/about';
 import { cn } from '@/lib/utils';
+import { IAbout } from '@/types/about';
 
 const description = `Kết nối với hơn 20,000 học viên trong cộng đồng học tập năng động của chúng tôi. 
 Chia sẻ kinh nghiệm, học hỏi và cùng nhau tiến bộ.`;
@@ -11,7 +11,7 @@ Chia sẻ kinh nghiệm, học hỏi và cùng nhau tiến bộ.`;
 interface ContactInforProps {
     title?: string;
     desc?: string;
-    data: About;
+    data: IAbout | null;
 }
 const ContactInfor = ({
     title = "Tham gia cộng đồng iPTE",

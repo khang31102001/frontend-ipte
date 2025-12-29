@@ -1,13 +1,13 @@
 import PTETip from '@/components/news/pte-tip'
-import { About } from '@/types/about'
+import { IAbout } from '@/types/about'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import React from 'react'
 
 interface NewsTipListProps {
-  data?: About[]
+  data?: IAbout[] | [];
 }
 
-const NewsTipList = ({ data }: NewsTipListProps) => {
+const NewsTipList = ({ data= [] }: NewsTipListProps) => {
 
   if (!data || data.length === 0) return null;
   return (

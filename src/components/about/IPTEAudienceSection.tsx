@@ -1,13 +1,14 @@
 import { BookOpen } from "lucide-react"
 import TargetAudienceCard from "./card/TargetAudienceCard"
 import { aboutMeService } from "@/services/about/aboutMeService"
-import { About } from "@/types/about"
+import { IAbout } from "@/types/about";
+
 
 interface IPTEAudienceProps {
-    data?: About[];
+    data?: IAbout[] | [];
 }
 const IPTEAudienceSection =  ({
-    data
+    data = [],
 }: IPTEAudienceProps) => {
     
 

@@ -1,10 +1,10 @@
-import { About } from "@/types/about";
+import { IAbout } from "@/types/about";
 import PTEEcosystemCard from "./card/pte-ecosystem-card"
 
 interface PTEcosystemProps {
-    data?: About[]
+    data?: IAbout[] | [];
 }
-const PTEcosystem = ({ data }: PTEcosystemProps) => {
+const PTEcosystem = ({ data = [], }: PTEcosystemProps) => {
     if (!data || data.length === 0) return null; 
 
     return (

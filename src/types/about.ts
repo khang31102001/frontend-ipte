@@ -1,10 +1,10 @@
-export interface About {
+export interface IAbout {
   aboutId: number;
   image: string;
 
   title?: string;
   description?: string | null;
-
+  content?: string;
   mission?: string | null;
   vision?: string | null;
 
@@ -32,8 +32,8 @@ export interface About {
   youtubeUrl?: string | null;
 }
 
-export interface AboutItem {
-    items: About[];
+export interface IAboutItem {
+    items: IAbout[];
     page: number | null;
     page_size: number | null;
     total: number | null;

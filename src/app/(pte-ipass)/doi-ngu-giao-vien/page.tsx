@@ -1,9 +1,5 @@
-// import HeroImage from "@/components/banner/banner";
 
 import CommunityPTEiPass from "@/components/community/community-pte-ipass";
-import HeroBanner from "@/components/shared/banner/hero-banner";
-import Skeleton from "@/components/shared/loading/Skeleton";
-import { FeaturesSection } from "@/components/teacher/featured-section";
 import PTECallToAction from "@/components/teacher/pte-call-to-action";
 import TeacherList from "@/components/teacher/teacher-list";
 import { teacherServices } from "@/lib/service/teacher";

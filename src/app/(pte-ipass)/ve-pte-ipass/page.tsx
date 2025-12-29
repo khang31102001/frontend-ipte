@@ -82,9 +82,7 @@ export default async function IndexAbout() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
         
-            <AboutListing
-                data={abouts}
-            />
+            <AboutListing data={abouts}/>
         </>
     )
 }

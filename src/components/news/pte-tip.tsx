@@ -1,12 +1,13 @@
 "use client"
+import { IAbout } from "@/types/about";
 import Image from "next/image"
-import { About } from "@/types/about"
+
 
 
 interface PTETipProps {
-  data?: About[]
+  data?: IAbout[] | [];
 }
-const PTETip = ({ data }: PTETipProps) => {
+const PTETip = ({ data =[] }: PTETipProps) => {
   // const [currentIndex, setCurrentIndex] = useState(0)
 
   // const handlePrevious = () => {

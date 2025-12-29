@@ -1,14 +1,15 @@
 import exp from "constants"
 import { BookOpen, ChevronRight } from "lucide-react"
 import TargetAudienceCard from "./TargetAudienceCard"
-import { About } from "@/types/about"
+import { IAbout } from "@/types/about"
+
 
 
 interface PTEEcosystemCardProps {
-    data?: About
+    data?: IAbout | null;
 }
 
-const PTEEcosystemCard = ({ data }: PTEEcosystemCardProps) => {
+const PTEEcosystemCard = ({ data = null }: PTEEcosystemCardProps) => {
     const {  title, description } = data || {}
     return (
         <div className="relative rounded-2xl bg-white p-6">

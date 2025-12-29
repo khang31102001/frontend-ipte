@@ -2,19 +2,21 @@ import { ArrowUpRight } from 'lucide-react'
 import { title } from 'process'
 import React from 'react'
 
-interface CateProgram {
-    title: string
-    description: string
+interface TrainingProgramCardProps {
+    name: string
+    description?: string
     bgColor?: string
-    textColor?: string
     textBtn?: string
 }
-interface TrainingProgramCardProps {
-    data: CateProgram
-}
 
-const TrainingProgramCard = ({ data }: TrainingProgramCardProps) => {
-    const { title, description, bgColor, textColor, textBtn } = data
+const TrainingProgramCard = ({
+    name = "",
+    description = "",
+    bgColor = "",
+    textBtn = "",
+
+}: TrainingProgramCardProps) => {
+
     return (
         <div className="relative  h-[380px] flex flex-col justify-center p-4 overflow-hidden rounded-3xl shadow-lg">
             {/* background for card */}
@@ -23,7 +25,7 @@ const TrainingProgramCard = ({ data }: TrainingProgramCardProps) => {
             {/* content primary */}
             <div className="relative z-10 p-6 flex flex-col justify-between h-full gap-8" >
                 <div className='h-20'>
-                    <h1 className="text-white text-2xl font-bold">{title}</h1>
+                    <h1 className="text-white text-2xl font-bold">{name}</h1>
                 </div>
 
                 <div>

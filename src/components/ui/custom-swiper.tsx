@@ -67,7 +67,7 @@ const CustomSwiper = ({
                             swiper.navigation.update();
                         } catch (e) {
                             // safe guard
-                            // console.warn("Swiper navigation init error", e);
+                            console.warn("Swiper navigation init error", e);
                         }
                     }
                 }, 0);

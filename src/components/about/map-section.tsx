@@ -2,17 +2,18 @@
 import { useState } from "react"
 import { MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { About } from "@/types/about"
+import { IAbout } from "@/types/about";
+
 
 interface LocationInforProps{
-  data: About[];
+  data: IAbout[] | [];
   backgroundImage?: string;
 }
 const MapSection = ({ 
-  data, 
+  data = [], 
   backgroundImage = "/images/bg/bg-map-section.png"
 }: LocationInforProps) => {
-  const [selectedBranch, setSelectedBranch] = useState<About>(data[0] ?? null);
+  const [selectedBranch, setSelectedBranch] = useState<IAbout>(data[0] ?? null);
 
    const styleBackground = {
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
