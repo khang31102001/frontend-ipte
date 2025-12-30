@@ -3,12 +3,16 @@ import { Teacher } from "@/types/teacher";
 
 
 interface TeacherResponse {
-  data?: Teacher[];
+  items?: Teacher[];
+  page?: number;
+  pageSize?: number;
+  total?: number;
+  totalPages?: number;
   // features?: TeacherFeature[]; 
 }
 
 export class TeacherService {
-  async getTeachers(params: any): Promise<TeacherResponse> {
+  async getTeachersList(params: any): Promise<TeacherResponse> {
     const response = await get<TeacherResponse>("/teachers", params);
     return response;
   }

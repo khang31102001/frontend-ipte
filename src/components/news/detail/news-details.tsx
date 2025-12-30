@@ -1,12 +1,10 @@
-import { CommentsSection } from "@/components/comment/comment-section";
-import CourseSidebar from "@/components/courses/detail/course-sidebar";
+
 import { ArticleContent, ArticleCovderImage, ArticleHeader, ArticleSidebar } from "@/components/shared/article";
 import { FloatingCTA } from "@/components/shared/subscription/floating-cta";
-import { Course } from "@/types/courses";
 import { News } from "@/types/news";
 
 interface NewsDetailsProps {
-  news?: News | null;
+  news: News | null;
   breadcrumbs?: any[] | null;
 }
 const NewsDetail = ({
@@ -14,8 +12,9 @@ const NewsDetail = ({
   breadcrumbs = []
 }: NewsDetailsProps) => {
 
-  // console.log("course", course);
+  const image = news?.image || "/images/teacher-placeholder.png";
 
+  console.log("check news:", news)
   if (!news) return null;
 
   return (
@@ -28,7 +27,7 @@ const NewsDetail = ({
         />
 
         <ArticleCovderImage
-          image={news.image} 
+          image={image} 
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

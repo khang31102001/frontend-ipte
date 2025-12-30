@@ -6,16 +6,16 @@ import NewsList from "@/components/news/list/news-list-items";
 import NewListPage from "@/components/news/news-list-page";
 import TrendingNews from "@/components/news/trend-new";
 import CategoryLayout from "@/components/shared/category/category-layout";
-
 import Skeleton from "@/components/shared/loading/Skeleton";
 import { checkCategoryBySlugs, isChildren } from "@/lib/check-category";
 import { categoriesServices } from "@/lib/service/category";
-import { newServices } from "@/lib/service/new";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { CategoryItem, NewsCategory } from "@/types/category";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { newsServices } from "@/lib/service/new";
+
 
 export const metadata: Metadata = {
   title: "Tin tức & Cập nhật PTE iPASS", // sẽ thành "Tin tức & Cập nhật PTE iPASS | PTE iPASS"
@@ -87,7 +87,7 @@ async function NewsListing({
   breadcrumbs: BreadcrumbItem[];
 }) {
 
-  const dataNew = await newServices.getNewsList({
+  const dataNew = await newsServices.getNewsList({
     categoryType: newsCate?.categoryType ?? ""
   }).then((res) => res.items ?? []);
 
@@ -161,8 +161,8 @@ export default async function NewsPage({ params }: PageProps) {
     const lastUrl = categorySlug[categorySlug.length - 1];
     // console.log("lastUrl", lastUrl)
 
-    const news = await newServices.getNewsList({ slug: lastUrl }).then((res) => res.items ?? null);
-    // console.log("news", news)
+    const news = await newsServices.getNewsList({ slug: lastUrl }).then((res) => res.items ?? null);
+    console.log("chekc news audit page detail", news)
     if (news) {
       return <NewsDetail news={news} />
     }

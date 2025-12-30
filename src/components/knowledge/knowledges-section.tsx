@@ -8,9 +8,8 @@ import { ArticleSidebar } from "../shared/article";
 import { Knowledges } from "@/types/knowledges";
 import { CateKnowledgesSection } from "./cate-knowledge-section";
 import { buildUrl } from "@/utils/helpers";
-
-
-
+import { useQuery } from "@tanstack/react-query";
+import { coursesService } from "@/services/course/courseService";
 
 
 interface KnowledgesListPageProps {
@@ -18,6 +17,7 @@ interface KnowledgesListPageProps {
     category?: CategoryItem;
     data: Knowledges[];
 }
+
 const KnowledgesSection = ({
     categoryKnowledge,
     category,
@@ -26,7 +26,7 @@ const KnowledgesSection = ({
     console.log("cate parent: ", category)
     const [currentPage, setCurrentPage] = useState(1)
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-    const [searchQuery, setSearchQuery] = useState("")
+    // const [searchQuery, setSearchQuery] = useState("")
     const knowledgesPerPage = 4
     // const featuredArticle = data?.find((a) => a.featured)
     // const regularArticles = data?.filter((a) => !a.featured)

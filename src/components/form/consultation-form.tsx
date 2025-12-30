@@ -19,7 +19,7 @@ const ConsultationForm = ({
 }: ConsultationFormPops) => {
 
   const { showPopup } = usePopup();
-  
+
   const handleSubmit = async (form: IConsultation) => {
     try {
       await contactService.createConsultation(form)
@@ -105,7 +105,7 @@ const ConsultationForm = ({
               </div>
             </div>
 
-            {/* Testimonial */}
+
             <div className="h-auto bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200 rounded">
               <div className="p-6">
                 <div className="flex items-start gap-4">
@@ -123,10 +123,12 @@ const ConsultationForm = ({
                         <span className="text-sm font-medium text-gray-700 ml-1">PTE 85</span>
                       </div>
                     </div>
+
                     <blockquote className="text-gray-700 text-sm italic">
-                      &quot;I studied PTE with iPTE for 2 months and achieved a score of 85, exceeding my initial target of
-                      79. The teaching methods and dedicated support from iPTE were incredibly effective. I highly
-                      recommend the teachers for their enthusiastic support!&quot;
+                      &quot;I studied with <strong>PTE iPASS</strong> for 8 weeks and achieved <strong>PTE 85</strong>, surpassing my target.
+                      The course roadmap was clear, the strategies were practical, and the teachers gave fast, detailed feedback on my
+                      Speaking &amp; Writing. Mock tests and weekly progress checks helped me fix mistakes quickly. Highly recommended for
+                      anyone aiming for a high score!&quot;
                     </blockquote>
                   </div>
                 </div>

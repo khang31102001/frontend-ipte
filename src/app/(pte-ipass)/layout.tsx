@@ -96,7 +96,7 @@ export default async function RootLayout({
 
     return (
         <html lang="vi" suppressHydrationWarning={true}>
-            <body suppressHydrationWarning={true} className={`${roboto.variable} font-sans`}>
+            <body suppressHydrationWarning={true} className={`${roboto.variable} font-sans no-scrollbar`}>
               <Providers>
                  <ClientRoot data={items}>
                     {children}

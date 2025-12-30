@@ -4,7 +4,7 @@ import CustomSwiper from '../ui/custom-swiper'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { News } from '@/types/news'
-import NewsCard from '../home/card/news-card'
+import NewsCard from '../home/card/home-news-card'
 import NewscardCol from './card/news-card-col'
 
 

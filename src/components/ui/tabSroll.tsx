@@ -8,7 +8,7 @@ interface Tab {
 
 interface TabScrollProps {
     tabs: Tab[];
-    navigation: boolean,
+    navigation?: boolean,
     activeTab?: string | number;
     onTabChange?: (id: string | number) => void;
 }

@@ -1,18 +1,20 @@
 
 import AboutSection from "@/components/about/about-section";
-import CommunityPTEiPass from "@/components/community/community-pte-ipass";
+import CommunityPTE from "@/components/community/community-pte-ipass";
 import ConsultationForm from "@/components/form/consultation-form";
-import FeaturedCoursesPTE from "@/components/home/featured-courses-PTE";
-import NewList from "@/components/home/news-list";
-import StudentReview from "@/components/home/student-review";
+import FeaturedCoursesSection from "@/components/home/featured-courses-section";
+import NewsListSection from "@/components/home/news-list-section";
 import StudyPathPTE from "@/components/home/study-path-PTE";
 import TeamTeacherPTE from "@/components/home/team-teacher";
 import TrainingProgramsSection from "@/components/home/training-program-section";
-import KnowledgePTE from "@/components/knowledge/knowledge-pte";
+import PteKnowledgeSection from "@/components/knowledge/pte-knowledge-section";
 import { HeroBanner } from "@/components/shared/banner/hero-banner";
 import { homeSchema } from "@/lib/schema/homeSchema";
 import { aboutService } from "@/lib/service/about";
 import { categoriesServices } from "@/lib/service/category";
+import { coursesServices } from "@/lib/service/course";
+import { newsServices } from "@/lib/service/new";
+import { teacherService } from "@/services/teacher/teacherService";
 
 
 export const metadata = {
@@ -69,36 +71,56 @@ export const metadata = {
 
 export default async function Home() {
 
-    const aboutData = await aboutService.getAboutMeList({}).then((result)=> result.items );
-    const cateCourses = await categoriesServices.getCategoryTree({categoryType: "H_MENU_COURSE"});
-    // const pageSection:any[] = pageHome[0].children ?? [];
-    // const trainingProgram =  pageSection.filter((i)=> i.categoryType === "HOME_PROGRAM_OVERVIEW") ?? null;
+  const [
+    aboutRes,
+    cateCourses,
+    featuredCoursesRes,
+    teacherRes,
+    newsRes,
+    socialRes,
+    cateKnowledgeRes,
+  ] = await Promise.all([
+    aboutService.getAboutMeList({}), 
+    categoriesServices.getCategoryTree({ categoryType: "H_MENU_COURSE" }),
+    coursesServices.getCoursesList({ page: 1, pageSize: 12, isFeatured: true }),
+    teacherService.getTeachersList({ page: 1, pageSize: 12 }),
+    newsServices.getNewsList({ page: 1, pageSize: 12 }),
+    aboutService.getSocialList(),
+    categoriesServices.getCategoryTree({ categoryType: "H_MENU_KNOWLEDGE"}),
+  ]);
 
-    // console.log("check data about", aboutData)
-    console.log("check cate  categoryCourses:", cateCourses)
-    return ( 
-        <div className='bg-background text-foreground'>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
-            />
-            <HeroBanner
-                alt="Trang chủ pte ipass"
-                src="/images/banner/about-us-banner.png"
-                priority= {true}
-            />
+  const aboutData = aboutRes?.items?.[0] ?? null;
+  const featuredCourses = featuredCoursesRes?.items ?? [];
+  const teacherData = teacherRes?.items ?? [];
+  const newsData = newsRes?.items ?? [];
+  const socialData = socialRes?.items ?? [];
+  const trainingCategory = cateCourses?.[0] ?? null;
+  const cateKnowledgeData = cateKnowledgeRes?.[0].children ?? [];
 
-            <AboutSection data={aboutData[0]} />
-            <StudyPathPTE />
-            <TrainingProgramsSection data={cateCourses[0]}  />
-            <FeaturedCoursesPTE />
-            <TeamTeacherPTE />
-            <StudentReview />
-            <NewList />
-            <KnowledgePTE />
-            {/* <PressSection/> */}
-            <CommunityPTEiPass />
-            <ConsultationForm />
-        </div>
-    )
+  console.log(" check cateKnowledgeData ",cateKnowledgeData)
+
+  return (
+    <div className="bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
+      />
+
+      <HeroBanner
+        alt="Trang chủ pte ipass"
+        src="/images/banner/about-us-banner.png"
+        priority={true}
+      />
+
+      <AboutSection data={aboutData} />
+      <StudyPathPTE />
+      {trainingCategory && <TrainingProgramsSection data={trainingCategory} />}
+      <FeaturedCoursesSection featuredCourses={featuredCourses} />
+      <TeamTeacherPTE dataTeacher={teacherData} />
+      <NewsListSection newsData={newsData} />
+      <PteKnowledgeSection cateKnowledges={cateKnowledgeData}/>
+      <CommunityPTE socialData={socialData} />
+      <ConsultationForm />
+    </div>
+  );
 }

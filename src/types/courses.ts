@@ -1,40 +1,59 @@
-import { CategoryItem } from "./category";
+import { CategoryItem } from './category'
 
 export interface Course {
-  courseId?: number | null;
-  authorId?: number | null;
-  image?: string | null;
-  title?: string | null;
-  slug?: string | null;
-  description?: string | null;      // Tóm tắt ngắn
-  content?: string | null;          // Nội dung chi tiết
-  level?: string | null;
-  duration?: string | null;
-  schedule?: string | null;
-  tuition?: string | null;
+    courseId: number
+    courseCode?: string | null
+    courseName?: string
+    slug: string
+    title: string
+    description: string
 
-  category?: CategoryItem | null;
-  categoryId?: number;
+    level?: string
+    mode?: 'ONLINE' | 'OFFLINE' | 'HYBRID'
+    language?: string
 
-  createdAt?: string | null;
-  updatedAt?: string | null;
+    price?: string // "0", "149", etc
+    tuition?: string // "2100000"
 
-  isFeatured?: boolean | null;
+    duration?: string | null
+    schedule?: string | null
 
-  startDate?: string | null;
-  endDate?: string | null;
+    startDate?: string | null
+    endDate?: string | null
 
-  metaTitle?: string | null;
-  metaDescription?: string | null;
+    image?: string | null
 
-  keywords?: string[] | null;
+    createdAt?: string
+    updatedAt?: string
+    createdBy?: string | null
+    updatedBy?: string | null
+    version?: number
+
+    categoryId: number
+    category?: any | null
+
+    isFeatured?: boolean
+    isDisabled?: boolean
+
+    content?: string | null
+
+    metaTitle?: string | null
+    metaDescription?: string | null
+
+    audience?: string[] | null
+    keywords?: string[] | null
+
+    schemaEnabled?: boolean
+    schemaMode?: 'auto' | 'manual' | null
+    schemaData?: any | null
+
+    benefits?: string | null
 }
 
-
 export interface CourseListResponse {
-  items: Course[];
-  page: number | null;
-  pageSize: number | null;
-  total: number | null;
-  totalPages: number | null;
+    items: Course[]
+    page: number | null
+    pageSize: number | null
+    total: number | null
+    totalPages: number | null
 }

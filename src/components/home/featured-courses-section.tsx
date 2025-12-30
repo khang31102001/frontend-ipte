@@ -1,85 +1,17 @@
 "use client"
 import { ChevronLeft, ChevronRight, Key } from 'lucide-react'
 import React, { useRef } from 'react'
-import CoursesCard from './card/courses-card'
 import CustomSwiper from '../ui/custom-swiper'
+import { Course } from '@/types/courses'
+import CourseCard from '../courses/card/course-card'
+interface FeaturedCoursesSectionProps {
+    featuredCourses?: Course[] | [];
+}
+const FeaturedCoursesSection = ({
+    featuredCourses = [],
+}: FeaturedCoursesSectionProps) => {
 
-const FeaturedCoursesPTE = () => {
-    const FeturedCourses = [
-        {
-            id: 1,
-            image: "/images/featured-course-1.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 2,
-            image: "/images/featured-course-2.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 3,
-            image: "/images/featured-course-3.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 4,
-            image: "/images/featured-course-4.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 5,
-            image: "/images/featured-course-1.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 6,
-            image: "/images/featured-course-2.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 7,
-            image: "/images/featured-course-3.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-        {
-            id: 8,
-            image: "/images/featured-course-4.png",
-            duration: "4 Weeks",
-            level: "Beginner",
-            title: "PTE Academic 65+",
-            description: "Khóa học chuyên sâu giúp học viên đạt mục tiêu 65 điểm PTE Academic",
-            textBtn: "Đăng ký ngay",
-        },
-    ];
-
+    // console.log("check featuredCourses: ", featuredCourses);
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
     const breakpoints = {
@@ -88,6 +20,11 @@ const FeaturedCoursesPTE = () => {
         870: { slidesPerView: 3, spaceBetween: 10 },  // md
         1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
     };
+
+    const shouldUseSwiper = featuredCourses.length >= 4;
+    const shouldLoop = featuredCourses.length >= 6;
+
+
 
     return (
         <section className='w-full bg-white py-16'>
@@ -112,32 +49,59 @@ const FeaturedCoursesPTE = () => {
                     </div>
                 </div>
                 {/* card cources */}
-                <div className='w-full h-full py-8'>
-                    <CustomSwiper
-                        breakpoint={
-                            breakpoints
-                        }
-                        autoplay
-                        loop
-                        navigation={{ prevEl: prevRef, nextEl: nextRef }}
-                    >
-                        {FeturedCourses.map((item, index) => {
-                            return (
-                                <div key={index} className='w-full h-full' >
-                                    <CoursesCard
+                {
+                    shouldUseSwiper ? (
+                        <div className='w-full h-full py-8'>
+                            <CustomSwiper
+                                breakpoint={
+                                    breakpoints
+                                }
+                                autoplay={shouldLoop}
+                                loop={shouldLoop}
+                                navigation={{ prevEl: prevRef, nextEl: nextRef }}
+                            >
+                                {featuredCourses.map((item, index) => {
+                                        const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
+                                    return (
+                                        <div key={index} className='w-full h-full' >
+                                            <CourseCard
+                                                href={item?.slug ?? ""}
+                                                image={imgSrc}
+                                                title={item?.title ?? ""}
+                                                description={item?.description ?? ""}
+                                                level={item?.level ?? ""}
+                                                btnText='Tìm hiểu thêm'
+                                                card_layout='col'
+                                            />
+                                        </div>
+                                    )
+                                })}
+                            </CustomSwiper>
 
-                                        data={item}
-
+                        </div>
+                    ) : (
+                        <div className="flex flex-wrap justify-center gap-6">
+                            {featuredCourses.map((item, index) => {
+                                return (
+                                    <CourseCard
+                                        key={index}
+                                        href={item?.slug ?? ""}
+                                        image={item.image ?? ""}
+                                        title={item?.title ?? ""}
+                                        description={item?.description ?? ""}
+                                        level={item?.level ?? ""}
+                                        btnText='Tìm hiểu thêm'
+                                        card_layout='col'
                                     />
-                                </div>
-                            )
-                        })}
-                    </CustomSwiper>
 
-                </div>
+                                )
+                            })}
+                        </div>
+                    )
+                }
             </div>
         </section>
     )
 }
 
-export default FeaturedCoursesPTE
+export default FeaturedCoursesSection

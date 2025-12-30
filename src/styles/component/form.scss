@@ -3,16 +3,21 @@
 :root {
   --form-bg: rgba(255, 255, 255, 0.85);
 
-  --form-title: #111827;    /* gray-900 */
-  --form-subtitle: #6b7280; /* gray-500/600 */
-  --field-bg: #f9fafb;      /* gray-50 */
-  --field-bd: #e5e7eb;      /* gray-200 */
-  --field-bd-focus: #6366f1;/* indigo-500 */
+  --form-title: #111827;
+  /* gray-900 */
+  --form-subtitle: #6b7280;
+  /* gray-500/600 */
+  --field-bg: #f9fafb;
+  /* gray-50 */
+  --field-bd: #e5e7eb;
+  /* gray-200 */
+  --field-bd-focus: #6366f1;
+  /* indigo-500 */
   --field-txt: #111827;
   --field-ph: #9ca3af;
-  --error: #dc2626;         /* red-600 */
-  --btn-bg: #ef4444;        /* red-500 */
-  --btn-bg-hover: #dc2626;  /* red-600 */
+  --error: #dc2626;
+  --btn-bg: #EAB308;
+  --btn-bg-hover: #CA8A04;
   --btn-txt: #ffffff;
   --radius: .75rem;
 }
@@ -31,20 +36,24 @@
 
 /* Card layout nếu dùng */
 .form.form--card {
-background: var(--form-bg);
-  border-radius: 1rem;
+  background: var(--form-bg);
+  border-radius: 0.25rem;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.08),
-    0 0 0 1px rgba(255, 255, 255, 0.4) inset;  /* viền sáng trong */
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  /* viền sáng trong */
   padding: clamp(1rem, 2vw + .5rem, 2rem);
-  backdrop-filter: blur(8px);                  /* làm mờ nền bên dưới nhẹ */
-  border: 1px solid rgba(255, 255, 255, 0.15); /* viền tinh tế */
+  backdrop-filter: blur(8px);
+  /* làm mờ nền bên dưới nhẹ */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* viền tinh tế */
 }
 
 /* Header */
 .form__header {
   margin-bottom: 1rem;
 }
+
 .form__title {
   margin: 0 0 .375rem;
   font-size: clamp(1.25rem, 1.2rem + 0.5vw, 1.5rem);
@@ -52,6 +61,7 @@ background: var(--form-bg);
   color: var(--form-title);
   line-height: 1.2;
 }
+
 .form__subtitle {
   margin: 0;
   color: var(--form-subtitle);
@@ -68,11 +78,13 @@ background: var(--form-bg);
   display: grid;
   gap: 0.375rem;
 }
+
 .field__label {
   font-size: .95rem;
   font-weight: 600;
   color: var(--form-title);
 }
+
 .field__control {
   width: 100%;
   padding: 0.9rem 1rem;
@@ -83,11 +95,14 @@ background: var(--form-bg);
   outline: none;
   transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 
-  &::placeholder { color: var(--field-ph); }
+  &::placeholder {
+    color: var(--field-ph);
+  }
 
   &:hover {
     border-color: color-mix(in srgb, var(--field-bd), var(--field-bd-focus) 25%);
   }
+
   &:focus-visible {
     border-color: var(--field-bd-focus);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--field-bd-focus), transparent 80%);
@@ -137,7 +152,8 @@ background: var(--form-bg);
   transition: transform .06s ease, box-shadow .15s ease, background .15s ease;
 
   &:focus-visible {
-    outline: 2px solid #fcd34d; /* amber-300 */
+    outline: 2px solid #fcd34d;
+    /* amber-300 */
     outline-offset: 2px;
   }
 
@@ -145,12 +161,24 @@ background: var(--form-bg);
     background: var(--btn-bg);
     color: var(--btn-txt);
   }
-  &--primary:hover { background: var(--btn-bg-hover); }
-  &--block { width: 100%; padding: .9rem 1rem; }
+
+  &--primary:hover {
+    background: var(--btn-bg-hover);
+  }
+
+  &--block {
+    width: 100%;
+    padding: .9rem 1rem;
+  }
 }
 
 /* Responsive: tăng spacing và font ở md+ */
 @media (min-width: 768px) {
-  .form__body { gap: 1.125rem; }
-  .field__label { font-size: 1rem; }
+  .form__body {
+    gap: 1.125rem;
+  }
+
+  .field__label {
+    font-size: 1rem;
+  }
 }

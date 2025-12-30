@@ -3,6 +3,7 @@ import { FullscreenVideoPlayer } from '@/components/ui/fullscreen-video-player'
 import { IAbout } from '@/types/about'
 import { ChevronRight, Play } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 interface AboutSectionProps {
@@ -68,28 +69,29 @@ const AboutSection = ({
                         </div>
                     </div>
                 </div>
+                <div className="flex justify-center gap-3 pt-2">
+                    <Link
+                        href={`/ve-pte-ipass/${data.slug}`}
+                        prefetch
+                        className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold bg-yellow-500 text-black hover:opacity-90 transition"
+                    >
+                        Xem chi tiết về iPASS
+                    </Link>
 
-                {data.content && (
-                    <div className="w-full inline-flex items-center justify-center text-white p-2 gap-2 ">
-                        <button
-                            className='inline-flex items-center gap-1 
-                        rounded-full 
-                        bg-gradient-to-r from-[#04016C] to-[#4A16BD] 
-                        px-6 py-3
-                        hover:opacity-90 transition duration-300 group'
-                        >
-                            Xem thêm
-                            <ChevronRight className='w-6 h-6 transition-transform duration-300  group-hover:translate-x-1' />
-                        </button>
-                    </div>
-                )}
+                    <Link
+                        href="/lien-he"
+                        className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold border border-gray-300 hover:bg-gray-50 transition"
+                    >
+                        Nhận tư vấn miễn phí
+                    </Link>
+                </div>
 
             </div>
             {/* Popup Video Player */}
             {openVideo && (
                 <FullscreenVideoPlayer
-                    src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                    poster="/images/about-banner.png"
+                    src={data?.video ?? "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
+                    poster={data?.image ?? "/images/about-banner.png"}
                     isOpen={openVideo}
                     onClose={() => setOpenVideo(false)}
                 />

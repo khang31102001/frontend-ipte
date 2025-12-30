@@ -6,7 +6,8 @@ const API = process.env.NEXT_PUBLIC_URL_API!;
 type CourseParams = | { slug: string } | { id: string | number } | { name: string };
 
 export class CoursesServices {
-    async getCoursesList(params?: Record<string, string | number>) {
+
+    async getCoursesList(params?: Record<string, string | number | boolean>):Promise<any> {
         const qs = params ? '?' + new URLSearchParams(
             Object.entries(params).map(([k, v]) => [k, String(v)])
         ).toString() : '';
@@ -17,7 +18,8 @@ export class CoursesServices {
                 signal: AbortSignal.timeout(15000),
             });
             if (!res.ok) return { items: [], total: 0 };
-            const data = await res.json()
+            const data = await res.json();
+            // console.log("api list course:", data)
             return data;
         } catch {
             return { items: [], total: 0 }; // không throw để không vỡ build/render
@@ -51,7 +53,7 @@ export class CoursesServices {
             // console.log("url cate", url);
         try {
             const res = await fetch(url, {
-                next: { revalidate: 300, tags: ['courses'] }, // ISR 5 phút + tag
+                next: { revalidate: 300, tags: ['category','courses'] }, 
                 signal: AbortSignal.timeout(15000),
             });
             if (!res.ok) return { items: [], total: 0 };

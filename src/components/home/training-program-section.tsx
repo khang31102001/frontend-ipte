@@ -3,66 +3,8 @@ import React, { useMemo } from 'react'
 import TrainingProgramCard from './card/training-program-card'
 import CustomSwiper from '../ui/custom-swiper'
 import { CategoryItem } from '@/types/category';
-import Link from 'next/link';
 
-const courses = [
-  {
-    id: 1,
-    title: "Bổ trợ tiếng anh nâng cao",
-    description: "Bắt kịp lộ trình luyện thi PTE 36-79 dù nền tảng yếu đầu tay không sử dụng tiếng Anh.",
-    bgColor: "bg-gradient-to-br from-amber-400 to-orange-500",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 2,
-    title: "PTE du học",
-    description: "Du học Úc, Anh, Canada tiết kiệm và rút ngắn thời gian học tiếng anh đầu vào.",
-    bgColor: "bg-gradient-to-br from-blue-500 to-blue-600",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 3,
-    title: "PTE định cư",
-    description: "Giáo viên theo sát đảm bảo nâng cao các kĩ năng.",
-    bgColor: "bg-gradient-to-br from-green-500 to-green-600",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 4,
-    title: "PTE 1 kèm 1",
-    description: "Chiến thắng mọi target, luyện thi theo thời gian và yêu cầu của bạn",
-    bgColor: "bg-gradient-to-br from-yellow-400 to-amber-500",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 5,
-    title: "Bổ trợ tiếng anh nâng cao",
-    description: "Bắt kịp lộ trình luyện thi PTE 36-79 dù nền tảng yếu đầu tay không sử dụng tiếng Anh.",
-    bgColor: "bg-gradient-to-br from-amber-400 to-orange-500",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 6,
-    title: "PTE du học",
-    description: "Du học Úc, Anh, Canada tiết kiệm và rút ngắn thời gian học tiếng anh đầu vào.",
-    bgColor: "bg-gradient-to-br from-blue-500 to-blue-600",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 7,
-    title: "PTE định cư",
-    description: "Giáo viên theo sát đảm bảo nâng cao các kĩ năng.",
-    bgColor: "bg-gradient-to-br from-green-500 to-green-600",
-    textBtn: "Khám phá khóa học"
-  },
-  {
-    id: 8,
-    title: "PTE 1 kèm 1",
-    description: "Chiến thắng mọi target, luyện thi theo thời gian và yêu cầu của bạn",
-    bgColor: "bg-gradient-to-br from-yellow-400 to-amber-500",
-    textBtn: "Khám phá khóa học"
-  },
-];
+
 
 interface TrainingProgramsSectionProps {
   data?: CategoryItem | null;
@@ -99,7 +41,7 @@ const TrainingProgramsSection = ({
     1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
   };
 
-  console.log("check data cate course:", cateCourseWithBg);
+  // console.log("check data cate course:", cateCourseWithBg);
 
   if (!data) return null;
 
@@ -136,8 +78,8 @@ const TrainingProgramsSection = ({
               breakpoint={
                 breakpoints
               }
-              autoplay
-              loop
+              autoplay={shouldLoop}
+              loop ={shouldLoop}
             >
               {cateCourseWithBg?.map((item, index) => (
                 <a href={item?.url ?? "#"} key={index} className="block">
@@ -153,7 +95,7 @@ const TrainingProgramsSection = ({
 
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-6 py-4">
             {cateCourseWithBg.map((item) => (
               <div
                 key={item.categoryId}

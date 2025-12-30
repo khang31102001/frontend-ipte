@@ -2,6 +2,42 @@ import { Course } from "./courses";
 import { Knowledges } from "./knowledges";
 import { News } from "./news";
 
+export interface ICategory {
+  categoryId: number;
+
+  icon?: string;
+  name: string;
+  slug?: string;
+  url?: string;
+  description?: string;
+
+  parentId?: number | null;
+  level: number | null;
+
+  categoryType?: string;
+
+  isFeatured?: boolean;
+  isDisable?: boolean;
+
+  createdAt?: string;
+  updatedAt?: string;
+
+  metaTitle?: string;
+  metaDescription?: string;
+
+  h1Heading?: string;
+
+  seoContentTop?: string;
+  seoContentBottom?: string;
+
+  canonicalUrl?: string;
+
+  noindex?: boolean;
+
+  version: number | null;
+}
+
+
 export interface CategoryItem {
   categoryId: number;
 

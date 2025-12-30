@@ -388,10 +388,10 @@
     }
   }
 
-  .no-scroll {
-    overflow: hidden;
-    touch-action: none;
-  }
+  // .no-scroll {
+  //   overflow: hidden;
+  //   touch-action: none;
+  // }
 
   .is-sticky {
     position: sticky;
@@ -422,4 +422,12 @@
 .hero__img {
   // object-fit: cover;        
   // object-position: center;  
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;   
+  scrollbar-width: none;      
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;             
 }

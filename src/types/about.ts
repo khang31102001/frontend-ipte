@@ -1,13 +1,13 @@
 export interface IAbout {
   aboutId: number;
   image: string;
-
+  slug?: string;
   title?: string;
   description?: string | null;
   content?: string;
   mission?: string | null;
   vision?: string | null;
-
+  video?: string;
   email?: string | null;
   phone?: string | null;
   hotline?: string | null;
@@ -33,9 +33,9 @@ export interface IAbout {
 }
 
 export interface IAboutItem {
-    items: IAbout[];
-    page: number | null;
-    page_size: number | null;
-    total: number | null;
-    total_pages: number | null;
+  items: IAbout[];
+  page: number | null;
+  page_size: number | null;
+  total: number | null;
+  total_pages: number | null;
 }

@@ -1,6 +1,6 @@
 
 export interface News {
-  id: number;
+  newsId: number;
   authorId?: number;
   image?: string | null;
   title?: string | null;

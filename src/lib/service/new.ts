@@ -25,7 +25,7 @@ interface NewsJoinedKnowledge  {
     }[];
 };
 
-export class NewServices {
+export class NewsServices {
     async getNewsList(params?: Record<string, string | number | null>) {
         const qs = params ? '?' + new URLSearchParams(
             Object.entries(params).map(([k, v]) => [k, String(v)])
@@ -81,6 +81,6 @@ export class NewServices {
 
 }
 
-export const newServices = new NewServices();
+export const newsServices = new NewsServices();
 
 

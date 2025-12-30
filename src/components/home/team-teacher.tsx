@@ -1,138 +1,43 @@
 "use client"
 import Image from 'next/image'
-import React, { useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import CustomSwiper from '../ui/custom-swiper';
+import React, { useMemo, useRef, useState } from 'react'
+import { Teacher } from '@/types/teacher';
+import AvatarCarousel from '../shared/avatar-carousel';
 
-const TeamTeacherPTE = () => {
-    const [selectTecher, setSelectTecher] = useState<Number>(0);
-    const dataTeacher = [
-        {
-            id: 1,
-            name: "ThS. Hoàng Quốc Bảo",
-            title: "Giảng viên chính",
-            image: "/images/teacher-1.png",
-            ieltsOverall: 8.8,
-            ieltsScores: {
-                listening: 9.0,
-                reading: 8.9,
-                speaking: 8.8,
-                writing: 8.6,
-            },
-            description:
-                "Với 7 năm đồng hành cùng hàng ngàn học viên, thầy Bảo tự hào là một giảng viên tiếng Anh giàu kinh nghiệm. Thầy đã từng giảng dạy tại nhiều cấp độ khác nhau, từ cơ bản đến nâng cao, và luôn nhận được sự tin tưởng từ học viên.",
-            isMain: true,
-        },
-        {
-            id: 2,
-            name: "Cô Minh Anh",
-            title: "Giảng viên IELTS",
-            image: "/images/teacher-2.jpg",
-            ieltsOverall: 8.5,
-            ieltsScores: {
-                listening: 8.5,
-                reading: 8.5,
-                speaking: 8.0,
-                writing: 8.5,
-            },
-            description: "Chuyên gia về IELTS Writing với nhiều năm kinh nghiệm.",
-        },
-        {
-            id: 3,
-            name: "Thầy Đức Minh",
-            title: "Giảng viên Speaking",
-            image: "/images/teacher-4.jpg",
-            ieltsOverall: 8.0,
-            ieltsScores: {
-                listening: 8.0,
-                reading: 7.5,
-                speaking: 8.5,
-                writing: 7.5,
-            },
-            description: "Chuyên gia về IELTS Speaking với phương pháp giảng dạy độc đáo.",
-        },
-        {
-            id: 4,
-            name: "Cô Thu Hà",
-            title: "Giảng viên Reading",
-            image: "/images/teacher-3.jpg",
-            ieltsOverall: 8.5,
-            ieltsScores: {
-                listening: 8.0,
-                reading: 9.0,
-                speaking: 8.0,
-                writing: 8.5,
-            },
-            description: "Chuyên gia về IELTS Reading với nhiều kỹ thuật đọc hiệu quả.",
-        },
-        {
-            id: 5,
-            name: "Thầy Quang Huy",
-            title: "Giảng viên Listening",
-            image: "/images/teacher-5.jpg",
-            ieltsOverall: 8.0,
-            ieltsScores: {
-                listening: 8.5,
-                reading: 8.0,
-                speaking: 7.5,
-                writing: 8.0,
-            },
-            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
-        },
-        {
-            id: 6,
-            name: "Thầy Quang Huy",
-            title: "Giảng viên Listening",
-            image: "/images/teacher-5.jpg",
-            ieltsOverall: 8.0,
-            ieltsScores: {
-                listening: 8.5,
-                reading: 8.0,
-                speaking: 7.5,
-                writing: 8.0,
-            },
-            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
-        },
-        {
-            id: 7,
-            name: "Thầy Quang Huy",
-            title: "Giảng viên Listening",
-            image: "/images/teacher-5.jpg",
-            ieltsOverall: 8.0,
-            ieltsScores: {
-                listening: 8.5,
-                reading: 8.0,
-                speaking: 7.5,
-                writing: 8.0,
-            },
-            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
-        },
-        {
-            id: 8,
-            name: "Thầy Quang Huy",
-            title: "Giảng viên Listening",
-            image: "/images/teacher-5.jpg",
-            ieltsOverall: 8.0,
-            ieltsScores: {
-                listening: 8.5,
-                reading: 8.0,
-                speaking: 7.5,
-                writing: 8.0,
-            },
-            description: "Chuyên gia về IELTS Listening với phương pháp luyện nghe hiệu quả.",
-        },
-    ];
 
-    const prevRef = useRef<HTMLButtonElement>(null);
-    const nextRef = useRef<HTMLButtonElement>(null);
-    const breakpoints = {
-        0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
-        340: { slidesPerView: 1, spaceBetween: 10 }, 
-        500: { slidesPerView: 3, spaceBetween: 10 },  // mobile nhỏ
-        640: { slidesPerView: 4, spaceBetween: 10 },  // sm
-        870: { slidesPerView: 5, spaceBetween: 10 },  // md
-        1200: { slidesPerView: 6, spaceBetween: 10 }, // xl
-    };
+interface TeamTeacherProps{
+    dataTeacher: Teacher[] | [];
+}
+type AvatarItem = {
+  id: number | string;
+  name: string;
+  image?: string | null;
+};
+
+const toOption = (teacher: Teacher[]):AvatarItem[]=>{
+   if(!teacher || teacher.length === 0) return [];
+   return teacher.map((i)=>({
+    id: i.teacherId,
+    name: i.name,
+    image: i.image,
+   }));
+}
+const TeamTeacherPTE = ({
+   dataTeacher = [], 
+}:TeamTeacherProps) => {
+
+    const [selectTecherId, setSelectTecherId] = useState<number | null>(31);
+
+    const selectTeacher = useMemo(()=> {
+        if(!dataTeacher || dataTeacher.length === 0) return null;
+        return dataTeacher.find((i)=> i.teacherId === selectTecherId);
+    }, [dataTeacher, selectTecherId]);
+
+    const option = useMemo(()=>toOption(dataTeacher), [dataTeacher]);
+
+    const teacherImage = selectTeacher?.image || "/images/teacher-placeholder.png";
+
+
 
     return (
         <section className="py-16 bg-white">
@@ -150,8 +55,8 @@ const TeamTeacherPTE = () => {
                                 <div className='h-full w-full grid justify-items-center'>
                                     <div className='h-full w-full max-w-md rounded-md shadow-lg overflow-hidden'>
                                         <Image
-                                            src="/images/teacher-1.png"
-                                            alt=""
+                                            src={teacherImage}
+                                            alt={selectTeacher?.name ?? ""}
                                             width={640}
                                             height={740}
                                             className="h-full w-full object-cover object-center"
@@ -165,14 +70,14 @@ const TeamTeacherPTE = () => {
                                     {/* Teacher Name */}
                                     <div>
                                         <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold">
-                                            {dataTeacher[0].name}
+                                            {selectTeacher?.name}
                                         </h3>
                                     </div>
 
                                     {/* IELTS Overall Score */}
                                     <div className="flex items-center gap-3 sm:gap-4">
                                         <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-400">
-                                            {dataTeacher[0].ieltsOverall}
+                                            {selectTeacher?.overallScore}
                                         </div>
                                         <div className="text-white text-sm sm:text-base md:text-lg">
                                             <div className="font-semibold">IELTS</div>
@@ -185,7 +90,7 @@ const TeamTeacherPTE = () => {
                                         {/* Listening */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
                                             <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {dataTeacher[0].ieltsScores.listening}
+                                                {selectTeacher?.listeningScore}
                                             </span>
                                             <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
                                                 Listening
@@ -197,7 +102,7 @@ const TeamTeacherPTE = () => {
                                         {/* Reading */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
                                             <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {dataTeacher[0].ieltsScores.reading}
+                                                {selectTeacher?.readingScore}
                                             </span>
                                             <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
                                                 Reading
@@ -209,7 +114,7 @@ const TeamTeacherPTE = () => {
                                         {/* Speaking */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
                                             <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {dataTeacher[0].ieltsScores.speaking}
+                                                {selectTeacher?.speakingScore}
                                             </span>
                                             <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
                                                 Speaking
@@ -221,7 +126,7 @@ const TeamTeacherPTE = () => {
                                         {/* Writing */}
                                         <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
                                             <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {dataTeacher[0].ieltsScores.writing}
+                                                {selectTeacher?.writingScore}
                                             </span>
                                             <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
                                                 Writing
@@ -232,7 +137,7 @@ const TeamTeacherPTE = () => {
                                     {/* Description */}
                                     <div className="line-clamp-6 overflow-hidden">
                                         <p className="text-blue-100 leading-relaxed text-sm sm:text-base md:text-lg">
-                                            {dataTeacher[0].description}
+                                            {selectTeacher?.bio}
                                         </p>
                                     </div>
                                 </div>
@@ -240,55 +145,19 @@ const TeamTeacherPTE = () => {
                         </div>
 
                         {/* swiper teacher list */}
-                        <div className="w-full flex items-center justify-center">
-                            <div className="flex flex-row items-center gap-2 max-w-full md:max-w-[38rem] w-full">
-                                {/* Prev button */}
-                                <button
-                                    ref={prevRef}
-                                    className="rounded-full text-white hover:bg-white/30 bg-transparent p-2 shrink-0"
-                                >
-                                    <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-                                </button>
-
-                                {/* Swiper */}
-                                <CustomSwiper
-                                    navigation={{ prevEl: prevRef, nextEl: nextRef }}
-                                    breakpoint={breakpoints}
-                                    pagination={false}
-                                    className="flex-1"
-                                >
-                                    {dataTeacher.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            onClick={() => setSelectTecher(item.id)}
-                                            className={`relative z-50 rounded-full overflow-hidden 
-                                            transform transition-transform duration-300 ease-out
-                                                ${item.id === selectTecher
-                                                    ? "w-16 h-16 opacity-100"
-                                                    : "w-16 h-16 opacity-70 hover:opacity-100"
-                                                }
-                                            `}
-                                            style={{ willChange: "transform" }}
-                                        >
-                                            <Image
-                                                src={item.image || "/placeholder.svg"}
-                                                alt={item.name}
-                                                width={120}
-                                                height={120}
-                                                className="object-cover"
-                                            />
-                                        </div>
-                                    ))}
-                                </CustomSwiper>
-
-                                {/* Next button */}
-                                <button
-                                    ref={nextRef}
-                                    className="rounded-full text-white hover:bg-white/30 bg-transparent p-2 shrink-0"
-                                >
-                                    <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-                                </button>
-                            </div>
+                       <div className="w-full flex items-center justify-center">
+                        <div className="max-w-full md:max-w-[38rem] w-full">
+                            <AvatarCarousel
+                            items={option}
+                            selectedId={selectTecherId as number}
+                            onSelect={(id) =>setSelectTecherId(Number(id))}
+                            itemSize={64}
+                            gap={8}
+                            scrollStep="item"
+                            autoScrollToSelected
+                            className="w-full"
+                            />
+                        </div>
                         </div>
 
                     </div>

@@ -7,8 +7,8 @@ type layout = "col" | "row";
 interface CourseCardProps {
     href: string;
     image: string;
-    duration: string;
-    level: string;
+    duration?: string;
+    level?: string;
     title: string;
     description: string;
     btnText?: string;
@@ -31,8 +31,12 @@ export const RowLayout = ({ image, title, duration, level, description, btnText 
 
         <div className="flex-1 flex flex-col justify-between">
             <div className="flex gap-4 mb-4">
-                <span className="text-sm font-medium text-gray-600">{duration}</span>
-                <span className="text-sm font-medium text-gray-600">{level}</span>
+                {duration && (
+                    <span className="course-card__tag">{duration}</span>
+                )}
+                {level && (
+                    <span className="course-card__tag">{level}</span>
+                )}
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">{title}</h3>
@@ -59,8 +63,12 @@ export const ColLayout = ({ image, title, duration, level, description, btnText 
 
         <div className="course-card__body">
             <div className="course-card__tags">
-                <span className="course-card__tag">{duration}</span>
-                <span className="course-card__tag">{level}</span>
+                {duration && (
+                    <span className="course-card__tag">{duration}</span>
+                )}
+                {level && (
+                    <span className="course-card__tag">{level}</span>
+                )}
             </div>
 
             <h3 className="course-card__title">{title}</h3>

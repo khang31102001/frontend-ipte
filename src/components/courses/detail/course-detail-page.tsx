@@ -35,7 +35,7 @@ const CourseDetailPage = ({
           <div className="lg:col-span-2 space-y-8">
             <ArticleContent content={course.content} />
             <ArticleFooter />
-            <CommentsSection courseId={course.courseId ?? 0} />
+            {/* <CommentsSection courseId={course.courseId ?? 0} /> */}
           </div>
 
           <div className="lg:col-span-1">
