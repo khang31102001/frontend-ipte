@@ -7,7 +7,7 @@ import OnSubMenu from './submenu/sub-menu'
 import SubMenuMobile from './submenu/sub-menu-mobile'
 import { useLockScroll } from '@/hooks/use-locked-scroll'
 import { ChevronRight } from 'lucide-react'
-import { fixUrl } from '@/utils/helpers'
+import { fixUrl } from "@/lib/helper";
 
 interface MenuMobileListProps {
   data: CategoryItem[]

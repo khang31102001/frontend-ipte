@@ -21,7 +21,7 @@ export interface Course {
     startDate?: string | null
     endDate?: string | null
 
-    image?: string | null
+    image?: string;
 
     createdAt?: string
     updatedAt?: string

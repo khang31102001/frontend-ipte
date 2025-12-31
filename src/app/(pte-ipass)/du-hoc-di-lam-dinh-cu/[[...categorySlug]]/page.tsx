@@ -2,8 +2,8 @@
 import CourseDetailPage from "@/components/courses/detail/course-detail-page"
 import PteCategoryPage from "@/components/courses/category/pte-category-page"
 
-import CategoryLayout from "@/components/shared/category/category-layout"
-import Skeleton from "@/components/shared/loading/Skeleton"
+import CategoryLayout from "@/shared/category/category-layout"
+import Skeleton from "@/shared/loading/Skeleton"
 import { checkCategoryBySlugs } from "@/lib/check-category"
 import { categoriesServices } from "@/lib/service/category"
 import { coursesServices } from "@/lib/service/course"
@@ -11,6 +11,8 @@ import { BreadcrumbItem } from "@/types/breadcrumbs"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React, { Suspense } from "react"
+import { CategoryItem } from "@/types/category"
+import { CourseListResponse } from "@/types/courses"
 
 type PageProps = {
   params: {
@@ -115,13 +117,13 @@ export async function generateMetadata(
       siteName: "PTE iPASS",
       images: imageUrl
         ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ]
         : undefined,
     },
     twitter: {
@@ -194,24 +196,26 @@ function getArticleJsonLd(data: any) {
 
 
 async function StudyWorkMigratePage({
-  found,
+  category,
   breadcrumbs,
 }: {
-  found: any;
+  category: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
-  const categories = found?.children ?? [];
-  const categoryRoot = found ?? null;
-  const courses = await coursesServices.getCoursesList({
-    categoryId: found.id
-  }).then((res)=> res.items);
+  if (!category) notFound();
+  const categoryId = category.categoryId;
+  const childCategories = category?.children ?? [];
+  const studyWorkRes: CourseListResponse =
+    await coursesServices.getCoursesByCate({ categoryId: categoryId });
 
+  const studyWork = Array.isArray(studyWorkRes?.items)
+    ? studyWorkRes.items : [];
 
-  const categoryResults = await Promise.all(
-    categories.map(async (item: any) => {
+  const cateChildResults = await Promise.all(
+    childCategories.map(async (item: CategoryItem) => {
       try {
         const data = await coursesServices.getCoursesList({
-          categoryId: item.id,
+          categoryId: item?.categoryId ?? null,
         });
         const courses = Array.isArray(data?.items) ? data.items : [];
         return { ...item, courses: courses };
@@ -224,31 +228,34 @@ async function StudyWorkMigratePage({
 
   return (
     <CategoryLayout
-      title={found.name}
-      description={found.description}
+      title={category?.name}
+      description={category?.description}
       breadcrumbs={breadcrumbs}
     >
-      <PteCategoryPage 
-      category={categoryRoot} 
-      categoryCourse={categoryResults}  
-      data={courses}
+      <PteCategoryPage
+        category={category}
+        categoryCourse={cateChildResults}
+        data={studyWork}
       />
     </CategoryLayout>
   );
 }
 export default async function Page({ params }: PageProps) {
 
-  const {categorySlug} = params ?? [];
+  const categorySlug = params?.categorySlug;
+  const studyWorkMenuTree = await categoriesServices.getCategoryTree({ categoryType: "H_MENU_DHDL" });
+  const studyWorkRootCategory: CategoryItem = studyWorkMenuTree?.[0] ?? null;
+  if (!studyWorkRootCategory) return notFound();
 
-  const pteCategory = await categoriesServices.getCategoryTree({ slug: "du-hoc-di-lam-dinh-cu" });
-  // console.log("pteCategory: ", pteCategory);
-  // console.log("categorySlug:", categorySlug);
-
-  if(!categorySlug){
-    return(
+  if (!categorySlug || categorySlug.length === 0) {
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: studyWorkRootCategory?.name, href: studyWorkRootCategory?.url ?? "" },
+    ];
+    return (
       <>
         {/* JSON-LD SEO */}
-      {/* <script
+        {/* <script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
@@ -264,42 +271,45 @@ export default async function Page({ params }: PageProps) {
           }}
         />
       )} */}
-      <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <StudyWorkMigratePage 
-          found={pteCategory}  
-          breadcrumbs={[
-            { name: "Trang chủ", href: "/" },
-            { name: pteCategory.name, href: pteCategory.url ?? "" }
-          ]}/>
-      </Suspense>
+        <Suspense fallback={<Skeleton title="đang tải...." />}>
+          <StudyWorkMigratePage
+            category={studyWorkRootCategory}
+            breadcrumbs={breadcrumbs}
+          />
+        </Suspense>
       </>
     )
   }
 
-  if(categorySlug.length >= 1){
-    const lastUrl = categorySlug[categorySlug.length -1];
-  const course = await coursesServices.getCoursesDetails({slug: lastUrl}); 
- 
-
-  if(course){
-    return(
-      <CourseDetailPage course={course} breadcrumbs={[]}/>
+  const lastSegment = categorySlug.at(-1);
+  if (!lastSegment) return notFound();
+  const course = await coursesServices.getCoursesDetails({ slug: lastSegment });
+  if (course) {
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: course?.title, href: "" },
+    ];
+    return (
+      <CourseDetailPage course={course} breadcrumbs={[]} />
     )
   }
 
-  const categories = pteCategory.children ?? [];
-  const {found, breadcrumbs} = await checkCategoryBySlugs(categories, categorySlug);
-  if(found){
-   return (
-     <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <StudyWorkMigratePage 
-          found={found} 
-          breadcrumbs={[{ name: "Trang chủ", href: "/" }, ...breadcrumbs]}
-          />
-      </Suspense>
-   )
-  }
-  }
 
-  return notFound();
+  const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } =
+    await checkCategoryBySlugs(studyWorkRootCategory?.children ?? [], categorySlug);
+  if (!currentCategory) return notFound();
+  const breadcrumbs: BreadcrumbItem[] = [
+    { name: "Trang chủ", href: "/" },
+    ...categoryBreadcrumbs,
+  ];
+
+  return (
+    <Suspense fallback={<Skeleton title="đang tải...." />}>
+      <StudyWorkMigratePage
+        category={currentCategory}
+        breadcrumbs={breadcrumbs}
+      />
+    </Suspense>
+  )
+
 }

@@ -12,11 +12,11 @@ import { CategoryItem } from '@/types/category'
 import MenuMobileList from './menu-mobile-list'
 import OnSubMenu from './submenu/sub-menu'
 
-import { fixUrl } from '@/utils/helpers'
 import {
   usePathname,
   useRouter,
 } from 'next/navigation'
+import { fixUrl } from '@/lib/helper'
 
 interface HeaderProps {
   logo?: string;

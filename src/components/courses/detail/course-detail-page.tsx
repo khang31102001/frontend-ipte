@@ -1,7 +1,7 @@
 import { CommentsSection } from "@/components/comment/comment-section";
-import { ArticleContent, ArticleCovderImage, ArticleFooter, ArticleHeader, ArticleSidebar } from "@/components/shared/article";
+import { ArticleContent, ArticleCovderImage, ArticleFooter, ArticleHeader, ArticleSidebar } from "@/shared/article";
 import CourseSidebar from "./course-sidebar";
-import { FloatingCTA } from "@/components/shared/subscription/floating-cta";
+import { FloatingCTA } from "@/shared/subscription/floating-cta";
 import { Course } from "@/types/courses";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 
@@ -19,7 +19,7 @@ const CourseDetailPage = ({
   if (!course) return null;
 
   return (
-    <article className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <article className="min-h-screen section bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto pad-sm">
 
         <ArticleHeader
@@ -33,8 +33,9 @@ const CourseDetailPage = ({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
-            <ArticleContent content={course.content} />
-            <ArticleFooter />
+            <ArticleContent content={course?.content} />
+            <ArticleContent content={course?.benefits} />
+            <ArticleFooter tags={course?.keywords as string[]} />
             {/* <CommentsSection courseId={course.courseId ?? 0} /> */}
           </div>
 

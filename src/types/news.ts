@@ -31,3 +31,13 @@ export interface News {
   keywords?: string[];
 }
 
+
+export interface NewsListRes {
+    items: News[]
+    page: number | null
+    pageSize: number | null
+    total: number | null
+    totalPages: number | null
+}
+
+

@@ -12,14 +12,16 @@ interface CoursesListPageProps {
   categoryItems?: CourseCategory[];
   coursesItems?: Course[];
 }
-const CoursesListPage = ({
+const CoursesList = ({
   category,
   categoryItems,
   coursesItems
 
 }: CoursesListPageProps) => {
+
+  // console.log("check categoryItems in course list:", categoryItems);
   return (
-    <section className="">
+    <section>
       {coursesItems && (
         <CourseListItems
           category={category}
@@ -31,9 +33,12 @@ const CoursesListPage = ({
       <CourseStageSection />
       {categoryItems && categoryItems.map((item, index) => {
         return (
-          <PteCategorySection key={index}
-            pteCategory={item}
+  
+            <PteCategorySection
+             key={index}
+             pteCategory={item}
           />
+     
         )
       })}
       <FaqAccordion />
@@ -41,4 +46,4 @@ const CoursesListPage = ({
   )
 }
 
-export default CoursesListPage
+export default CoursesList

@@ -1,12 +1,11 @@
 "use client";
 import React, { useMemo } from "react";
-import { ThemeProvider } from "@/providers/ThemeProvider";
 import PopupRegistrationForm from "@/components/popup/form/popup-registration-form";
 import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
-import FloatingChat from "@/components/Layout/FloatingChat";
+// import FloatingChat from "@/components/Layout/FloatingChat";
 import { CategoryItem } from '@/types/category'
 import MainLayout from "./main-layout";
-import { ClientQueryProvider } from "@/providers/ClientQueryProvider";
+
 
 export default function ClientRoot({
   data = [],
@@ -33,7 +32,7 @@ export default function ClientRoot({
       >
         {children}
       </MainLayout>
-      <FloatingChat />
+      {/* <FloatingChat /> */}
       <PopupRegistrationForm isPopup={isOpen} onClose={close} />
     </>
   );

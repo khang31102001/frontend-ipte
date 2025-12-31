@@ -1,5 +1,4 @@
 import { Course } from "./courses";
-import { Knowledges } from "./knowledges";
 import { News } from "./news";
 
 export interface ICategory {
@@ -86,8 +85,8 @@ export interface NewsCategory extends Omit<CategoryItem, "children"> {
 }
 
 export interface KnowledgesCategory extends Omit<CategoryItem, "children"> {
-    children?: NewsCategory[];
-    knowledges?: Knowledges[];
+    children?: CategoryItem[];
+    knowledges?: Course[];
 }
 
 

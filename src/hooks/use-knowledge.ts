@@ -3,7 +3,7 @@ import { coursesService } from "@/services/course/courseService";
 import type { CourseListResponse } from "@/types/courses";
 
 interface QueryParams {
-  cateId?: string | number;
+  cateId: number | null;
   page?: number;
   pageSize?: number;
 }

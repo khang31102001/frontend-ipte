@@ -8,7 +8,7 @@ import ContactInfor from "./contact-infor";
 import ConsultationForm from "../form/consultation-form";
 import AboutSection from "./about-section";
 import { IAboutItem } from "@/types/about";
-import { HeroBanner } from "../shared/banner/hero-banner";
+import { HeroBanner } from "../../shared/banner/hero-banner";
 
 
 interface AboutPageProps {

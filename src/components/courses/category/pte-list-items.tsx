@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import FeaturedArticleCard from '../../shared/article/card/featured-article-card';
+import FeaturedArticleCard from '../../../shared/article/card/featured-article-card';
 import { Course } from '@/types/courses';
-import ArticleCard from '../../shared/article/card/article-card';
+import ArticleCard from '../../../shared/article/card/article-card';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CategoryItem } from '@/types/category';
-import { buildUrl } from '@/utils/helpers';
+import { buildUrl } from '@/lib/helper'
 
 interface PtelistItemsProps {
     category?: CategoryItem;

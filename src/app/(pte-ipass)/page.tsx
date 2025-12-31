@@ -8,7 +8,7 @@ import StudyPathPTE from "@/components/home/study-path-PTE";
 import TeamTeacherPTE from "@/components/home/team-teacher";
 import TrainingProgramsSection from "@/components/home/training-program-section";
 import PteKnowledgeSection from "@/components/knowledge/pte-knowledge-section";
-import { HeroBanner } from "@/components/shared/banner/hero-banner";
+import { HeroBanner } from "@/shared/banner/hero-banner";
 import { homeSchema } from "@/lib/schema/homeSchema";
 import { aboutService } from "@/lib/service/about";
 import { categoriesServices } from "@/lib/service/category";
@@ -95,9 +95,9 @@ export default async function Home() {
   const newsData = newsRes?.items ?? [];
   const socialData = socialRes?.items ?? [];
   const trainingCategory = cateCourses?.[0] ?? null;
-  const cateKnowledgeData = cateKnowledgeRes?.[0].children ?? [];
+  const cateKnowledgeData = cateKnowledgeRes?.[0] ?? [];
 
-  console.log(" check cateKnowledgeData ",cateKnowledgeData)
+  // console.log(" check cateKnowledgeData ",cateKnowledgeData)
 
   return (
     <div className="bg-background text-foreground">

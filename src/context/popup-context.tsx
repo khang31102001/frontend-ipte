@@ -1,6 +1,6 @@
 "use client";
 
-import PopupComponent from "@/components/shared/PopupComponent";
+import PopupComponent from "@/shared/PopupComponent";
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 
 

@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react"
 import ArticleCard from "../card/article-card"
 import { CategoryItem } from "@/types/category"
-import { buildUrl } from "@/utils/helpers"
+import { buildUrl } from '@/lib/helper'
 
 
 const ITEMS_PER_LOAD = 4;

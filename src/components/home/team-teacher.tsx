@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useMemo, useRef, useState } from 'react'
 import { Teacher } from '@/types/teacher';
-import AvatarCarousel from '../shared/avatar-carousel';
+import AvatarCarousel from '../../shared/avatar-carousel';
 
 
 interface TeamTeacherProps{

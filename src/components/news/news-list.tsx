@@ -1,4 +1,3 @@
-import KnowledgePTE from "@/components/knowledge/knowledge-pte";
 // import NewsTipList from "./news-tip-list";
 // import FeaturedNewsList from "./featured-new-list";
 import ConsultationForm from "@/components/form/consultation-form";
@@ -8,21 +7,21 @@ import NewsListItems from "./list/news-list-items";
 import { CategoryItem, NewsCategory } from "@/types/category";
 
 
-interface NewPageProps {
+interface NewsListProps {
   knowledgesCategory?: CategoryItem;
   newsCategory?: NewsCategory[];
   newsFeatured?: News[];
-  newsList?: News[];
+  newsData?: News[];
 
 }
 
-const NewListPage = ({ 
+const NewsList = ({ 
   knowledgesCategory,
   newsCategory,
   newsFeatured, 
-  newsList,
+  newsData,
  
-}: NewPageProps) => {
+}: NewsListProps) => {
 
   return (
     <section className='bg-background text-foreground'>
@@ -30,16 +29,16 @@ const NewListPage = ({
         <TrendingNews title="Thịnh Hành" data={newsFeatured} />
       )}
       {/* <NewsTipList data={dataTip} /> */}
-      {newsList && (
-        <NewsListItems data={newsList} />
+      {newsData && (
+        <NewsListItems data={newsData} />
       )}
-      {knowledgesCategory && (
-         <KnowledgePTE category={knowledgesCategory} />
+      {/* {knowledgesCategory && (
+         <KnowledgesSection data={newsList} category={knowledgesCategory} />
       )}
-     
+      */}
       <ConsultationForm />
     </section>
   )
 }
 
-export default NewListPage
+export default NewsList

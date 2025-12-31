@@ -1,18 +1,10 @@
 "use client"
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
 import { CategoryItem, CourseCategory } from "@/types/category"
-import FeaturedArticleCard from "../../shared/article/card/featured-article-card";
-import ArticleCard from "../../shared/article/card/article-card";
-import { ArticleSidebar } from "../../shared/article";
-import { Knowledges } from "@/types/knowledges";
+import { ArticleSidebar } from "../../../shared/article";
 import { Course } from "@/types/courses";
 import { PteCategorySection } from "./pte-category-section";
 import PtelistItems from "./pte-list-items";
-
-
-
-
 
 
 
@@ -26,20 +18,20 @@ const PteCategoryPage = ({
     category,
     data
 }: PteCategoryPageProps) => {
-  
-    const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-   
-   
+
+    // const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+
+
     return (
         <section className="section--sm">
             {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
                 {/* Left Column - Featured + Articles */}
                 <div className="lg:col-span-2">
-                   <PtelistItems 
-                   category={category}
-                   items={data}
-                   />
+                    <PtelistItems
+                        category={category}
+                        items={data}
+                    />
                 </div>
 
                 {/* Right Sidebar */}

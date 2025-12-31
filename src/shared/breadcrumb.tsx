@@ -32,14 +32,14 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                             {/* 1. Đường dẫn (Link hoặc Span) */}
                             {isLast ? (
                                 // Mục cuối cùng là trang hiện tại, không phải link
-                                <span className=" text-foreground font-medium lowercase">
+                                <span className=" text-foreground font-medium ">
                                     {item.name}
                                 </span>
                             ) : (
                                 // Các mục trước là link
                                 <Link 
                                     href={item.href} 
-                                    className="text-muted-foreground hover:text-primary transition-colors lowercase"
+                                    className="text-muted-foreground hover:text-primary transition-colors "
                                 >
                                     {item.name}
                                 </Link>

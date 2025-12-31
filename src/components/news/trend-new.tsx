@@ -23,7 +23,7 @@ const TrendingNews = ({
       <div className="trending-news grid gap-6 lg:grid-cols-[1fr_1.5fr]">
         <div className="trending-news__list scroll-container">
           {data.slice(0, 3).map((item, index) => (
-            <Link key={item.id ??  index} href={`${pathname}/${item.slug}`} className="block">
+            <Link key={item.newsId ??  index} href={`${pathname}/${item.slug}`} className="block">
               <div className="trending-news__item group rounded-md">
                 <div className="trending-news__item-inner flex flex-row justify-between gap-4">
                   {item.image && (

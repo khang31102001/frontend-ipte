@@ -3,17 +3,17 @@ import React, { useRef, useState } from 'react'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import CustomSwiper from '@/components/ui/custom-swiper'
-import ArticleListSection from '../../shared/article/list/article-list-section'
-import ArticleCard from '../../shared/article/card/article-card'
-import { Knowledges } from '@/types/knowledges'
+import ArticleListSection from '../../../shared/article/list/article-list-section'
+import ArticleCard from '../../../shared/article/card/article-card'
 import { CategoryItem } from '@/types/category'
-import { buildUrl } from '@/utils/helpers'
+import { buildUrl } from '@/lib/helper'
+import { Course } from '@/types/courses'
 
 
 type layout = 'grid' | 'swiper'
 
 interface CateKnowledgesItemProps {
-    data?: Knowledges[];
+    data?: Course[];
     category: CategoryItem;
     layout_type?: string
 }

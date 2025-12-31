@@ -4,21 +4,21 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import { useState } from "react"
 import TabScroll from '../ui/tabSroll'
 import CustomSwiper from '../ui/custom-swiper'
-import KnowledgeCard from './knowledge-card'
-import { Knowledges } from '@/types/knowledges'
-
 import { ChevronRight } from 'lucide-react'
 import { Course } from '@/types/courses'
-import { ICategory } from '@/types/category'
+import { CategoryItem } from '@/types/category'
 import { useKnowledGetByCate } from '@/hooks/use-knowledge'
-import SectionLoading from '../shared/loading/section-loading'
+import SectionLoading from '../../shared/loading/section-loading'
+import {  fixUrl, joinPath } from '@/lib/helper'
+import CourseCard from '../courses/card/course-card'
+
 
 export interface TabItem {
   id: string | number;
   label: string;
 }
 interface PteKnowledgeSectionProps {
-  cateKnowledges: ICategory[];
+  cateKnowledges: CategoryItem;
   knowledgesData?: Course[] | [];
 }
 const PteKnowledgeSection = ({
@@ -31,7 +31,7 @@ const PteKnowledgeSection = ({
   // console.log("knowleds cate: ", category);
   const tabs: TabItem[] = useMemo(() => {
     return (
-      cateKnowledges?.map((item) => ({
+      cateKnowledges?.children?.map((item) => ({
         id: String(item?.categoryId),
         label: item?.name,
       })) ?? []
@@ -45,23 +45,21 @@ const PteKnowledgeSection = ({
       setActiveTab(tabs[0].id);
     }
   }, [tabs, activeTab]);
-  
+
+  const activeCategoryId = activeTab ? Number(activeTab) : null;
   const { data: coursesResponse, isLoading } = useKnowledGetByCate({
-    cateId: activeTab,
+    cateId: activeCategoryId,
     page: 1,
     pageSize: 12
   });
 
   const knowledgeItem = coursesResponse?.items ?? [];
-  const activeCategoryId = activeTab ? Number(activeTab) : null;
-  const cateUrl = useMemo(() => {
-    if (!activeCategoryId) return "";
-    return cateKnowledges.find((c) => c.categoryId === activeCategoryId)?.url ?? "";
-  }, [cateKnowledges, activeCategoryId]);
 
 
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+
+
+  // const prevRef = useRef<HTMLButtonElement>(null);
+  // const nextRef = useRef<HTMLButtonElement>(null);
   const breakpoints = {
     0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
     640: { slidesPerView: 2, spaceBetween: 10 },  // sm
@@ -69,7 +67,9 @@ const PteKnowledgeSection = ({
     1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
   };
 
-  const hasCateKnowledges = Array.isArray(cateKnowledges) && cateKnowledges.length > 0;
+  const children = Array.isArray(cateKnowledges?.children) ? cateKnowledges.children : [];
+  const hasCateKnowledges = children.length > 0;
+  const cateUrl = fixUrl(cateKnowledges?.url ?? "")
 
 
   return (
@@ -106,18 +106,30 @@ const PteKnowledgeSection = ({
             slidesPerView={4}
             loop
           >
-            {knowledgeItem?.map((item, index) => (
-              <KnowledgeCard
-                key={index}
-                data={item}
-                className="flex flex-col justify-center"
-              />
-            ))}
+
+            {knowledgeItem?.map((item, index) => {
+              const cateChild = cateKnowledges?.children?.find((i) => i.slug === item.slug);
+              const cateChildUrl = cateChild?.url;
+              const itemSlug = item?.slug;
+              const href = joinPath(cateUrl, cateChildUrl, itemSlug);
+              console.log("baseUrl:", href)
+              const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
+              return (
+                <CourseCard
+                  key={index}
+                  href={href}
+                  title={item?.title}
+                  image={imgSrc}
+                  description={item?.description}
+                  card_layout='col'
+                />
+              )
+            })}
           </CustomSwiper>
         </div>
 
 
-        {(hasCateKnowledges || cateUrl !== "") && (
+        {(hasCateKnowledges) && (
           <div className="flex items-center justify-center">
             <a href={cateUrl} className=" inline-flex items-center bg-brandBlue-500 hover:bg-brandBlue-900 text-white px-8 py-4 rounded-full font-medium text-lg group">
               Xem toàn bộ tài liệu

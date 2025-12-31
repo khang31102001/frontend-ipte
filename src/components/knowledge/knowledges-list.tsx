@@ -1,33 +1,34 @@
 "use client"
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, Grid3x3, List } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { CategoryItem, KnowledgesCategory } from "@/types/category"
-import FeaturedArticleCard from "../shared/article/card/featured-article-card";
-import ArticleCard from "../shared/article/card/article-card";
-import { ArticleSidebar } from "../shared/article";
-import { Knowledges } from "@/types/knowledges";
+import FeaturedArticleCard from "../../shared/article/card/featured-article-card";
+import ArticleCard from "../../shared/article/card/article-card";
+import { ArticleSidebar } from "../../shared/article";
 import { CateKnowledgesSection } from "./cate-knowledge-section";
-import { buildUrl } from "@/utils/helpers";
-import { useQuery } from "@tanstack/react-query";
-import { coursesService } from "@/services/course/courseService";
+import { buildUrl } from '@/lib/helper'
+import { Course } from "@/types/courses";
 
 
-interface KnowledgesListPageProps {
-    categoryKnowledge?: KnowledgesCategory[];
+
+interface KnowledgesListProps {
+    categoryKnowledge?: KnowledgesCategory[] | [];
     category?: CategoryItem;
-    data: Knowledges[];
+    knowledgeData: Course[];
 }
 
-const KnowledgesSection = ({
-    categoryKnowledge,
+const KnowledgesList = ({
+    categoryKnowledge = [],
     category,
-    data
-}: KnowledgesListPageProps) => {
-    console.log("cate parent: ", category)
+    knowledgeData
+}: KnowledgesListProps) => {
+    // console.log("cate parent: ", category)
     const [currentPage, setCurrentPage] = useState(1)
-    const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+    const [viewMode] = useState<"grid" | "list">("grid");
+    const knowledgesPerPage = 4;
+    const featuredKnowledge = knowledgeData?.find((a) => a.isFeatured) ?? null;
     // const [searchQuery, setSearchQuery] = useState("")
-    const knowledgesPerPage = 4
+
     // const featuredArticle = data?.find((a) => a.featured)
     // const regularArticles = data?.filter((a) => !a.featured)
 
@@ -35,14 +36,12 @@ const KnowledgesSection = ({
     //   article.title.toLowerCase().includes(searchQuery.toLowerCase()),
     // )
 
-    const totalPages = data ? Math.ceil(data.length / knowledgesPerPage) : 0
+    const totalPages = knowledgeData ? Math.ceil(knowledgeData.length / knowledgesPerPage) : 0
     const startIndex = (currentPage - 1) * knowledgesPerPage
 
     // ham này để map hiển thị
-    const paginatedKnowledges = data ? data.slice(startIndex, startIndex + knowledgesPerPage) : [];
-   
-
-    if (!data || data.length === 0) return null;
+    const paginatedKnowledges = knowledgeData ? knowledgeData.slice(startIndex, startIndex + knowledgesPerPage) : [];
+    if (!knowledgeData || knowledgeData.length === 0) return null;
 
     return (
         <section className="section--sm">
@@ -56,11 +55,11 @@ const KnowledgesSection = ({
                         <FeaturedArticleCard
                             href={buildUrl({
                                 baseUrl: category?.url,
-                                slug: data[0].slug ?? ""
+                                slug: featuredKnowledge?.slug ?? ""
                             })}
-                            image={data[0].image}
-                            title={data[0].title}
-                            description={data[0].description}
+                            image={featuredKnowledge?.image}
+                            title={featuredKnowledge?.title}
+                            description={featuredKnowledge?.description}
                         />
                     </div>
 
@@ -72,28 +71,30 @@ const KnowledgesSection = ({
                         }
                     >
                         {paginatedKnowledges?.map((item, index) => {
-                            const base_url = buildUrl({
+                            const href = buildUrl({
                                 baseUrl: category?.url,
-                                slug: item?.slug ?? "" 
+                                slug: item?.slug ?? ""
                             });
+                            const imgURl = item?.image || "/images/img-course-deault.jpg";
+
                             return viewMode === "grid" ? (
-                                <div key={item.id ?? `idx-${index}`}>
+                                <div key={item.categoryId ?? `idx-${index}`}>
                                     <ArticleCard
-                                        href={base_url}
-                                        title={item.title}
-                                        image={item.image}
-                                        description={item.description}
+                                        href={href}
+                                        title={item?.title}
+                                        image={imgURl}
+                                        description={item?.description}
                                         layout="grid"
                                     />
                                 </div>
 
                             ) : (
-                                <div key={item.id ?? `idx-${index}`}>
+                                <div key={item.categoryId ?? `idx-${index}`}>
                                     <ArticleCard
-                                        href={base_url}
-                                        image={item.image}
-                                        title={item.title}
-                                        description={item.description}
+                                        href={href}
+                                        image={imgURl}
+                                        title={item?.title}
+                                        description={item?.description}
                                         layout="list"
                                     />
                                 </div>
@@ -202,4 +203,4 @@ const KnowledgesSection = ({
     )
 }
 
-export default KnowledgesSection
+export default KnowledgesList

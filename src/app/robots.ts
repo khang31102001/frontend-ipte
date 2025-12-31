@@ -1,4 +1,5 @@
-import { getBaseUrl } from '@/utils/helpers';
+
+import { getBaseUrl } from '@/lib/helper';
 import type { MetadataRoute } from 'next';
 
 

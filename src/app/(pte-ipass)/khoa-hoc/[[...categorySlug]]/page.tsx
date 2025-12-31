@@ -2,15 +2,16 @@ import { notFound } from "next/navigation";
 import { coursesServices } from "@/lib/service/course";
 import CourseDetailPage from "@/components/courses/detail/course-detail-page";
 import { Suspense } from "react";
-import Skeleton from "@/components/shared/loading/Skeleton";
+import Skeleton from "@/shared/loading/Skeleton";
 import { CategoryItem } from "@/types/category";
 import { categoriesServices } from "@/lib/service/category";
 import { checkCategoryBySlugs } from "@/lib/check-category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
-import { CourseListResponse } from "@/types/courses";
+import { Course, CourseListResponse } from "@/types/courses";
 import { Metadata } from "next";
-import CategoryLayout from "@/components/shared/category/category-layout";
-import CoursesListPage from "@/components/courses/courses-list-page";
+import CategoryLayout from "@/shared/category/category-layout";
+import CoursesList from "@/components/courses/courses-list";
+
 
 
 type PageProps = {
@@ -179,45 +180,48 @@ function getArticleJsonLd(data: any) {
 
 
 async function CourseListingPage({
-  found,
+  category,
   breadcrumbs,
 }: {
-  found: any;
+  category: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
-  const categories = found?.children ?? [];
-  const courses: CourseListResponse = await coursesServices.getCoursesByCate({
-    categoryId: found.id,
-  });
+  if (!category) notFound();
+  const categoryId = category.categoryId;
+  const childCategories = category?.children ?? [];
+  const coursesResponse: CourseListResponse =
+    await coursesServices.getCoursesByCate({ categoryId: categoryId });
+
+  const courses = Array.isArray(coursesResponse?.items)
+    ? coursesResponse.items : [];
 
 
-  const categoryResults = await Promise.all(
-    categories.map(async (item: any) => {
+  const cateChildCourse = await Promise.all(
+    childCategories.map(async (childCategory) => {
       try {
         const data = await coursesServices.getCoursesByCate({
-          categoryId: item.id,
+          categoryId: childCategory.categoryId,
         });
         const courses = Array.isArray(data?.items) ? data.items : [];
         // console.log("courses in page", courses);
-        return { ...item, courses: courses };
+        return { ...childCategory, courses: courses };
       } catch (err) {
         // console.error("Fetch error:", err);
-        return { ...item, courses: [] };
+        return { ...childCategory, courses: [] };
       }
     })
   );
-
-  // console.log("categoryResults in contianer", categoryResults);
+ 
   return (
     <CategoryLayout
-      title={found.name}
-      description={found.description}
+      title={category.name}
+      description={category.description}
       breadcrumbs={breadcrumbs}
     >
-      <CoursesListPage
-        category={found}
-        coursesItems={courses.items}
-        categoryItems={categoryResults}
+      <CoursesList
+        category={category}
+        coursesItems={courses}
+        categoryItems={cateChildCourse}
       />
     </CategoryLayout>
   );
@@ -226,58 +230,58 @@ async function CourseListingPage({
 
 
 export default async function Page({ params }: PageProps) {
-  const { categorySlug } = params ?? [];
+  const categorySlug = params?.categorySlug;
+  const courseMenuTree = await categoriesServices.getCategoryTree({ categoryType: "H_MENU_COURSE" });
+  const courseRootCategory: CategoryItem = courseMenuTree?.[0] ?? null;
+  if (!courseRootCategory) return notFound();
 
-  const data = await categoriesServices.getCategoryTree({ slug: "khoa-hoc" });
-  const categoryCourse: CategoryItem = data ?? []
 
+  if (!categorySlug || categorySlug.length === 0) {
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: courseRootCategory.name, href: courseRootCategory.url ?? "/khoa-hoc" },
+    ];
 
-  if (!categorySlug) {
     return (
-      <Suspense fallback={<Skeleton title={categoryCourse.name} />}>
+      <Suspense fallback={<Skeleton title={courseRootCategory?.name} />}>
         <CourseListingPage
-          found={categoryCourse}
-          breadcrumbs={[
-            { name: "Trang chủ", href: "/" },
-            { name: categoryCourse.name, href: categoryCourse.url ?? "" }
-          ]}
+          breadcrumbs={breadcrumbs}
+          category={courseRootCategory}
         />
       </Suspense>
     );
   }
 
+  const lastSegment = categorySlug.at(-1);
+  if (!lastSegment) return notFound();
+  const course:Course = await coursesServices.getCoursesDetails({ slug: lastSegment });
+  // console.log("course:", course);
+  if (course) {
 
-  if (categorySlug?.length >= 1) {
-    const lastUrl = categorySlug[categorySlug.length - 1];
-    //  const categoryPath = categorySlug.slice(0, -1).join("/");
-    //  console.log("categoryPath: ", categoryPath)
-
-    // 1. Kiểm tra last có phải là 1 slug khóa học hợp lệ không
-    const course = await coursesServices.getCoursesDetails({ slug: lastUrl });
-    console.log("course:", course);
-    if (course) {
-      return (
-        <CourseDetailPage course={course} breadcrumbs={[]} />
-      )
-    }
-
-     // 2. Nếu không phải course thì coi như là danh mục
-
-    const { found, breadcrumbs } = await checkCategoryBySlugs(categoryCourse.children ?? [], categorySlug);
-      
-    if (found) {
-      return (
-        <Suspense fallback={<Skeleton title={found.name} />}>
-          <CourseListingPage
-            found={found}
-            breadcrumbs={[ { name: "Trang chủ", href: "/" }, ...breadcrumbs]}
-          />
-        </Suspense>
-      )
-    }
-
+     const breadcrumbs: BreadcrumbItem[] = [
+        { name: "Trang chủ", href: "/" },
+        { name: course?.title, href: "/khoa-hoc" },
+      ];
+    return (
+      <CourseDetailPage course={course} breadcrumbs={breadcrumbs} />
+    )
   }
 
+  // 2. Nếu không phải course thì coi như là danh mục
 
-  return notFound();
+  const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } = await checkCategoryBySlugs(courseRootCategory?.children ?? [], categorySlug);
+  if (!currentCategory) return notFound();
+  const breadcrumbs: BreadcrumbItem[] = [
+    { name: "Trang chủ", href: "/" },
+    ...categoryBreadcrumbs,
+  ];
+
+  return (
+    <Suspense fallback={<Skeleton title={currentCategory.name} />}>
+      <CourseListingPage
+        category={currentCategory}
+        breadcrumbs={breadcrumbs}
+      />
+    </Suspense>
+  );
 }

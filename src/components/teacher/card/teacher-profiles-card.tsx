@@ -29,7 +29,7 @@ const TeacherProfilesCard = ({
 
                 <div className="teacher-card__overall flex items-center gap-3 mb-4">
                     <span className="teacher-card__overall-score text-5xl font-bold text-[#FDD835]">
-                        {data.overall_score}
+                        {data.overallScore}
                     </span>
                     <span className="teacher-card__overall-label text-base font-medium">
                         IELTS Overall
@@ -39,25 +39,25 @@ const TeacherProfilesCard = ({
                 <div className="teacher-card__skills grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
                     <div className="flex items-center gap-2">
                         <span className="teacher-card__skill-score text-[#4FC3F7] font-bold text-xl">
-                            {data.listening_score}
+                            {data.listeningScore}
                         </span>
                         <span className="teacher-card__skill-label text-white">Listening</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="teacher-card__skill-score text-[#4FC3F7] font-bold text-xl">
-                            {data.reading_score}
+                            {data.readingScore}
                         </span>
                         <span className="teacher-card__skill-label text-white">Reading</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="teacher-card__skill-score text-[#4FC3F7] font-bold text-xl">
-                            {data.speaking_score}
+                            {data.speakingScore}
                         </span>
                         <span className="teacher-card__skill-label text-white">Speaking</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="teacher-card__skill-score text-[#4FC3F7] font-bold text-xl">
-                            {data.writing_score}
+                            {data.writingScore}
                         </span>
                         <span className="teacher-card__skill-label text-white">Writing</span>
                     </div>

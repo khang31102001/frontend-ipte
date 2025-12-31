@@ -3,11 +3,12 @@ import React, { useRef, useState } from 'react'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import CustomSwiper from '@/components/ui/custom-swiper'
-import ArticleListSection from '../../shared/article/list/article-list-section'
-import ArticleCard from '../../shared/article/card/article-card'
+import ArticleListSection from '../../../shared/article/list/article-list-section'
+import ArticleCard from '../../../shared/article/card/article-card'
 import { CategoryItem } from '@/types/category'
 import { Course } from '@/types/courses'
-import { buildUrl } from '@/utils/helpers'
+import { buildUrl, fixUrl } from '@/lib/helper'
+import CourseCard from '../card/course-card'
 
 
 type layout = 'grid' | 'swiper'
@@ -34,7 +35,7 @@ const PteCategoryItem = ({
     };
 
     return (
-        <section className="section--sm">
+        <section className="section sm:section-sm lg:section-lg">
             <div className="container mx-auto px-4">
                 <div className='w-full flex items-center justify-between min-h-24 mb-8'>
                     <div className="flex-1 space-y-1 md:space-y-2">
@@ -62,7 +63,7 @@ const PteCategoryItem = ({
                 </div>
 
                 {layout_type === "swiper" ? (
-                    <div className='w-full h-auto'>
+                    <>
                         <CustomSwiper
                             breakpoint={
                                 breakpoints
@@ -74,19 +75,20 @@ const PteCategoryItem = ({
                         >
                             {data.map((item, index) => {
                                 const base_url = buildUrl({ baseUrl: category.url, slug: item.slug ?? "" });
-                              
+                                const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
                                 return (
-                                    <ArticleCard key={index}
+                                    <CourseCard
+                                     key={index}
                                         href={base_url}
                                         title={item.title}
-                                        image={item.image}
+                                        image={imgSrc}
                                         description={item.description}
-                                        layout="grid"
+                                        card_layout='col'
                                     />
                                 )
                             })}
                         </CustomSwiper>
-                    </div>
+                    </>
                 ) : (
                     <ArticleListSection category={category} data={data} />
                 )}

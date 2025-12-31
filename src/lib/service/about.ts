@@ -16,9 +16,7 @@ function toQuery(params?: QueryParams) {
 
 export class AboutSevice {
  async  getAboutMeList(params?: QueryParams):Promise<any> {
-
   const url = `${API}/abouts${toQuery(params)}`;
-
   try {
     const res = await fetch(url, {
       next: { revalidate: 300, tags: ['abouts'] }, 
@@ -33,12 +31,26 @@ export class AboutSevice {
   }
 }
  async  getSocialList(params?: QueryParams):Promise<any> {
-
   const url = `${API}/socials${toQuery(params)}`;
-
   try {
     const res = await fetch(url, {
       next: { revalidate: 300, tags: ['socials'] }, 
+        signal: AbortSignal.timeout(15000), 
+    });
+    if (!res.ok) return { items: [], total: 0 };
+    const data = await res.json();
+    // console.log("about: ",data)
+    return data;
+  } catch {
+    return { items: [], total: 0 }; 
+  }
+}
+
+ async  getBranchList(params?: QueryParams):Promise<any> {
+  const url = `${API}/branches${toQuery(params)}`;
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: 300, tags: ['branches'] }, 
         signal: AbortSignal.timeout(15000), 
     });
     if (!res.ok) return { items: [], total: 0 };

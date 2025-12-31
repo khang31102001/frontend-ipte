@@ -1,16 +1,17 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Skeleton from "@/components/shared/loading/Skeleton";
+import Skeleton from "@/shared/loading/Skeleton";
 import { CategoryItem, KnowledgesCategory } from "@/types/category";
 import { categoriesServices } from "@/lib/service/category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { Metadata } from "next";
-import CategoryLayout from "@/components/shared/category/category-layout";
+import CategoryLayout from "@/shared/category/category-layout";
 import { knowledgesServices } from "@/lib/service/knowlege";
-import KnowlegeDetail from "@/components/knowledge/details/knowledge-details";
 import { checkCategoryBySlugs } from "@/lib/check-category";
-import KnowledgesListPage from "@/components/knowledge/knowledges-section";
-import KnowledgesSection from "@/components/knowledge/knowledges-section";
+import { coursesServices } from "@/lib/service/course";
+import { CourseListResponse } from "@/types/courses";
+import KnowledgesList from "@/components/knowledge/knowledges-list";
+import CourseDetailPage from "@/components/courses/detail/course-detail-page";
 
 
 
@@ -179,26 +180,26 @@ function getArticleJsonLd(data: any) {
 
 
 
-async function KnowledgeListPage({
-  found,
+async function KnowledgeListingPage({
+  category,
   breadcrumbs,
 }: {
-  found: CategoryItem;
+  category: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
-  const categories = found?.children ?? [];
-  // console.log("KnowledgeListing:", found)
-  // console.log("categories:", categories)
-  const knowledgesItem =  await knowledgesServices.getKnowledgeList({
-    categoryType: found.categoryType!
-  }).then((res)=> res.items ?? []);
-  // console.log("knowledgesItem", knowledgesItem)
+  if (!category) notFound();
+  const categoryId = category.categoryId;
+  const childCategories = category?.children ?? [];
+  const knowledRes: CourseListResponse =
+    await coursesServices.getCoursesByCate({ categoryId: categoryId });
+  const knowledges = Array.isArray(knowledRes?.items)
+    ? knowledRes.items : [];
 
-  const categoryResults = await Promise.all(
-    categories.map(async (item: any) => {
+  const cateChildResults = await Promise.all(
+    childCategories.map(async (item: CategoryItem) => {
       try {
-        const data = await knowledgesServices.getKnowledgeList({
-          categoryType: item.category_type,
+        const data = await coursesServices.getCoursesByCate({
+          categoryId: item?.categoryId ?? null,
         });
         const items = Array.isArray(data?.items) ? data.items : [];
         // console.log("courses in page", courses);
@@ -209,70 +210,72 @@ async function KnowledgeListPage({
       }
     })
   );
+  // console.log("check categoryResults:", cateChildResults)
 
-  
   return (
     <CategoryLayout
-      title={found.name}
-      description={found.description}
+      title={category?.name}
+      description={category?.description}
       breadcrumbs={breadcrumbs}
     >
-      <KnowledgesSection 
-      data={knowledgesItem}
-      category={found} 
-      categoryKnowledge={categoryResults} />
+      <KnowledgesList
+        knowledgeData={knowledges}
+        category={category}
+        categoryKnowledge={cateChildResults} />
     </CategoryLayout>
   );
 }
 
-
-
 export default async function Page({ params }: PageProps) {
-  const { categorySlug } = params ?? [];
-  const data = await categoriesServices.getCategoryTree({ slug: "kiem-tra-mien-phi" });
-  const categoryCourse: CategoryItem = data ?? [];
+  const categorySlug = params?.categorySlug;
+  const knowledgeMenuTree = await categoriesServices.getCategoryTree({ categoryType: "H_MENU_KNOWLEDGE" });
+  const knowledgeRootCategory: CategoryItem = knowledgeMenuTree?.[0] ?? null;
+  if (!knowledgeRootCategory) return notFound();
 
-  if (!categorySlug) {
+  // console.log("check categoryCourse", categoryCourse)
+  if (!categorySlug || categorySlug.length === 0) {
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: knowledgeRootCategory?.name, href: knowledgeRootCategory?.url ?? "" },
+    ];
+
     return (
-      <Suspense fallback={<Skeleton title={categoryCourse.name} />}>
-        <KnowledgeListPage
-          found={categoryCourse}
-          breadcrumbs={[
-            { name: "Trang chủ", href: "/" },
-            { name: categoryCourse.name, href: categoryCourse.url ?? "" }
-          ]}
+      <Suspense fallback={<Skeleton title={knowledgeRootCategory?.name} />}>
+        <KnowledgeListingPage
+          category={knowledgeRootCategory}
+          breadcrumbs={breadcrumbs}
         />
       </Suspense>
     );
   }
 
-  const lastUrl = categorySlug[categorySlug.length - 1];
-  // console.log("lastUrl:", lastUrl);
-
-  const knowledge = await knowledgesServices.getKnowledgeDetail({ slug: lastUrl });
-
-  console.log("knowledge", knowledge)
-
+  const lastSegment = categorySlug.at(-1);
+  if (!lastSegment) return notFound();
+  const knowledge = await knowledgesServices.getKnowledgeDetail({ slug: lastSegment });
   if (knowledge) {
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: knowledge?.title, href: "/kiem-tra-mien-phi" },
+    ];
     return (
-      <KnowlegeDetail knowledge={knowledge} breadcrumbs={[]} />
+      <CourseDetailPage course={knowledge} breadcrumbs={breadcrumbs} />
     )
   }
 
   // kiểm tra lastUrl có phải là category không
-  const { found, breadcrumbs } = await checkCategoryBySlugs(categoryCourse.children ?? [], categorySlug);
+  const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } = await checkCategoryBySlugs(knowledgeRootCategory?.children ?? [], categorySlug);
+  if (!currentCategory) return notFound();
+  const breadcrumbs: BreadcrumbItem[] = [
+    { name: "Trang chủ", href: "/" },
+    ...categoryBreadcrumbs,
+  ];
 
-  // console.log("found category:", found);
-  if (found) {
-    return (
-      <Suspense fallback={<Skeleton title={found.name} />}>
-        <KnowledgeListPage
-          found={found}
-          breadcrumbs={breadcrumbs}
-        />
-      </Suspense>
-    )
-  }
-
-  return notFound();
+  return (
+    <Suspense fallback={<Skeleton title={currentCategory?.name} />}>
+      <KnowledgeListingPage
+        category={currentCategory}
+        breadcrumbs={breadcrumbs}
+      />
+    </Suspense>
+  )
 }

@@ -1,5 +1,5 @@
 
-import Skeleton from "@/components/shared/loading/Skeleton";
+import Skeleton from "@/shared/loading/Skeleton";
 import TeacherDetails from "@/components/teacher/details/teacher-detail";
 import TeacherDetail from "@/components/teacher/details/teacher-detail";
 import { teacherServices } from "@/lib/service/teacher";

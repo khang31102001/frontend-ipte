@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { CategoryItem } from "@/types/category";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { fixUrl } from "@/utils/helpers";
+import { fixUrl } from "@/lib/helper";
 
 
 interface OnSubMenuProps {

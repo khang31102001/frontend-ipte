@@ -2,9 +2,9 @@
 import CourseDetailPage from "@/components/courses/detail/course-detail-page"
 import PteCategoryPage from "@/components/courses/category/pte-category-page"
 
-import { ArticleGridSection } from "@/components/shared/article"
-import CategoryLayout from "@/components/shared/category/category-layout"
-import Skeleton from "@/components/shared/loading/Skeleton"
+import { ArticleGridSection } from "@/shared/article"
+import CategoryLayout from "@/shared/category/category-layout"
+import Skeleton from "@/shared/loading/Skeleton"
 import { checkCategoryBySlugs } from "@/lib/check-category"
 import { categoriesServices } from "@/lib/service/category"
 import { coursesServices } from "@/lib/service/course"

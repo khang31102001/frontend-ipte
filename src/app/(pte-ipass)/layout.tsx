@@ -4,8 +4,9 @@ import "@/styles/globals.scss";
 import { categoriesServices } from "@/lib/service/category";
 import ClientRoot from "@/Layout/client-root";
 import { CategoryProvider } from "@/context/category-context";
-import { getBaseUrl } from "@/utils/helpers";
+
 import Providers from "@/providers";
+import { getBaseUrl } from "@/lib/helper";
 
 const roboto = Roboto({
   subsets: ["latin"],

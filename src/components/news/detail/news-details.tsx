@@ -1,6 +1,6 @@
 
-import { ArticleContent, ArticleCovderImage, ArticleHeader, ArticleSidebar } from "@/components/shared/article";
-import { FloatingCTA } from "@/components/shared/subscription/floating-cta";
+import { ArticleContent, ArticleCovderImage, ArticleHeader, ArticleSidebar } from "@/shared/article";
+import { FloatingCTA } from "@/shared/subscription/floating-cta";
 import { News } from "@/types/news";
 
 interface NewsDetailsProps {

@@ -1,7 +1,7 @@
 import React from 'react'
-import { ArticleContent, ArticleFooter, ArticleHeader } from '../shared/article'
+import { ArticleContent, ArticleFooter, ArticleHeader } from '../../shared/article'
 import { IAbout } from '@/types/about'
-import ArticleCover from '../shared/article/detail/article-cover';
+import ArticleCover from '../../shared/article/detail/article-cover';
 interface AboutDetailProps {
     about: IAbout;
 }

@@ -2,6 +2,20 @@ import { url } from 'inspector';
 import 'server-only';
 
 const API = process.env.NEXT_PUBLIC_URL_API!;
+
+type CourseParams = | { slug: string } | { id: string | number } | { name: string };
+type QueryParams = Record<string, string | number | boolean | null | undefined>;
+function toQuery(params?: QueryParams) {
+    if (!params) return "";
+    const usp = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => {
+        if (v === undefined || v === null) return;
+        usp.append(k, String(v));
+    });
+    const s = usp.toString();
+    return s ? `?${s}` : "";
+}
+
 interface NewsJoinedKnowledge  {
     news: {
         id: number;
@@ -26,18 +40,16 @@ interface NewsJoinedKnowledge  {
 };
 
 export class NewsServices {
-    async getNewsList(params?: Record<string, string | number | null>) {
-        const qs = params ? '?' + new URLSearchParams(
-            Object.entries(params).map(([k, v]) => [k, String(v)])
-        ).toString() : '';
-        const url = `${API}/news${qs}`;
-        // console.log('fetch url news', url);
+
+    async getNewsList(params?: QueryParams) {
+        const url = `${API}/news${toQuery(params)}`;
         try {
             const res = await fetch(url, {
-                next: { revalidate: 300, tags: ['news'] }, // ISR 5 phút + tag
+                next: { revalidate: 300, tags: ['news'] }, 
                 signal: AbortSignal.timeout(15000), 
             });
             if (!res.ok) return { items: [], total: 0 };
+
             const data = await res.json();
             // console.log('data news', data);
 
@@ -65,15 +77,17 @@ export class NewsServices {
     }
 
 
-    async getNewsDetail(slug: string) {
+    async getNewsDetail(params: QueryParams) {
         try {
-            const res = await fetch(`${API}/news/${slug}`, {
+            const res = await fetch(`${API}/news/${toQuery(params)}`, {
                 // cache: 'no-store', sử dụng SSR  dùng dử liệu tươi  
-                next: { revalidate: 1800, tags: ['news'] }, // ISR 30 phút + tag
+                next: { revalidate: 1800, tags: ['news'] },
                 signal: AbortSignal.timeout(15000), 
             });
-            if (!res.ok) return null;
-            return res.json();
+             if (!res.ok) return null;
+            const data = await res.json();
+            //  console.log("result", data);
+            return data;
         } catch {
             return null;
         }

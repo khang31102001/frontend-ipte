@@ -1,7 +1,9 @@
 
+import CommunityPTE from "@/components/community/community-pte-ipass";
 import CommunityPTEiPass from "@/components/community/community-pte-ipass";
 import PTECallToAction from "@/components/teacher/pte-call-to-action";
 import TeacherList from "@/components/teacher/teacher-list";
+import { aboutService } from "@/lib/service/about";
 import { teacherServices } from "@/lib/service/teacher";
 
 
@@ -115,10 +117,16 @@ const jsonLd = {
 
 
 export default async function TeacherPage() {
+  const [
+      techerRes,
+      socialRes
+    ] = await Promise.all([
+      teacherServices.getTeachersList({ page: 1, pageSize: 10,}),
+      aboutService.getSocialList(),
+    ]);
  
-  const data = await teacherServices.getTeachersList({ page: 1, pageSize: 10,});
-  // const features = data.features ?? [];
-  const items = data.items ?? [];
+  const items = techerRes.items ?? [];
+  const socialData = socialRes?.items ?? [];
   // console.log("data teacher:", data);
   return (
     <section>
@@ -128,7 +136,7 @@ export default async function TeacherPage() {
       />
       {/* <FeaturesSection data={features}/> */}
       <TeacherList data={items} />
-      <CommunityPTEiPass />
+      <CommunityPTE socialData={socialData} />
       <PTECallToAction />
     </section>
   );
