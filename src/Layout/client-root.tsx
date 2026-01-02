@@ -5,6 +5,7 @@ import { useFirstVisitPopup } from "@/hooks/use-visit-popup";
 // import FloatingChat from "@/components/Layout/FloatingChat";
 import { CategoryItem } from '@/types/category'
 import MainLayout from "./main-layout";
+import { PopupRegistrationProvider } from "@/context/popup-registration-context";
 
 
 export default function ClientRoot({
@@ -13,7 +14,7 @@ export default function ClientRoot({
 
 }: { children: React.ReactNode, data: CategoryItem[]; }) {
 
-  const { isOpen, close } = useFirstVisitPopup({
+  const { isOpen, open, close } = useFirstVisitPopup({
     storageKey: "popup:reg:v6",
     cooldownDays: 0.33333,
     delayMs: 200,
@@ -25,7 +26,7 @@ export default function ClientRoot({
   // console.log("logoApp", logoApp)
 
   return (
-    <>
+    <PopupRegistrationProvider value={{ openRegistration: open, closeRegistration: close }}>
       <MainLayout
         headerlogo={logoApp}
         headerMenu={menuItems}
@@ -34,6 +35,6 @@ export default function ClientRoot({
       </MainLayout>
       {/* <FloatingChat /> */}
       <PopupRegistrationForm isPopup={isOpen} onClose={close} />
-    </>
+    </PopupRegistrationProvider>
   );
 }

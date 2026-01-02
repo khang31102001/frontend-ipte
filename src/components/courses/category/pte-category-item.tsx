@@ -1,14 +1,12 @@
 "use client"
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import CustomSwiper from '@/components/ui/custom-swiper'
-import ArticleListSection from '../../../shared/article/list/article-list-section'
-import ArticleCard from '../../../shared/article/card/article-card'
 import { CategoryItem } from '@/types/category'
 import { Course } from '@/types/courses'
-import { buildUrl, fixUrl } from '@/lib/helper'
 import CourseCard from '../card/course-card'
+import { ROUTERS } from '@/config/routes/routers'
 
 
 type layout = 'grid' | 'swiper'
@@ -16,7 +14,7 @@ type layout = 'grid' | 'swiper'
 interface PteCategoryItemProps {
     data?: Course[];
     category: CategoryItem;
-    layout_type?: string
+    layout_type?: layout
 }
 const PteCategoryItem = ({
     data = [],
@@ -24,16 +22,16 @@ const PteCategoryItem = ({
     layout_type
 }: PteCategoryItemProps) => {
     // const [loadMore, setloadMore] = useState<boolean>()
-    console.log()
+   
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
     const breakpoints = {
-        0: { slidesPerView: 1, spaceBetween: 10 },  // mobile nhỏ
-        640: { slidesPerView: 2, spaceBetween: 10 },  // sm
-        870: { slidesPerView: 3, spaceBetween: 10 },  // md
-        1280: { slidesPerView: 4, spaceBetween: 10 }, // xl
+        0: { slidesPerView: 1, spaceBetween: 10 },  
+        640: { slidesPerView: 2, spaceBetween: 10 },  
+        870: { slidesPerView: 3, spaceBetween: 10 },  
+        1280: { slidesPerView: 4, spaceBetween: 10 }, 
     };
-
+    const cateHref = category.url ? ROUTERS.COURSES.category(category?.url) : "";
     return (
         <section className="section sm:section-sm lg:section-lg">
             <div className="container mx-auto px-4">
@@ -74,12 +72,12 @@ const PteCategoryItem = ({
                             className="swiper-course"
                         >
                             {data.map((item, index) => {
-                                const base_url = buildUrl({ baseUrl: category.url, slug: item.slug ?? "" });
+                               const href = ROUTERS.COURSES.detail(item?.slug, category?.url)
                                 const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
                                 return (
                                     <CourseCard
                                      key={index}
-                                        href={base_url}
+                                        href={href}
                                         title={item.title}
                                         image={imgSrc}
                                         description={item.description}
@@ -90,16 +88,17 @@ const PteCategoryItem = ({
                         </CustomSwiper>
                     </>
                 ) : (
-                    <ArticleListSection category={category} data={data} />
+                    null
                 )}
 
-                <div className="w-full max-w-56 mx-auto mt-8">
-
-                    <Link href={category.url || ""} className="btn-link-custom">
+               {cateHref &&(
+                 <div className="w-full max-w-56 mx-auto mt-8">
+                    <Link href={cateHref} className="btn-link-custom">
                         Xem thêm
                         <ArrowRight className="btn-link-custom__icon" />
                     </Link>
                 </div>
+               )}
             </div>
         </section>
     )

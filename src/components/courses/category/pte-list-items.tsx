@@ -58,7 +58,7 @@ const PtelistItems = ({
                                 title={item.title}
                                 image={item.image}
                                 description={item.description}
-                                layout="grid"
+                                layout="col"
                             />
                         </div>
 
@@ -69,7 +69,7 @@ const PtelistItems = ({
                                 image={item.image}
                                 title={item.title}
                                 description={item.description}
-                                layout="list"
+                                layout="row"
                             />
                         </div>
                     );

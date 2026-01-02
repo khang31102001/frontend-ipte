@@ -10,16 +10,12 @@ interface NewsCardProps {
     image: string;
     title: string;
     description: string;
-
     category?: string;
     authorName?: string;
     authorAvatar?: string;
     date?: string;
-
     btnText?: string;
     layout?: Layout;
-
-
     onButtonClick?: () => void;
 }
 

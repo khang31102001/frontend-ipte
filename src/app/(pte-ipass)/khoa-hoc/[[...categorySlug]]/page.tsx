@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { coursesServices } from "@/lib/service/course";
-import CourseDetailPage from "@/components/courses/detail/course-detail-page";
 import { Suspense } from "react";
 import Skeleton from "@/shared/loading/Skeleton";
 import { CategoryItem } from "@/types/category";
@@ -11,6 +10,8 @@ import { Course, CourseListResponse } from "@/types/courses";
 import { Metadata } from "next";
 import CategoryLayout from "@/shared/category/category-layout";
 import CoursesList from "@/components/courses/courses-list";
+import CourseDetail from "@/components/courses/detail/course-detail-page";
+import { aboutService } from "@/lib/service/about";
 
 
 
@@ -227,6 +228,30 @@ async function CourseListingPage({
   );
 }
 
+ async function CoursesDetailPage({
+    coursesData,
+    breadcrumbs,
+}: {
+    coursesData: Course;
+    breadcrumbs: BreadcrumbItem[];
+}) {
+    if (!coursesData) notFound();
+
+    const [socialRes, featuredCoursesRes] = await Promise.all([
+        aboutService.getSocialList(),
+        coursesServices.getCoursesList({
+            page: 1,
+            pageSize: 12,
+            isFeatured: true,
+        }),
+    ])
+    const featuredCourses = featuredCoursesRes?.items ?? []
+    const socialData = socialRes?.items ?? [];
+
+    //   console.log("audit check newsRes: ", newsRes);
+    return <CourseDetail course={coursesData} featuredCourses={featuredCourses} breadcrumbs={breadcrumbs} />
+}
+
 
 
 export default async function Page({ params }: PageProps) {
@@ -260,10 +285,10 @@ export default async function Page({ params }: PageProps) {
 
      const breadcrumbs: BreadcrumbItem[] = [
         { name: "Trang chủ", href: "/" },
-        { name: course?.title, href: "/khoa-hoc" },
+        { name: course?.title, href: "" },
       ];
     return (
-      <CourseDetailPage course={course} breadcrumbs={breadcrumbs} />
+      <CoursesDetailPage coursesData={course} breadcrumbs={breadcrumbs} />
     )
   }
 

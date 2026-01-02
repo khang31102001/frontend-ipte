@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react'
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import CustomSwiper from '@/components/ui/custom-swiper'
-import ArticleListSection from '../../../shared/article/list/article-list-section'
 import ArticleCard from '../../../shared/article/card/article-card'
 import { CategoryItem } from '@/types/category'
 import { buildUrl } from '@/lib/helper'
@@ -15,7 +14,7 @@ type layout = 'grid' | 'swiper'
 interface CateKnowledgesItemProps {
     data?: Course[];
     category: CategoryItem;
-    layout_type?: string
+    layout_type?: layout
 }
 const CateKnowledgesItem = ({
     data = [],
@@ -82,14 +81,14 @@ const CateKnowledgesItem = ({
                                         href={base_url}
                                         image={item.image}
                                         description={item.description}
-                                        layout="grid"
+                                        layout="col"
                                     />
                                 )
                             })}
                         </CustomSwiper>
                     </div>
                 ) : (
-                    <ArticleListSection category={category} data={data} />
+                   null
                 )}
 
                 <div className="w-full max-w-56 mx-auto mt-8">

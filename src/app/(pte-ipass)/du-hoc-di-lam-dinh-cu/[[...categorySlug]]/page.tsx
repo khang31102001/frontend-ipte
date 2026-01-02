@@ -1,7 +1,4 @@
-
-import CourseDetailPage from "@/components/courses/detail/course-detail-page"
 import PteCategoryPage from "@/components/courses/category/pte-category-page"
-
 import CategoryLayout from "@/shared/category/category-layout"
 import Skeleton from "@/shared/loading/Skeleton"
 import { checkCategoryBySlugs } from "@/lib/check-category"
@@ -12,7 +9,10 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React, { Suspense } from "react"
 import { CategoryItem } from "@/types/category"
-import { CourseListResponse } from "@/types/courses"
+import { Course } from "@/types/courses"
+import { aboutService } from "@/lib/service/about"
+import CourseDetail from "@/components/courses/detail/course-detail-page"
+
 
 type PageProps = {
   params: {
@@ -205,11 +205,20 @@ async function StudyWorkMigratePage({
   if (!category) notFound();
   const categoryId = category.categoryId;
   const childCategories = category?.children ?? [];
-  const studyWorkRes: CourseListResponse =
-    await coursesServices.getCoursesByCate({ categoryId: categoryId });
+  const [studyWorkRes, featuredCoursesRes] = await Promise.all([
+    coursesServices.getCoursesByCate({ categoryId: categoryId }),
+     coursesServices.getCoursesList({
+            page: 1,
+            pageSize: 12,
+            isFeatured: true,
+        }),
+  ]);
 
+  
   const studyWork = Array.isArray(studyWorkRes?.items)
     ? studyWorkRes.items : [];
+  const featuredCourses = Array.isArray(featuredCoursesRes?.items)
+    ? featuredCoursesRes.items : [];
 
   const cateChildResults = await Promise.all(
     childCategories.map(async (item: CategoryItem) => {
@@ -235,11 +244,36 @@ async function StudyWorkMigratePage({
       <PteCategoryPage
         category={category}
         categoryCourse={cateChildResults}
-        data={studyWork}
+        coures={studyWork}
+        featuredCourses={featuredCourses}
       />
     </CategoryLayout>
   );
 }
+async function StudyWorkMigrateDetail({
+    coursesData,
+    breadcrumbs,
+}: {
+    coursesData: Course;
+    breadcrumbs: BreadcrumbItem[];
+}) {
+    if (!coursesData) notFound();
+
+    const [socialRes, featuredCoursesRes] = await Promise.all([
+        aboutService.getSocialList(),
+        coursesServices.getCoursesList({
+            page: 1,
+            pageSize: 12,
+            isFeatured: true,
+        }),
+    ])
+    const featuredCourses = featuredCoursesRes?.items ?? []
+    const socialData = socialRes?.items ?? [];
+
+    //   console.log("audit check newsRes: ", newsRes);
+    return <CourseDetail course={coursesData} featuredCourses={featuredCourses} breadcrumbs={breadcrumbs} />
+}
+
 export default async function Page({ params }: PageProps) {
 
   const categorySlug = params?.categorySlug;
@@ -290,7 +324,7 @@ export default async function Page({ params }: PageProps) {
       { name: course?.title, href: "" },
     ];
     return (
-      <CourseDetailPage course={course} breadcrumbs={[]} />
+      <StudyWorkMigrateDetail coursesData={course} breadcrumbs={breadcrumbs} />
     )
   }
 

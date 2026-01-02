@@ -4,8 +4,8 @@ import { CourseStageSection } from './course-stage-section'
 import { FaqAccordion } from './faq-accordion'
 import { CategoryItem, CourseCategory } from '@/types/category'
 import { Course } from '@/types/courses'
-import CourseListItems from './list/course-list-items'
 import { PteCategorySection } from './category/pte-category-section'
+import CourseListSection from './list/course-list-section'
 
 interface CoursesListPageProps {
   category?: CategoryItem;
@@ -23,8 +23,8 @@ const CoursesList = ({
   return (
     <section>
       {coursesItems && (
-        <CourseListItems
-          category={category}
+        <CourseListSection
+
           viewMode="grid"
           data={coursesItems}
         />

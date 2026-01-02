@@ -63,7 +63,10 @@ const ArticleHeader = ({
                         <NameAvatar name={authorName} size={36} />
                     )}
                     {authorName && primaryDateValue && (
+                        <>
+                        <span>{authorName}</span>
                         <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+                        </>
                     )}
 
                     {primaryDateValue && primaryDateLabel && (

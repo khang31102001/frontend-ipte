@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Skeleton from "@/shared/loading/Skeleton";
-import { CategoryItem, KnowledgesCategory } from "@/types/category";
+import { CategoryItem } from "@/types/category";
 import { categoriesServices } from "@/lib/service/category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { Metadata } from "next";
@@ -9,9 +9,10 @@ import CategoryLayout from "@/shared/category/category-layout";
 import { knowledgesServices } from "@/lib/service/knowlege";
 import { checkCategoryBySlugs } from "@/lib/check-category";
 import { coursesServices } from "@/lib/service/course";
-import { CourseListResponse } from "@/types/courses";
 import KnowledgesList from "@/components/knowledge/knowledges-list";
 import CourseDetailPage from "@/components/courses/detail/course-detail-page";
+import { aboutService } from "@/lib/service/about";
+import { Course } from "@/types/courses";
 
 
 
@@ -190,10 +191,21 @@ async function KnowledgeListingPage({
   if (!category) notFound();
   const categoryId = category.categoryId;
   const childCategories = category?.children ?? [];
-  const knowledRes: CourseListResponse =
-    await coursesServices.getCoursesByCate({ categoryId: categoryId });
+
+  const [knowledRes, courseFeaturedRes] = await Promise.all([
+    coursesServices.getCoursesByCate({ categoryId: categoryId }),
+    coursesServices.getCoursesList({
+      page: 1,
+      pageSize: 12,
+      isFeatured: true,
+    }),
+  ]);
+
   const knowledges = Array.isArray(knowledRes?.items)
     ? knowledRes.items : [];
+
+  const courseFeatured = Array.isArray(courseFeaturedRes?.items)
+    ? courseFeaturedRes.items : [];
 
   const cateChildResults = await Promise.all(
     childCategories.map(async (item: CategoryItem) => {
@@ -220,10 +232,37 @@ async function KnowledgeListingPage({
     >
       <KnowledgesList
         knowledgeData={knowledges}
+        featuredCourses={courseFeatured}
         category={category}
-        categoryKnowledge={cateChildResults} />
+        categoryKnowledge={cateChildResults}
+      />
     </CategoryLayout>
   );
+}
+
+
+ async function KnowledgeDetailPage({
+    coursesData,
+    breadcrumbs,
+}: {
+    coursesData: Course;
+    breadcrumbs: BreadcrumbItem[];
+}) {
+    if (!coursesData) notFound();
+
+    const [socialRes, featuredCoursesRes] = await Promise.all([
+        aboutService.getSocialList(),
+        coursesServices.getCoursesList({
+            page: 1,
+            pageSize: 12,
+            isFeatured: true,
+        }),
+    ])
+    const featuredCourses = featuredCoursesRes?.items ?? []
+    const socialData = socialRes?.items ?? [];
+
+    //   console.log("audit check newsRes: ", newsRes);
+    return <CourseDetailPage course={coursesData} featuredCourses={featuredCourses} breadcrumbs={breadcrumbs} />
 }
 
 export default async function Page({ params }: PageProps) {
@@ -255,10 +294,10 @@ export default async function Page({ params }: PageProps) {
   if (knowledge) {
     const breadcrumbs: BreadcrumbItem[] = [
       { name: "Trang chủ", href: "/" },
-      { name: knowledge?.title, href: "/kiem-tra-mien-phi" },
+      { name: knowledge?.title, href: "" },
     ];
     return (
-      <CourseDetailPage course={knowledge} breadcrumbs={breadcrumbs} />
+      <KnowledgeDetailPage coursesData={knowledge} breadcrumbs={breadcrumbs} />
     )
   }
 

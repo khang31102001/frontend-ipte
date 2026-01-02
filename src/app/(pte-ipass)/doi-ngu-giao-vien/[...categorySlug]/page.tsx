@@ -3,8 +3,6 @@ import Skeleton from "@/shared/loading/Skeleton";
 import TeacherDetails from "@/components/teacher/details/teacher-detail";
 import TeacherDetail from "@/components/teacher/details/teacher-detail";
 import { teacherServices } from "@/lib/service/teacher";
-
-// app/doi-ngu-giao-vien/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";

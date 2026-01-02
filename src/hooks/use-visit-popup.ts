@@ -60,7 +60,12 @@ export function useFirstVisitPopup({
         // 2 Ghi lại thời điểm đã hiển thị (markShown())
         setIsOpen(false);
         markShown();
-    }, [markShown])
+    }, [markShown]);
 
-    return { isOpen, markShown, close }
+    const open = useCallback(() => {
+        setIsOpen(true);
+    }, []);
+
+
+    return { isOpen, open ,markShown, close }
 }

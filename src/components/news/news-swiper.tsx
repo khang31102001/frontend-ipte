@@ -7,7 +7,7 @@ import { News } from '@/types/news'
 import { CategoryItem } from '@/types/category'
 import Newscard from './card/news-card'
 import { formatDate } from '@/utils/date'
-import { ROUTERS } from '../config/routes/routers'
+import { ROUTERS } from '../../config/routes/routers'
 import NewsCard from './card/news-card'
 
 

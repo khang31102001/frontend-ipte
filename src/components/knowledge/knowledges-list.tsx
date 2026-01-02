@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { CategoryItem, KnowledgesCategory } from "@/types/category"
 import FeaturedArticleCard from "../../shared/article/card/featured-article-card";
@@ -8,25 +8,47 @@ import { ArticleSidebar } from "../../shared/article";
 import { CateKnowledgesSection } from "./cate-knowledge-section";
 import { buildUrl } from '@/lib/helper'
 import { Course } from "@/types/courses";
+import { ROUTERS } from "@/config/routes/routers";
+import { SidebarItem } from "@/shared/article/article-sidebar";
 
 
 
 interface KnowledgesListProps {
     categoryKnowledge?: KnowledgesCategory[] | [];
     category?: CategoryItem;
+    featuredCourses?: Course[] | null;
     knowledgeData: Course[];
 }
+export function courseToSidebarItem(
+    course: Course,
+    basePath = ""
+): SidebarItem {
+    return {
+        id: course.courseId ?? course.slug,
+        title: course.title ?? course.courseName ?? "Khóa học",
+        image: course.image ?? "/images/course-default.jpg",
+        badge: "Miễn phí",
+        href: course.slug ? `${basePath}/${course.slug}` : basePath,
+    };
+}
+
 
 const KnowledgesList = ({
     categoryKnowledge = [],
     category,
-    knowledgeData
+    knowledgeData,
+    featuredCourses
 }: KnowledgesListProps) => {
     // console.log("cate parent: ", category)
     const [currentPage, setCurrentPage] = useState(1)
     const [viewMode] = useState<"grid" | "list">("grid");
     const knowledgesPerPage = 4;
     const featuredKnowledge = knowledgeData?.find((a) => a.isFeatured) ?? null;
+    const courseFeaturedItems = useMemo(() => {
+        if (!featuredCourses || featuredCourses.length === 0) return [];
+        return featuredCourses.map((item) => courseToSidebarItem(item, category?.url))
+    }, [featuredCourses, category?.url]);
+
     // const [searchQuery, setSearchQuery] = useState("")
 
     // const featuredArticle = data?.find((a) => a.featured)
@@ -47,10 +69,7 @@ const KnowledgesList = ({
         <section className="section--sm">
             {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
-                {/* Left Column - Featured + Articles */}
                 <div className="lg:col-span-2">
-                    {/* Featured Article */}
-
                     <div className="mb-8">
                         <FeaturedArticleCard
                             href={buildUrl({
@@ -71,10 +90,7 @@ const KnowledgesList = ({
                         }
                     >
                         {paginatedKnowledges?.map((item, index) => {
-                            const href = buildUrl({
-                                baseUrl: category?.url,
-                                slug: item?.slug ?? ""
-                            });
+                            const href = ROUTERS.KNOWLEDGE.detail(item?.slug, category?.url);
                             const imgURl = item?.image || "/images/img-course-deault.jpg";
 
                             return viewMode === "grid" ? (
@@ -84,7 +100,7 @@ const KnowledgesList = ({
                                         title={item?.title}
                                         image={imgURl}
                                         description={item?.description}
-                                        layout="grid"
+                                        layout="col"
                                     />
                                 </div>
 
@@ -95,7 +111,7 @@ const KnowledgesList = ({
                                         image={imgURl}
                                         title={item?.title}
                                         description={item?.description}
-                                        layout="list"
+                                        layout="row"
                                     />
                                 </div>
                             );
@@ -142,29 +158,12 @@ const KnowledgesList = ({
 
                 {/* Right Sidebar */}
                 <div className="space-y-6">
-                    <ArticleSidebar
-                        title="Khóa học tiêu biểu"
-                        items={[
-                            {
-                                id: 1,
-                                title: "Luyện thi PTE core chuyên biệt",
-                                image: "/pte-exam-course.jpg",
-                                badge: "Miễn phí",
-                            },
-                            {
-                                id: "2",
-                                title: "Luyện thi PTE core chuyên biệt",
-                                image: "/english-course.jpg",
-                                badge: "Miễn phí",
-                            },
-                            {
-                                id: "3",
-                                title: "Luyện thi PTE core chuyên biệt",
-                                image: "/study-abroad.jpg",
-                                badge: "Miễn phí",
-                            },
-                        ]}
-                    />
+                    {courseFeaturedItems && (
+                        <ArticleSidebar
+                            title="Khóa học tiêu biểu"
+                            items={courseFeaturedItems}
+                        />
+                    )}
 
                     <ArticleSidebar
                         title="Cộng đồng PTE lớn nhất"

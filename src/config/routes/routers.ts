@@ -2,9 +2,9 @@ import { joinPath } from "@/lib/helper";
 
 
 const NEWS_BASE = "/tin-tuc-pte-ipass";
-const COURSES_BASE = "/khoa-hoc-pte-ipass";
+const COURSES_BASE = "/khoa-hoc";
 const KNOWLEDGE_BASE = "/kiem-tra-mien-phi"; 
-const TEACHER_BASE = "doi-ngu-giao-vien";
+const TEACHER_BASE = "/doi-ngu-giao-vien";
 
 type Path = string | string[];
 

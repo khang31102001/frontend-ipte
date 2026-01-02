@@ -5,7 +5,7 @@ import { Course } from '@/types/courses'
 import Link from 'next/link'
 import CustomSwiper from '@/components/ui/custom-swiper'
 import ArticleCard from '../article/card/article-card'
-import ArticleListSection from '../article/list/article-list-section'
+
 
 type layout = 'grid' | 'swiper'
 
@@ -78,13 +78,13 @@ const CategoryKnowledge = ({
                                 href={item.slug ?? ""}
                                 image={item.image }
                                 description={item.description }
-                                layout="grid"
+                                layout="col"
                             />
                         ))}
                     </CustomSwiper>
                 </div>
                 ):(
-                     <ArticleListSection data={data}/>
+                     null
                 )}
 
                 <div className="w-full max-w-56 mx-auto mt-8">

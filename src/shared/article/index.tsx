@@ -1,5 +1,4 @@
 
-export { default as ArticleGridSection } from "./article-grid-section";
 export { default as ArticleHeader } from "./detail/article-header";
 export { default as ArticleCovderImage } from "./detail/article-cover";
 export { default as ArticleContent } from "./detail/article-content";

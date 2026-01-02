@@ -1,21 +1,47 @@
-import { CommentsSection } from "@/components/comment/comment-section";
+"use client";
 import { ArticleContent, ArticleCovderImage, ArticleFooter, ArticleHeader, ArticleSidebar } from "@/shared/article";
 import CourseSidebar from "./course-sidebar";
 import { FloatingCTA } from "@/shared/subscription/floating-cta";
 import { Course } from "@/types/courses";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
+import { SidebarItem } from "@/shared/article/article-sidebar";
+import { useMemo } from "react";
+import { usePopupRegistration } from "@/context/popup-registration-context";
+
 
 interface CourseDeatilsProps {
   course: Course | null;
-  breadcrumbs: BreadcrumbItem[] | null;
+  breadcrumbs?: BreadcrumbItem[] | null;
+  featuredCourses?: Course[] | null;
 }
-const CourseDetailPage = ({
+
+export function courseToSidebarItem(
+  course: Course,
+  basePath = "/khoa-hoc"
+): SidebarItem {
+  return {
+    id: course.courseId ?? course.slug,
+    title: course.title ?? course.courseName ?? "Khóa học",
+    image: course.image ?? "/images/course-default.jpg",
+    badge: "Miễn phí",
+    href: course.slug ? `${basePath}/${course.slug}` : basePath,
+  };
+}
+
+const CourseDetail = ({
   course,
+  featuredCourses,
   breadcrumbs = []
 }: CourseDeatilsProps) => {
 
   // console.log("course", course);
-
+   const imgUrl = course?.image || "/images/img-courses-deault.jpg";
+   const courseFeaturedItems = useMemo(()=>{
+       if(!featuredCourses || featuredCourses.length === 0) return [];
+       return featuredCourses.map((item)=> courseToSidebarItem(item, "/khoa-hoc"))
+     }, [featuredCourses]);
+        const { openRegistration } = usePopupRegistration();
+   
   if (!course) return null;
 
   return (
@@ -24,18 +50,23 @@ const CourseDetailPage = ({
 
         <ArticleHeader
           title={course.title}
-          summary={course.description}
+          summary={course?.description}
+          authorName={course?.createdBy ?? ""}
+          createdAt={course?.createdAt}
+          updatedAt={course?.updatedAt}
         />
 
         <ArticleCovderImage
-          image={course.image} 
+          image={imgUrl}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <ArticleContent content={course?.content} />
             <ArticleContent content={course?.benefits} />
-            <ArticleFooter tags={course?.keywords as string[]} />
+            {course?.audience &&(
+              <ArticleFooter tags={course?.audience as string[]} />
+            )}
             {/* <CommentsSection courseId={course.courseId ?? 0} /> */}
           </div>
 
@@ -48,37 +79,21 @@ const CourseDetailPage = ({
                   </div>
                 )} */}
               <CourseSidebar
-                Detailstitle="PTE Course Info"
-                level={course.level}
-                duration={course.duration}
-                schedule={course.schedule}
-                tuition={course.tuition}
+                Detailstitle="Thông tin khóa học PTE"
+                level={course?.level}
+                duration={course?.duration}
+                schedule={course?.schedule}
+                tuition={course?.tuition}
+                openRegistration={openRegistration}
 
               />
 
-              <ArticleSidebar
+              {courseFeaturedItems && (
+                <ArticleSidebar
                 title="Khóa học tiêu biểu"
-                items={[
-                  {
-                    id: "1",
-                    title: "Luyện thi PTE core chuyên biệt",
-                    image: "/images/course-1.jpg",
-                    badge: "Miễn phí",
-                  },
-                  {
-                    id: "2",
-                    title: "Luyện thi PTE core chuyên biệt",
-                    image: "/images/course-2.jpg",
-                    badge: "Miễn phí",
-                  },
-                  {
-                    id: "3",
-                    title: "Luyện thi PTE core chuyên biệt",
-                    image: "/images/course-3.jpg",
-                    badge: "Miễn phí",
-                  },
-                ]}
+                items={courseFeaturedItems}
               />
+              )}
 
               <ArticleSidebar
                 title="Cộng đồng PTE lớn nhất"
@@ -115,4 +130,4 @@ const CourseDetailPage = ({
   )
 }
 
-export default CourseDetailPage;
+export default CourseDetail;

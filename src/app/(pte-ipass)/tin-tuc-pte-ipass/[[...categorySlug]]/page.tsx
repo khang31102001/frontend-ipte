@@ -1,9 +1,6 @@
-// app/new/page.tsx
 
-import NewsCategoryItem from '@/components/news/category/news-category-item'
 import NewsDetail from '@/components/news/detail/news-details'
 import NewListPage from '@/components/news/news-list'
-import TrendingNews from '@/components/news/featured-news-section'
 import CategoryLayout from '@/shared/category/category-layout'
 import Skeleton from '@/shared/loading/Skeleton'
 import { checkCategoryBySlugs, isChildren } from '@/lib/check-category'
@@ -14,8 +11,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { newsServices } from '@/lib/service/new'
-import { News, NewsListRes } from '@/types/news'
-import NotFound from '@/shared/not-found'
+import { News } from '@/types/news'
 import { HeroBanner } from '@/shared/banner/hero-banner'
 import { aboutService } from '@/lib/service/about'
 import { coursesServices } from '@/lib/service/course'
@@ -150,7 +146,7 @@ async function NewsDetailPage({
     newsData: News;
     breadcrumbs: BreadcrumbItem[];
 }) {
-    if (!newsData) NotFound()
+    if (!newsData) notFound()
 
     const [socialRes, featuredCoursesRes] = await Promise.all([
         aboutService.getSocialList(),
@@ -204,7 +200,7 @@ export default async function Page({ params }: PageProps) {
     }
 
     const lastSegment = categorySlug.at(-1)
-    if (!lastSegment) return NotFound()
+    if (!lastSegment) return notFound()
 
     const newsData = await newsServices.getNewsDetail({ slug: lastSegment })
     if (newsData) {
@@ -225,7 +221,7 @@ export default async function Page({ params }: PageProps) {
             categorySlug,
         )
 
-    if (!currentCategory) return NotFound()
+    if (!currentCategory) return notFound()
     const breadcrumbs: BreadcrumbItem[] = [
         { name: 'Trang chủ', href: '/' },
         ...categoryBreadcrumbs,

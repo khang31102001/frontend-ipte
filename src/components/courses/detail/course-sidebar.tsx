@@ -1,6 +1,5 @@
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// // import { Badge } from "@/components/ui/badge";
-// import { Button } from "@/components/ui/button";
+"use client"
+import { formatVND } from "@/utils/currency";
 import { Phone, Download, Users, Calendar, DollarSign, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,27 +14,30 @@ interface CourseSidebarProps {
   totalStudents?: number | null;
   hotline?: string | null;
   downloadLink?: string;
+  openRegistration?: () => void;
   relatedCourses?: Array<{
     id: string;
     title: string;
     image?: string;
     level?: string;
-  }>| null;
+  }> | null;
 }
 
 const CourseSidebar = ({
   Detailstitle,
-  level ,
-  duration ,
-  schedule ,
+  level,
+  duration,
+  schedule,
   tuition,
   totalStudents,
   hotline = "1900 636 648",
   downloadLink = "https://drive.google.com/file/d/1XMnIuFwNVua8YFGP7xawgrRYF_3AQZQx/view?usp=drive_link",
   relatedCourses,
+  openRegistration
+
 }: CourseSidebarProps) => {
-  
-const isEmpty =
+
+  const isEmpty =
     !level &&
     !duration &&
     !schedule &&
@@ -45,12 +47,14 @@ const isEmpty =
     !downloadLink &&
     (!relatedCourses || relatedCourses.length === 0);
 
-  if(isEmpty) return null;
- 
+
+  if (isEmpty) return null;
+
+
   return (
     <aside className="space-y-6">
       {/* Course Info Card */}
-      <div className="card-box pad-sm rounded">
+      <div className="card-box pad-sm rounded-[0.4rem]">
         <div>
           <h1 className="text-lg">{Detailstitle}</h1>
         </div>
@@ -91,7 +95,7 @@ const isEmpty =
                 <DollarSign className="w-4 h-4 mr-2" />
                 Tuition
               </span>
-              <span className="text-sm font-medium">{tuition}</span>
+              <span className="text-sm font-medium">{formatVND(tuition)}</span>
             </div>
           )}
 
@@ -119,7 +123,10 @@ const isEmpty =
             </div>
           )}
           <div className="hidden md:block w-full">
-            <button className="w-full btn-link justify-center font-semibold btn-sm 
+            <button
+              type="button"
+              onClick={openRegistration}
+              className="w-full btn-link justify-center font-semibold btn-sm 
               border border-gray-300 rounded  
               bg-transparent hover:bg-hero-gradient hover:text-white
               transition-colors duration-200 ease-out" >
@@ -133,9 +140,9 @@ const isEmpty =
 
       {/* Download Card */}
       {downloadLink && (
-        <div className="card-box pad-sm rounded">
+        <div className="card-box pad-sm rounded-[0.4rem]">
           <div className="card-title">
-            <h1 className="text-lg">Resources</h1>
+            <h1 className="text-lg">Tài nguyên</h1>
           </div>
           <div className="w-full pt-4 border-t border-gray-600 w">
             <button className="btn w-full" >
@@ -157,9 +164,9 @@ const isEmpty =
 
       {/* Related Courses */}
       {relatedCourses && relatedCourses.length > 0 && (
-        <div className="card-box rounded pad-sm">
+        <div className="card-box rounded-[0.4rem] pad-sm">
           <div className="card-title">
-            <h1 className="text-lg">Related Courses</h1>
+            <h1 className="text-lg">Các khóa học liên quan</h1>
           </div>
           <div className="card-content space-y-3">
             {relatedCourses.map((course) => (

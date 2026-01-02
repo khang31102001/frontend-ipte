@@ -1,0 +1,20 @@
+src/styles/
+  globals.scss         
+  base/
+    _tokens.scss
+    _reset.scss
+    _typography.scss
+    _utilities.scss
+  components/
+    _button.scss
+    _card.scss
+    _popup.scss
+    _form.scss
+    _pagination.scss
+  layout/
+    _header.scss
+    _footer.scss
+  pages/
+    _course.scss
+    _teacher.scss
+    _news.scss

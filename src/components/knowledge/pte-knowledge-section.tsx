@@ -10,7 +10,7 @@ import { CategoryItem } from '@/types/category'
 import { useKnowledGetByCate } from '@/hooks/use-knowledge'
 import SectionLoading from '../../shared/loading/section-loading'
 import CourseCard from '../courses/card/course-card'
-import { ROUTERS } from '../config/routes/routers'
+import { ROUTERS } from '../../config/routes/routers'
 
 
 export interface TabItem {

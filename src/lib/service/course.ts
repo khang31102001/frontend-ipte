@@ -35,12 +35,12 @@ export class CoursesServices {
     }
 
     async getCoursesDetails(params: CourseParams) {
-        const [slug, value] = Object.entries(params)[0];
-        const url = `${API}/courses/detail/${slug}/${value}`;
+
+        const url = `${API}/courses/detail/${toQuery(params)}`;
         //    console.log("url", url);
         try {
             const res = await fetch(url, {
-                next: { revalidate: 300, tags: ['courses'] }, // ISR 5 phút + tag
+                next: { revalidate: 300, tags: ['courses, detail'] }, // ISR 5 phút + tag
                 signal: AbortSignal.timeout(15000),
             });
 

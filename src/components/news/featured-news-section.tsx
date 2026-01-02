@@ -2,7 +2,7 @@
 import { News } from "@/types/news";
 import Image from "next/image"
 import Link from "next/link";
-import { ROUTERS } from "../config/routes/routers";
+import { ROUTERS } from "../../config/routes/routers";
 
 interface FeaturedNewsSectionProps {
   title?: string;

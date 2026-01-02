@@ -1,7 +1,7 @@
 import { Teacher } from '@/types/teacher'
 import TeacherProfilesCard from './card/teacher-profiles-card'
 import Link from 'next/link'
-import { ROUTERS } from '../config/routes/routers'
+import { ROUTERS } from '../../config/routes/routers'
 
 interface TeacherProfilesListProps {
     basePath?: string

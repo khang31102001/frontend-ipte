@@ -1,8 +1,5 @@
 
-import CourseDetailPage from "@/components/courses/detail/course-detail-page"
 import PteCategoryPage from "@/components/courses/category/pte-category-page"
-
-import { ArticleGridSection } from "@/shared/article"
 import CategoryLayout from "@/shared/category/category-layout"
 import Skeleton from "@/shared/loading/Skeleton"
 import { checkCategoryBySlugs } from "@/lib/check-category"
@@ -10,10 +7,13 @@ import { categoriesServices } from "@/lib/service/category"
 import { coursesServices } from "@/lib/service/course"
 import { BreadcrumbItem } from "@/types/breadcrumbs"
 import { CategoryItem } from "@/types/category"
-import { CourseListResponse } from "@/types/courses"
+import { Course } from "@/types/courses"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React, { Suspense } from "react"
+import CourseDetail from "@/components/courses/detail/course-detail-page"
+import { aboutService } from "@/lib/service/about"
+
 
 type PageProps = {
   params: {
@@ -118,13 +118,13 @@ export async function generateMetadata(
       siteName: "PTE iPASS",
       images: imageUrl
         ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ]
         : undefined,
     },
     twitter: {
@@ -196,24 +196,36 @@ function getArticleJsonLd(data: any) {
 
 
 
+
+
 async function PteUniPage({
-  found,
+  category,
   breadcrumbs,
 }: {
-  found: any;
+  category: CategoryItem;
   breadcrumbs: BreadcrumbItem[];
 }) {
-  const categories = found?.children ?? [];
-  const categoryRoot = found ?? null;
-  const courses = await coursesServices.getCoursesList({
-    categoryId: found.id
-  }).then((res)=> res.items);
+  if (!category) notFound();
+  const categoryId = category.categoryId;
+  const childCategories = category?.children ?? [];
+  const [courseRes, featuredCoursesRes] = await Promise.all([
+    coursesServices.getCoursesByCate({ categoryId: categoryId }),
+    coursesServices.getCoursesList({
+      page: 1,
+      pageSize: 12,
+      isFeatured: true,
+    }),
+  ])
+  const featuredCourses = featuredCoursesRes?.items ?? []
 
-  const categoryResults = await Promise.all(
-    categories.map(async (item: any) => {
+  const courses = Array.isArray(courseRes?.items)
+    ? courseRes.items : [];
+
+  const cateChildCourse = await Promise.all(
+    childCategories.map(async (item: any) => {
       try {
         const data = await coursesServices.getCoursesList({
-          categoryId: item.id,
+          categoryId: item.categoryId,
         });
         const courses = Array.isArray(data?.items) ? data.items : [];
         return { ...item, courses: courses };
@@ -224,32 +236,66 @@ async function PteUniPage({
   );
 
 
+
+
   return (
     <CategoryLayout
-      title={found.name}
-      description={found.description}
+      title={category.name}
+      description={category.description}
       breadcrumbs={breadcrumbs}
     >
-      <PteCategoryPage 
-      category={categoryRoot} 
-      categoryCourse={categoryResults}  
-      data={courses}
+      <PteCategoryPage
+        category={category}
+        categoryCourse={cateChildCourse}
+        featuredCourses={featuredCourses}
+        coures={courses}
       />
     </CategoryLayout>
   );
 }
+
+async function PteUniDetailPage({
+  coursesData,
+  breadcrumbs,
+}: {
+  coursesData: Course;
+  breadcrumbs: BreadcrumbItem[];
+}) {
+  if (!coursesData) notFound();
+
+  const [socialRes, featuredCoursesRes] = await Promise.all([
+    aboutService.getSocialList(),
+    coursesServices.getCoursesList({
+      page: 1,
+      pageSize: 12,
+      isFeatured: true,
+    }),
+  ])
+  const featuredCourses = featuredCoursesRes?.items ?? []
+  // const socialData = socialRes?.items ?? [];
+
+  //   console.log("audit check newsRes: ", newsRes);
+  return <CourseDetail course={coursesData} featuredCourses={featuredCourses} breadcrumbs={breadcrumbs} />
+}
+
+
 export default async function Page({ params }: PageProps) {
 
-  const {categorySlug} = params ?? [];
+  const categorySlug = params?.categorySlug;
+  const pteUniCategory = await categoriesServices.getCategoryTree({ categoryType: "H_MENU_PTE_UNI" });
+  const pteUniRootCategory: CategoryItem = pteUniCategory?.[0] ?? null;
+  if (!pteUniRootCategory) return notFound();
 
-  const pteCategory = await categoriesServices.getCategoryTree({ slug: "pte-dai-hoc" });
- 
+  if (!categorySlug || categorySlug.length === 0) {
 
-  if(!categorySlug){
-    return(
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: pteUniRootCategory?.name, href: pteUniRootCategory.url ?? "" },
+    ];
+    return (
       <>
         {/* JSON-LD SEO */}
-      {/* <script
+        {/* <script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
@@ -265,40 +311,45 @@ export default async function Page({ params }: PageProps) {
           }}
         />
       )} */}
-      <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <PteUniPage 
-          found={pteCategory}  
-          breadcrumbs={[
-            { name: "Trang chủ", href: "/" },
-            { name: pteCategory.name, href: pteCategory.url ?? "" }
-          ]}/>
-      </Suspense>
+        <Suspense fallback={<Skeleton title="đang tải...." />}>
+          <PteUniPage
+            category={pteUniRootCategory}
+            breadcrumbs={breadcrumbs}
+          />
+        </Suspense>
       </>
     )
   }
 
-  const lastUrl = categorySlug[categorySlug.length -1];
-  const course = await coursesServices.getCoursesDetails({slug: lastUrl}); 
+  const lastSegment = categorySlug.at(-1);
+  if (!lastSegment) return notFound();
+  const course = await coursesServices.getCoursesDetails({ slug: lastSegment });
 
-
-  if(course){
-    return(
-      <CourseDetailPage course={course} breadcrumbs={[]}/>
+  if (course) {
+    const breadcrumbs: BreadcrumbItem[] = [
+      { name: "Trang chủ", href: "/" },
+      { name: course?.title, href: "" },
+    ];
+    return (
+      <PteUniDetailPage coursesData={course} breadcrumbs={breadcrumbs} />
     )
   }
 
-  const categories = pteCategory.children ?? [];
-  const {found, breadcrumbs} = await checkCategoryBySlugs(categories, categorySlug);
-  if(found){
-   return (
-     <Suspense fallback={<Skeleton title="đang tải...."/>}>
-          <PteUniPage  
-          found={found} 
-          breadcrumbs={[{ name: "Trang chủ", href: "/" }, ...breadcrumbs]}
-          />
-      </Suspense>
-   )
-  }
+  const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } =
+    await checkCategoryBySlugs(pteUniRootCategory?.children ?? [], categorySlug);
 
-  return notFound();
+  if (!currentCategory) return notFound();
+  const breadcrumbs: BreadcrumbItem[] = [
+    { name: "Trang chủ", href: "/" },
+    ...categoryBreadcrumbs,
+  ];
+  return (
+    <Suspense fallback={<Skeleton title="đang tải...." />}>
+      <PteUniPage
+        category={currentCategory}
+        breadcrumbs={breadcrumbs}
+      />
+    </Suspense>
+  )
+
 }

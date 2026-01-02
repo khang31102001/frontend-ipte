@@ -1,64 +1,69 @@
 "use client"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { CategoryItem, CourseCategory } from "@/types/category"
 import { ArticleSidebar } from "../../../shared/article";
 import { Course } from "@/types/courses";
 import { PteCategorySection } from "./pte-category-section";
 import PtelistItems from "./pte-list-items";
+import { SidebarItem } from "@/shared/article/article-sidebar";
 
 
 
 interface PteCategoryPageProps {
-    categoryCourse?: CourseCategory[];
     category: CategoryItem;
-    data: Course[];
+    categoryCourse?: CourseCategory[];
+    featuredCourses?: Course[] | null;
+    coures: Course[];
 }
+export function courseToSidebarItem(
+  course: Course,
+  basePath = ""
+): SidebarItem {
+  return {
+    id: course.courseId ?? course.slug,
+    title: course.title ?? course.courseName ?? "Khóa học",
+    image: course.image ?? "/images/course-default.jpg",
+    badge: "Miễn phí",
+    href: course.slug ? `${basePath}/${course.slug}` : basePath,
+  };
+}
+
 const PteCategoryPage = ({
     categoryCourse,
     category,
-    data
+    featuredCourses,
+    coures
 }: PteCategoryPageProps) => {
 
     // const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+ 
+       const courseFeaturedItems = useMemo(()=>{
+           if(!featuredCourses || featuredCourses.length === 0) return [];
+           return featuredCourses.map((item)=> courseToSidebarItem(item, category?.url))
+         }, [featuredCourses, category?.url]);
 
+    if(!coures) return null;
 
     return (
         <section className="section--sm">
             {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
-                {/* Left Column - Featured + Articles */}
+
                 <div className="lg:col-span-2">
                     <PtelistItems
                         category={category}
-                        items={data}
+                        items={coures}
                     />
                 </div>
 
-                {/* Right Sidebar */}
+
                 <div className="space-y-6">
-                    <ArticleSidebar
+                   {courseFeaturedItems &&(
+                     <ArticleSidebar
                         title="Khóa học tiêu biểu"
-                        items={[
-                            {
-                                id: 1,
-                                title: "Luyện thi PTE core chuyên biệt",
-                                image: "/pte-exam-course.jpg",
-                                badge: "Miễn phí",
-                            },
-                            {
-                                id: "2",
-                                title: "Luyện thi PTE core chuyên biệt",
-                                image: "/english-course.jpg",
-                                badge: "Miễn phí",
-                            },
-                            {
-                                id: "3",
-                                title: "Luyện thi PTE core chuyên biệt",
-                                image: "/study-abroad.jpg",
-                                badge: "Miễn phí",
-                            },
-                        ]}
+                        items={courseFeaturedItems}
                     />
+                   )}
 
                     <ArticleSidebar
                         title="Cộng đồng PTE lớn nhất"

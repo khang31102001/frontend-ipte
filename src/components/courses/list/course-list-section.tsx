@@ -3,7 +3,8 @@ import { useMemo, useState } from "react"
 import { Course } from "@/types/courses"
 import CourseCard from "@/components/courses/card/course-card"
 import { CategoryItem } from "@/types/category";
-import { buildUrl } from '@/lib/helper'
+import { ROUTERS } from "@/config/routes/routers";
+
 
 
 
@@ -14,7 +15,7 @@ interface CourseListProps {
   viewMode?: ViewMode
 }
 const ITEMS_PER_LOAD  = 4;
-const CourseListItems = ({
+const CourseListSection = ({
   category,
   data = [],
   viewMode
@@ -24,6 +25,7 @@ const CourseListItems = ({
   const currentCourse = useMemo(() => {
     return data.slice(0, ITEMS_PER_LOAD);
   }, [data]);
+
 
 
   
@@ -36,17 +38,11 @@ const CourseListItems = ({
         }
       >
         {currentCourse?.map((item, index) => {
-          const base_url = buildUrl({
-            baseUrl: category?.url,
-            slug: item?.slug ?? undefined,
-          });
-          
-        
-          // console.log("course base_url", base_url);
+          const herf = ROUTERS.COURSES.detail(item.slug, category?.url);
           return viewMode === "grid" ? (
             <CourseCard
               key={`idx-${index}`}
-              href={base_url}
+              href={herf}
               image={item.image || "/images/course-3.jpg"}
               duration={item.duration || ""}
               level={item.level || ""}
@@ -59,7 +55,7 @@ const CourseListItems = ({
 
             <CourseCard
               key={`idx-${index}`}
-              href={base_url}
+              href={herf}
               image={item.image || "/images/course-3.jpg"}
               duration={item.duration || ""}
               level={item.level || ""}
@@ -76,4 +72,4 @@ const CourseListItems = ({
   )
 }
 
-export default CourseListItems
+export default CourseListSection
