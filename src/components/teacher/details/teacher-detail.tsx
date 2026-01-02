@@ -47,7 +47,7 @@ const TeacherDetails = ({ teacher }: TeacherDetailProps) => {
 
                             <div className="teacher-score-display">
                                 <span className="teacher-score-value">{teacher.overallScore}</span>
-                                <span className="teacher-score-max">/ 100</span>
+                                <span className="teacher-score-max">/ 10</span>
                             </div>
 
                             <p className="teacher-score-label">Overall Score</p>
@@ -57,7 +57,7 @@ const TeacherDetails = ({ teacher }: TeacherDetailProps) => {
 
                 {/* Skills Section */}
                 <section className="teacher-section">
-                    <h2 className="teacher-section-title">English Skills Assessment</h2>
+                    <h2 className="teacher-section-title">Đánh giá kỹ năng tiếng Anh</h2>
 
                     <div className="teacher-skills-container">
                         {/* Skill Bars */}
@@ -80,7 +80,7 @@ const TeacherDetails = ({ teacher }: TeacherDetailProps) => {
 
                         {/* Chart */}
                         <div className="teacher-chart-section">
-                            <h3 className="teacher-chart-title">Score Comparison</h3>
+                            <h3 className="teacher-chart-title">So sánh điểm số</h3>
 
                             <div className="teacher-bar-chart">
                                 {skills.map((skill) => (
@@ -102,7 +102,7 @@ const TeacherDetails = ({ teacher }: TeacherDetailProps) => {
                 {/* Content Section */}
                 {teacher && (
                     <section className="teacher-section">
-                        <h2 className="teacher-section-title">About</h2>
+                        <h2 className="teacher-section-title">Thông tin giáo viên</h2>
 
                         <div
                             className="teacher-content"

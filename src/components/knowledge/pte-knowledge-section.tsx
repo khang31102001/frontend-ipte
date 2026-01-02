@@ -9,8 +9,8 @@ import { Course } from '@/types/courses'
 import { CategoryItem } from '@/types/category'
 import { useKnowledGetByCate } from '@/hooks/use-knowledge'
 import SectionLoading from '../../shared/loading/section-loading'
-import {  fixUrl, joinPath } from '@/lib/helper'
 import CourseCard from '../courses/card/course-card'
+import { ROUTERS } from '../config/routes/routers'
 
 
 export interface TabItem {
@@ -18,7 +18,7 @@ export interface TabItem {
   label: string;
 }
 interface PteKnowledgeSectionProps {
-  cateKnowledges: CategoryItem;
+  cateKnowledges: CategoryItem | null;
   knowledgesData?: Course[] | [];
 }
 const PteKnowledgeSection = ({
@@ -69,9 +69,9 @@ const PteKnowledgeSection = ({
 
   const children = Array.isArray(cateKnowledges?.children) ? cateKnowledges.children : [];
   const hasCateKnowledges = children.length > 0;
-  const cateUrl = fixUrl(cateKnowledges?.url ?? "")
+  const cateHref = cateKnowledges?.url ? ROUTERS.KNOWLEDGE.category(cateKnowledges?.url ) : "";
 
-
+if(!cateKnowledges) return null;
   return (
     <section className="py-16 bg-white">
       <div className="container  mx-auto">
@@ -109,10 +109,7 @@ const PteKnowledgeSection = ({
 
             {knowledgeItem?.map((item, index) => {
               const cateChild = cateKnowledges?.children?.find((i) => i.slug === item.slug);
-              const cateChildUrl = cateChild?.url;
-              const itemSlug = item?.slug;
-              const href = joinPath(cateUrl, cateChildUrl, itemSlug);
-              console.log("baseUrl:", href)
+              const href = ROUTERS.KNOWLEDGE.detail(item.slug, cateChild?.url);
               const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
               return (
                 <CourseCard
@@ -129,9 +126,9 @@ const PteKnowledgeSection = ({
         </div>
 
 
-        {(hasCateKnowledges) && (
+        {cateHref && (
           <div className="flex items-center justify-center">
-            <a href={cateUrl} className=" inline-flex items-center bg-brandBlue-500 hover:bg-brandBlue-900 text-white px-8 py-4 rounded-full font-medium text-lg group">
+            <a href={cateHref} className=" inline-flex items-center bg-brandBlue-500 hover:bg-brandBlue-900 text-white px-8 py-4 rounded-full font-medium text-lg group">
               Xem toàn bộ tài liệu
               <ChevronRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </a>

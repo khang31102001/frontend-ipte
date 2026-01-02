@@ -16,7 +16,7 @@ function toQuery(params?: QueryParams) {
     return s ? `?${s}` : "";
 }
 
-interface NewsJoinedKnowledge  {
+interface NewsJoinedKnowledge {
     news: {
         id: number;
         image: string;
@@ -45,8 +45,8 @@ export class NewsServices {
         const url = `${API}/news${toQuery(params)}`;
         try {
             const res = await fetch(url, {
-                next: { revalidate: 300, tags: ['news'] }, 
-                signal: AbortSignal.timeout(15000), 
+                next: { revalidate: 300, tags: ['news'] },
+                signal: AbortSignal.timeout(15000),
             });
             if (!res.ok) return { items: [], total: 0 };
 
@@ -58,33 +58,32 @@ export class NewsServices {
             return { items: [], total: 0 }; // không throw để không vỡ build/render
         }
     }
-      async getNewsAndTipList(params?: Record<string, string | number>):Promise<NewsJoinedKnowledge> {
-        const qs = params ? '?' + new URLSearchParams(
-            Object.entries(params).map(([k, v]) => [k, String(v)])
-        ).toString() : '';
+    async getNewssByCate(params?: QueryParams) {
 
+        const url = `${API}/news${toQuery(params)}`;
+        // console.log("url cate", url);
         try {
-            const res = await fetch(`${API}/news/news-and-tips${qs}`, {
-                next: { revalidate: 300, tags: ['news'] }, // ISR 5 phút + tag
-                signal: AbortSignal.timeout(15000), 
+            const res = await fetch(url, {
+                next: { revalidate: 300, tags: ['category', 'news'] },
+                signal: AbortSignal.timeout(15000),
             });
-            if (!res.ok) return { news: [], tips: []};
-            
-            return  res.json();
+            if (!res.ok) return { items: [], total: 0 };
+            const data = await res.json();
+            //  console.log("data cate", data);
+            return data;
         } catch {
-            return { news: [], tips: []}; // không throw để không vỡ build/render
+            return { items: [], total: 0 };
         }
     }
 
-
     async getNewsDetail(params: QueryParams) {
         try {
-            const res = await fetch(`${API}/news/${toQuery(params)}`, {
+            const res = await fetch(`${API}/news/detail/${toQuery(params)}`, {
                 // cache: 'no-store', sử dụng SSR  dùng dử liệu tươi  
                 next: { revalidate: 1800, tags: ['news'] },
-                signal: AbortSignal.timeout(15000), 
+                signal: AbortSignal.timeout(15000),
             });
-             if (!res.ok) return null;
+            if (!res.ok) return null;
             const data = await res.json();
             //  console.log("result", data);
             return data;

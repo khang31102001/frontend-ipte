@@ -1,35 +1,50 @@
 
+export type ISODateString = string; 
 export interface News {
   newsId: number;
-  authorId?: number;
-  image?: string | null;
-  title?: string | null;
-  slug?: string;
+  categoryId: number;
+  image: string | null;
+  title: string;
+  slug: string;
+  description: string | null;
+  content: string | null;
 
-  description?: string | null;   
-  content?: string | null;       
-  categoryId?: number | null;
-  category?: string | null;
+  status?: string;
+  publishedAt?: ISODateString | null;
 
-  createdAt?: string;
-  updatedAt?: string;
+  tags?: string[];
+  keywords?: string[];
 
-  authorName?: string | null;
-  authorAvatar?: string | null;
+  createdAt?: ISODateString | null;
+  updatedAt?: ISODateString | null;
+  createdBy?: string;
+  updatedBy?: string;
 
-  status?: "Draft" | "Published" | "Archived";
+  version?: number;
+
+  isProminent?: boolean;
+  categoryType?: string;
 
   isFeatured?: boolean;
+  isDisabled?: boolean;
 
-  startDate?: string;
-  endDate?: string;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
 
-  metaTitle?: string;
-  metaDescription?: string;
+  audience?: string[]; 
+  schemaEnabled: boolean;
+  schemaMode?: string;
+  schemaData: Record<string, unknown> | null; 
 
-  tags?: any[];
-  keywords?: string[];
+  seoScore: number | null;
+
+  startDate: ISODateString | null;
+  endDate: ISODateString | null;
+
+  deleteImageUrl: string | null;
+  author: string | null; 
 }
+
 
 
 export interface NewsListRes {

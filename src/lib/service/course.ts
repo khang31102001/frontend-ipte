@@ -36,7 +36,7 @@ export class CoursesServices {
 
     async getCoursesDetails(params: CourseParams) {
         const [slug, value] = Object.entries(params)[0];
-        const url = `${API}/courses/${slug}/${value}`;
+        const url = `${API}/courses/detail/${slug}/${value}`;
         //    console.log("url", url);
         try {
             const res = await fetch(url, {

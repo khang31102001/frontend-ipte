@@ -127,17 +127,17 @@ export default async function TeacherPage() {
  
   const items = techerRes.items ?? [];
   const socialData = socialRes?.items ?? [];
-  // console.log("data teacher:", data);
+  console.log("data teacher:", items);
   return (
-    <section>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* <FeaturesSection data={features}/> */}
-      <TeacherList data={items} />
+      <TeacherList teacherData={items} />
       <CommunityPTE socialData={socialData} />
       <PTECallToAction />
-    </section>
+    </>
   );
 }

@@ -85,7 +85,7 @@ export interface NewsCategory extends Omit<CategoryItem, "children"> {
 }
 
 export interface KnowledgesCategory extends Omit<CategoryItem, "children"> {
-    children?: CategoryItem[];
+    children?: KnowledgesCategory[];
     knowledges?: Course[];
 }
 

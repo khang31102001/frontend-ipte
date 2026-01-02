@@ -1,20 +1,47 @@
 
-import { ArticleContent, ArticleCovderImage, ArticleHeader, ArticleSidebar } from "@/shared/article";
+"use client";
+import { ArticleContent, ArticleCovderImage, ArticleFooter, ArticleHeader, ArticleSidebar } from "@/shared/article";
+import { SidebarItem } from "@/shared/article/article-sidebar";
 import { FloatingCTA } from "@/shared/subscription/floating-cta";
+import { SocialItem } from "@/types/about";
+import { BreadcrumbItem } from "@/types/breadcrumbs";
+import { Course } from "@/types/courses";
 import { News } from "@/types/news";
+import { useMemo } from "react";
 
 interface NewsDetailsProps {
   news: News | null;
-  breadcrumbs?: any[] | null;
+  featuredCourses?: Course[] | []; 
+  socialData?: SocialItem[];
+  breadcrumbs?: BreadcrumbItem[] | null;
 }
+
+export function courseToSidebarItem(
+  course: Course,
+  basePath = "/khoa-hoc"
+): SidebarItem {
+  return {
+    id: course.courseId ?? course.slug,
+    title: course.title ?? course.courseName ?? "Khóa học",
+    image: course.image ?? "/images/course-default.jpg",
+    badge: "Miễn phí",
+    href: course.slug ? `${basePath}/${course.slug}` : basePath,
+  };
+}
+
 const NewsDetail = ({
   news,
-  breadcrumbs = []
+  breadcrumbs = [],
+  featuredCourses = [],
 }: NewsDetailsProps) => {
 
-  const image = news?.image || "/images/teacher-placeholder.png";
+  const imgUrl = news?.image || "/images/img-news-default.jpg";
+  const courseFeaturedItems = useMemo(()=>{
+    if(!featuredCourses || featuredCourses.length === 0) return [];
+    return featuredCourses.map((item)=> courseToSidebarItem(item, "/khoa-hoc"))
+  }, [featuredCourses]);
 
-  console.log("check news:", news)
+  console.log("check featuredCourses in page NewsDetail:", featuredCourses)
   if (!news) return null;
 
   return (
@@ -22,46 +49,30 @@ const NewsDetail = ({
       <div className="container mx-auto pad-sm">
 
         <ArticleHeader
-          title={news.title}
-          summary={news.description}
+          title={news?.title}
+          summary={news?.description}
+          authorName={news?.author ?? ""}
+          createdAt={news?.createdAt}
+          updatedAt={news?.updatedAt}
+          publishedAt={news?.publishedAt}
         />
 
         <ArticleCovderImage
-          image={image} 
+          image={imgUrl} 
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
-            <ArticleContent content={news.content} />
-            {/* <ArticleFooter /> */}
+            <ArticleContent content={news?.content} />
+            <ArticleFooter tags={news?.tags} />
           </div>
 
           <div className="lg:col-span-1">
             <div className="sticky top-8 space-y-6">
-     
-
+  
               <ArticleSidebar
                 title="Khóa học tiêu biểu"
-                items={[
-                  {
-                    id: "1",
-                    title: "Luyện thi PTE core chuyên biệt",
-                    image: "/images/course-1.jpg",
-                    badge: "Miễn phí",
-                  },
-                  {
-                    id: "2",
-                    title: "Luyện thi PTE core chuyên biệt",
-                    image: "/images/course-2.jpg",
-                    badge: "Miễn phí",
-                  },
-                  {
-                    id: "3",
-                    title: "Luyện thi PTE core chuyên biệt",
-                    image: "/images/course-3.jpg",
-                    badge: "Miễn phí",
-                  },
-                ]}
+                items={courseFeaturedItems}
               />
 
               <ArticleSidebar

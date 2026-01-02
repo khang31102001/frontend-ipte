@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface SidebarItem {
+export interface SidebarItem {
   id?: number | string;
   title?: string;
   image?: string;
@@ -26,7 +26,7 @@ const ArticleSidebar = ({
     <aside className="article-sidebar">
       <h3 className="article-sidebar__title">{title}</h3>
 
-      <div className="article-sidebar__list">
+      <div className="article-sidebar__list scroll-container">
         {items.map((item, idx) => {
           const href = item.href ?? "#";
 

@@ -1,41 +1,47 @@
-// import NewsTipList from "./news-tip-list";
-// import FeaturedNewsList from "./featured-new-list";
 import ConsultationForm from "@/components/form/consultation-form";
-import { News } from "@/types/news";
-import TrendingNews from "./trend-new";
-import NewsListItems from "./list/news-list-items";
+import { News, NewsListRes } from "@/types/news";
 import { CategoryItem, NewsCategory } from "@/types/category";
+import FeaturedNewsSection from "./featured-news-section";
+import PteKnowledgeSection from "../knowledge/pte-knowledge-section";
+import NewsCategorySection from "./category/news-category-section";
+import NewsListSection from "./news-list-section";
 
 
 interface NewsListProps {
-  knowledgesCategory?: CategoryItem;
+  knowledgesCategory?: CategoryItem | null;
   newsCategory?: NewsCategory[];
   newsFeatured?: News[];
   newsData?: News[];
 
 }
 
-const NewsList = ({ 
-  knowledgesCategory,
+const NewsList = ({
+  knowledgesCategory = null,
   newsCategory,
-  newsFeatured, 
+  newsFeatured = [],
   newsData,
- 
+
 }: NewsListProps) => {
 
   return (
     <section className='bg-background text-foreground'>
-      {newsFeatured && (
-        <TrendingNews title="Thịnh Hành" data={newsFeatured} />
-      )}
-      {/* <NewsTipList data={dataTip} /> */}
-      {newsData && (
-        <NewsListItems data={newsData} />
-      )}
-      {/* {knowledgesCategory && (
-         <KnowledgesSection data={newsList} category={knowledgesCategory} />
-      )}
-      */}
+
+      <FeaturedNewsSection title="Thịnh Hành" data={newsFeatured} />
+
+      <NewsListSection newData={newsData} />
+
+      {newsCategory && newsCategory?.map((item, index) => {
+        return (
+          <NewsCategorySection
+            key={index}
+            newsCategory={item}
+          />
+        )
+      })}
+
+
+      <PteKnowledgeSection cateKnowledges={knowledgesCategory} />
+
       <ConsultationForm />
     </section>
   )

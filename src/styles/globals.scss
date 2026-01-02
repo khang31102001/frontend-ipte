@@ -17,6 +17,7 @@
 @import "./abouts.scss";
 @import "./community.scss";
 @import "./loading.scss";
+@import "./component/pagination.scss";
 
 
 /* ===================== */
@@ -159,9 +160,11 @@
     overflow-wrap: break-word;
   }
 
-  *, *::before, *::after {
-  box-sizing: border-box;
-}
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
 
 
@@ -189,7 +192,8 @@
     @apply shadow-md hover:shadow-lg transition-shadow;
     @apply overflow-hidden;
   }
-   .no-focus {
+
+  .no-focus {
     @apply focus:outline-none focus:ring-0 focus:ring-offset-0;
   }
 
@@ -246,6 +250,9 @@
   .scroll-container {
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
 
     &::-webkit-scrollbar {
       height: 10px;
@@ -410,13 +417,13 @@
 .hero__media {
   position: relative;
   width: 100%;
-  max-width: none;  
+  max-width: none;
   // margin: 0 auto;
 
-  aspect-ratio: 16 / 9;      
-  border-radius: 4px;       
-  overflow: hidden;        
-  background: #f3f4f6;     
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f3f4f6;
 }
 
 .hero__img {
@@ -425,9 +432,10 @@
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;   
-  scrollbar-width: none;      
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+
 .no-scrollbar::-webkit-scrollbar {
-  display: none;             
+  display: none;
 }

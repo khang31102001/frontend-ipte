@@ -1,0 +1,132 @@
+.pagination {
+  /* theme variables */
+  --pg-bg: rgba(255, 255, 255, 0.92);
+  --pg-border: #e5e7eb;
+  --pg-text: #374151;
+  --pg-muted: #9ca3af;
+  --pg-hover: #f3f4f6;
+
+  --pg-active-bg: #04016c; /* brand blue */
+  --pg-active-text: #ffffff;
+
+  --pg-ring: rgba(4, 1, 108, 0.35);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 10px 12px;
+  // border: 1px solid var(--pg-border);
+  background: var(--pg-bg);
+  // border-radius: 999px;
+  // box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.pagination__pages {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* prev/next */
+.pagination__nav {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--pg-text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    background: var(--pg-hover);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:disabled:hover {
+    background: transparent;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--pg-ring);
+  }
+}
+
+.pagination__icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* page buttons */
+.pagination__page {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--pg-text);
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+
+  display: grid;
+  place-items: center;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background: var(--pg-hover);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--pg-ring);
+  }
+
+  &.is-active {
+    background: var(--pg-active-bg);
+    color: var(--pg-active-text);
+    box-shadow: 0 8px 20px rgba(4, 1, 108, 0.25);
+  }
+}
+
+/* Responsive: mobile giảm size */
+@media (max-width: 480px) {
+  .pagination {
+    padding: 8px 10px;
+    gap: 4px;
+  }
+
+  .pagination__pages {
+    gap: 4px;
+  }
+
+  .pagination__nav,
+  .pagination__page {
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .pagination__page {
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .pagination__icon {
+    width: 16px;
+    height: 16px;
+  }
+}

@@ -15,32 +15,38 @@ const CirclePagination = ({
 
 }: PaginationProps) => {
     return (
-        <div className={`flex items-center justify-center gap-2 ${className}`}>
+        <div className={`pagination ${className ?? ""}`}>
             <button
-                onClick={() => onPageChange((prev: any) => Math.max(1, prev - 1))}
+                onClick={() => onPageChange((prev: number) => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
-                className="rounded-full  transition-colors hover:bg-gray-400 p-3"
+                className="pagination__nav"
+                aria-label="Previous page"
             >
-                <ChevronLeft className="h-5 w-5 " />
+                <ChevronLeft className="pagination__icon" />
             </button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                    key={page}
-                    onClick={() => onPageChange(page)}
-                    className={`bg-hero-gradient rounded-full w-10 h-10 ${currentPage === page ? "bg-[#001F3F] text-white hover:bg-[#001F3F]/90" : "hover:bg-gray-100"
-                        }`}
-                >
-                    {page}
-                </button>
-            ))}
+            <div className="pagination__pages">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                        key={page}
+                        onClick={() => onPageChange(page)}
+                        className={`pagination__page ${currentPage === page ? "is-active" : ""
+                            }`}
+                        aria-current={currentPage === page ? "page" : undefined}
+                        aria-label={`Page ${page}`}
+                    >
+                        {page}
+                    </button>
+                ))}
+            </div>
 
             <button
-                onClick={() => onPageChange((prev:any) => Math.min(totalPages, prev + 1))}
+                onClick={() => onPageChange((prev: number) => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
-                className=" rounded-full  transition-colors hover:bg-gray-400 p-3"
+                className="pagination__nav"
+                aria-label="Next page"
             >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="pagination__icon" />
             </button>
         </div>
     )

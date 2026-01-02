@@ -55,7 +55,8 @@ export const joinPath = (...parts: (string | undefined | null)[]) => {
     .filter(Boolean)
     .map(p => String(p).trim())
     .map(p => p.replace(/^\/+|\/+$/g, "")) // bỏ slash đầu/cuối mỗi phần
-    .filter(Boolean);
+    .filter((p) =>p.length > 0)
+    .map((p)=> encodeURIComponent(p));
 
   return "/" + cleaned.join("/");
 };

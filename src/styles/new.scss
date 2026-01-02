@@ -1,113 +1,264 @@
 /* ===================== */
 /*       new cardd scss     */
 /* ===================== */
-.new-card {
-  display: block;
-  background: #ffffff;
-  border-radius: 16px;
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+
+@mixin up($w) {
+  @media (min-width: $w) { @content; }
+}
+@mixin down($w) {
+  @media (max-width: $w) { @content; }
+}
+
+/* ====== Helpers ====== */
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ====== Link wrapper ====== */
+.news-card-link {
+  display: block;
+  height: 100%;
   text-decoration: none;
   color: inherit;
 
+  /* focus accessible */
+  &:focus-visible {
+    outline: 2px solid rgba(4, 1, 108, 0.5);
+    outline-offset: 4px;
+    border-radius: 16px;
+  }
+}
+
+/* ====== Base Card ====== */
+.news-card {
+  /* CSS variables (default theme) */
+  --radius: 16px;
+  --border: 1px solid #e5e7eb;
+  --bg: #fff;
+  --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --shadowHover: 0 14px 35px rgba(15, 23, 42, 0.14);
+
+  --gap: 16px;
+  --pad: 16px;
+
+  --mediaRatio: 16 / 9;     /* dùng cho layout col */
+  --mediaW: 256px;          /* dùng cho layout row */
+  --mediaH: 192px;          /* dùng cho layout row */
+
+  --titleLines: 2;
+  --excerptLines: 3;
+
+  background: var(--bg);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+
+  display: flex;
+  transition: box-shadow .25s ease, transform .25s ease;
+
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.16);
-
-    .new-card__image {
-      transform: scale(1.08);
-    }
-
-    .new-card__title {
-      color: #04016c;
-    }
+    box-shadow: var(--shadowHover);
+    transform: translateY(-2px);
   }
 
+  /* ===== Elements ===== */
   &__media {
     position: relative;
-    height: 260px;
-    width: 100%;
+    background: #f3f4f6;
     overflow: hidden;
   }
 
-  &__image {
+  &__img {
     object-fit: cover;
-    transition: transform 0.45s ease;
+    object-position: center;
   }
 
-  /* Category badge */
-  &__category {
+  &__badge {
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: 12px;
+    left: 12px;
 
     span {
-      background: linear-gradient(90deg, #04016c, #1e1a9f, #3e3aa7);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      font-size: 12px;
       font-weight: 600;
-      display: inline-block;
+      color: #fff;
+      background: rgba(0,0,0,.55);
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
     }
   }
 
   &__body {
-    padding: 20px;
+    flex: 1;
+    min-width: 0;
+    padding: var(--pad);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 26px;
   }
 
   &__author {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 8px;
+    min-width: 0;
   }
 
   &__avatar {
-    position: relative;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
     overflow: hidden;
+    flex: 0 0 auto;
+    background: #e5e7eb;
+    position: relative;
   }
 
-  &__author-name {
-    font-size: 0.9rem;
-    color: #4b5563;
-  }
-
-  &__time {
-    display: block;
-    font-size: 0.85rem;
+  &__authorName {
+    font-size: 12px;
     color: #6b7280;
-    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__date {
+    font-size: 12px;
+    color: #9ca3af;
+    flex: 0 0 auto;
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: 18px;
     font-weight: 800;
     color: #111827;
-    margin-bottom: 10px;
-    line-height: 1.3;
+    line-height: 1.35;
 
-    /* Multi-line clamp */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    @include line-clamp(var(--titleLines));
+
+    /* giữ slot để các card đều nhau dù title ngắn */
+    min-height: calc(1.35em * var(--titleLines));
   }
 
   &__excerpt {
-    font-size: 0.9rem;
-    color: #4b5563;
-    line-height: 1.5;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.45;
 
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    @include line-clamp(var(--excerptLines));
+    min-height: calc(1.45em * var(--excerptLines));
   }
+
+  &__cta {
+    margin-top: 8px;
+    align-self: flex-start;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border: 0;
+    cursor: pointer;
+
+    padding: 10px 14px;
+    border-radius: 999px;
+
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    background: linear-gradient(90deg, #04016c, #3e3aa7);
+
+    transition: opacity .2s ease, transform .2s ease;
+
+    &:hover { opacity: .92; }
+    &:active { transform: translateY(1px); }
+  }
+}
+
+/* ====== Layout: COL ====== */
+.news-card--col {
+  flex-direction: column;
+
+  .news-card__media {
+    aspect-ratio: var(--mediaRatio);
+    width: 100%;
+  }
+
+  /* col thường gọn hơn */
+  --excerptLines: 2;
+
+  @include up($bp-lg) {
+    --titleLines: 2;
+    --excerptLines: 2;
+  }
+}
+
+/* ====== Layout: ROW ====== */
+.news-card--row {
+  flex-direction: row;
+
+  .news-card__media {
+    width: var(--mediaW);
+    height: var(--mediaH);
+    flex: 0 0 var(--mediaW);
+  }
+
+  /* row cho phép text nhiều hơn */
+  --excerptLines: 3;
+
+  /* responsive: mobile tự chuyển thành col để không bị chật */
+  @include down($bp-md) {
+    flex-direction: column;
+
+    .news-card__media {
+      width: 100%;
+      height: auto;
+      aspect-ratio: var(--mediaRatio);
+      flex: 0 0 auto;
+    }
+
+    --pad: 14px;
+  }
+}
+
+
+.news-card--sm {
+  --pad: 12px;
+  --mediaW: 200px;
+  --mediaH: 150px;
+  --titleLines: 2;
+  --excerptLines: 2;
+
+  .news-card__title { font-size: 16px; }
+}
+
+.news-card--lg {
+  --pad: 18px;
+  --mediaW: 320px;
+  --mediaH: 220px;
+  --titleLines: 2;
+  --excerptLines: 3;
+
+  .news-card__title { font-size: 20px; }
 }
 
 /* ===================== */

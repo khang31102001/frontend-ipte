@@ -119,12 +119,10 @@
             }
 
             .featured-row__title {
-                background: linear-gradient(
-                    to right,
-                    #04016c,
-                    #1e1a9f,
-                    #3e3aa7
-                );
+                background: linear-gradient(to right,
+                        #04016c,
+                        #1e1a9f,
+                        #3e3aa7);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
@@ -251,9 +249,9 @@
             &--grid {
                 position: relative;
                 width: 100%;
-                background-color: #f3f4f6; // gray-100
+                background-color: #f3f4f6; 
                 overflow: hidden;
-                aspect-ratio: 16 / 9; // giống aspect-video
+                aspect-ratio: 16 / 9; 
             }
         }
 
@@ -364,6 +362,9 @@
 
 /* ====== SIDEBAR WRAPPER ====== */
 .article-sidebar {
+    // position: sticky;
+    // top: 88px;
+
     &__title {
         margin-bottom: 1rem; // mb-4
         font-size: 1.125rem; // text-lg
@@ -374,12 +375,16 @@
     &__list {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem; // space-y-3
+        gap: 12px; 
+        max-height: clamp(320px, 60dvh, 680px);
+        overflow: auto;
     }
 }
 
 /* ====== SIDEBAR CARD BASE ====== */
 .sidebar-card {
+    flex: 0 0 auto;
+    flex-shrink: 0;
     border-radius: 0.4rem;
     border: 1px solid #e5e7eb; // gray-200
     background-color: #ffffff;
@@ -414,24 +419,24 @@
         &--compact {
             display: flex;
             align-items: stretch;
-            gap: 0.75rem; // gap-3
-            padding: 0.75rem; // p-3
+            gap: 0.75rem; 
+            padding: 0.75rem; 
         }
     }
 
     &__media {
         position: relative;
         overflow: hidden;
-        background-color: #f3f4f6; // gray-100
+        background-color: #f3f4f6; 
 
         &--large {
             width: 100%;
-            aspect-ratio: 16 / 9; // giống aspect-video
+            aspect-ratio: 16 / 9; 
         }
 
         &--compact {
-            width: 6rem; // ~ w-24
-            height: 5rem; // ~ h-20
+            width: 6rem; 
+            height: 5rem; 
             border-radius: 0.2rem;
             flex-shrink: 0;
         }

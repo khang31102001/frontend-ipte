@@ -32,6 +32,16 @@ export interface IAbout {
   youtubeUrl?: string | null;
 }
 
+export type SocialItem = {
+    socialId: number;
+    categoryType: string;
+    title: string;
+    description?: string;
+    url?: string;
+    icon?: string;
+};
+
+
 export interface IAboutItem {
   items: IAbout[];
   page: number | null;

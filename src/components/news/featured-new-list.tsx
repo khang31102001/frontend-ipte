@@ -1,4 +1,4 @@
-import TrendingNews from "@/components/news/trend-new";
+import TrendingNews from "@/components/news/featured-news-section";
 import { News } from "@/types/news";
 
 

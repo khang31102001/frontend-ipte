@@ -1,10 +1,17 @@
 "use client";
 
 import { Facebook, Twitter, Linkedin } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 
+export type socialLink = {
+  id: string;
+  icon: ReactNode | string;
+  title: string;
+  url: string;
+}
 interface ArticleFooterProps {
   tags?: string[];
+  socialLink?: any[];
 }
 
 export default function ArticleFooter({
