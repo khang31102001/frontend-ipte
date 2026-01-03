@@ -1,17 +1,13 @@
+import { IMediaItem } from "@/types/media"
 import exp from "constants"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 
-interface StoryCard {
-  id: number
-  image: string
-  alt: string
-}
 
 interface StoriesSectionProps {
   title?: string
   description?: string
-  stories?: StoryCard[]
+  stories?: IMediaItem[]
 }
 
 const  StoriesSection =({
@@ -22,8 +18,8 @@ const  StoriesSection =({
 
   if (!stories || stories.length === 0) return null;
   return (
-    <section className="w-full bg-gradient-to-b from-purple-50 to-blue-50 py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="w-full bg-gradient-to-b from-purple-50 to-blue-50 py-14 sm:py-16">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-hero-gradient mb-2 text-pretty min-h-16">
@@ -40,8 +36,8 @@ const  StoriesSection =({
               className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
             >
               <Image
-                src={story.image || "/placeholder.svg"}
-                alt={story.alt}
+                src={story?.imageUrl || "/placeholder.svg"}
+                alt={story?.imageName ?? "PTE IPASS"}
                 width={300}
                 height={400}
                 className="w-full h-auto object-cover"

@@ -25,7 +25,7 @@ const MapSection = ({
   if(!data || data.length === 0) return null;
   return (
 
-   <section className="branches" style={styleBackground}>
+   <section className="branches " >
   <div className="branches__container">
     <div className="branches__grid">
       {/* Left side - Addresses */}

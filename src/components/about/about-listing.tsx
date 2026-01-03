@@ -7,38 +7,42 @@ import MapSection from "./map-section";
 import ContactInfor from "./contact-infor";
 import ConsultationForm from "../form/consultation-form";
 import AboutSection from "./about-section";
-import { IAboutItem } from "@/types/about";
+import { IAbout, IAboutItem, SocialItem } from "@/types/about";
 import { HeroBanner } from "../../shared/banner/hero-banner";
 
 
 interface AboutPageProps {
-  data: IAboutItem
+  aboutData: IAbout;
+  branhData: IAbout[];
+  socialData: SocialItem[];
+
 }
 
 const AboutListing = ({
-  data
+  aboutData,
+  branhData,
+  socialData
 }: AboutPageProps) => {
-  const dataEcosystem = data ? data.items.filter((i) => i.category === "ABOUT_ME") : [];
-  const dataBranches = data ? data.items.filter((i) => i.category === "BRANCH") : [];
-  const dataAudiences = data ? data.items.filter((i) => i.category === "AUDIENCE") : [];
+
 
 
   return (
-    <section>
+    <main className="bg-slate-50">
       <HeroBanner
         alt="Trang chủ pte ipass"
         src="/images/banner/about-us-banner.png"
         priority={true}
       />
-      <AboutSection data={null} />
-      <MissionSection />
-      <IPTEAudienceSection data={dataAudiences} />
-      <MapSection data={dataBranches} />
-      <FacilityGallery />
-      <PTEcosystem data={dataEcosystem as any} />
-      <ContactInfor data={dataBranches[0] as any ?? []} />
-      <ConsultationForm />
-    </section>
+      <AboutSection layout="grid-2" data={aboutData} />
+      <MissionSection mission={aboutData?.mission ?? ""} vision={aboutData?.vision} />
+      <IPTEAudienceSection data={[]} />
+      <MapSection data={branhData} />
+      {/* <FacilityGallery /> */}
+      {/* <PTEcosystem data={null} /> */}
+      <ContactInfor data={socialData} />
+      <ConsultationForm className="rounded-3xl border border-slate-200 bg-slate-900  text-white shadow-sm" />
+      
+    </main>
   )
 }
 

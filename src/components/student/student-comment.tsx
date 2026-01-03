@@ -1,3 +1,4 @@
+import NameAvatar from "@/shared/name-avatar";
 import Image from "next/image";
 import React from 'react'
 interface StudentCommentItem {
@@ -18,9 +19,11 @@ const StudentComment = ({
   eyebrow = 'Cảm nhận',
   comments
 }: StudentCommentProps) => {
+
+if(!comments || comments.length ===0) return;
   return (
-    <section className='px-4 py-16'>
-      <div className="container mx-auto">
+    <section className="w-full bg-white py-16 sm:py-14">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="student-comment">
           <div className="student-comment__col-left">
             <p className="student-comment__eyebrow">{eyebrow}</p>
@@ -36,13 +39,17 @@ const StudentComment = ({
                   <p className="card__text">{student.comment}</p>
 
                   <div className="card__author">
-                    <Image
+                    {student.avatar ? (
+                      <Image
                       className="card__avatar"
                       src={student.avatar}
                       alt={student.name}
                       width={28}
                       height={28}
                     />
+                    ):(
+                      <NameAvatar name={student.name} size={64}/>
+                    )}
                     <span className="card__name">{student.name}</span>
                   </div>
                 </article>

@@ -2,22 +2,14 @@
 
 :root {
   --form-bg: rgba(255, 255, 255, 0.85);
-
   --form-title: #111827;
-  /* gray-900 */
   --form-subtitle: #6b7280;
-  /* gray-500/600 */
   --field-bg: #f9fafb;
-  /* gray-50 */
   --field-bd: #e5e7eb;
-  /* gray-200 */
   --field-bd-focus: #6366f1;
-  /* indigo-500 */
   --field-txt: #111827;
   --field-ph: #9ca3af;
   --error: #dc2626;
-  --btn-bg: #EAB308;
-  --btn-bg-hover: #CA8A04;
   --btn-txt: #ffffff;
   --radius: .75rem;
 }
@@ -137,40 +129,46 @@
   z-index: 99999 !important;
 }
 
-/* Button */
 .btn {
   appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: 0.5rem;
   border: 0;
-  border-radius: .625rem;
-  font-weight: 700;
-  line-height: 1;
+  border-radius: 0.625rem;
+
+  font-size: 0.875rem;    
+  line-height: 1.25rem;    
+  font-weight: 600;        
+  color: #000;          
+
   cursor: pointer;
-  transition: transform .06s ease, box-shadow .15s ease, background .15s ease;
+
+  transition: transform 0.06s ease, box-shadow 0.15s ease, background 0.15s ease;
 
   &:focus-visible {
-    outline: 2px solid #fcd34d;
-    /* amber-300 */
+    outline: 2px solid #fcd34d; 
     outline-offset: 2px;
   }
 
   &--primary {
-    background: var(--btn-bg);
-    color: var(--btn-txt);
+    background: rgba(250, 204, 21, 0.9);
+    padding: 0.75rem 1.5rem;             
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -4px rgba(0, 0, 0, 0.1); 
   }
 
   &--primary:hover {
-    background: var(--btn-bg-hover);
+    background: #facc15; 
   }
 
   &--block {
     width: 100%;
-    padding: .9rem 1rem;
+    padding: 0.9rem 1rem;
   }
 }
+
 
 /* Responsive: tăng spacing và font ở md+ */
 @media (min-width: 768px) {

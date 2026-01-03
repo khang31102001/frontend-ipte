@@ -1,30 +1,17 @@
 import React from 'react';
-const missionContent = `
-  <p>
-    Sứ mệnh của iPTE là giúp học viên <strong>chinh phục PTE một cách thông minh</strong>,
-    tiết kiệm thời gian và chi phí, nhưng vẫn giữ được sự bền vững trong tư duy tiếng Anh.
-  </p>
-  <p>
-    Chúng tôi tin rằng <em>ai cũng có thể đạt điểm cao PTE</em> nếu được hướng dẫn đúng lộ trình
-    và luyện tập trong môi trường phù hợp.
-  </p>
-  <h3>Giá trị cốt lõi</h3>
-  <ul>
-    <li>Học thật – thi thật – điểm thật, nói không với “mẹo ảo”.</li>
-    <li>Đồng hành 1-1, hỗ trợ sát sao từng học viên.</li>
-    <li>Ứng dụng công nghệ để tối ưu việc luyện tập & theo dõi tiến bộ.</li>
-  </ul>
-`;
+
 interface MissionSectionProps {
     title?: string;
     desc?: string;
-    content?: string;
+    mission?: string | null;
+    vision?: string | null;
     backgroundImage?: string;
 }
 const MissionSection = ({
-    title = "Sứ mệnh của iPTE",
+    title = "Sứ mệnh của PTE iPass",
     desc = "Mang đến lộ trình PTE rõ ràng, dễ hiểu và hiệu quả cho người bận rộn.",
-    content = missionContent,
+    mission  = "",
+    vision = "",
     backgroundImage = "/images/bg/bg-mission.png"
 }: MissionSectionProps) => {
 
@@ -34,7 +21,7 @@ const MissionSection = ({
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
     };
-
+    if(!vision || !mission) return null;
     return (
         <section
             className="mission-section"
@@ -51,12 +38,19 @@ const MissionSection = ({
 
                 <div
                     className="mission-section__desc"
-                    dangerouslySetInnerHTML={{ __html: content }}
+                    dangerouslySetInnerHTML={{ __html: mission }}
                 />
 
+                
+                <div
+                    className="mission-section__desc"
+                    dangerouslySetInnerHTML={{ __html: vision }}
+                />
+
+{/* 
                 <button className="mission-section__btn" >
                     Xem thêm
-                </button>
+                </button> */}
             </div>
         </section>
     );

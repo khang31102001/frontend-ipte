@@ -74,7 +74,13 @@ const jsonLd = {
 };
 
 export default async function IndexAbout() {
-    const abouts = await aboutService.getAboutMeList({});
+    const aboutRes = await aboutService.getAboutMeList({});
+    const branchRes = await aboutService.getBranchList({});
+    const socialRes = await   aboutService.getSocialList();
+     const aboutData = aboutRes?.items?.[0] ?? null;
+     const branchtData = branchRes?.items ?? [];
+     const socialData = socialRes?.items ?? [];
+    // console.log("check data about:", aboutRes)
     return (
         <>
             <script
@@ -82,7 +88,7 @@ export default async function IndexAbout() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
         
-            <AboutListing data={abouts}/>
+            <AboutListing aboutData={aboutData} branhData={branchtData} socialData={socialData}/>
         </>
     )
 }

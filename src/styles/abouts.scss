@@ -125,8 +125,7 @@
   position: relative;
   width: 100%;
   min-height: 380px;
-  padding: 90px 16px 100px;
-
+ 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,12 +216,12 @@
   position: relative;
   padding: 4rem 1.5rem; 
   color: #ffffff;
-  isolation: isolate; // giúp z-index hoạt động an toàn, tránh bị lẫn context
+  isolation: isolate; 
   
 
-  @media (min-width: 1024px) {
-    padding-inline: 3rem; // lg:px-12
-  }
+  // @media (min-width: 1024px) {
+  //   padding-inline: 3rem; // lg:px-12
+  // }
 
   &::before {
     content: "";
@@ -231,7 +230,7 @@
     z-index: 0;
     pointer-events: none;
     background: rgba(0, 0, 0, 0.4);
-    mix-blend-mode: multiply; // giúp blend đẹp với background image
+    mix-blend-mode: multiply; 
 
   }
 

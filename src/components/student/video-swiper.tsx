@@ -1,41 +1,46 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import { ChevronLeft, ChevronRight, Play, Maximize2, X } from "lucide-react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { ChevronLeft, ChevronRight, Play, Maximize2, X, Fullscreen } from "lucide-react"
 import Image from "next/image";
+import { IMediaItem } from "@/types/media";
+import { UniversalVideoPlayer } from "@/shared/media/UniversalVideoPlayer";
 
 
-interface VideoItem {
-  id: string | number | null;
-  title: string
-  description: string
-  thumbnail: string
-  author: string
-}
+
 
 interface VideoSwiperProps {
-  videos: VideoItem[]
+  videos: IMediaItem[] | [];
   autoplay?: boolean
   autoplayInterval?: number
 }
 
-export function VideoSwiper({ 
-  videos = [], 
-  autoplay = false, 
-  autoplayInterval = 5000 
+export function VideoSwiper({
+  videos = [],
+  autoplay = false,
+  autoplayInterval = 5000
 }: VideoSwiperProps) {
-  
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null)
   const videoContainerRef = useRef<HTMLDivElement>(null)
   const autoplayRef = useRef<NodeJS.Timeout>()
 
-  const currentVideo = videos[currentIndex]
+  // const currentVideo = videos[currentIndex];
+  const currentVideo = useMemo(() => videos[currentIndex], [videos, currentIndex]);
+
+
+  // Reset play khi chuyển video
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [currentIndex]);
 
   useEffect(() => {
     if (autoplay && !isPlaying && videos.length) {
+
       autoplayRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % videos.length)
       }, autoplayInterval)
@@ -95,11 +100,17 @@ export function VideoSwiper({
       window.removeEventListener("keydown", handleKeyPress)
     }
   }, [goToNext, goToPrevious, isFullscreen]);
-  
-  if(!videos || videos.length === 0) return null;
+
+  if (!videos || videos.length === 0) return null;
+
+
+  const poster = currentVideo?.imageUrl || "/placeholder.svg";
+  // const videoSrc = currentVideo?.videoUrl || null;
+
+  const videoSrc = "https://youtu.be/stvWuowo1dU?si=0UIUeAgyzuUVMeYT";
   return (
-    <div ref={containerRef} className="w-full bg-gradient-to-b from-gray-800 to-gray-900 py-12 px-4 md:px-8">
-      <div className={`${isFullscreen ? "max-w-full" : "max-w-4xl"} mx-auto`}>
+    <section ref={containerRef} className="w-full bg-gradient-to-b from-gray-800 to-gray-900 py-12 px-4 md:px-8">
+      <div className={`${isFullscreen ? "max-w-full" : "max-w-6xl"} mx-auto sm:px-6 lg:px-8 py-16`}>
         {/* Video Container */}
         <div
           ref={videoContainerRef}
@@ -117,38 +128,51 @@ export function VideoSwiper({
           )}
 
           <div
-            className={`relative group rounded-2xl overflow-hidden border-4 border-yellow-400 shadow-2xl ${
-              isFullscreen ? "w-full h-full max-w-6xl" : "w-full"
-            }`}
+            className={`relative group rounded-2xl overflow-hidden border-4 border-yellow-400 shadow-2xl ${isFullscreen ? "w-full h-full max-w-6xl" : "w-full"
+              }`}
           >
             <div className={`w-full ${isFullscreen ? "h-full" : "h-0 pb-[56.25%]"} relative bg-black`}>
-              {/* Thumbnail */}
-              <Image
-                src={currentVideo.thumbnail || "/placeholder.svg"}
-                alt={currentVideo.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 1024px"
-                className="absolute inset-0 w-full h-full object-cover"
-                priority={isFullscreen}
-              />
+              {isPlaying && videoSrc ? (
+                <UniversalVideoPlayer
+                  url={videoSrc}
+                  poster={poster}
+                  title={currentVideo.title ?? "Video"}
+                  autoPlay
+                  muted={false}
+                  controls
+                />
 
-              {/* Play Button Overlay */}
-              <button
-                onClick={handlePlayClick}
-                className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
-                  isPlaying ? "bg-black/0" : "bg-black/0 group-hover:bg-black/20"
-                }`}
-              >
-                <div
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-lg flex items-center justify-center transition-transform duration-300 ${
-                    isPlaying ? "scale-0" : "scale-100 hover:scale-110"
-                  }`}
-                >
-                  <Play className="w-8 h-8 md:w-10 md:h-10 text-black fill-black ml-1" />
-                </div>
-              </button>
+              ) : (
+                <>
+                  <Image
+                    src={poster}
+                    alt={currentVideo?.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 1024px"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    priority={isFullscreen}
+                  />
 
-              <button
+                  {/* Play Button Overlay */}
+                  <button
+                    onClick={handlePlayClick}
+                    className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isPlaying ? "bg-black/0" : "bg-black/0 group-hover:bg-black/20"
+                      }`}
+                  >
+                    <div
+                      className={`w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-lg flex items-center justify-center transition-transform duration-300 ${isPlaying ? "scale-0" : "scale-100 hover:scale-110"
+                        }`}
+                    >
+                      <Play className="w-8 h-8 md:w-10 md:h-10 text-black fill-black ml-1" />
+                    </div>
+                  </button>
+
+
+                </>
+              )}
+
+                        
+              {/* <button
                 onClick={handleFullscreenClick}
                 className="absolute bottom-4 right-4 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow-lg transition-all flex items-center justify-center hover:scale-110"
                 aria-label="Toggle fullscreen"
@@ -158,11 +182,14 @@ export function VideoSwiper({
                 ) : (
                   <Maximize2 className="w-5 h-5 text-gray-800" />
                 )}
-              </button>
+              </button> */}
+
+
+              
             </div>
           </div>
 
-          {/* {!isFullscreen && (
+          {!isFullscreen && (
             <>
               <button
                 onClick={goToPrevious}
@@ -180,7 +207,7 @@ export function VideoSwiper({
                 <ChevronRight className="w-6 h-6 text-gray-800" />
               </button>
             </>
-          )} */}
+          )}
 
 
         </div>
@@ -189,27 +216,21 @@ export function VideoSwiper({
           <>
             {/* Video Information */}
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 text-balance">{currentVideo.title}</h2>
+              {currentVideo?.title && (
+                <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 text-balance">{currentVideo?.title}</h2>
+              )}
 
-              {/* Author */}
-              <p className="text-sm text-gray-400">{currentVideo.author}</p>
 
               {/* Description */}
-              <p className="text-gray-300 leading-relaxed text-base md:text-lg">{currentVideo.description}</p>
+              {currentVideo?.description && (
+                <p className="text-gray-300 leading-relaxed text-base md:text-lg">{currentVideo?.description}</p>
+              )}
+
             </div>
 
             <div className="flex items-center justify-center gap-4 mt-12">
-              {/* Left Arrow Button */}
-              <button
-                onClick={goToPrevious}
-                className="w-10 h-10 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-all flex items-center justify-center hover:scale-110"
-                aria-label="Previous video"
-              >
-                <ChevronLeft className="w-5 h-5 text-gray-800" />
-              </button>
-
               {/* Pagination Dots */}
-              {/* <div className="flex gap-2">
+              <div className="flex gap-2">
                 {videos.map((_, index) => (
                   <button
                     key={index}
@@ -220,16 +241,8 @@ export function VideoSwiper({
                     aria-label={`Go to video ${index + 1}`}
                   />
                 ))}
-              </div> */}
-
-              {/* Right Arrow Button */}
-              <button
-                onClick={goToNext}
-                className="w-10 h-10 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-all flex items-center justify-center hover:scale-110"
-                aria-label="Next video"
-              >
-                <ChevronRight className="w-5 h-5 text-gray-800" />
-              </button>
+              </div>
+          
             </div>
 
             <div className="text-center mt-8 text-gray-400">
@@ -240,6 +253,6 @@ export function VideoSwiper({
           </>
         )}
       </div>
-    </div>
+    </section>
   )
 }

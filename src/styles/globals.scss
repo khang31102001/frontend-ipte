@@ -410,26 +410,7 @@
   }
 }
 
-.hero {
-  width: 100%;
-}
 
-.hero__media {
-  position: relative;
-  width: 100%;
-  max-width: none;
-  // margin: 0 auto;
-
-  aspect-ratio: 16 / 9;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #f3f4f6;
-}
-
-.hero__img {
-  // object-fit: cover;        
-  // object-position: center;  
-}
 
 .no-scrollbar {
   -ms-overflow-style: none;

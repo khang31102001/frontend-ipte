@@ -39,11 +39,12 @@ const ConsultationForm = ({
 
   }
   return (
-    <div className={`section sm:section-sm lg:section-lg ${className}`}>
-      <div className="container mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+    <div className={`w-full section sm:section--sm lg:section--lg ${className}`}>
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Registration Form */}
-
+   
+          
           <ContactForm
             onSubmit={handleSubmit}
           />
