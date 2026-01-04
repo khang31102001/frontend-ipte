@@ -6,6 +6,7 @@ import { Course } from "@/types/courses";
 import { PteCategorySection } from "./pte-category-section";
 import PtelistItems from "./pte-list-items";
 import { SidebarItem } from "@/shared/article/article-sidebar";
+import { COURSES_BASE, ROUTERS } from "@/config/routes/routers";
 
 
 
@@ -17,14 +18,13 @@ interface PteCategoryPageProps {
 }
 export function courseToSidebarItem(
   course: Course,
-  basePath = ""
 ): SidebarItem {
   return {
     id: course.courseId ?? course.slug,
     title: course.title ?? course.courseName ?? "Khóa học",
     image: course.image ?? "/images/course-default.jpg",
     badge: "Miễn phí",
-    href: course.slug ? `${basePath}/${course.slug}` : basePath,
+    href: course.slug ? ROUTERS.COURSES.detail(COURSES_BASE, course.slug) : COURSES_BASE,
   };
 }
 
@@ -39,8 +39,8 @@ const PteCategoryPage = ({
  
        const courseFeaturedItems = useMemo(()=>{
            if(!featuredCourses || featuredCourses.length === 0) return [];
-           return featuredCourses.map((item)=> courseToSidebarItem(item, category?.url))
-         }, [featuredCourses, category?.url]);
+           return featuredCourses.map((item)=> courseToSidebarItem(item))
+         }, [featuredCourses]);
 
     if(!coures) return null;
 

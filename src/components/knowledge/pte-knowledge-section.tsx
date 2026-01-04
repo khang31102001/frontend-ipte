@@ -10,7 +10,7 @@ import { CategoryItem } from '@/types/category'
 import { useKnowledGetByCate } from '@/hooks/use-knowledge'
 import SectionLoading from '../../shared/loading/section-loading'
 import CourseCard from '../courses/card/course-card'
-import { ROUTERS } from '../../config/routes/routers'
+import { KNOWLEDGE_BASE, ROUTERS } from '../../config/routes/routers'
 
 
 export interface TabItem {
@@ -69,9 +69,9 @@ const PteKnowledgeSection = ({
 
   const children = Array.isArray(cateKnowledges?.children) ? cateKnowledges.children : [];
   const hasCateKnowledges = children.length > 0;
-  const cateHref = cateKnowledges?.url ? ROUTERS.KNOWLEDGE.category(cateKnowledges?.url ) : "";
+  const cateHref = cateKnowledges?.url ? ROUTERS.KNOWLEDGE.index(KNOWLEDGE_BASE) : "";
 
-if(!cateKnowledges) return null;
+  if (!cateKnowledges) return null;
   return (
     <section className="py-16 bg-white">
       <div className="container  mx-auto">
@@ -109,7 +109,7 @@ if(!cateKnowledges) return null;
 
             {knowledgeItem?.map((item, index) => {
               const cateChild = cateKnowledges?.children?.find((i) => i.slug === item.slug);
-              const href = ROUTERS.KNOWLEDGE.detail(item.slug, cateChild?.url);
+              const href = ROUTERS.KNOWLEDGE.detail(KNOWLEDGE_BASE, item.slug, cateChild?.url);
               const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
               return (
                 <CourseCard

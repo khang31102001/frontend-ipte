@@ -88,16 +88,16 @@ export default function AvatarCarousel({
     }, []);
 
     // auto scroll tới item đang chọn
-    useEffect(() => {
-        if (!autoScrollToSelected) return;
-        if (!selectedId) return;
+    // useEffect(() => {
+    //     if (!autoScrollToSelected) return;
+    //     if (!selectedId) return;
 
-        const el = trackRef.current;
-        if (!el) return;
+    //     const el = trackRef.current;
+    //     if (!el) return;
 
-        const selected = el.querySelector<HTMLElement>(`[data-id="${String(selectedId)}"]`);
-        selected?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    }, [selectedId, autoScrollToSelected]);
+    //     const selected = el.querySelector<HTMLElement>(`[data-id="${String(selectedId)}"]`);
+    //     selected?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    // }, [selectedId, autoScrollToSelected]);
 
     // drag to scroll (mượt, không cần library)
     // useEffect(() => {

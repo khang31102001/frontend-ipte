@@ -35,16 +35,18 @@ const FeaturedCoursesSection = ({
                     </h1>
                     <div className="flex justify-center md:justify-end mt-2 gap-2">
                         <button
+
                             ref={prevRef}
-                            className="rounded-full border border-gray-300 hover:bg-gray-100 bg-transparent p-3 md:p-4"
+                            className="swiper-nav-btn"
                         >
-                            <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+                            <ChevronLeft className="w-4 h-4" />
                         </button>
+
                         <button
                             ref={nextRef}
-                            className="rounded-full border border-gray-300 hover:bg-gray-100 bg-transparent p-3 md:p-4"
+                            className="swiper-nav-btn"
                         >
-                            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+                            <ChevronRight className="w-4 h-4" />
                         </button>
                     </div>
                 </div>
@@ -61,7 +63,7 @@ const FeaturedCoursesSection = ({
                                 navigation={{ prevEl: prevRef, nextEl: nextRef }}
                             >
                                 {featuredCourses.map((item, index) => {
-                                        const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
+                                    const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
                                     return (
                                         <div key={index} className='w-full h-full' >
                                             <CourseCard

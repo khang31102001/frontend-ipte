@@ -212,7 +212,7 @@ async function CourseListingPage({
       }
     })
   );
- 
+ console.log("check category pte-nen-tang", category)
   return (
     <CategoryLayout
       title={category.name}
@@ -294,7 +294,11 @@ export default async function Page({ params }: PageProps) {
 
   // 2. Nếu không phải course thì coi như là danh mục
 
-  const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } = await checkCategoryBySlugs(courseRootCategory?.children ?? [], categorySlug);
+  const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } = 
+  await checkCategoryBySlugs(courseRootCategory?.children ?? [], categorySlug);
+ console.log("check categorySlug ", categorySlug);
+  console.log("check currentCategory ", currentCategory)
+  console.log("check courseRootCategory ", courseRootCategory?.children )
   if (!currentCategory) return notFound();
   const breadcrumbs: BreadcrumbItem[] = [
     { name: "Trang chủ", href: "/" },

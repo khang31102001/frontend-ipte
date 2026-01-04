@@ -5,35 +5,43 @@ import { Teacher } from '@/types/teacher';
 import AvatarCarousel from '../../shared/avatar-carousel';
 
 
-interface TeamTeacherProps{
+interface TeamTeacherProps {
     dataTeacher: Teacher[] | [];
 }
 type AvatarItem = {
-  id: number | string;
-  name: string;
-  image?: string | null;
+    id: number | string;
+    name: string;
+    image?: string | null;
 };
 
-const toOption = (teacher: Teacher[]):AvatarItem[]=>{
-   if(!teacher || teacher.length === 0) return [];
-   return teacher.map((i)=>({
-    id: i.teacherId,
-    name: i.name,
-    image: i.image,
-   }));
+const toOption = (teacher: Teacher[]): AvatarItem[] => {
+    if (!teacher || teacher.length === 0) return [];
+    return teacher.map((i) => ({
+        id: i.teacherId,
+        name: i.name,
+        image: i.image,
+    }));
 }
+
+const Score = ({ label, value }: { label: string; value?: number | string }) => (
+    <div className="min-w-[88px]">
+        <div className="text-2xl font-bold text-green-400 text-center">{value ?? "-"}</div>
+        <div className="text-xs sm:text-sm text-blue-200 text-center">{label}</div>
+    </div>
+);
+
 const TeamTeacherPTE = ({
-   dataTeacher = [], 
-}:TeamTeacherProps) => {
+    dataTeacher = [],
+}: TeamTeacherProps) => {
 
-    const [selectTecherId, setSelectTecherId] = useState<number | null>(31);
+    const [selectTecherId, setSelectTecherId] = useState<number>(dataTeacher[0]?.teacherId ?? 0);
 
-    const selectTeacher = useMemo(()=> {
-        if(!dataTeacher || dataTeacher.length === 0) return null;
-        return dataTeacher.find((i)=> i.teacherId === selectTecherId);
+    const selectTeacher = useMemo(() => {
+        if (!dataTeacher || dataTeacher.length === 0) return null;
+        return dataTeacher.find((i) => i.teacherId === selectTecherId);
     }, [dataTeacher, selectTecherId]);
 
-    const option = useMemo(()=>toOption(dataTeacher), [dataTeacher]);
+    const option = useMemo(() => toOption(dataTeacher), [dataTeacher]);
 
     const teacherImage = selectTeacher?.image || "/images/teacher-placeholder.png";
 
@@ -50,94 +58,53 @@ const TeamTeacherPTE = ({
                         </div>
 
                         {/* card teacher profile*/}
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-8  items-stretch mb-12'>
-                            <div className='block h-full'>
-                                <div className='h-full w-full grid justify-items-center'>
-                                    <div className='h-full w-full max-w-md rounded-md shadow-lg overflow-hidden'>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch mb-12">
+                    
+                            <div className="h-full">
+                                <div className="w-full max-w-md mx-auto md:mx-0">
+                                    <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-white/5">
                                         <Image
                                             src={teacherImage}
                                             alt={selectTeacher?.name ?? ""}
-                                            width={640}
-                                            height={740}
-                                            className="h-full w-full object-cover object-center"
+                                            fill
+                                            className="object-cover object-center"
+                                            sizes="(min-width: 768px) 420px, 90vw"
+                                            priority={false}
                                         />
                                     </div>
                                 </div>
                             </div>
-                            <div className='h-full flex flex-col gap-8'>
-                                {/* infor teacher */}
-                                <div className="bg-black/15 rounded-2xl shadow-lg h-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 space-y-6">
-                                    {/* Teacher Name */}
-                                    <div>
+
+                     
+                            <div className="h-full">
+                                <div className="h-full bg-white/10 rounded-2xl shadow-lg px-6 py-8 lg:px-8 lg:py-10 flex flex-col">
+                                    {/* Top content */}
+                                    <div className="space-y-6">
                                         <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold">
                                             {selectTeacher?.name}
                                         </h3>
-                                    </div>
 
-                                    {/* IELTS Overall Score */}
-                                    <div className="flex items-center gap-3 sm:gap-4">
-                                        <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-400">
-                                            {selectTeacher?.overallScore}
-                                        </div>
-                                        <div className="text-white text-sm sm:text-base md:text-lg">
-                                            <div className="font-semibold">IELTS</div>
-                                            <div className="text-blue-200">Overall</div>
-                                        </div>
-                                    </div>
-
-                                    {/* Individual IELTS Scores */}
-                                    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                                        {/* Listening */}
-                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
-                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {selectTeacher?.listeningScore}
-                                            </span>
-                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
-                                                Listening
-                                            </span>
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-4xl md:text-5xl font-bold text-orange-400">
+                                                {selectTeacher?.overallScore}
+                                            </div>
+                                            <div className="text-white">
+                                                <div className="font-semibold">IELTS</div>
+                                                <div className="text-blue-200">Overall</div>
+                                            </div>
                                         </div>
 
-                                    
-
-                                        {/* Reading */}
-                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
-                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {selectTeacher?.readingScore}
-                                            </span>
-                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
-                                                Reading
-                                            </span>
-                                        </div>
-
-                                       
-
-                                        {/* Speaking */}
-                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
-                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {selectTeacher?.speakingScore}
-                                            </span>
-                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
-                                                Speaking
-                                            </span>
-                                        </div>
-
-                                     
-
-                                        {/* Writing */}
-                                        <div className="flex flex-col items-center min-w-[70px] sm:min-w-[90px] md:min-w-[100px]">
-                                            <span className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
-                                                {selectTeacher?.writingScore}
-                                            </span>
-                                            <span className="text-[10px] sm:text-xs md:text-sm text-blue-200 text-center">
-                                                Writing
-                                            </span>
+                                        <div className="flex flex-wrap items-center justify-start gap-6">
+                                            <Score label="Listening" value={selectTeacher?.listeningScore} />
+                                            <Score label="Reading" value={selectTeacher?.readingScore} />
+                                            <Score label="Speaking" value={selectTeacher?.speakingScore} />
+                                            <Score label="Writing" value={selectTeacher?.writingScore} />
                                         </div>
                                     </div>
 
-                                    {/* Description */}
-                                    <div className="line-clamp-6 overflow-hidden">
-                                        <p className="text-blue-100 leading-relaxed text-sm sm:text-base md:text-lg">
-                                            {selectTeacher?.bio}
+                                    <div className="mt-6 flex-1">
+                                        <p className="text-blue-100 leading-relaxed text-sm sm:text-base md:text-lg line-clamp-8">
+                                            {selectTeacher?.bio || "Thông tin giảng viên đang được cập nhật."}
                                         </p>
                                     </div>
                                 </div>
@@ -145,19 +112,19 @@ const TeamTeacherPTE = ({
                         </div>
 
                         {/* swiper teacher list */}
-                       <div className="w-full flex items-center justify-center">
-                        <div className="max-w-full md:max-w-[38rem] w-full">
-                            <AvatarCarousel
-                            items={option}
-                            selectedId={selectTecherId as number}
-                            onSelect={(id) =>setSelectTecherId(Number(id))}
-                            itemSize={64}
-                            gap={8}
-                            scrollStep="item"
-                            autoScrollToSelected
-                            className="w-full"
-                            />
-                        </div>
+                        <div className="w-full flex items-center justify-center">
+                            <div className="max-w-full md:max-w-[38rem] w-full">
+                                <AvatarCarousel
+                                    items={option}
+                                    selectedId={selectTecherId as number}
+                                    onSelect={(id) => setSelectTecherId(Number(id))}
+                                    itemSize={64}
+                                    gap={8}
+                                    scrollStep="item"
+                                    autoScrollToSelected
+                                    className="w-full"
+                                />
+                            </div>
                         </div>
 
                     </div>

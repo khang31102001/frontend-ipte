@@ -6,7 +6,7 @@ import CustomSwiper from '@/components/ui/custom-swiper'
 import { CategoryItem } from '@/types/category'
 import { Course } from '@/types/courses'
 import CourseCard from '../card/course-card'
-import { ROUTERS } from '@/config/routes/routers'
+import { COURSES_BASE, ROUTERS } from '@/config/routes/routers'
 
 
 type layout = 'grid' | 'swiper'
@@ -31,7 +31,8 @@ const PteCategoryItem = ({
         870: { slidesPerView: 3, spaceBetween: 10 },  
         1280: { slidesPerView: 4, spaceBetween: 10 }, 
     };
-    const cateHref = category.url ? ROUTERS.COURSES.category(category?.url) : "";
+    const cateHref = category.url ? ROUTERS.COURSES.index(category?.url) : "";
+    // console.log("check cateHref PteCategoryItem", cateHref)
     return (
         <section className="section sm:section-sm lg:section-lg">
             <div className="container mx-auto px-4">
@@ -72,7 +73,8 @@ const PteCategoryItem = ({
                             className="swiper-course"
                         >
                             {data.map((item, index) => {
-                               const href = ROUTERS.COURSES.detail(item?.slug, category?.url)
+                               const href = ROUTERS.COURSES.detail("", item?.slug, category?.url);
+                            //    console.log("check href PteCategoryItem", href)
                                 const imgSrc = item?.image?.trim() ? item.image : "/images/course-placeholder.jpg";
                                 return (
                                     <CourseCard

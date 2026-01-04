@@ -3,7 +3,7 @@ import { useMemo, useState } from "react"
 import { Course } from "@/types/courses"
 import CourseCard from "@/components/courses/card/course-card"
 import { CategoryItem } from "@/types/category";
-import { ROUTERS } from "@/config/routes/routers";
+import { COURSES_BASE, ROUTERS } from "@/config/routes/routers";
 
 
 
@@ -22,11 +22,6 @@ const CourseListSection = ({
 
 }: CourseListProps) => {
 
-  const currentCourse = useMemo(() => {
-    return data.slice(0, ITEMS_PER_LOAD);
-  }, [data]);
-
-
 
   
   if (!data || data.length === 0) return null;
@@ -37,8 +32,8 @@ const CourseListSection = ({
           viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" : "flex flex-col gap-4"
         }
       >
-        {currentCourse?.map((item, index) => {
-          const herf = ROUTERS.COURSES.detail(item.slug, category?.url);
+        {data?.map((item, index) => {
+          const herf = ROUTERS.COURSES.detail(COURSES_BASE ,item.slug, category?.url);
           return viewMode === "grid" ? (
             <CourseCard
               key={`idx-${index}`}

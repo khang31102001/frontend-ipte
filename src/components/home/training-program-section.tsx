@@ -47,11 +47,12 @@ const TrainingProgramsSection = ({
 
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 ">
+      <div className="container mx-auto ">
         {/* Title & Subtitle */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex-1">
-            <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+          <div className="lg:col-span-7 min-w-0">
+            <h1 className="text-[40px] sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-balance">
               <span className="text-indigo-700">Tinh thông tiếng Anh với bộ</span>
               <br />
               <span className="text-amber-500">chương trình đào tạo</span>
@@ -60,8 +61,8 @@ const TrainingProgramsSection = ({
             </h1>
           </div>
 
-          <div className="flex-1">
-            <p className="text-lg md:text-2xl text-indigo-700 leading-relaxed">
+          <div className="lg:col-span-5 min-w-0 lg:pt-3">
+            <p className="text-lg sm:text-xl lg:text-2xl text-indigo-700 leading-relaxed max-w-xl">
               Học ngoại ngữ thật dễ dàng với lộ trình
               <br />
               Học &amp; Luyện Thi toàn diện, được cá nhân
@@ -79,7 +80,7 @@ const TrainingProgramsSection = ({
                 breakpoints
               }
               autoplay={shouldLoop}
-              loop ={shouldLoop}
+              loop={shouldLoop}
             >
               {cateCourseWithBg?.map((item, index) => (
                 <a href={item?.url ?? "#"} key={index} className="block">
@@ -95,11 +96,11 @@ const TrainingProgramsSection = ({
 
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center gap-6 py-4">
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {cateCourseWithBg.map((item) => (
               <div
                 key={item.categoryId}
-                className="w-full sm:w-[320px] lg:w-[340px] shrink-0"
+                className="h-full"
               >
                 {item.url ? (
                   <a href={item.url} className="block h-full">
@@ -116,7 +117,6 @@ const TrainingProgramsSection = ({
                       name={item.name}
                       description={item.description}
                       bgColor={item.bgColor}
-                      textBtn={item.textBtn}
                     />
                   </div>
                 )}

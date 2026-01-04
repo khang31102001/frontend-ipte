@@ -6,7 +6,6 @@ import { categoriesServices } from "@/lib/service/category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { Metadata } from "next";
 import CategoryLayout from "@/shared/category/category-layout";
-import { knowledgesServices } from "@/lib/service/knowlege";
 import { checkCategoryBySlugs } from "@/lib/check-category";
 import { coursesServices } from "@/lib/service/course";
 import KnowledgesList from "@/components/knowledge/knowledges-list";
@@ -290,7 +289,7 @@ export default async function Page({ params }: PageProps) {
 
   const lastSegment = categorySlug.at(-1);
   if (!lastSegment) return notFound();
-  const knowledge = await knowledgesServices.getKnowledgeDetail({ slug: lastSegment });
+  const knowledge = await coursesServices.getCoursesDetails({slug: lastSegment})
   if (knowledge) {
     const breadcrumbs: BreadcrumbItem[] = [
       { name: "Trang chủ", href: "/" },
