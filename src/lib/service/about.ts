@@ -1,7 +1,9 @@
 
 import 'server-only';
+import { getAPIBaseUrl } from '../helper';
 
-const API = process.env.NEXT_PUBLIC_URL_API!;
+const API = getAPIBaseUrl();
+
 type QueryParams = Record<string, string | number | boolean | null | undefined>;
 function toQuery(params?: QueryParams) {
   if (!params) return "";

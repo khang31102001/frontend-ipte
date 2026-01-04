@@ -7,28 +7,32 @@ import { PteCategorySection } from "./pte-category-section";
 import PtelistItems from "./pte-list-items";
 import { SidebarItem } from "@/shared/article/article-sidebar";
 import { COURSES_BASE, ROUTERS } from "@/config/routes/routers";
+import { BreadcrumbItem } from "@/types/breadcrumbs";
+import Breadcrumb from "@/shared/breadcrumb";
 
 
 
 interface PteCategoryPageProps {
+    breadcrumbs?: BreadcrumbItem[] | [];
     category: CategoryItem;
     categoryCourse?: CourseCategory[];
     featuredCourses?: Course[] | null;
     coures: Course[];
 }
 export function courseToSidebarItem(
-  course: Course,
+    course: Course,
 ): SidebarItem {
-  return {
-    id: course.courseId ?? course.slug,
-    title: course.title ?? course.courseName ?? "Khóa học",
-    image: course.image ?? "/images/course-default.jpg",
-    badge: "Miễn phí",
-    href: course.slug ? ROUTERS.COURSES.detail(COURSES_BASE, course.slug) : COURSES_BASE,
-  };
+    return {
+        id: course.courseId ?? course.slug,
+        title: course.title ?? course.courseName ?? "Khóa học",
+        image: course.image ?? "/images/course-default.jpg",
+        badge: "Miễn phí",
+        href: course.slug ? ROUTERS.COURSES.detail(COURSES_BASE, course.slug) : COURSES_BASE,
+    };
 }
 
 const PteCategoryPage = ({
+    breadcrumbs = [],
     categoryCourse,
     category,
     featuredCourses,
@@ -36,16 +40,25 @@ const PteCategoryPage = ({
 }: PteCategoryPageProps) => {
 
     // const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
- 
-       const courseFeaturedItems = useMemo(()=>{
-           if(!featuredCourses || featuredCourses.length === 0) return [];
-           return featuredCourses.map((item)=> courseToSidebarItem(item))
-         }, [featuredCourses]);
 
-    if(!coures) return null;
+    const courseFeaturedItems = useMemo(() => {
+        if (!featuredCourses || featuredCourses.length === 0) return [];
+        return featuredCourses.map((item) => courseToSidebarItem(item))
+    }, [featuredCourses]);
+
+    if (!coures) return null;
 
     return (
-        <section className="section--sm">
+        <section className="section sm:section--sm lg:section--lg bg-white">
+            <Breadcrumb
+                items={breadcrumbs}
+                className="container max-auto px-4 py-4 md:py-8"
+            />
+
+            <div className="container max-auto px-4 py-8 md:py-12">
+                <p className="text-base  text-primary mb-2">{category?.description}</p>
+            </div>
+
             {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
 
@@ -58,12 +71,12 @@ const PteCategoryPage = ({
 
 
                 <div className="space-y-6">
-                   {courseFeaturedItems &&(
-                     <ArticleSidebar
-                        title="Khóa học tiêu biểu"
-                        items={courseFeaturedItems}
-                    />
-                   )}
+                    {courseFeaturedItems && (
+                        <ArticleSidebar
+                            title="Khóa học tiêu biểu"
+                            items={courseFeaturedItems}
+                        />
+                    )}
 
                     <ArticleSidebar
                         title="Cộng đồng PTE lớn nhất"
@@ -91,15 +104,15 @@ const PteCategoryPage = ({
                 </div>
             </div>
 
-            <div>
-                {categoryCourse && categoryCourse.map((item, index) => {
-                    return (
-                        <PteCategorySection key={index}
-                            pteCategory={item}
-                        />
-                    )
-                })}
-            </div>
+
+            {categoryCourse && categoryCourse.map((item, index) => {
+                return (
+                    <PteCategorySection key={index}
+                        pteCategory={item}
+                    />
+                )
+            })}
+
 
         </section>
     )

@@ -34,7 +34,7 @@ const CategoryKnowledge = ({
     };
 
     return (
-        <div className="py-8">
+        <section className="section sm:section-sm lg:section-lg">
             <div className="container mx-auto px-4">
                 <div className='w-full flex items-center justify-between min-h-24 mb-8'>
                     <div className="flex-1 space-y-1 md:space-y-2">
@@ -95,7 +95,7 @@ const CategoryKnowledge = ({
                     </Link>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

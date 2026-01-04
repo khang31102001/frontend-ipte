@@ -1,7 +1,6 @@
 
 import NewsDetail from '@/components/news/detail/news-details'
 import NewListPage from '@/components/news/news-list'
-import CategoryLayout from '@/shared/category/category-layout'
 import Skeleton from '@/shared/loading/Skeleton'
 import { checkCategoryBySlugs, isChildren } from '@/lib/check-category'
 import { categoriesServices } from '@/lib/service/category'
@@ -119,23 +118,14 @@ async function NewsListingPage({
     //   console.log("audit check newsRes: ", newsRes);
     return (
         <>
-            <HeroBanner
-                alt="Trang chủ pte ipass"
-                src="/images/banner/banner-tin-tuc-pte-ipas.jpg"
-                priority={true}
+
+
+            <NewListPage
+                newsData={newsData}
+                newsFeatured={featuredData}
+                newsCategory={cateChildNews}
+                knowledgesCategory={knowledgeRoot}
             />
-            <CategoryLayout
-                title={newsCate?.name || ''}
-                description={newsCate?.description}
-                breadcrumbs={breadcrumbs}
-            >
-                <NewListPage
-                    newsData={newsData}
-                    newsFeatured={featuredData}
-                    newsCategory={cateChildNews}
-                    knowledgesCategory={knowledgeRoot}
-                />
-            </CategoryLayout>
         </>
     )
 }

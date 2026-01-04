@@ -48,8 +48,8 @@ const TeamTeacherPTE = ({
 
 
     return (
-        <section className="py-16 bg-white">
-            <div className='container mx-auto'>
+        <section className="w-full bg-white section sm:section--sm lg:section--lg">
+            <div className='max-w-6xl mx-auto px-4'>
                 <div className='bg-gradient-to-b from-blue-900 via-blue-800 to-blue-500 rounded-3xl px-12 py-8 relative overflow-hidden '>
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
                     <div className='relative z-10'>
@@ -58,27 +58,25 @@ const TeamTeacherPTE = ({
                         </div>
 
                         {/* card teacher profile*/}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch mb-12">
-                    
-                            <div className="h-full">
-                                <div className="w-full max-w-md mx-auto md:mx-0">
-                                    <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-white/5">
-                                        <Image
-                                            src={teacherImage}
-                                            alt={selectTeacher?.name ?? ""}
-                                            fill
-                                            className="object-cover object-center"
-                                            sizes="(min-width: 768px) 420px, 90vw"
-                                            priority={false}
-                                        />
-                                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch mb-12">
+                 
+                            <div className="md:col-span-5 w-full h-full flex justify-center md:justify-start">
+                                <div className="relative w-[min(420px,90vw)] md:w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-white/5">
+                                    <Image
+                                        src={teacherImage}
+                                        alt={selectTeacher?.name ?? ""}
+                                        fill
+                                        className="object-cover object-center"
+                                        sizes="(min-width: 768px) 25vw, 90vw"
+                                        priority={false}
+                                    />
                                 </div>
                             </div>
 
-                     
-                            <div className="h-full">
+          
+                            <div className="md:col-span-7 h-full">
                                 <div className="h-full bg-white/10 rounded-2xl shadow-lg px-6 py-8 lg:px-8 lg:py-10 flex flex-col">
-                                    {/* Top content */}
+
                                     <div className="space-y-6">
                                         <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-bold">
                                             {selectTeacher?.name}
@@ -111,9 +109,10 @@ const TeamTeacherPTE = ({
                             </div>
                         </div>
 
+
                         {/* swiper teacher list */}
-                        <div className="w-full flex items-center justify-center">
-                            <div className="max-w-full md:max-w-[38rem] w-full">
+                        <div className="w-full flex justify-end">
+                            <div className="w-full min-w-[12rem] sm:min-w-64 max-w-[38rem] flex items-center justify-end">
                                 <AvatarCarousel
                                     items={option}
                                     selectedId={selectTecherId as number}

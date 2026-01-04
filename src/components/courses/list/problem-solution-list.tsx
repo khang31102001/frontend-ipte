@@ -108,8 +108,8 @@ backgroundImage
 
 
     return (
-        <section className="py-4 md:py-8  bg-transparent" >
-            <div className="container mx-auto px-4" style={styleBackground}>
+        <section className="section sm:section--sm lg:section--lg" style={styleBackground} >
+            <div className="container mx-auto px-4" >
                 <div className="mb-4">
                     {data.map((item, index) => {
                         return (

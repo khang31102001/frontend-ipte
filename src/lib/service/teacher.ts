@@ -1,7 +1,9 @@
 import { TeacherItemsRes } from '@/types/teacher';
+import { getAPIBaseUrl } from '@/lib/helper';
+
 import 'server-only';
 
-const API = process.env.NEXT_PUBLIC_URL_API!;
+const API = getAPIBaseUrl();;
 
 export interface TeacherQueryParams {
   page?: number;
@@ -58,7 +60,7 @@ export class TeachersServices {
     const url = `${API}/teachers/detail${qs}`;
     try {
       const res = await fetch(url, {
-        next: { revalidate: 1800, tags: ['teachers'] }, // ISR 30 phút + tag
+        next: { revalidate: 1800, tags: ['teachers', "detail"] }, 
         signal: AbortSignal.timeout(15000),
       });
       if (!res.ok) return null;

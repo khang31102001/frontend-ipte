@@ -1,7 +1,8 @@
+import { getAPIBaseUrl } from '@/lib/helper';
 
 import 'server-only';
 
-const API = process.env.NEXT_PUBLIC_URL_API!;
+const API = getAPIBaseUrl();;
 
 export class CategoriesServices {
   async getCategoriesList(params?: Record<string, string | number>) {

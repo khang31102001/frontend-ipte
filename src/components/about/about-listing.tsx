@@ -27,7 +27,7 @@ const AboutListing = ({
 
 
   return (
-    <main className="bg-slate-50">
+    <div className="bg-[#F9F9F9]">
       <HeroBanner
         alt="Trang chủ pte ipass"
         src="/images/banner/about-us-banner.png"
@@ -40,9 +40,9 @@ const AboutListing = ({
       {/* <FacilityGallery /> */}
       {/* <PTEcosystem data={null} /> */}
       <ContactInfor data={socialData} />
-      <ConsultationForm className="rounded-3xl border border-slate-200 bg-slate-900  text-white shadow-sm" />
+      <ConsultationForm  />
       
-    </main>
+    </div>
   )
 }
 

@@ -1,7 +1,7 @@
 import { Teacher } from '@/types/teacher'
 import TeacherProfilesCard from './card/teacher-profiles-card'
 import Link from 'next/link'
-import { ROUTERS } from '../../config/routes/routers'
+import { ROUTERS, TEACHER_BASE } from '../../config/routes/routers'
 
 interface TeacherProfilesListProps {
     basePath?: string
@@ -16,7 +16,7 @@ const TeacherProfilesList = ({
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {data.map((item, index) => {
-                const href = ROUTERS.TEACHER.detail(item?.slug);
+                const href = ROUTERS.TEACHER.detail( TEACHER_BASE ,item?.slug);
                 return (
                     <TeacherProfilesCard key={index} href={href} data={item} />
                 )

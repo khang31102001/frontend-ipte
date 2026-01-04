@@ -4,14 +4,11 @@
 
 .community {
 
-  background: #F7F7F8;
+  // background: #F7F7F8;
 
-  @media (min-width: 1024px) {
-    padding-inline: 2.5rem;
-  }
 
   &__container {
-    max-width: 1120px; // ~ max-w-7xl
+    max-width: 1120px; 
     margin-inline: auto;
   }
 

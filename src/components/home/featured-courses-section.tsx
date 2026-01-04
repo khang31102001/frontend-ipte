@@ -27,7 +27,7 @@ const FeaturedCoursesSection = ({
 
 
     return (
-        <section className='w-full bg-white py-16'>
+        <section className='w-full bg-white section sm:section--sm lg:section--lg'>
             <div className='container mx-auto px-4'>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                     <h1 className="text-5xl lg:text-6xl font-bold text-brandBlue-900 text-center md:text-left">

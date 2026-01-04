@@ -109,8 +109,8 @@ export function VideoSwiper({
 
   const videoSrc = "https://youtu.be/stvWuowo1dU?si=0UIUeAgyzuUVMeYT";
   return (
-    <section ref={containerRef} className="w-full bg-gradient-to-b from-gray-800 to-gray-900 py-12 px-4 md:px-8">
-      <div className={`${isFullscreen ? "max-w-full" : "max-w-6xl"} mx-auto sm:px-6 lg:px-8 py-16`}>
+    <section ref={containerRef} className="w-full section sm:section--sm lg:section--lg  bg-slate-700">
+      <div className={`${isFullscreen ? "max-w-full" : "max-w-6xl"} mx-auto px-4 `}>
         {/* Video Container */}
         <div
           ref={videoContainerRef}

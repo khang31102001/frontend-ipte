@@ -5,7 +5,6 @@ import { CategoryItem } from "@/types/category";
 import { categoriesServices } from "@/lib/service/category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { Metadata } from "next";
-import CategoryLayout from "@/shared/category/category-layout";
 import { checkCategoryBySlugs } from "@/lib/check-category";
 import { coursesServices } from "@/lib/service/course";
 import KnowledgesList from "@/components/knowledge/knowledges-list";
@@ -224,18 +223,13 @@ async function KnowledgeListingPage({
   // console.log("check categoryResults:", cateChildResults)
 
   return (
-    <CategoryLayout
-      title={category?.name}
-      description={category?.description}
-      breadcrumbs={breadcrumbs}
-    >
+   
       <KnowledgesList
         knowledgeData={knowledges}
         featuredCourses={courseFeatured}
         category={category}
         categoryKnowledge={cateChildResults}
       />
-    </CategoryLayout>
   );
 }
 

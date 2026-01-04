@@ -1,7 +1,10 @@
-import { url } from 'inspector';
+
+import 'server-only';
+import { getAPIBaseUrl } from '@/lib/helper';
+
 import 'server-only';
 
-const API = process.env.NEXT_PUBLIC_URL_API!;
+const API = getAPIBaseUrl();;
 
 type CourseParams = | { slug: string } | { id: string | number } | { name: string };
 type QueryParams = Record<string, string | number | boolean | null | undefined>;
@@ -16,28 +19,7 @@ function toQuery(params?: QueryParams) {
     return s ? `?${s}` : "";
 }
 
-interface NewsJoinedKnowledge {
-    news: {
-        id: number;
-        image: string;
-        title: string;
-        description: string;
-        content: string;
-        category: string | null;
-        authorName: string | null;
-        authorAvatar: string | null;
-    }[];
-    tips: {
-        id: number;
-        image: string;
-        title: string;
-        description: string;
-        content: string;
-        category: string | null;
-        authorName: string | null;
-        authorAvatar: string | null;
-    }[];
-};
+
 
 export class NewsServices {
 

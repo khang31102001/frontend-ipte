@@ -1,8 +1,8 @@
 import { MediaItemsRes } from '@/types/media';
-import { TeacherItemsRes } from '@/types/teacher';
+import { getAPIBaseUrl } from '@/lib/helper';
 import 'server-only';
 
-const API = process.env.NEXT_PUBLIC_URL_API!;
+const API = getAPIBaseUrl();;
 
 type QueryParams = Record<string, string | number | boolean | null | undefined>;
 function toQuery(params?: QueryParams) {

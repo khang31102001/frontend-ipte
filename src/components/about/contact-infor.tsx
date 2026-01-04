@@ -60,7 +60,7 @@ const ContactInfor = ({
 
 
     return (
-        <section className="section sm:section--sm lg:section--lg  community">
+        <section className="section sm:section--sm lg:section--lg community">
             <div className="community__container">
                 <div className="community__layout">
                     {/* LEFT – CONTENT */}

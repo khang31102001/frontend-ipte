@@ -1,5 +1,5 @@
 import PteCategoryPage from "@/components/courses/category/pte-category-page"
-import CategoryLayout from "@/shared/category/category-layout"
+
 import Skeleton from "@/shared/loading/Skeleton"
 import { checkCategoryBySlugs } from "@/lib/check-category"
 import { categoriesServices } from "@/lib/service/category"
@@ -236,18 +236,12 @@ async function StudyWorkMigratePage({
 
 
   return (
-    <CategoryLayout
-      title={category?.name}
-      description={category?.description}
-      breadcrumbs={breadcrumbs}
-    >
-      <PteCategoryPage
+     <PteCategoryPage
         category={category}
         categoryCourse={cateChildResults}
         coures={studyWork}
         featuredCourses={featuredCourses}
       />
-    </CategoryLayout>
   );
 }
 async function StudyWorkMigrateDetail({

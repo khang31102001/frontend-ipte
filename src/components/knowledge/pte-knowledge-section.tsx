@@ -26,9 +26,7 @@ const PteKnowledgeSection = ({
   knowledgesData = [],
 }: PteKnowledgeSectionProps) => {
 
-  // console.log("check cate knowledgesData", cateKnowledges)
-  // const [activeTab, setActiveTab] = useState("writing");
-  // console.log("knowleds cate: ", category);
+
   const tabs: TabItem[] = useMemo(() => {
     return (
       cateKnowledges?.children?.map((item) => ({
@@ -37,7 +35,7 @@ const PteKnowledgeSection = ({
       })) ?? []
     );
   }, [cateKnowledges]);
-  // console.log("tab cate:", tabs)
+
   const [activeTab, setActiveTab] = useState<number | string>("");
 
   useEffect(() => {
@@ -73,8 +71,8 @@ const PteKnowledgeSection = ({
 
   if (!cateKnowledges) return null;
   return (
-    <section className="py-16 bg-white">
-      <div className="container  mx-auto">
+    <section className="w-full bg-white section sm:section--sm lg:section--lg">
+      <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-5xl lg:text-6xl font-bold text-brandBlue-900 mb-4 text-balance">Tài liệu tham khảo</h2>

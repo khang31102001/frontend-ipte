@@ -6,22 +6,37 @@ import { CategoryItem, CourseCategory } from '@/types/category'
 import { Course } from '@/types/courses'
 import { PteCategorySection } from './category/pte-category-section'
 import CourseListSection from './list/course-list-section'
+import Breadcrumb from '@/shared/breadcrumb'
+import { BreadcrumbItem } from '@/types/breadcrumbs'
 
 interface CoursesListPageProps {
   category?: CategoryItem;
   categoryItems?: CourseCategory[];
   coursesItems?: Course[];
+  breadcrumbs?: BreadcrumbItem[] | [];
 }
 const CoursesList = ({
   category,
   categoryItems,
-  coursesItems
+  coursesItems,
+  breadcrumbs = []
 
 }: CoursesListPageProps) => {
 
   // console.log("check categoryItems in course list:", categoryItems);
   return (
-    <section>
+    <div className="bg-white">
+
+      <Breadcrumb
+        items={breadcrumbs}
+        className="container max-auto px-4 py-4 md:py-8"
+      />
+
+      <div className="container max-auto px-4 py-8 md:py-12">
+        <p className="text-base  text-primary mb-2">{category?.description}</p>
+      </div>
+
+
       {coursesItems && (
         <CourseListSection
 
@@ -30,19 +45,19 @@ const CoursesList = ({
         />
       )}
       <ProblemsAndSolutionList backgroundImage="/images/bg-pte-pob-solution.jpg" />
-      <CourseStageSection />
+      {/* <CourseStageSection /> */}
       {categoryItems && categoryItems.map((item, index) => {
         return (
-  
-            <PteCategorySection
-             key={index}
-             pteCategory={item}
+
+          <PteCategorySection
+            key={index}
+            pteCategory={item}
           />
-     
+
         )
       })}
       <FaqAccordion />
-    </section>
+    </div>
   )
 }
 

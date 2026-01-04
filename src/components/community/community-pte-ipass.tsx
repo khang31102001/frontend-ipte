@@ -55,7 +55,7 @@ const CommunityPTE = ({
 
     if (!socialData || socialData.length === 0) return null;
     return (
-        <section className="py-16  bg-gradient-to-br from-gray-50 to-gray-100">
+        <section className="w-full section sm:section--sm lg:section--lg ">
             <div className="container mx-auto px-4">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid lg:grid-cols-2 gap-12 items-stretch">

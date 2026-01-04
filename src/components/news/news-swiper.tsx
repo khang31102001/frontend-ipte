@@ -7,7 +7,7 @@ import { News } from '@/types/news'
 import { CategoryItem } from '@/types/category'
 import Newscard from './card/news-card'
 import { formatDate } from '@/utils/date'
-import { ROUTERS } from '../../config/routes/routers'
+import { NEWS_BASE, ROUTERS } from '../../config/routes/routers'
 import NewsCard from './card/news-card'
 
 
@@ -38,7 +38,7 @@ const NewsSwiper = ({
         []
     );
 
-    const cateHref = category?.url ? ROUTERS.NEWS.category(category?.url) : ""
+    const cateHref = category?.url ? ROUTERS.NEWS.index(category?.url) : ""
 
     if (!newItem || newItem.length === 0) return null;
     return (
@@ -77,7 +77,7 @@ const NewsSwiper = ({
                         className="swiper-course"
                     >
                         {newItem.map((item, index) => {
-                            const baseHref = ROUTERS.NEWS.detail(item.slug, category?.url)
+                            const baseHref = ROUTERS.NEWS.detail( NEWS_BASE, item.slug, category?.url)
                             const imgSrc = item?.image || "/images/img-news-default.jpg"
                             const createdAt = formatDate(item.createdAt ?? item.updatedAt ?? "");
                             return (

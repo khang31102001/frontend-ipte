@@ -351,34 +351,34 @@
     text-fill-color: transparent;
   }
 
-  /* >>>> ĐẶT 3 THẰNG NÀY VÀO ĐÂY <<<< */
 
-  .pte-container {
-    width: 100%;
-    max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
 
-    @media (min-width: 1536px) {
-      max-width: 1400px;
-    }
+  // .pte-container {
+  //   width: 100%;
+  //   max-width: 1280px;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  //   padding-left: 1.5rem;
+  //   padding-right: 1.5rem;
 
-    &--narrow {
-      max-width: 960px;
-    }
+  //   @media (min-width: 1536px) {
+  //     max-width: 1400px;
+  //   }
 
-    &--wide {
-      max-width: 1440px;
-    }
+  //   &--narrow {
+  //     max-width: 960px;
+  //   }
 
-    &--full {
-      max-width: 100%;
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
+  //   &--wide {
+  //     max-width: 1440px;
+  //   }
+
+  //   &--full {
+  //     max-width: 100%;
+  //     padding-left: 0;
+  //     padding-right: 0;
+  //   }
+  // }
 
   .section {
     padding-top: 4rem;

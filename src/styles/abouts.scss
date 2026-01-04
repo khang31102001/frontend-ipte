@@ -214,25 +214,21 @@
 
 .branches {
   position: relative;
-  padding: 4rem 1.5rem; 
   color: #ffffff;
   isolation: isolate; 
   
 
-  // @media (min-width: 1024px) {
-  //   padding-inline: 3rem; // lg:px-12
+
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   inset: 0;
+  //   z-index: 0;
+  //   pointer-events: none;
+  //   background: rgba(0, 0, 0, 0.4);
+  //   mix-blend-mode: multiply; 
+
   // }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: rgba(0, 0, 0, 0.4);
-    mix-blend-mode: multiply; 
-
-  }
 
   &__container {
     position: relative;

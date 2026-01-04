@@ -46,23 +46,23 @@ const TrainingProgramsSection = ({
   if (!data) return null;
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto ">
+    <section className="w-full section sm:section--sm lg:section--lg bg-white">
+      <div className="container mx-auto px-4 ">
         {/* Title & Subtitle */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
           <div className="lg:col-span-7 min-w-0">
             <h1 className="text-[40px] sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-balance">
-              <span className="text-indigo-700">Tinh thông tiếng Anh với bộ</span>
+              <span className="text-hero-gradient">Tinh thông tiếng Anh với bộ</span>
               <br />
               <span className="text-amber-500">chương trình đào tạo</span>
               <br />
-              <span className="text-indigo-700">chất lượng cao</span>
+              <span className="text-hero-gradient">chất lượng cao</span>
             </h1>
           </div>
 
           <div className="lg:col-span-5 min-w-0 lg:pt-3">
-            <p className="text-lg sm:text-xl lg:text-2xl text-indigo-700 leading-relaxed max-w-xl">
+            <p className="text-lg sm:text-xl lg:text-2xl text-hero-gradient leading-relaxed max-w-xl">
               Học ngoại ngữ thật dễ dàng với lộ trình
               <br />
               Học &amp; Luyện Thi toàn diện, được cá nhân

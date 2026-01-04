@@ -77,6 +77,7 @@ import { joinPath } from "@/lib/helper";
 // } as const;
 
 export const NEWS_BASE = "/tin-tuc-pte-ipass";
+export const ABOUT_BASE = "/ve-pte-ipass"
 export const COURSES_BASE = "/khoa-hoc";
 export const KNOWLEDGE_BASE = "/kiem-tra-mien-phi";
 export const TEACHER_BASE = "/doi-ngu-giao-vien"

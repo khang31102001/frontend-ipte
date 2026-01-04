@@ -2,7 +2,7 @@
 import { News } from "@/types/news";
 import Image from "next/image"
 import Link from "next/link";
-import { ROUTERS } from "../../config/routes/routers";
+import { NEWS_BASE, ROUTERS } from "../../config/routes/routers";
 
 interface FeaturedNewsSectionProps {
   title?: string;
@@ -27,7 +27,7 @@ const FeaturedNewsSection = ({
       <div className="trending-news grid gap-6 lg:grid-cols-[1fr_1.5fr]">
         <div className="trending-news__list scroll-container">
           {data?.map((item, index) => {
-            const baseHref = ROUTERS.NEWS.detail(item.slug);
+            const baseHref = ROUTERS.NEWS.detail( NEWS_BASE, item.slug);
              const imgItemUrl = item?.image || "/images/img-news-default.jpg"
             return (
               <Link key={item.newsId ?? index} href={baseHref} className="block">

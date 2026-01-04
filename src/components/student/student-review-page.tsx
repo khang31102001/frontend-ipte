@@ -105,7 +105,7 @@ const StudentReviewPage = ({
       <VideoSwiper videos={dataVideo} />
       <StoriesSection stories={dataStudentStories} />
       <StudentComment comments={commentsData} />
-      <ConsultationForm className="section sm:section--sm lg:section--lg bg-gradient-to-b from-[#04016C] to-[#070A3A]" />
+      <ConsultationForm  />
 
     </div>
   )

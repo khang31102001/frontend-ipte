@@ -1,9 +1,11 @@
 // src/api/http.ts
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { getAccessToken, setAccessToken, clearAccessToken } from "./token";
+import { getAPIBaseUrl } from "@/lib/helper";
+
 
 // --- Base URL: ưu tiên Vite env, fallback localhost ---
-const baseURL = process.env.NEXT_PUBLIC_URL_API || "https://backend-ipte.onrender.com/api";
+const baseURL = getAPIBaseUrl();
 
 // console.log("API URL:", baseURL);
 

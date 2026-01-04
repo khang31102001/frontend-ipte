@@ -7,10 +7,5 @@ export default async function Page() {
     const studentStoryData = studentStoryRes.items ?? [];
     // console.log("audit check data:", studentStoryRes)
     
-    return (
-       
-
-            <StudentReviewPage dataStudentStories={studentStoryData} dataVideo={studentStoryData} />
-     
-    );
+    return <StudentReviewPage dataStudentStories={studentStoryData} dataVideo={studentStoryData} />
 }

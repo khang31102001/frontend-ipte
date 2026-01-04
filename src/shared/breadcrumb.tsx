@@ -8,7 +8,7 @@ interface BreadcrumbItem {
     href: string; 
 }
 interface BreadcrumbProps {
-    items: BreadcrumbItem[];
+    items: BreadcrumbItem[] ;
     separator?: React.ReactNode; 
     className?: string; 
 }
@@ -23,7 +23,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
     }
 
     return (
-        <nav aria-label="breadcrumb" className={className}>
+        <nav aria-label="breadcrumb" className={`w-full ${className}`}>
             <ol className="flex items-center space-x-2 text-sm">
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;

@@ -53,7 +53,7 @@ const handleChangeTab =(tabId: number)=>{
 }
 const activeTabItem  = tabs.find((item)=> item.id === activeTab);
   return (
-    <section className="py-16">
+    <section className="section sm:section--sm lg:section--lg">
         <div className="container mx-auto px-4">
           {/* tabs */}
         <div className="max-w-6xl mx-auto flex items-center justify-center mb-8 ">

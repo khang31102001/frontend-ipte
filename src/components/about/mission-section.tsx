@@ -24,7 +24,7 @@ const MissionSection = ({
     if(!vision || !mission) return null;
     return (
         <section
-            className="mission-section"
+            className="mission-section section sm:section--sm lg:section--lg"
             style={styleBackground}
         >
             <div className="mission-section__content">

@@ -15,6 +15,7 @@ import { categoriesServices } from "@/lib/service/category";
 import { coursesServices } from "@/lib/service/course";
 import { newsServices } from "@/lib/service/new";
 import { teacherService } from "@/services/teacher/teacherService";
+import { teacherServices } from "@/lib/service/teacher";
 
 
 export const metadata = {
@@ -83,7 +84,7 @@ export default async function Home() {
     aboutService.getAboutMeList({}), 
     categoriesServices.getCategoryTree({ categoryType: "H_MENU_COURSE" }),
     coursesServices.getCoursesList({ page: 1, pageSize: 12, isFeatured: true }),
-    teacherService.getTeachersList({ page: 1, pageSize: 12 }),
+    teacherServices.getTeachersList({ page: 1, pageSize: 12 }),
     newsServices.getNewsList({ page: 1, pageSize: 12 }),
     aboutService.getSocialList(),
     categoriesServices.getCategoryTree({ categoryType: "H_MENU_KNOWLEDGE"}),
@@ -100,7 +101,7 @@ export default async function Home() {
   // console.log(" check cateKnowledgeData ",cateKnowledgeData)
 
   return (
-    <div className="bg-background text-foreground">
+    <div className="bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}

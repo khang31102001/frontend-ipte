@@ -8,7 +8,6 @@ import { checkCategoryBySlugs } from "@/lib/check-category";
 import { BreadcrumbItem } from "@/types/breadcrumbs";
 import { Course, CourseListResponse } from "@/types/courses";
 import { Metadata } from "next";
-import CategoryLayout from "@/shared/category/category-layout";
 import CoursesList from "@/components/courses/courses-list";
 import CourseDetail from "@/components/courses/detail/course-detail-page";
 import { aboutService } from "@/lib/service/about";
@@ -212,19 +211,14 @@ async function CourseListingPage({
       }
     })
   );
- console.log("check category pte-nen-tang", category)
+// check category pte-nen-tang 
   return (
-    <CategoryLayout
-      title={category.name}
-      description={category.description}
-      breadcrumbs={breadcrumbs}
-    >
-      <CoursesList
+    <CoursesList
         category={category}
         coursesItems={courses}
         categoryItems={cateChildCourse}
+        breadcrumbs={breadcrumbs}
       />
-    </CategoryLayout>
   );
 }
 
@@ -296,9 +290,7 @@ export default async function Page({ params }: PageProps) {
 
   const { found: currentCategory, breadcrumbs: categoryBreadcrumbs } = 
   await checkCategoryBySlugs(courseRootCategory?.children ?? [], categorySlug);
- console.log("check categorySlug ", categorySlug);
-  console.log("check currentCategory ", currentCategory)
-  console.log("check courseRootCategory ", courseRootCategory?.children )
+
   if (!currentCategory) return notFound();
   const breadcrumbs: BreadcrumbItem[] = [
     { name: "Trang chủ", href: "/" },

@@ -10,10 +10,13 @@ import { buildUrl } from '@/lib/helper'
 import { Course } from "@/types/courses";
 import { ROUTERS } from "@/config/routes/routers";
 import { SidebarItem } from "@/shared/article/article-sidebar";
+import Breadcrumb from "@/shared/breadcrumb";
+import { BreadcrumbItem } from "@/types/breadcrumbs";
 
 
 
 interface KnowledgesListProps {
+    breadcrumbs?: BreadcrumbItem[] | [];
     categoryKnowledge?: KnowledgesCategory[] | [];
     category?: CategoryItem;
     featuredCourses?: Course[] | null;
@@ -34,6 +37,7 @@ export function courseToSidebarItem(
 
 
 const KnowledgesList = ({
+    breadcrumbs = [],
     categoryKnowledge = [],
     category,
     knowledgeData,
@@ -66,7 +70,16 @@ const KnowledgesList = ({
     if (!knowledgeData || knowledgeData.length === 0) return null;
 
     return (
-        <section className="section--sm">
+        <section className="section sm:section--sm lg:section--lg bg-white">
+
+            <Breadcrumb
+                items={breadcrumbs}
+                className="container max-auto px-4 py-4 md:py-8"
+            />
+
+            <div className="container max-auto px-4 py-8 md:py-12">
+                <p className="text-base  text-primary mb-2">{category?.description}</p>
+            </div>
             {/* <ListGridControl onChangeView={setViewMode} /> */}
             <div className="grid gap-8 lg:grid-cols-3">
                 <div className="lg:col-span-2">
@@ -90,7 +103,7 @@ const KnowledgesList = ({
                         }
                     >
                         {paginatedKnowledges?.map((item, index) => {
-                            const href = ROUTERS.KNOWLEDGE.detail(item?.slug, category?.url);
+                            const href = ROUTERS.KNOWLEDGE.detail("", item?.slug, category?.url);
                             const imgURl = item?.image || "/images/img-course-deault.jpg";
 
                             return viewMode === "grid" ? (

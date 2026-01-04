@@ -13,8 +13,8 @@ const NewsListSection = ({
   const newsFeatued = newsData ? newsData[0] : null;
    
   return (
-    <div className="py-16 bg-white">
-      <div className="container mx-auto">
+    <section className="w-full bg-white section sm:section--sm lg:section--lg">
+      <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-4xl lg:text-6xl font-bold text-brandBlue-900">Tin tức & Sự kiện</h1>
@@ -48,7 +48,7 @@ const NewsListSection = ({
         </div>
       </div>
 
-    </div>
+    </section>
   )
 }
 

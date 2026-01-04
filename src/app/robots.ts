@@ -1,7 +1,6 @@
 
-import { getBaseUrl } from '@/lib/helper';
+import { getAppBaseUrl } from '@/lib/helper';
 import type { MetadataRoute } from 'next';
-
 
 
 export default function robots(): MetadataRoute.Robots {
@@ -10,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${getBaseUrl()}/sitemap.xml`,
+    sitemap: `${getAppBaseUrl()}/sitemap.xml`,
   };
 }

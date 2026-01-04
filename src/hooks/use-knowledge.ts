@@ -18,11 +18,8 @@ export function useKnowledGetByCate(
     queryKey: ["courses", "byCategory", params],
     queryFn: async (): Promise<CourseListResponse> => {
       const res = await coursesService.getCourseByCateId(params);
-      return {
-        ...res,
-        items: res.items ?? [],
-        total: res.total ?? 0,
-      };
+      if(!res) return {items: [], page: 0, pageSize: 0, totalPages: 0, total: 0} ;
+      return res;
     },
     // placeholderData: (prev) => prev,
     staleTime: 1000 * 60 * 2,

@@ -6,7 +6,7 @@
   /* nền vàng gradient giống hình */
   // background: radial-gradient(circle at 0 0, #ffe58f 0, #ffc94a 30%, #ffb52f 75%)
   //     #ffcf57;
-  padding: 48px 16px 56px;
+  // padding: 48px 16px 56px;
   min-height: 862px;
   position: relative;
   overflow: hidden;
@@ -26,6 +26,7 @@
 
   /* vùng content: 2 cột, 3 hàng để chừa chỗ cho hình giữa */
   &__content {
+     min-height: 620px; 
     position: relative;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -18,8 +18,8 @@ const  StoriesSection =({
 
   if (!stories || stories.length === 0) return null;
   return (
-    <section className="w-full bg-gradient-to-b from-purple-50 to-blue-50 py-14 sm:py-16">
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section className="w-full section sm:section--sm lg:section--lg bg-gradient-to-b from-purple-50 to-blue-50 ">
+      <div className="mx-auto w-full max-w-6xl px-4 8">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-hero-gradient mb-2 text-pretty min-h-16">

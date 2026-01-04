@@ -1,13 +1,15 @@
 export const isEmpty = (value: unknown) => value === null || value === undefined || String(value).trim() === "";
 
-export const getBaseUrl = () => {
-  if (process.env.NEXT_PUBLIC_DOMAIN_URL) {
-    return process.env.NEXT_PUBLIC_DOMAIN_URL
+export const getAPIBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    return process.env.NEXT_PUBLIC_API_BASE_URL
   }
 
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
+  return 'http://localhost:3000'
+}
+
+export const getAppBaseUrl = () => {
+ 
 
   return 'http://localhost:3000'
 }
