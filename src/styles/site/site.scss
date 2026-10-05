@@ -1,0 +1,41 @@
+﻿// Điểm vào style của website công khai. Mỗi partial được bọc trong `.site` để không lan sang khu quản trị.
+@use "sass:meta";
+
+.site {
+  // Biến dùng chung của form/popup (khai báo ở đây vì partial bị lồng trong .site nên :root không còn khớp)
+  --form-bg: rgba(255, 255, 255, 0.85);
+  --form-title: #111827;
+  --form-subtitle: #6b7280;
+  --field-bg: #f9fafb;
+  --field-bd: #e5e7eb;
+  --field-bd-focus: #6366f1;
+  --field-txt: #111827;
+  --field-ph: #9ca3af;
+  --error: #dc2626;
+  --btn-txt: #ffffff;
+  --popup-backdrop: rgba(0, 0, 0, 0.5);
+  --popup-bg: #ffffff;
+  --popup-radius: 1rem;             /* ~16px */
+  --popup-ring: 0 0 0 1px rgba(0,0,0,0.06);
+  --popup-shadow: 0 10px 40px rgba(0,0,0,0.18);
+   --popup-max-w: 64rem;        
+  --popup-max-h: 90vh;          /* 640px */
+  --popup-pad: 1.25rem;             /* 20px */
+ 
+  --popup-blur: 4px;
+  @include meta.load-css("header");
+  @include meta.load-css("component/form");
+  @include meta.load-css("component/popup");
+  @include meta.load-css("component/button");
+  @include meta.load-css("article");
+  @include meta.load-css("student-review");
+  @include meta.load-css("course");
+  @include meta.load-css("new");
+  @include meta.load-css("teacher");
+  @include meta.load-css("pte-issues");
+  @include meta.load-css("common");
+  @include meta.load-css("abouts");
+  @include meta.load-css("community");
+  @include meta.load-css("loading");
+  @include meta.load-css("component/pagination");
+}
