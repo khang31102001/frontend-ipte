@@ -1,15 +1,8 @@
-import { getBaseUrl } from '@/utils/helpers';
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
+import { buildSitemap } from "@/features/site";
 
+export const dynamic = "force-dynamic";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: `${getBaseUrl()}/`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.7,
-    },
-    // Add more URLs here
-  ];
+export default function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return buildSitemap();
 }

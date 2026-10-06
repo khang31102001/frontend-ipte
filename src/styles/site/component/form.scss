@@ -1,0 +1,215 @@
+/* styles/components/_form.scss */
+
+
+// html.dark, [data-theme="dark"] & {
+//   --form-bg: #111214;
+//   --form-title: #f5f5f6;
+//   --form-subtitle: #a1a1aa;
+//   --field-bg: #0f1115;
+//   --field-bd: #26272b;
+//   --field-txt: #f3f4f6;
+//   --field-ph: #9ca3af;
+//   --btn-bg: #f43f5e;         /* rose-500 */
+//   --btn-bg-hover: #e11d48;   /* rose-600 */
+// }
+
+/* Card layout nếu dùng */
+.form.form--card {
+  background: var(--form-bg);
+  border-radius: 0.25rem;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  /* viền sáng trong */
+  padding: clamp(1rem, 2vw + .5rem, 2rem);
+  backdrop-filter: blur(8px);
+  /* làm mờ nền bên dưới nhẹ */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* viền tinh tế */
+}
+
+/* Header */
+.form__header {
+  margin-bottom: 1rem;
+}
+
+.form__title {
+  margin: 0 0 .375rem;
+  font-size: clamp(1.25rem, 1.2rem + 0.5vw, 1.5rem);
+  font-weight: 800;
+  color: var(--form-title);
+  line-height: 1.2;
+}
+
+.form__subtitle {
+  margin: 0;
+  color: var(--form-subtitle);
+}
+
+/* Body */
+.form__body {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Field */
+.field {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.field__label {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--form-title);
+}
+
+.field__control {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--field-bd);
+  border-radius: var(--radius);
+  background: var(--field-bg);
+  color: var(--field-txt);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+
+  &::placeholder {
+    color: var(--field-ph);
+  }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--field-bd), var(--field-bd-focus) 25%);
+  }
+
+  &:focus-visible {
+    border-color: var(--field-bd-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--field-bd-focus), transparent 80%);
+  }
+
+  &--textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+}
+
+.select-wrap {
+  position: relative;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.select-wrap:focus-within {
+  border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17,24,39,.12);
+}
+
+/* mũi tên dropdown */
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 2px solid #6b7280;
+  border-bottom: 2px solid #6b7280;
+  pointer-events: none;
+}
+
+.select-native {
+  width: 100%;
+  height: 44px;
+  padding: 0 44px 0 12px; // chừa chỗ icon
+  border: none;          // border nằm ở wrapper
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Placeholder (option disabled) nhìn nhạt hơn */
+.select-native:invalid {
+  color: #9ca3af;
+}
+.select-trigger:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Error helper */
+.field__error {
+  font-size: .88rem;
+  color: var(--error);
+}
+
+/* Select wrapper (áp style chung cho headless select lib) */
+.select {
+  position: relative;
+  z-index: 9993;
+  width: 100%;
+}
+
+.select__content,
+[data-radix-popper-content-wrapper] {
+  z-index: 99999 !important;
+}
+
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 0.625rem;
+
+  font-size: 0.875rem;    
+  line-height: 1.25rem;    
+  font-weight: 600;        
+  color: #000;          
+
+  cursor: pointer;
+
+  transition: transform 0.06s ease, box-shadow 0.15s ease, background 0.15s ease;
+
+  &:focus-visible {
+    outline: 2px solid #fcd34d; 
+    outline-offset: 2px;
+  }
+
+  &--primary {
+    background: rgba(250, 204, 21, 0.9);
+    padding: 0.75rem 1.5rem;             
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -4px rgba(0, 0, 0, 0.1); 
+  }
+
+  &--primary:hover {
+    background: #facc15; 
+  }
+
+  &--block {
+    width: 100%;
+    padding: 0.9rem 1rem;
+  }
+}
+
+
+/* Responsive: tăng spacing và font ở md+ */
+@media (min-width: 768px) {
+  .form__body {
+    gap: 1.125rem;
+  }
+
+  .field__label {
+    font-size: 1rem;
+  }
+}

@@ -1,7 +1,11 @@
-Dockerfile
-.dockerignore
 node_modules
-npm-debug.log
-README.md
 .next
 .git
+.github
+docs
+coverage
+dev.log
+.env
+.env.*
+!.env.example
+*.md

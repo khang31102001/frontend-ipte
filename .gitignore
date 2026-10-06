@@ -1,59 +1,17 @@
-# Dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules
+.next
+out
+coverage
+*.tsbuildinfo
+next-env.d.ts
 
-# Testing
-/coverage
-
-# Next.js build output
-/.next/
-/out/
-/dist
-
-# Production
-/build
-
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Env files (🚨 không commit secrets)
+# env: chỉ commit .env.example
 .env
-.env.local
-.env.development
-.env.test
-.env.production
-.env.*   # ignore tất cả biến môi trường trừ file example
-
-# Example env (commit để team biết format)
+.env.*
 !.env.example
 
-# IDE settings
-.vscode/
-.idea/
-*.swp
+.DS_Store
+npm-debug.log*
 
-# Logs
-*.log
-logs
-*.pid
-*.seed
-*.pid.lock
-
-# TypeScript cache
-*.tsbuildinfo
-.next/cache
-
-# Optional: ignore vercel folder (nếu bạn deploy lên vercel)
-.vercel
-
-# Optional: ignore generated exports
-*.export
+dev.log
+.claude/
