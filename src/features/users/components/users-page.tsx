@@ -8,10 +8,14 @@ import { useDialogState } from "@/shared/hooks/use-dialog-state";
 import type { ListParams } from "@/shared/hooks/use-list-params";
 import { formatDateTime } from "@/shared/lib/format";
 import { useLookup } from "@/shared/lookups/use-lookup";
-import { Avatar, Badge, type BadgeColor } from "@/shared/ui";
-import { useCreateUser, useDeleteUser, useUpdateUser, useUsers } from "../hooks/use-users";
+import { RequirePermission } from "@/shared/rbac/require-permission";
+import { Avatar, Badge, Button, type BadgeColor } from "@/shared/ui";
+import { useCreateUser, useDeleteUser, useResetUserPassword, useUpdateUser, useUsers } from "../hooks/use-users";
 import { userSchema, type UserFormValues } from "../schemas";
-import { userService } from "../services/user-service";
+import { userService, type UserWithTemporaryPassword } from "../services/user-service";
+import { TempPasswordDialog } from "./temp-password-dialog";
+import { toast } from "sonner";
+import { useState } from "react";
 import { USER_STATUS_LABELS, type User, type UserQuery, type UserStatus } from "../types";
 
 const F = createFormFields<UserFormValues>();
@@ -55,8 +59,9 @@ const CSV_COLUMNS = [
   { header: "Đăng nhập gần nhất", value: (u: User) => formatDateTime(u.lastLoginAt) },
 ];
 
-function UserDialog({ user, open, onClose }: { user: User | null; open: boolean; onClose: () => void }) {
+function UserDialog({ user, open, onClose, onTempPassword }: { user: User | null; open: boolean; onClose: () => void; onTempPassword: (password: string, name: string) => void }) {
   const create = useCreateUser();
+  const reset = useResetUserPassword();
   const update = useUpdateUser();
   const roles = useLookup("roles");
   const branches = useLookup("branches");
@@ -66,12 +71,16 @@ function UserDialog({ user, open, onClose }: { user: User | null; open: boolean;
     defaults: { fullName: "", email: "", phone: "", roleId: "", branchId: "", status: "active" },
     toValues: (u) => ({ fullName: u.fullName, email: u.email, phone: u.phone ?? "", roleId: u.roleId, branchId: u.branchId ?? "", status: u.status }),
     resetKey: open,
-    create: (v) => create.mutateAsync(v),
+    create: async (v) => {
+      const created = (await create.mutateAsync(v)) as UserWithTemporaryPassword;
+      if (created.temporaryPassword) onTempPassword(created.temporaryPassword, created.fullName);
+      return created;
+    },
     update: (id, v) => update.mutateAsync({ id, input: v }),
     onSaved: onClose,
   });
   return (
-    <FormModal open={open} onClose={onClose} title={isEdit ? "Sửa người dùng" : "Thêm người dùng"} description="Đăng nhập và mật khẩu do hệ thống identity quản lý." formId="user-form" submitting={isSubmitting}>
+    <FormModal open={open} onClose={onClose} title={isEdit ? "Sửa người dùng" : "Thêm người dùng"} description={isEdit ? "Đổi vai trò hoặc trạng thái có hiệu lực ngay (người dùng phải đăng nhập lại)." : "Hệ thống cấp mật khẩu tạm một lần; người dùng phải đổi ở lần đăng nhập đầu."} formId="user-form" submitting={isSubmitting}>
       <Form form={form} onSubmit={onSubmit} id="user-form">
         <F.Input name="fullName" label="Họ và tên" required />
         <F.Input name="email" label="Email" type="email" required />
@@ -81,6 +90,25 @@ function UserDialog({ user, open, onClose }: { user: User | null; open: boolean;
           <F.Select name="branchId" label="Cơ sở" options={branches.options} placeholder="— Tất cả —" />
         </div>
         <F.Select name="status" label="Trạng thái" options={toOptions(USER_STATUS_LABELS)} />
+        {isEdit && user && (
+          <RequirePermission permission="user.edit">
+            <Button
+              type="button"
+              variant="outline"
+              loading={reset.isPending}
+              onClick={async () => {
+                try {
+                  const r = await reset.mutateAsync(user.id);
+                  onTempPassword(r.temporaryPassword, user.fullName);
+                } catch {
+                  toast.error("Không cấp lại được mật khẩu");
+                }
+              }}
+            >
+              Cấp lại mật khẩu tạm
+            </Button>
+          </RequirePermission>
+        )}
       </Form>
     </FormModal>
   );
@@ -88,6 +116,7 @@ function UserDialog({ user, open, onClose }: { user: User | null; open: boolean;
 
 export function UsersPage() {
   const dialog = useDialogState<User>();
+  const [temp, setTemp] = useState<{ password: string; name: string } | null>(null);
   const roles = useLookup("roles");
   const filters: FilterDef<FilterKey>[] = [
     { key: "roleId", label: "Vai trò", options: roles.options },
@@ -107,7 +136,6 @@ export function UsersPage() {
         defaultSort={{ sortBy: "createdAt", sortOrder: "desc" }}
         searchPlaceholder="Tìm theo tên, email, SĐT…"
         getRowLabel={(u) => u.fullName}
-        canDelete={(u) => u.id !== "usr-001"}
         onCreate={dialog.openCreate}
         onEdit={dialog.openEdit}
         toolbarActions={(query) => (
@@ -125,7 +153,8 @@ export function UsersPage() {
           />
         )}
       />
-      <UserDialog user={dialog.editing} open={dialog.open} onClose={dialog.close} />
+      <UserDialog user={dialog.editing} open={dialog.open} onClose={dialog.close} onTempPassword={(password, name) => setTemp({ password, name })} />
+      <TempPasswordDialog password={temp?.password ?? null} userName={temp?.name} onClose={() => setTemp(null)} />
     </>
   );
 }

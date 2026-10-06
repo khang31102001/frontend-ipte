@@ -67,12 +67,13 @@ export async function AboutRoute({ slug }: { slug?: string }) {
   const audience = features.find((s) => /đối tượng/i.test(s.heading));
   const ecosystem = features.find((s) => /hệ sinh thái/i.test(s.heading));
   const gallery = page.sections.find((s) => s.type === "gallery");
+  const intro = text(/video/i);
   const toCards = (items: string[]) => parseTitledItems(items).map(({ title, description }) => ({ title, description }));
 
   return (
     <PageShell jsonLd={breadcrumbJsonLd([{ name: "Trang chủ", href: ROUTES.home }, { name: "Về PTE iPASS", href: ROUTES.about }])}>
       <HeroBanner src="/images/hero-banner-about-us.png" alt="Về PTE iPASS" priority />
-      <AboutSection title={page.title} description={page.summary} hideMore />
+      <AboutSection title={page.title} description={page.summary} image={intro?.imageUrl} video={intro?.buttonUrl} hideMore />
       {page.content && (
         <PageContent>
           <div className="prose prose-lg max-w-content mx-auto" dangerouslySetInnerHTML={{ __html: sanitizeHtml(toHtml(page.content)) }} />
