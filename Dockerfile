@@ -13,10 +13,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # NEXT_PUBLIC_* được nhúng lúc build ⇒ truyền qua build-arg.
 ARG NEXT_PUBLIC_API_BASE_URL
-ARG NEXT_PUBLIC_DEV_TOOLS=false
 ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL \
-    NEXT_PUBLIC_DEV_TOOLS=$NEXT_PUBLIC_DEV_TOOLS \
-    MOCK_API_ENABLED=false \
     NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 

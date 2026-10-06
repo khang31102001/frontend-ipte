@@ -9,6 +9,8 @@ export interface SessionUser {
   name: string;
   email: string;
   avatarUrl?: string | null;
+  /** Đang dùng mật khẩu tạm: phải đổi trước khi dùng hệ thống. */
+  mustChangePassword?: boolean;
 }
 
 export interface Session {

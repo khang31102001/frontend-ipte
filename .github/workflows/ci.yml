@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      NEXT_PUBLIC_API_BASE_URL: http://localhost:3000/api
-      MOCK_API_ENABLED: "true"
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:4000/api
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v4

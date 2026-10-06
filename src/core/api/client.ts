@@ -133,6 +133,8 @@ export function createApiClient(options: ApiClientOptions): ApiClient {
               : JSON.stringify(opts.body),
         signal: controller.signal,
         cache: "no-store",
+        // Gửi cookie refresh (httpOnly) khi API khác origin; backend chỉ cho phép origin trong CORS_ALLOWED_ORIGINS.
+        credentials: "include",
       });
       let json: unknown = null;
       try {

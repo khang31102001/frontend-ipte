@@ -21,20 +21,16 @@ const DEFAULT_REVALIDATE = 300;
 const TIMEOUT_MS = 15_000;
 
 /**
- * Fetch dành cho Server Component (SSR/ISR). Dùng Mock thì không cache (dữ liệu mock đổi liên tục
- * và server chưa chạy lúc build); dùng backend thật thì cache theo ISR + tag.
+ * Fetch dành cho Server Component (SSR/ISR): cache theo tag + thời gian (làm mới bằng webhook /api/revalidate khi nội dung đổi).
  */
 export async function serverGet<T>(path: string, options: ServerFetchOptions = {}): Promise<ServerResult<T>> {
   const url = joinUrl(getApiBaseUrl(), path) + toQueryString(options.params);
-  const useMock = process.env.MOCK_API_ENABLED === "true";
   let res: Response;
   try {
     res = await fetch(url, {
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(TIMEOUT_MS),
-      ...(useMock
-        ? { cache: "no-store" as const }
-        : { next: { revalidate: options.revalidate ?? DEFAULT_REVALIDATE, tags: options.tags } }),
+      next: { revalidate: options.revalidate ?? DEFAULT_REVALIDATE, tags: options.tags },
     });
   } catch {
     throw new ApiError({ message: "Không kết nối được máy chủ", status: 0, code: "NETWORK_ERROR" });

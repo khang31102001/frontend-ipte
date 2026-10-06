@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { Suspense, useState, type ReactNode } from "react";
-import { AuthProvider, createDevAuthAdapter } from "@/core/auth";
+import { AuthProvider, createJwtAuthAdapter } from "@/core/auth";
 import { ROUTES } from "@/core/config/routes";
 import { adminNav } from "@/config/admin-nav";
-import { DevToolbar } from "@/shared/dev/dev-toolbar";
 import { AdminShell, UserMenu } from "@/shared/layout";
 import { AuthGate } from "@/shared/layout/auth-gate";
 import { PageLoading } from "@/shared/ui";
@@ -18,12 +17,9 @@ function Brand() {
   );
 }
 
-/**
- * Điểm cắm xác thực: hiện dùng adapter dev (chọn vai trò).
- * Khi có identity thật, chỉ thay `createDevAuthAdapter` bằng adapter thật.
- */
+/** Điểm cắm xác thực của khu quản trị: JWT + refresh cookie (xem core/auth). */
 export function AdminProviders({ children }: { children: ReactNode }) {
-  const [adapter] = useState(createDevAuthAdapter);
+  const [adapter] = useState(() => createJwtAuthAdapter());
   return (
     <AuthProvider adapter={adapter}>
       <AuthGate>
@@ -31,7 +27,6 @@ export function AdminProviders({ children }: { children: ReactNode }) {
           <Suspense fallback={<PageLoading />}>{children}</Suspense>
         </AdminShell>
       </AuthGate>
-      <DevToolbar />
     </AuthProvider>
   );
 }

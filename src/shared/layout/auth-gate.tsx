@@ -1,15 +1,25 @@
 "use client";
 
-import { Lock } from "lucide-react";
-import type { ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, type ReactNode } from "react";
 import { useAuth } from "@/core/auth";
-import { Button, ErrorState, PageLoading } from "@/shared/ui";
+import { ErrorState, PageLoading } from "@/shared/ui";
 
-/** Chỉ render nội dung khi đã có phiên. Xử lý các trạng thái đang tải / chưa đăng nhập / lỗi kết nối. */
+/**
+ * Chỉ render nội dung khi đã có phiên. Chưa đăng nhập ⇒ chuyển tới /login (kèm đường dẫn để quay lại);
+ * đang dùng mật khẩu tạm ⇒ chuyển tới /change-password; lỗi kết nối ⇒ báo và cho thử lại.
+ */
 export function AuthGate({ children }: { children: ReactNode }) {
-  const { status, refresh, adapter } = useAuth();
+  const { status, session, refresh } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  if (status === "loading") return <PageLoading label="Đang xác thực…" />;
+  const mustChange = status === "authenticated" && session?.user.mustChangePassword === true;
+
+  useEffect(() => {
+    if (status === "unauthenticated") router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+    else if (mustChange) router.replace("/change-password");
+  }, [status, mustChange, pathname, router]);
 
   if (status === "error") {
     return (
@@ -23,20 +33,6 @@ export function AuthGate({ children }: { children: ReactNode }) {
     );
   }
 
-  if (status === "unauthenticated") {
-    return (
-      <div className="mx-auto flex max-w-lg flex-col items-center py-24 text-center">
-        <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-gray-100 text-gray-400">
-          <Lock className="size-7" />
-        </div>
-        <h1 className="text-lg font-semibold">Chưa đăng nhập</h1>
-        <p className="mt-1 text-sm text-gray-500">Phiên đăng nhập đã hết hạn hoặc chưa được thiết lập.</p>
-        <Button className="mt-5" onClick={() => void refresh()}>
-          Thử lại ({adapter.name})
-        </Button>
-      </div>
-    );
-  }
-
+  if (status !== "authenticated" || mustChange) return <PageLoading label="Đang xác thực…" />;
   return <>{children}</>;
 }

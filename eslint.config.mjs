@@ -45,10 +45,7 @@ const featureBoundaryRules = FEATURES.map((name) => ({
             group: ["@/features/*/*", `!@/features/${name}/*`, "!@/features/*/server", "!@/features/*/types", "!@/features/*/client"],
             message: "Import feature khác chỉ qua '@/features/<name>' (index.ts), không import sâu.",
           },
-          {
-            group: ["@/mock", "@/mock/*", "@/app/*"],
-            message: "Feature không được import mock hoặc app. Mọi dữ liệu phải đi qua service → API client.",
-          },
+          { group: ["@/app/*"], message: "Feature không được import app. Mọi dữ liệu phải đi qua service → API client." },
         ],
       },
     ],
@@ -68,7 +65,7 @@ const eslintConfig = [
   },
   // Script CLI được phép in ra console
   { files: ["scripts/**/*.mjs"], rules: { "no-console": "off" } },
-  // core: tầng thấp nhất, không phụ thuộc shared/features/app/mock
+  // core: tầng thấp nhất, không phụ thuộc shared/features/app
   {
     files: ["src/core/**/*.{ts,tsx}"],
     rules: {
@@ -77,15 +74,15 @@ const eslintConfig = [
         {
           patterns: [
             {
-              group: ["@/shared/*", "@/features/*", "@/app/*", "@/mock", "@/mock/*"],
-              message: "core không được import shared/features/app/mock.",
+              group: ["@/shared/*", "@/features/*", "@/app/*"],
+              message: "core không được import shared/features/app.",
             },
           ],
         },
       ],
     },
   },
-  // shared: không phụ thuộc features/app/mock
+  // shared: không phụ thuộc features/app
   {
     files: ["src/shared/**/*.{ts,tsx}"],
     rules: {
@@ -94,8 +91,8 @@ const eslintConfig = [
         {
           patterns: [
             {
-              group: ["@/features/*", "@/app/*", "@/mock", "@/mock/*"],
-              message: "shared không được import features/app/mock.",
+              group: ["@/features/*", "@/app/*"],
+              message: "shared không được import features/app.",
             },
           ],
         },
@@ -103,11 +100,10 @@ const eslintConfig = [
     },
   },
   ...featureBoundaryRules,
-  // app: không import sâu vào feature, không import mock (trừ route handler mock)
+  // app: không import sâu vào feature, không import sâu vào feature
   {
     files: ["src/app/**/*.{ts,tsx}", "src/config/**/*.{ts,tsx}"],
-    ignores: ["src/app/api/**"],
-    rules: {
+        rules: {
       "no-restricted-imports": [
         "error",
         {
@@ -116,7 +112,6 @@ const eslintConfig = [
               group: ["@/features/*/*", "!@/features/*/server", "!@/features/*/types", "!@/features/*/client"],
               message: "Chỉ import feature qua '@/features/<name>' (index.ts).",
             },
-            { group: ["@/mock", "@/mock/*"], message: "UI không được import mock. Hãy gọi service." },
           ],
         },
       ],
